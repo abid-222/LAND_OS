@@ -1,17 +1,22 @@
 {
   "image_file": "doc_129.jpg",
   "document_id": "DOC-SYN-0129",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 1.74,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.68,
-    "jpeg_quality": 45,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-২৬-9498-797",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 67,
   "fields": {
     "survey_type": {
-      "value": "BS",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "বিরুলিয়া",
+      "value": "চন্দ্রা",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "৩৯",
+      "value": "২৬",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৩৯৩৬",
-      "raw": "3936",
+      "value": "৯৪৯৮",
+      "raw": "9498",
+      "main_no": 9498,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৫৮২",
-      "raw": "582",
+      "value": "৭৯৭/৭",
+      "raw": "797/7",
+      "main_no": 797,
+      "sub_no": 7,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "শামসুল আলম",
+      "value": "সালমা চৌধুরী",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,23 +85,14 @@
       ]
     },
     "area_decimal": {
-      "value": "৫৬.৩৬",
-      "raw": 56.36,
+      "value": "৩২.১১",
+      "raw": 32.11,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/3936"
     }
   }
 }

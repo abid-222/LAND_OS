@@ -77,6 +77,7 @@ def generate_parcels_geojson(output_path="data/synthetic/parcels_demo.geojson", 
                     "land_type": random.choice(LAND_CLASSES_BN),
                     "area_decimal": area_decimal,
                     "area_sqm": area_sqm,
+                    "is_illustrative": True,
                     "trust_status": random.choice(["POSSIBLE_MATCH", "OCR_EXTRACTED", "VERIFICATION_REQUIRED"]),
                     "sample_docs": [f"doc_{sample_doc_num:03d}.jpg"],
                     "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
@@ -190,6 +191,7 @@ def generate_parcels_geojson(output_path="data/synthetic/parcels_demo.geojson", 
         },
         "disclaimer_bn": "প্রদর্শিত নকশা ও সীমানা শুধুমাত্র উদাহরণের জন্য / এটি কোনো আইনি সীমানা নয়।",
         "disclaimer_en": "Illustrative / Not a legal boundary. Synthetic demo layers.",
+        "is_illustrative": True,
         "features": features
     }
 

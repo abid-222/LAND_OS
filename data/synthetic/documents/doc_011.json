@@ -1,17 +1,22 @@
 {
   "image_file": "doc_011.jpg",
   "document_id": "DOC-SYN-0011",
+  "record_ref": "REC-MOUZA-২৫-6448-2248",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -5.4,
-    "perspective_warp_max_px": 7,
-    "blur_radius": 0.41,
-    "jpeg_quality": 59,
-    "qr_code_present": false
-  },
+  "digit_mode": "ascii",
+  "quality_tier": "BAD",
+  "quality_gate_passed": false,
+  "degradation": [
+    "glare",
+    "perspective",
+    "shadow",
+    "rotation",
+    "jpeg"
+  ],
+  "jpeg_quality": 31,
   "fields": {
     "survey_type": {
-      "value": "SA",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "বাঘা",
+      "value": "কাফরুল",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "১২",
+      "value": "২৫",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮১৫৫",
-      "raw": "8155",
+      "value": "6448",
+      "raw": "6448",
+      "main_no": 6448,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮৩৬৭",
-      "raw": "8367",
+      "value": "2248",
+      "raw": "2248",
+      "main_no": 2248,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "সালমা চৌধুরী",
+      "value": "মফিজুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "পুকুর",
+      "value": "বাগান",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৬৮.২৯",
-      "raw": 68.29,
+      "value": "65.42",
+      "raw": 65.42,
       "bbox": [
         710,
         375,

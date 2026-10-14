@@ -1,14 +1,20 @@
 {
   "image_file": "doc_081.jpg",
   "document_id": "DOC-SYN-0081",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 4.04,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.8,
-    "jpeg_quality": 42,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-২৩-4054-1631",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 65,
   "fields": {
     "survey_type": {
       "value": "SA",
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "টমসমব্রিজ",
+      "value": "কাঞ্চন",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৫",
+      "value": "২৩",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "২২৬৬",
-      "raw": "2266",
+      "value": "৪০৫৪",
+      "raw": "4054",
+      "main_no": 4054,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮৭৩৩",
-      "raw": "8733",
+      "value": "১৬৩১",
+      "raw": "1631",
+      "main_no": 1631,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "দেওয়ান ফরিদ গাজী",
+      "value": "নূরুল হক চৌধুরী",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "পুকুর",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৪৬.৩১",
-      "raw": 46.31,
+      "value": "২১.৫৬",
+      "raw": 21.56,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/2266"
+      "payload": "khatian/4054"
     }
   }
 }

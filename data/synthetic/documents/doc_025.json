@@ -1,17 +1,22 @@
 {
   "image_file": "doc_025.jpg",
   "document_id": "DOC-SYN-0025",
+  "record_ref": "REC-MOUZA-১৬-7850-810",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -3.57,
-    "perspective_warp_max_px": 5,
-    "blur_radius": 0.54,
-    "jpeg_quality": 49,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "BAD",
+  "quality_gate_passed": false,
+  "degradation": [
+    "low-res",
+    "perspective",
+    "shadow",
+    "rotation",
+    "jpeg"
+  ],
+  "jpeg_quality": 32,
   "fields": {
     "survey_type": {
-      "value": "RS",
+      "value": "SA",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "কাওরান বাজার",
+      "value": "মাওনা",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "০১",
+      "value": "১৬",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৭২৫৩",
-      "raw": "7253",
+      "value": "৭৮৫০",
+      "raw": "7850",
+      "main_no": 7850,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮৪৮৬",
-      "raw": "8486",
+      "value": "৮১০",
+      "raw": "810",
+      "main_no": 810,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "মোহাম্মদ রফিকুল ইসলাম",
+      "value": "শাহজাহান মিয়া",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "পতিত",
+      "value": "দোকান",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৫০.৬৯",
-      "raw": 50.69,
+      "value": "৫৩.৭৪",
+      "raw": 53.74,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/7253"
+      "payload": "khatian/7850"
     }
   }
 }

@@ -1,17 +1,18 @@
 {
   "image_file": "doc_062.jpg",
   "document_id": "DOC-SYN-0062",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -3.02,
-    "perspective_warp_max_px": 8,
-    "blur_radius": 0.58,
-    "jpeg_quality": 54,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১৬-4905-1590",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 87,
   "fields": {
     "survey_type": {
-      "value": "RS",
+      "value": "City Survey",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "কাঁচপুর",
+      "value": "মাওনা",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৪",
+      "value": "১৬",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৫৫৫৩",
-      "raw": "5553",
+      "value": "৪৯০৫",
+      "raw": "4905",
+      "main_no": 4905,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৩৮১৬",
-      "raw": "3816",
+      "value": "১৫৯০",
+      "raw": "1590",
+      "main_no": 1590,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "নাসরীন আক্তার",
+      "value": "সুলতান মাহমুদ",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "দোকান",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "১৪.২৫",
-      "raw": 14.25,
+      "value": "২১.৬৬",
+      "raw": 21.66,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/5553"
+      "payload": "khatian/4905"
     }
   }
 }

@@ -1,17 +1,23 @@
 {
   "image_file": "doc_109.jpg",
   "document_id": "DOC-SYN-0109",
+  "record_ref": "REC-MOUZA-০২-404-7684",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 3.6,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.8,
-    "jpeg_quality": 59,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 58,
   "fields": {
     "survey_type": {
-      "value": "BS",
+      "value": "SA",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "কুশুরা",
+      "value": "সিদ্ধিরগঞ্জ",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "৪৬",
+      "value": "০২",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৯৮২১",
-      "raw": "9821",
+      "value": "৪০৪",
+      "raw": "404",
+      "main_no": 404,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭২৭৬",
-      "raw": "7276",
+      "value": "৭৬৮৪",
+      "raw": "7684",
+      "main_no": 7684,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "শাহাদাত হোসেন",
+      "value": "আখতারুজ্জামান",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৫৩.৯৬",
-      "raw": 53.96,
+      "value": "৩১.৩৪",
+      "raw": 31.34,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/9821"
+      "payload": "khatian/404"
     }
   }
 }

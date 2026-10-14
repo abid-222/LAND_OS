@@ -1,14 +1,18 @@
 {
   "image_file": "doc_236.jpg",
   "document_id": "DOC-SYN-0236",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -4.83,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.97,
-    "jpeg_quality": 42,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-০৮-4235-2938",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 69,
   "fields": {
     "survey_type": {
       "value": "BS",
@@ -20,7 +24,7 @@
       ]
     },
     "mouza": {
-      "value": "জিনজিরা",
+      "value": "মহাখালী",
       "bbox": [
         580,
         155,
@@ -29,7 +33,7 @@
       ]
     },
     "jl_no": {
-      "value": "৫৩",
+      "value": "০৮",
       "bbox": [
         760,
         155,
@@ -38,8 +42,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৯৪৪৫",
-      "raw": "9445",
+      "value": "৪২৩৫",
+      "raw": "4235",
+      "main_no": 4235,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +54,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮৬৪৭",
-      "raw": "8647",
+      "value": "২৯৩৮",
+      "raw": "2938",
+      "main_no": 2938,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +66,7 @@
       ]
     },
     "owner_name": {
-      "value": "মোহাম্মদ রফিকুল ইসলাম",
+      "value": "হারুন অর রশিদ",
       "bbox": [
         180,
         375,
@@ -76,8 +84,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৪৯.৮৯",
-      "raw": 49.89,
+      "value": "৬২.২২",
+      "raw": 62.22,
       "bbox": [
         710,
         375,
@@ -92,7 +100,7 @@
         801,
         941
       ],
-      "payload": "khatian/9445"
+      "payload": "khatian/4235"
     }
   }
 }

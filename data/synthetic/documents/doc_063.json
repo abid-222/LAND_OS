@@ -1,14 +1,15 @@
 {
   "image_file": "doc_063.jpg",
   "document_id": "DOC-SYN-0063",
+  "record_ref": "REC-MOUZA-২৮-9460-1223",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 0.37,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.75,
-    "jpeg_quality": 60,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 89,
   "fields": {
     "survey_type": {
       "value": "CS",
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "মাওনা",
+      "value": "জাফরাবাদ",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৬",
+      "value": "২৮",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৭০৩",
-      "raw": "703",
+      "value": "৯৪৬০",
+      "raw": "9460",
+      "main_no": 9460,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৬৪৩৮",
-      "raw": "6438",
+      "value": "১২২৩",
+      "raw": "1223",
+      "main_no": 1223,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "নাসরীন আক্তার",
+      "value": "মোকাররম হোসেন",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৪৩.১৮",
-      "raw": 43.18,
+      "value": "৪৩.৯৭",
+      "raw": 43.97,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/703"
+      "payload": "khatian/9460"
     }
   }
 }

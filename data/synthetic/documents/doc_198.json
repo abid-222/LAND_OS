@@ -1,14 +1,21 @@
 {
   "image_file": "doc_198.jpg",
   "document_id": "DOC-SYN-0198",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -3.79,
-    "perspective_warp_max_px": 7,
-    "blur_radius": 0.84,
-    "jpeg_quality": 43,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-০৯-1739-3533",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "glare",
+    "jpeg"
+  ],
+  "jpeg_quality": 66,
   "fields": {
     "survey_type": {
       "value": "RS",
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "জয়দেবপুর",
+      "value": "শাসনগাছা",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৩",
+      "value": "০৯",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৬২৩৭",
-      "raw": "6237",
+      "value": "১৭৩৯",
+      "raw": "1739",
+      "main_no": 1739,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৬২২২",
-      "raw": "6222",
+      "value": "৩৫৩৩",
+      "raw": "3533",
+      "main_no": 3533,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "নুরুল হক চৌধুরী",
+      "value": "শামসুল আলম",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "পতিত",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,8 +87,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৩৬.৪৭",
-      "raw": 36.47,
+      "value": "৯.২৯",
+      "raw": 9.29,
       "bbox": [
         710,
         375,
@@ -92,7 +103,7 @@
         801,
         941
       ],
-      "payload": "khatian/6237"
+      "payload": "khatian/1739"
     }
   }
 }

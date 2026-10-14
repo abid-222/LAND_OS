@@ -1,17 +1,18 @@
 {
   "image_file": "doc_046.jpg",
   "document_id": "DOC-SYN-0046",
+  "record_ref": "REC-MOUZA-৫৭-2457-1443",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -3.27,
-    "perspective_warp_max_px": 8,
-    "blur_radius": 0.77,
-    "jpeg_quality": 61,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 85,
   "fields": {
     "survey_type": {
-      "value": "SA",
+      "value": "City Survey",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "কুমারগাঁও",
+      "value": "তারানগর",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৭",
+      "value": "৫৭",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৩৫১৪",
-      "raw": "3514",
+      "value": "২৪৫৭",
+      "raw": "2457",
+      "main_no": 2457,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৫৯০৯",
-      "raw": "5909",
+      "value": "১৪৪৩/৬",
+      "raw": "1443/6",
+      "main_no": 1443,
+      "sub_no": 6,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "নাসরীন আক্তার",
+      "value": "খোরশেদ আলম",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "১২.৮২",
-      "raw": 12.82,
+      "value": "৪২.২০",
+      "raw": 42.2,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/3514"
+      "payload": "khatian/2457"
     }
   }
 }

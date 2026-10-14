@@ -1,17 +1,23 @@
 {
   "image_file": "doc_135.jpg",
   "document_id": "DOC-SYN-0135",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 3.72,
-    "perspective_warp_max_px": 7,
-    "blur_radius": 1.01,
-    "jpeg_quality": 32,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-২১-8581-1312",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "mixed",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 54,
   "fields": {
     "survey_type": {
-      "value": "BS",
+      "value": "SA",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "কাঁচপুর",
+      "value": "সেনপাড়া পর্বতা",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৪",
+      "value": "২১",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১৯২৭",
-      "raw": "1927",
+      "value": "৮5৮1",
+      "raw": "8581",
+      "main_no": 8581,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "২০২৪",
-      "raw": "2024",
+      "value": "১3১2",
+      "raw": "1312",
+      "main_no": 1312,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "শাহানাজ পারভীন",
+      "value": "হাসিনা আক্তার",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "নাল",
+      "value": "পুকুর",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "২৬.২৪",
-      "raw": 26.24,
+      "value": "৪2.8২",
+      "raw": 42.82,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/1927"
+      "payload": "khatian/8581"
     }
   }
 }

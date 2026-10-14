@@ -1,17 +1,23 @@
 {
   "image_file": "doc_152.jpg",
   "document_id": "DOC-SYN-0152",
+  "record_ref": "REC-MOUZA-০৮-2415-1104",
   "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": -1.98,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.51,
-    "jpeg_quality": 43,
-    "qr_code_present": false
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 51,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "SA",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "আম্বরখানা",
+      "value": "মহাখালী",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "০২",
+      "value": "০৮",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮০৯৯",
-      "raw": "8099",
+      "value": "২৪১৫",
+      "raw": "2415",
+      "main_no": 2415,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৮৬৮",
-      "raw": "2868",
+      "value": "১১০৪",
+      "raw": "1104",
+      "main_no": 1104,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "দেওয়ান ফরিদ গাজী",
+      "value": "হাসিনা আক্তার",
       "bbox": [
         180,
         375,
@@ -76,14 +86,23 @@
       ]
     },
     "area_decimal": {
-      "value": "৪৫.০৫",
-      "raw": 45.05,
+      "value": "৩১.৯৯",
+      "raw": 31.99,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/2415"
     }
   }
 }

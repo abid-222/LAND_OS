@@ -1,17 +1,23 @@
 {
   "image_file": "doc_206.jpg",
   "document_id": "DOC-SYN-0206",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 2.2,
-    "perspective_warp_max_px": 8,
-    "blur_radius": 1.07,
-    "jpeg_quality": 32,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১২-6319-7485",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 58,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "SA",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "জাফরাবাদ",
+      "value": "বাড্ডা উত্তর",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "২৮",
+      "value": "১২",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮৭৪৩",
-      "raw": "8743",
+      "value": "৬৩১৯",
+      "raw": "6319",
+      "main_no": 6319,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭৭৮২",
-      "raw": "7782",
+      "value": "৭৪৮৫/৮",
+      "raw": "7485/8",
+      "main_no": 7485,
+      "sub_no": 8,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "আমেনা খাতুন",
+      "value": "নুরুল হক চৌধুরী",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "২৯.৭৩",
-      "raw": 29.73,
+      "value": "৪০.৫৭",
+      "raw": 40.57,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/8743"
+      "payload": "khatian/6319"
     }
   }
 }

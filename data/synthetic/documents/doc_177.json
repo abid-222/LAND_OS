@@ -1,14 +1,20 @@
 {
   "image_file": "doc_177.jpg",
   "document_id": "DOC-SYN-0177",
+  "record_ref": "REC-MOUZA-১৫-5538-8298",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -0.58,
-    "perspective_warp_max_px": 4,
-    "blur_radius": 1.1,
-    "jpeg_quality": 42,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "motion blur",
+    "jpeg"
+  ],
+  "jpeg_quality": 51,
   "fields": {
     "survey_type": {
       "value": "CS",
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "আম্বরখানা",
+      "value": "ভাটারা",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "০২",
+      "value": "১৫",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৭৪৬",
-      "raw": "746",
+      "value": "৫৫৩৮",
+      "raw": "5538",
+      "main_no": 5538,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৪৬২",
-      "raw": "2462",
+      "value": "৮২৯৮",
+      "raw": "8298",
+      "main_no": 8298,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "তারেক মাহমুদ",
+      "value": "মোসাঃ ফাতেমা খাতুন",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "পতিত",
+      "value": "বাগান",
       "bbox": [
         500,
         375,
@@ -76,23 +86,14 @@
       ]
     },
     "area_decimal": {
-      "value": "৬৬.১৮",
-      "raw": 66.18,
+      "value": "৬৬.৮৭",
+      "raw": 66.87,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/746"
     }
   }
 }

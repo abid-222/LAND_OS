@@ -1,17 +1,24 @@
 {
   "image_file": "doc_176.jpg",
   "document_id": "DOC-SYN-0176",
+  "record_ref": "REC-MOUZA-১৬-4024-4204",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 3.2,
-    "perspective_warp_max_px": 7,
-    "blur_radius": 0.8,
-    "jpeg_quality": 38,
-    "qr_code_present": true
-  },
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "glare",
+    "jpeg"
+  ],
+  "jpeg_quality": 44,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "SA",
       "bbox": [
         370,
         105,
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "বাড্ডা উত্তর",
+      "value": "ঢাকা দক্ষিণ",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "১২",
+      "value": "১৬",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৫৪৮২",
-      "raw": "5482",
+      "value": "4024",
+      "raw": "4024",
+      "main_no": 4024,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৩৭০২",
-      "raw": "3702",
+      "value": "4204",
+      "raw": "4204",
+      "main_no": 4204,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "শাহানাজ পারভীন",
+      "value": "আব্দুল করিম",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,8 +87,8 @@
       ]
     },
     "area_decimal": {
-      "value": "১৪.২৩",
-      "raw": 14.23,
+      "value": "51.16",
+      "raw": 51.16,
       "bbox": [
         710,
         375,
@@ -92,7 +103,7 @@
         801,
         941
       ],
-      "payload": "khatian/5482"
+      "payload": "khatian/4024"
     }
   }
 }

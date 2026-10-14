@@ -1,17 +1,22 @@
 {
   "image_file": "doc_273.jpg",
   "document_id": "DOC-SYN-0273",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -0.59,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.85,
-    "jpeg_quality": 40,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-৪৯-9656-7263",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 41,
   "fields": {
     "survey_type": {
-      "value": "SA",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "ফতুল্লা",
+      "value": "সোমভাগ",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৬",
+      "value": "৪৯",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৬০৯১",
-      "raw": "6091",
+      "value": "৯৬৫৬",
+      "raw": "9656",
+      "main_no": 9656,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৩৭২৭",
-      "raw": "3727",
+      "value": "৭২৬৩/৯",
+      "raw": "7263/9",
+      "main_no": 7263,
+      "sub_no": 9,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "খোরশেদ আলম",
+      "value": "রাবেয়া বসরী",
       "bbox": [
         180,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৮৪.০৩",
-      "raw": 84.03,
+      "value": "৩০.৯৭",
+      "raw": 30.97,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/6091"
+      "payload": "khatian/9656"
     }
   }
 }

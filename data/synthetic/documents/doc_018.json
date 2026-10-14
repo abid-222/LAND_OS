@@ -1,14 +1,19 @@
 {
   "image_file": "doc_018.jpg",
   "document_id": "DOC-SYN-0018",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": 3.77,
-    "perspective_warp_max_px": 4,
-    "blur_radius": 0.5,
-    "jpeg_quality": 38,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-০৩-2204-2554",
+  "font_used": "Nirmala",
+  "digit_mode": "ascii",
+  "quality_tier": "BAD",
+  "quality_gate_passed": false,
+  "degradation": [
+    "blur",
+    "perspective",
+    "shadow",
+    "rotation",
+    "jpeg"
+  ],
+  "jpeg_quality": 24,
   "fields": {
     "survey_type": {
       "value": "CS",
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "মহাখালী",
+      "value": "জয়দেবপুর",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৮",
+      "value": "০৩",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৩৫২০",
-      "raw": "3520",
+      "value": "2204",
+      "raw": "2204",
+      "main_no": 2204,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭৬৭১",
-      "raw": "7671",
+      "value": "2554",
+      "raw": "2554",
+      "main_no": 2554,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "সুলতান মাহমুদ",
+      "value": "নাসরীন আক্তার",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "পতিত",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৭৬.১২",
-      "raw": 76.12,
+      "value": "27.02",
+      "raw": 27.02,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/3520"
+      "payload": "khatian/2204"
     }
   }
 }

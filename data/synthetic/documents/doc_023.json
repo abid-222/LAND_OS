@@ -1,17 +1,22 @@
 {
   "image_file": "doc_023.jpg",
   "document_id": "DOC-SYN-0023",
+  "record_ref": "REC-MOUZA-০৪-9842-5792",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 1.8,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.48,
-    "jpeg_quality": 32,
-    "qr_code_present": true
-  },
+  "digit_mode": "mixed",
+  "quality_tier": "BAD",
+  "quality_gate_passed": false,
+  "degradation": [
+    "blur",
+    "perspective",
+    "shadow",
+    "rotation",
+    "jpeg"
+  ],
+  "jpeg_quality": 31,
   "fields": {
     "survey_type": {
-      "value": "RS",
+      "value": "City Survey",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "সফিপুর",
+      "value": "তেজগাঁও শিল্পাঞ্চল",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "২২",
+      "value": "০৪",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১৩১৭",
-      "raw": "1317",
+      "value": "৯8৪2",
+      "raw": "9842",
+      "main_no": 9842,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৪১৭৪",
-      "raw": "4174",
+      "value": "৫7৯2/4",
+      "raw": "5792/4",
+      "main_no": 5792,
+      "sub_no": 4,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "হাসিনা আক্তার",
+      "value": "মফিজুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "নাল",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৮০.২৮",
-      "raw": 80.28,
+      "value": "১0.4৪",
+      "raw": 10.44,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/1317"
+      "payload": "khatian/9842"
     }
   }
 }

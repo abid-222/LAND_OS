@@ -1,14 +1,19 @@
 {
   "image_file": "doc_209.jpg",
   "document_id": "DOC-SYN-0209",
+  "record_ref": "REC-MOUZA-৩৫-7170-7498",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -4.46,
-    "perspective_warp_max_px": 5,
-    "blur_radius": 0.75,
-    "jpeg_quality": 32,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 64,
   "fields": {
     "survey_type": {
       "value": "SA",
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "জয়দেবপুর",
+      "value": "হেমায়েতপুর",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৩",
+      "value": "৩৫",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৪৯৬৮",
-      "raw": "4968",
+      "value": "৭১৭০",
+      "raw": "7170",
+      "main_no": 7170,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৫০৩",
-      "raw": "2503",
+      "value": "৭৪৯৮/১",
+      "raw": "7498/1",
+      "main_no": 7498,
+      "sub_no": 1,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "বদরুল আলম",
+      "value": "শাহজাহান মিয়া",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "বাড়ি",
+      "value": "রাস্তা",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "২০.০৬",
-      "raw": 20.06,
+      "value": "৪২.৪৮",
+      "raw": 42.48,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/4968"
+      "payload": "khatian/7170"
     }
   }
 }

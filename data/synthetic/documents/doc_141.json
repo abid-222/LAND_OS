@@ -1,14 +1,20 @@
 {
   "image_file": "doc_141.jpg",
   "document_id": "DOC-SYN-0141",
+  "record_ref": "REC-MOUZA-১৬-8004-6849",
   "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": 3.95,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.56,
-    "jpeg_quality": 60,
-    "qr_code_present": false
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 48,
   "fields": {
     "survey_type": {
       "value": "SA",
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "জয়দেবপুর",
+      "value": "মাওনা",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৩",
+      "value": "১৬",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "২৬৫৭",
-      "raw": "2657",
+      "value": "৮০০৪",
+      "raw": "8004",
+      "main_no": 8004,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "১৯৫৫",
-      "raw": "1955",
+      "value": "৬৮৪৯/৬",
+      "raw": "6849/6",
+      "main_no": 6849,
+      "sub_no": 6,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "গোলাম কিবরিয়া",
+      "value": "মেহেরুন্নেসা",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "ভিটি",
+      "value": "রাস্তা",
       "bbox": [
         500,
         375,
@@ -76,14 +86,23 @@
       ]
     },
     "area_decimal": {
-      "value": "৮১.০১",
-      "raw": 81.01,
+      "value": "১৬.৩১",
+      "raw": 16.31,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/8004"
     }
   }
 }

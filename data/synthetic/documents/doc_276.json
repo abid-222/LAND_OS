@@ -1,17 +1,23 @@
 {
   "image_file": "doc_276.jpg",
   "document_id": "DOC-SYN-0276",
+  "record_ref": "REC-MOUZA-১৮-1601-2478",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 5.16,
-    "perspective_warp_max_px": 10,
-    "blur_radius": 0.83,
-    "jpeg_quality": 36,
-    "qr_code_present": false
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 42,
   "fields": {
     "survey_type": {
-      "value": "BS",
+      "value": "City Survey",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "সেনপাড়া পর্বতা",
+      "value": "মুড়াপাড়া",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "২১",
+      "value": "১৮",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৬৮৮৬",
-      "raw": "6886",
+      "value": "১৬০১",
+      "raw": "1601",
+      "main_no": 1601,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৬৮১৯",
-      "raw": "6819",
+      "value": "২৪৭৮",
+      "raw": "2478",
+      "main_no": 2478,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "মোহাম্মদ রফিকুল ইসলাম",
+      "value": "হারুন অর রশিদ",
       "bbox": [
         180,
         375,
@@ -76,14 +86,23 @@
       ]
     },
     "area_decimal": {
-      "value": "৫৯.৫৩",
-      "raw": 59.53,
+      "value": "৫৭.৮৪",
+      "raw": 57.84,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/1601"
     }
   }
 }

@@ -1,17 +1,24 @@
 {
   "image_file": "doc_254.jpg",
   "document_id": "DOC-SYN-0254",
+  "record_ref": "REC-MOUZA-১৭-6923-5794",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 4.99,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 1.09,
-    "jpeg_quality": 47,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "glare",
+    "jpeg"
+  ],
+  "jpeg_quality": 44,
   "fields": {
     "survey_type": {
-      "value": "SA",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "জিনজিরা",
+      "value": "কংশনগর",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "৫৩",
+      "value": "১৭",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "২৭৭৪",
-      "raw": "2774",
+      "value": "৬৯২৩",
+      "raw": "6923",
+      "main_no": 6923,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৪৬৯৬",
-      "raw": "4696",
+      "value": "৫৭৯৪/১",
+      "raw": "5794/1",
+      "main_no": 5794,
+      "sub_no": 1,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "মোহাম্মদ রফিকুল ইসলাম",
+      "value": "কুলসুম বিবি",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "পুকুর",
+      "value": "পতিত",
       "bbox": [
         500,
         375,
@@ -76,8 +87,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৩১.৬৩",
-      "raw": 31.63,
+      "value": "৩৫.৩৭",
+      "raw": 35.37,
       "bbox": [
         710,
         375,
@@ -92,7 +103,7 @@
         801,
         941
       ],
-      "payload": "khatian/2774"
+      "payload": "khatian/6923"
     }
   }
 }

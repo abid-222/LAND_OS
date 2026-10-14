@@ -1,17 +1,22 @@
 {
   "image_file": "doc_307.jpg",
   "document_id": "DOC-SYN-0307",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 4.63,
-    "perspective_warp_max_px": 8,
-    "blur_radius": 0.99,
-    "jpeg_quality": 39,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১৮-7538-8220",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 52,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "SA",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "ঢাকা দক্ষিণ",
+      "value": "পাইকপাড়া",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৬",
+      "value": "১৮",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১৩৪৫",
-      "raw": "1345",
+      "value": "৭৫৩৮",
+      "raw": "7538",
+      "main_no": 7538,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭২২",
-      "raw": "722",
+      "value": "৮২২০",
+      "raw": "8220",
+      "main_no": 8220,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "আজহারুল ইসলাম",
+      "value": "বদরুল আলম",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৬৯.২৪",
-      "raw": 69.24,
+      "value": "৫৯.৮২",
+      "raw": 59.82,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/1345"
+      "payload": "khatian/7538"
     }
   }
 }

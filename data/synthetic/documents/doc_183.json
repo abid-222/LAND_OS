@@ -1,17 +1,22 @@
 {
   "image_file": "doc_183.jpg",
   "document_id": "DOC-SYN-0183",
+  "record_ref": "REC-MOUZA-২৬-4145-1884",
   "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": 5.15,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 1.18,
-    "jpeg_quality": 62,
-    "qr_code_present": false
-  },
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 49,
   "fields": {
     "survey_type": {
-      "value": "BS",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "তারানগর",
+      "value": "চন্দ্রা",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "৫৭",
+      "value": "২৬",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৪২৯১",
-      "raw": "4291",
+      "value": "4145",
+      "raw": "4145",
+      "main_no": 4145,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৫৪৬",
-      "raw": "2546",
+      "value": "1884",
+      "raw": "1884",
+      "main_no": 1884,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "আফসার আলী মুন্সী",
+      "value": "মোসাঃ ফাতেমা খাতুন",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "পুকুর",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,14 +85,23 @@
       ]
     },
     "area_decimal": {
-      "value": "৬৮.৮৯",
-      "raw": 68.89,
+      "value": "45.52",
+      "raw": 45.52,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/4145"
     }
   }
 }

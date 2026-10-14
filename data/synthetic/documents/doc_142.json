@@ -1,17 +1,22 @@
 {
   "image_file": "doc_142.jpg",
   "document_id": "DOC-SYN-0142",
+  "record_ref": "REC-MOUZA-০৬-4288-4418",
   "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": 2.61,
-    "perspective_warp_max_px": 8,
-    "blur_radius": 1.12,
-    "jpeg_quality": 51,
-    "qr_code_present": false
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 62,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "সালনা",
+      "value": "ফতুল্লা",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "১১",
+      "value": "০৬",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৭২৫৮",
-      "raw": "7258",
+      "value": "৪২৮৮",
+      "raw": "4288",
+      "main_no": 4288,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৮১০",
-      "raw": "2810",
+      "value": "৪৪১৮",
+      "raw": "4418",
+      "main_no": 4418,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "মোকাররম হোসেন",
+      "value": "রোকেয়া সুলতানা",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "পুকুর",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "২৮.২২",
-      "raw": 28.22,
+      "value": "৬০.৫৬",
+      "raw": 60.56,
       "bbox": [
         710,
         375,

@@ -9,6 +9,7 @@
   },
   "disclaimer_bn": "প্রদর্শিত নকশা ও সীমানা শুধুমাত্র উদাহরণের জন্য / এটি কোনো আইনি সীমানা নয়।",
   "disclaimer_en": "Illustrative / Not a legal boundary. Synthetic demo layers.",
+  "is_illustrative": true,
   "features": [
     {
       "type": "Feature",
@@ -53,6 +54,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 65.02,
         "area_sqm": 2631.2,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_002.jpg"
@@ -103,6 +105,7 @@
         "land_type": "পতিত (Fallow/Unused)",
         "area_decimal": 20.17,
         "area_sqm": 816.1,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_003.jpg"
@@ -153,6 +156,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 31.87,
         "area_sqm": 1289.8,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_004.jpg"
@@ -203,6 +207,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 70.52,
         "area_sqm": 2853.9,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_005.jpg"
@@ -253,6 +258,7 @@
         "land_type": "বাগান (Bagan - Orchard)",
         "area_decimal": 33.64,
         "area_sqm": 1361.5,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_006.jpg"
@@ -303,6 +309,7 @@
         "land_type": "পতিত (Fallow/Unused)",
         "area_decimal": 75.43,
         "area_sqm": 3052.7,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_007.jpg"
@@ -353,6 +360,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 60.29,
         "area_sqm": 2439.9,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_008.jpg"
@@ -403,6 +411,7 @@
         "land_type": "বাগান (Bagan - Orchard)",
         "area_decimal": 56.69,
         "area_sqm": 2294.0,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_009.jpg"
@@ -453,6 +462,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 21.17,
         "area_sqm": 856.8,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_010.jpg"
@@ -503,6 +513,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 65.38,
         "area_sqm": 2645.7,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_011.jpg"
@@ -553,6 +564,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 45.88,
         "area_sqm": 1856.9,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_012.jpg"
@@ -603,6 +615,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 35.3,
         "area_sqm": 1428.4,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_013.jpg"
@@ -653,6 +666,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 67.33,
         "area_sqm": 2724.8,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_014.jpg"
@@ -703,6 +717,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 84.16,
         "area_sqm": 3405.8,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_015.jpg"
@@ -753,6 +768,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 17.08,
         "area_sqm": 691.2,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_016.jpg"
@@ -803,6 +819,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 29.16,
         "area_sqm": 1180.2,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_017.jpg"
@@ -853,6 +870,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 67.1,
         "area_sqm": 2715.5,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_018.jpg"
@@ -903,6 +921,7 @@
         "land_type": "বাগান (Bagan - Orchard)",
         "area_decimal": 48.35,
         "area_sqm": 1956.6,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_019.jpg"
@@ -953,6 +972,7 @@
         "land_type": "বাগান (Bagan - Orchard)",
         "area_decimal": 13.72,
         "area_sqm": 555.4,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_020.jpg"
@@ -1003,6 +1023,7 @@
         "land_type": "বাগান (Bagan - Orchard)",
         "area_decimal": 55.95,
         "area_sqm": 2264.2,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_021.jpg"
@@ -1053,6 +1074,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 14.66,
         "area_sqm": 593.2,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_022.jpg"
@@ -1103,6 +1125,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 42.37,
         "area_sqm": 1714.5,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_023.jpg"
@@ -1153,6 +1176,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 19.45,
         "area_sqm": 787.2,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_024.jpg"
@@ -1203,6 +1227,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 75.01,
         "area_sqm": 3035.5,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_025.jpg"
@@ -1253,6 +1278,7 @@
         "land_type": "বাগান (Bagan - Orchard)",
         "area_decimal": 43.91,
         "area_sqm": 1776.9,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_026.jpg"
@@ -1303,6 +1329,7 @@
         "land_type": "পতিত (Fallow/Unused)",
         "area_decimal": 41.37,
         "area_sqm": 1674.3,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_027.jpg"
@@ -1353,6 +1380,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 48.59,
         "area_sqm": 1966.4,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_028.jpg"
@@ -1403,6 +1431,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 10.34,
         "area_sqm": 418.4,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_029.jpg"
@@ -1453,6 +1482,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 24.09,
         "area_sqm": 974.8,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_030.jpg"
@@ -1503,6 +1533,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 59.15,
         "area_sqm": 2393.6,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_031.jpg"
@@ -1553,6 +1584,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 81.17,
         "area_sqm": 3284.7,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_032.jpg"
@@ -1603,6 +1635,7 @@
         "land_type": "বাগান (Bagan - Orchard)",
         "area_decimal": 76.62,
         "area_sqm": 3100.9,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_033.jpg"
@@ -1653,6 +1686,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 70.52,
         "area_sqm": 2853.8,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_034.jpg"
@@ -1703,6 +1737,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 77.36,
         "area_sqm": 3130.5,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_035.jpg"
@@ -1753,6 +1788,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 44.15,
         "area_sqm": 1786.6,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_036.jpg"
@@ -1803,6 +1839,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 17.08,
         "area_sqm": 691.3,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_037.jpg"
@@ -1853,6 +1890,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 6.69,
         "area_sqm": 270.7,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_038.jpg"
@@ -1903,6 +1941,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 84.19,
         "area_sqm": 3406.9,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_039.jpg"
@@ -1953,6 +1992,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 84.32,
         "area_sqm": 3412.4,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_040.jpg"
@@ -2003,6 +2043,7 @@
         "land_type": "বাগান (Bagan - Orchard)",
         "area_decimal": 80.76,
         "area_sqm": 3268.2,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_041.jpg"
@@ -2053,6 +2094,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 79.74,
         "area_sqm": 3226.8,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_042.jpg"
@@ -2103,6 +2145,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 83.75,
         "area_sqm": 3389.1,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_043.jpg"
@@ -2153,6 +2196,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 76.31,
         "area_sqm": 3088.1,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_044.jpg"
@@ -2203,6 +2247,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 39.83,
         "area_sqm": 1611.9,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_045.jpg"
@@ -2253,6 +2298,7 @@
         "land_type": "বাগান (Bagan - Orchard)",
         "area_decimal": 48.28,
         "area_sqm": 1953.8,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_046.jpg"
@@ -2303,6 +2349,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 14.02,
         "area_sqm": 567.5,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_047.jpg"
@@ -2353,6 +2400,7 @@
         "land_type": "পতিত (Fallow/Unused)",
         "area_decimal": 58.75,
         "area_sqm": 2377.5,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_048.jpg"
@@ -2403,6 +2451,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 68.75,
         "area_sqm": 2782.3,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_049.jpg"
@@ -2453,6 +2502,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 64.63,
         "area_sqm": 2615.5,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_050.jpg"
@@ -2503,6 +2553,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 70.47,
         "area_sqm": 2852.0,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_051.jpg"
@@ -2553,6 +2604,7 @@
         "land_type": "বাগান (Bagan - Orchard)",
         "area_decimal": 77.06,
         "area_sqm": 3118.6,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_052.jpg"
@@ -2603,6 +2655,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 74.93,
         "area_sqm": 3032.5,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_053.jpg"
@@ -2653,6 +2706,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 79.65,
         "area_sqm": 3223.5,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_054.jpg"
@@ -2703,6 +2757,7 @@
         "land_type": "পতিত (Fallow/Unused)",
         "area_decimal": 77.5,
         "area_sqm": 3136.3,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_055.jpg"
@@ -2753,6 +2808,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 56.49,
         "area_sqm": 2286.2,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_056.jpg"
@@ -2803,6 +2859,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 77.63,
         "area_sqm": 3141.6,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_057.jpg"
@@ -2853,6 +2910,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 31.1,
         "area_sqm": 1258.5,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_058.jpg"
@@ -2903,6 +2961,7 @@
         "land_type": "পতিত (Fallow/Unused)",
         "area_decimal": 5.32,
         "area_sqm": 215.4,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_059.jpg"
@@ -2953,6 +3012,7 @@
         "land_type": "বাগান (Bagan - Orchard)",
         "area_decimal": 48.26,
         "area_sqm": 1953.0,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_060.jpg"
@@ -3003,6 +3063,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 37.18,
         "area_sqm": 1504.5,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_061.jpg"
@@ -3053,6 +3114,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 56.91,
         "area_sqm": 2303.2,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_062.jpg"
@@ -3103,6 +3165,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 76.52,
         "area_sqm": 3096.8,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_063.jpg"
@@ -3153,6 +3216,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 22.27,
         "area_sqm": 901.1,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_064.jpg"
@@ -3203,6 +3267,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 14.15,
         "area_sqm": 572.8,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_065.jpg"
@@ -3253,6 +3318,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 65.62,
         "area_sqm": 2655.6,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_066.jpg"
@@ -3303,6 +3369,7 @@
         "land_type": "বাগান (Bagan - Orchard)",
         "area_decimal": 34.78,
         "area_sqm": 1407.3,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_067.jpg"
@@ -3353,6 +3420,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 13.73,
         "area_sqm": 555.5,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_068.jpg"
@@ -3403,6 +3471,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 38.48,
         "area_sqm": 1557.2,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_069.jpg"
@@ -3453,6 +3522,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 64.45,
         "area_sqm": 2608.2,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_070.jpg"
@@ -3503,6 +3573,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 24.03,
         "area_sqm": 972.4,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_071.jpg"
@@ -3553,6 +3624,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 44.62,
         "area_sqm": 1805.9,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_072.jpg"
@@ -3603,6 +3675,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 76.56,
         "area_sqm": 3098.4,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_073.jpg"
@@ -3653,6 +3726,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 43.12,
         "area_sqm": 1744.9,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_074.jpg"
@@ -3703,6 +3777,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 34.25,
         "area_sqm": 1386.2,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_075.jpg"
@@ -3753,6 +3828,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 63.41,
         "area_sqm": 2566.3,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_076.jpg"
@@ -3803,6 +3879,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 66.64,
         "area_sqm": 2696.7,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_077.jpg"
@@ -3853,6 +3930,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 26.41,
         "area_sqm": 1068.9,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_078.jpg"
@@ -3903,6 +3981,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 27.24,
         "area_sqm": 1102.5,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_079.jpg"
@@ -3953,6 +4032,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 9.12,
         "area_sqm": 368.9,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_080.jpg"
@@ -4003,6 +4083,7 @@
         "land_type": "পতিত (Fallow/Unused)",
         "area_decimal": 24.25,
         "area_sqm": 981.4,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_081.jpg"
@@ -4053,6 +4134,7 @@
         "land_type": "পতিত (Fallow/Unused)",
         "area_decimal": 52.43,
         "area_sqm": 2121.6,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_082.jpg"
@@ -4103,6 +4185,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 21.17,
         "area_sqm": 856.9,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_083.jpg"
@@ -4153,6 +4236,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 42.61,
         "area_sqm": 1724.2,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_084.jpg"
@@ -4203,6 +4287,7 @@
         "land_type": "বাগান (Bagan - Orchard)",
         "area_decimal": 68.92,
         "area_sqm": 2789.2,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_085.jpg"
@@ -4253,6 +4338,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 17.44,
         "area_sqm": 705.8,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_086.jpg"
@@ -4303,6 +4389,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 26.24,
         "area_sqm": 1062.0,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_087.jpg"
@@ -4353,6 +4440,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 22.66,
         "area_sqm": 916.9,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_088.jpg"
@@ -4403,6 +4491,7 @@
         "land_type": "পতিত (Fallow/Unused)",
         "area_decimal": 26.73,
         "area_sqm": 1081.8,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_089.jpg"
@@ -4453,6 +4542,7 @@
         "land_type": "পতিত (Fallow/Unused)",
         "area_decimal": 17.02,
         "area_sqm": 688.8,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_090.jpg"
@@ -4503,6 +4593,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 11.0,
         "area_sqm": 445.0,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_091.jpg"
@@ -4553,6 +4644,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 41.95,
         "area_sqm": 1697.6,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_092.jpg"
@@ -4603,6 +4695,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 25.81,
         "area_sqm": 1044.6,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_093.jpg"
@@ -4653,6 +4746,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 16.82,
         "area_sqm": 680.6,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_094.jpg"
@@ -4703,6 +4797,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 57.32,
         "area_sqm": 2319.8,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_095.jpg"
@@ -4753,6 +4848,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 41.52,
         "area_sqm": 1680.2,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_096.jpg"
@@ -4803,6 +4899,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 74.44,
         "area_sqm": 3012.3,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_097.jpg"
@@ -4853,6 +4950,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 44.24,
         "area_sqm": 1790.3,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_098.jpg"
@@ -4903,6 +5001,7 @@
         "land_type": "বাগান (Bagan - Orchard)",
         "area_decimal": 30.34,
         "area_sqm": 1228.0,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_099.jpg"
@@ -4953,6 +5052,7 @@
         "land_type": "পতিত (Fallow/Unused)",
         "area_decimal": 62.09,
         "area_sqm": 2512.5,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_100.jpg"
@@ -5003,6 +5103,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 12.01,
         "area_sqm": 486.2,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_101.jpg"
@@ -5053,6 +5154,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 9.9,
         "area_sqm": 400.7,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_102.jpg"
@@ -5103,6 +5205,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 35.16,
         "area_sqm": 1423.0,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_103.jpg"
@@ -5153,6 +5256,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 22.54,
         "area_sqm": 912.1,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_104.jpg"
@@ -5203,6 +5307,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 69.61,
         "area_sqm": 2817.1,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_105.jpg"
@@ -5253,6 +5358,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 17.78,
         "area_sqm": 719.4,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_106.jpg"
@@ -5303,6 +5409,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 41.75,
         "area_sqm": 1689.6,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_107.jpg"
@@ -5353,6 +5460,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 83.34,
         "area_sqm": 3372.8,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_108.jpg"
@@ -5403,6 +5511,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 33.42,
         "area_sqm": 1352.5,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_109.jpg"
@@ -5453,6 +5562,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 60.48,
         "area_sqm": 2447.4,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_110.jpg"
@@ -5503,6 +5613,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 19.44,
         "area_sqm": 786.9,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_111.jpg"
@@ -5553,6 +5664,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 51.68,
         "area_sqm": 2091.6,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_112.jpg"
@@ -5603,6 +5715,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 84.13,
         "area_sqm": 3404.5,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_113.jpg"
@@ -5653,6 +5766,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 42.47,
         "area_sqm": 1718.9,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_114.jpg"
@@ -5703,6 +5817,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 4.86,
         "area_sqm": 196.6,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_115.jpg"
@@ -5753,6 +5868,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 23.06,
         "area_sqm": 933.3,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_116.jpg"
@@ -5803,6 +5919,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 78.98,
         "area_sqm": 3196.4,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_117.jpg"
@@ -5853,6 +5970,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 11.75,
         "area_sqm": 475.6,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_118.jpg"
@@ -5903,6 +6021,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 65.15,
         "area_sqm": 2636.6,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_119.jpg"
@@ -5953,6 +6072,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 21.69,
         "area_sqm": 877.9,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_120.jpg"
@@ -6003,6 +6123,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 8.72,
         "area_sqm": 352.8,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_121.jpg"
@@ -6053,6 +6174,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 7.89,
         "area_sqm": 319.4,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_122.jpg"
@@ -6103,6 +6225,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 75.7,
         "area_sqm": 3063.5,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_123.jpg"
@@ -6153,6 +6276,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 69.81,
         "area_sqm": 2825.0,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_124.jpg"
@@ -6203,6 +6327,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 18.13,
         "area_sqm": 733.7,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_125.jpg"
@@ -6253,6 +6378,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 52.85,
         "area_sqm": 2138.8,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_126.jpg"
@@ -6303,6 +6429,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 56.96,
         "area_sqm": 2305.2,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_127.jpg"
@@ -6353,6 +6480,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 78.15,
         "area_sqm": 3162.5,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_128.jpg"
@@ -6403,6 +6531,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 35.24,
         "area_sqm": 1426.0,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_129.jpg"
@@ -6453,6 +6582,7 @@
         "land_type": "বাগান (Bagan - Orchard)",
         "area_decimal": 67.36,
         "area_sqm": 2726.0,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_130.jpg"
@@ -6503,6 +6633,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 29.58,
         "area_sqm": 1197.0,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_131.jpg"
@@ -6553,6 +6684,7 @@
         "land_type": "পতিত (Fallow/Unused)",
         "area_decimal": 10.77,
         "area_sqm": 436.0,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_132.jpg"
@@ -6603,6 +6735,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 13.83,
         "area_sqm": 559.5,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_133.jpg"
@@ -6653,6 +6786,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 21.32,
         "area_sqm": 862.7,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_134.jpg"
@@ -6703,6 +6837,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 70.53,
         "area_sqm": 2854.2,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_135.jpg"
@@ -6753,6 +6888,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 4.21,
         "area_sqm": 170.5,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_136.jpg"
@@ -6803,6 +6939,7 @@
         "land_type": "পতিত (Fallow/Unused)",
         "area_decimal": 21.52,
         "area_sqm": 870.7,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_137.jpg"
@@ -6853,6 +6990,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 10.74,
         "area_sqm": 434.6,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_138.jpg"
@@ -6903,6 +7041,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 40.3,
         "area_sqm": 1630.8,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_139.jpg"
@@ -6953,6 +7092,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 47.33,
         "area_sqm": 1915.2,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_140.jpg"
@@ -7003,6 +7143,7 @@
         "land_type": "পুকুর (Pond/Waterbody)",
         "area_decimal": 67.23,
         "area_sqm": 2720.6,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_141.jpg"
@@ -7053,6 +7194,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 61.96,
         "area_sqm": 2507.3,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_142.jpg"
@@ -7103,6 +7245,7 @@
         "land_type": "পতিত (Fallow/Unused)",
         "area_decimal": 39.24,
         "area_sqm": 1588.1,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_143.jpg"
@@ -7153,6 +7296,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 54.87,
         "area_sqm": 2220.7,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_144.jpg"
@@ -7203,6 +7347,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 29.39,
         "area_sqm": 1189.4,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_145.jpg"
@@ -7253,6 +7398,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 67.96,
         "area_sqm": 2750.4,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_146.jpg"
@@ -7303,6 +7449,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 66.55,
         "area_sqm": 2693.2,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_147.jpg"
@@ -7353,6 +7500,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 50.43,
         "area_sqm": 2041.0,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_148.jpg"
@@ -7403,6 +7551,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 52.67,
         "area_sqm": 2131.3,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_149.jpg"
@@ -7453,6 +7602,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 57.07,
         "area_sqm": 2309.6,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_150.jpg"
@@ -7503,6 +7653,7 @@
         "land_type": "বাগান (Bagan - Orchard)",
         "area_decimal": 7.1,
         "area_sqm": 287.4,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_151.jpg"
@@ -7553,6 +7704,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 73.02,
         "area_sqm": 2955.2,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_152.jpg"
@@ -7603,6 +7755,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 16.85,
         "area_sqm": 681.8,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_153.jpg"
@@ -7653,6 +7806,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 31.41,
         "area_sqm": 1271.1,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_154.jpg"
@@ -7703,6 +7857,7 @@
         "land_type": "দোকান (Commercial/Shop)",
         "area_decimal": 76.0,
         "area_sqm": 3075.5,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_155.jpg"
@@ -7753,6 +7908,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 14.38,
         "area_sqm": 582.0,
+        "is_illustrative": true,
         "trust_status": "OCR_EXTRACTED",
         "sample_docs": [
           "doc_156.jpg"
@@ -7803,6 +7959,7 @@
         "land_type": "ভিটি (Viti - High homestead land)",
         "area_decimal": 82.11,
         "area_sqm": 3322.8,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_157.jpg"
@@ -7853,6 +8010,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 82.16,
         "area_sqm": 3324.7,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_158.jpg"
@@ -7903,6 +8061,7 @@
         "land_type": "নাল (Nal - Agricultural)",
         "area_decimal": 48.39,
         "area_sqm": 1958.2,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_159.jpg"
@@ -7953,6 +8112,7 @@
         "land_type": "বাড়ি (Bari - Residential)",
         "area_decimal": 55.42,
         "area_sqm": 2242.9,
+        "is_illustrative": true,
         "trust_status": "VERIFICATION_REQUIRED",
         "sample_docs": [
           "doc_160.jpg"
@@ -8003,6 +8163,7 @@
         "land_type": "রাস্তা (Access road)",
         "area_decimal": 27.29,
         "area_sqm": 1104.5,
+        "is_illustrative": true,
         "trust_status": "POSSIBLE_MATCH",
         "sample_docs": [
           "doc_161.jpg"

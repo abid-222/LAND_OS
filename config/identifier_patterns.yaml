@@ -1,0 +1,15 @@
+# Bangladesh LandOS — Identifier Regex Patterns Configuration
+# Configurable extraction and validation rules for Cadastral Dag and Khatian numbers.
+# Prompt 4 engine compiles these patterns dynamically.
+
+patterns:
+  dag_no: "^(?P<main>\\d{1,5})(?:/(?P<sub>\\d{1,4}))?$"
+  khatian_no: "^(?P<main>\\d{1,6})(?:/(?P<sub>\\d{1,3}))?$"
+
+rules:
+  allow_bangla_digits: true
+  allow_ascii_digits: true
+  strip_inner_whitespace: true
+  strip_zero_width_chars: true
+  preserve_sub_number: true
+  replace_danda_with_slash: true

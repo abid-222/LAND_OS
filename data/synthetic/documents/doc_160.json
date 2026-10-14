@@ -1,17 +1,22 @@
 {
   "image_file": "doc_160.jpg",
   "document_id": "DOC-SYN-0160",
+  "record_ref": "REC-MOUZA-৩৫-3509-4518",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 0.06,
-    "perspective_warp_max_px": 5,
-    "blur_radius": 0.95,
-    "jpeg_quality": 35,
-    "qr_code_present": true
-  },
+  "digit_mode": "mixed",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 40,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "BS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "চান্দনা",
+      "value": "হেমায়েতপুর",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৭",
+      "value": "৩৫",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৭০৩৫",
-      "raw": "7035",
+      "value": "৩5০9",
+      "raw": "3509",
+      "main_no": 3509,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৬৬৬",
-      "raw": "666",
+      "value": "৪5১8",
+      "raw": "4518",
+      "main_no": 4518,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "হাসিনা আক্তার",
+      "value": "রাবেয়া বসরী",
       "bbox": [
         180,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৮৪.৯৯",
-      "raw": 84.99,
+      "value": "১1.9২",
+      "raw": 11.92,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/7035"
+      "payload": "khatian/3509"
     }
   }
 }

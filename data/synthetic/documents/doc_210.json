@@ -1,17 +1,23 @@
 {
   "image_file": "doc_210.jpg",
   "document_id": "DOC-SYN-0210",
+  "record_ref": "REC-MOUZA-১৫-1474-1443",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 0.19,
-    "perspective_warp_max_px": 11,
-    "blur_radius": 0.79,
-    "jpeg_quality": 49,
-    "qr_code_present": true
-  },
+  "digit_mode": "mixed",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 65,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "SA",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "বাড্ডা উত্তর",
+      "value": "ভাটারা",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "১২",
+      "value": "১৫",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৯৩৮৭",
-      "raw": "9387",
+      "value": "১4৭4",
+      "raw": "1474",
+      "main_no": 1474,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৩৬৯১",
-      "raw": "3691",
+      "value": "১4৪3",
+      "raw": "1443",
+      "main_no": 1443,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "রোকেয়া সুলতানা",
+      "value": "আব্দুল করিম",
       "bbox": [
         180,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "২৯.৪৪",
-      "raw": 29.44,
+      "value": "২3.1৪",
+      "raw": 23.14,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/9387"
+      "payload": "khatian/1474"
     }
   }
 }

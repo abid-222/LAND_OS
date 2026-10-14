@@ -1,17 +1,22 @@
 {
   "image_file": "doc_015.jpg",
   "document_id": "DOC-SYN-0015",
+  "record_ref": "REC-MOUZA-১৮-2292-955",
   "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": 1.95,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 1.11,
-    "jpeg_quality": 30,
-    "qr_code_present": true
-  },
+  "digit_mode": "mixed",
+  "quality_tier": "BAD",
+  "quality_gate_passed": false,
+  "degradation": [
+    "dark",
+    "perspective",
+    "shadow",
+    "rotation",
+    "jpeg"
+  ],
+  "jpeg_quality": 31,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "SA",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "মহাখালী",
+      "value": "পাইকপাড়া",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৮",
+      "value": "১৮",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৪৫৬৬",
-      "raw": "4566",
+      "value": "২2৯2",
+      "raw": "2292",
+      "main_no": 2292,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৪১৭৭",
-      "raw": "4177",
+      "value": "৯5৫/৫",
+      "raw": "955/5",
+      "main_no": 955,
+      "sub_no": 5,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "আফসার আলী মুন্সী",
+      "value": "মরিয়ম নেসা",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "ভিটি",
+      "value": "দোকান",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৭০.২৪",
-      "raw": 70.24,
+      "value": "৫0.1৮",
+      "raw": 50.18,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/4566"
+      "payload": "khatian/2292"
     }
   }
 }

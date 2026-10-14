@@ -1,17 +1,24 @@
 {
   "image_file": "doc_232.jpg",
   "document_id": "DOC-SYN-0232",
+  "record_ref": "REC-MOUZA-৫৩-3029-5757",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -1.13,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.58,
-    "jpeg_quality": 55,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "glare",
+    "jpeg"
+  ],
+  "jpeg_quality": 49,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "City Survey",
       "bbox": [
         370,
         105,
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "বাঘা",
+      "value": "জিনজিরা",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "১২",
+      "value": "৫৩",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৪২১৯",
-      "raw": "4219",
+      "value": "৩০২৯",
+      "raw": "3029",
+      "main_no": 3029,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "১৩৯৪",
-      "raw": "1394",
+      "value": "৫৭৫৭/৭",
+      "raw": "5757/7",
+      "main_no": 5757,
+      "sub_no": 7,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "মোসাঃ ফাতেমা খাতুন",
+      "value": "আবুল কাশেম",
       "bbox": [
         180,
         375,
@@ -76,8 +87,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৪.৪৩",
-      "raw": 4.43,
+      "value": "৮৪.৭৯",
+      "raw": 84.79,
       "bbox": [
         710,
         375,
@@ -92,7 +103,7 @@
         801,
         941
       ],
-      "payload": "khatian/4219"
+      "payload": "khatian/3029"
     }
   }
 }

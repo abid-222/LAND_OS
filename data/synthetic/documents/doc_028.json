@@ -1,17 +1,22 @@
 {
   "image_file": "doc_028.jpg",
   "document_id": "DOC-SYN-0028",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -2.71,
-    "perspective_warp_max_px": 10,
-    "blur_radius": 0.69,
-    "jpeg_quality": 35,
-    "qr_code_present": false
-  },
+  "record_ref": "REC-MOUZA-০৮-1087-7278",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "BAD",
+  "quality_gate_passed": false,
+  "degradation": [
+    "low-res",
+    "perspective",
+    "shadow",
+    "rotation",
+    "jpeg"
+  ],
+  "jpeg_quality": 28,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "বিরুলিয়া",
+      "value": "মহাখালী",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "৩৯",
+      "value": "০৮",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৪৬৯৬",
-      "raw": "4696",
+      "value": "১০৮৭",
+      "raw": "1087",
+      "main_no": 1087,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "১৯৭৯",
-      "raw": "1979",
+      "value": "৭২৭৮",
+      "raw": "7278",
+      "main_no": 7278,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "শাহজাহান মিয়া",
+      "value": "নাসরীন আক্তার",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "নাল",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "১৪.৮৭",
-      "raw": 14.87,
+      "value": "৮২.৬০",
+      "raw": 82.6,
       "bbox": [
         710,
         375,

@@ -1,17 +1,22 @@
 {
   "image_file": "doc_021.jpg",
   "document_id": "DOC-SYN-0021",
+  "record_ref": "REC-MOUZA-১৬-169-7188",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 4.11,
-    "perspective_warp_max_px": 10,
-    "blur_radius": 1.14,
-    "jpeg_quality": 40,
-    "qr_code_present": true
-  },
+  "digit_mode": "ascii",
+  "quality_tier": "BAD",
+  "quality_gate_passed": false,
+  "degradation": [
+    "glare",
+    "perspective",
+    "shadow",
+    "rotation",
+    "jpeg"
+  ],
+  "jpeg_quality": 29,
   "fields": {
     "survey_type": {
-      "value": "BS",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "জিনজিরা",
+      "value": "ঢাকা দক্ষিণ",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "৫৩",
+      "value": "১৬",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৬৪১০",
-      "raw": "6410",
+      "value": "169",
+      "raw": "169",
+      "main_no": 169,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৪৭৪১",
-      "raw": "4741",
+      "value": "7188",
+      "raw": "7188",
+      "main_no": 7188,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "নূরুল হক চৌধুরী",
+      "value": "আখতারুজ্জামান",
       "bbox": [
         180,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৬৫.৭৬",
-      "raw": 65.76,
+      "value": "23.00",
+      "raw": 23.0,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/6410"
+      "payload": "khatian/169"
     }
   }
 }

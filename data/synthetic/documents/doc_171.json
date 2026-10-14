@@ -1,14 +1,21 @@
 {
   "image_file": "doc_171.jpg",
   "document_id": "DOC-SYN-0171",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -5.74,
-    "perspective_warp_max_px": 10,
-    "blur_radius": 0.48,
-    "jpeg_quality": 53,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১৯-9129-6961",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "motion blur",
+    "jpeg"
+  ],
+  "jpeg_quality": 56,
   "fields": {
     "survey_type": {
       "value": "SA",
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "ময়নামতি",
+      "value": "গোসিংগা",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৩",
+      "value": "১৯",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮৫৪৬",
-      "raw": "8546",
+      "value": "৯১২৯",
+      "raw": "9129",
+      "main_no": 9129,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৫১০৩",
-      "raw": "5103",
+      "value": "৬৯৬১",
+      "raw": "6961",
+      "main_no": 6961,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "কুলসুম বিবি",
+      "value": "হারুন অর রশিদ",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "পুকুর",
+      "value": "রাস্তা",
       "bbox": [
         500,
         375,
@@ -76,23 +87,14 @@
       ]
     },
     "area_decimal": {
-      "value": "২৯.১৮",
-      "raw": 29.18,
+      "value": "২৮.৪৫",
+      "raw": 28.45,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/8546"
     }
   }
 }

@@ -1,14 +1,19 @@
 {
   "image_file": "doc_033.jpg",
   "document_id": "DOC-SYN-0033",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -4.57,
-    "perspective_warp_max_px": 11,
-    "blur_radius": 0.83,
-    "jpeg_quality": 59,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১০-6296-1875",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "BAD",
+  "quality_gate_passed": false,
+  "degradation": [
+    "dark",
+    "perspective",
+    "shadow",
+    "rotation",
+    "jpeg"
+  ],
+  "jpeg_quality": 24,
   "fields": {
     "survey_type": {
       "value": "BS",
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "বাড্ডা উত্তর",
+      "value": "পানাম নগর",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "১২",
+      "value": "১০",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৪৭৮",
-      "raw": "478",
+      "value": "6296",
+      "raw": "6296",
+      "main_no": 6296,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭৫৫৭",
-      "raw": "7557",
+      "value": "1875",
+      "raw": "1875",
+      "main_no": 1875,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "নুরুল হক চৌধুরী",
+      "value": "শামসুল আলম",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "ভিটি",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৫৪.৩৮",
-      "raw": 54.38,
+      "value": "75.57",
+      "raw": 75.57,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/478"
+      "payload": "khatian/6296"
     }
   }
 }

@@ -1,17 +1,22 @@
 {
   "image_file": "doc_148.jpg",
   "document_id": "DOC-SYN-0148",
+  "record_ref": "REC-MOUZA-১৮-3561-7123",
   "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": -5.14,
-    "perspective_warp_max_px": 8,
-    "blur_radius": 0.72,
-    "jpeg_quality": 45,
-    "qr_code_present": false
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 59,
   "fields": {
     "survey_type": {
-      "value": "RS",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "মুড়াপাড়া",
+      "value": "পাইকপাড়া",
       "bbox": [
         580,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৪৩৮",
-      "raw": "438",
+      "value": "৩৫৬১",
+      "raw": "3561",
+      "main_no": 3561,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭০১৪",
-      "raw": "7014",
+      "value": "৭১২৩/৬",
+      "raw": "7123/6",
+      "main_no": 7123,
+      "sub_no": 6,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "মোসাঃ ফাতেমা খাতুন",
+      "value": "কুলসুম বিবি",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "নাল",
       "bbox": [
         500,
         375,
@@ -76,14 +85,23 @@
       ]
     },
     "area_decimal": {
-      "value": "১৭.৮৫",
-      "raw": 17.85,
+      "value": "৮২.৮৬",
+      "raw": 82.86,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/3561"
     }
   }
 }

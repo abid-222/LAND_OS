@@ -1,14 +1,19 @@
 {
   "image_file": "doc_075.jpg",
   "document_id": "DOC-SYN-0075",
+  "record_ref": "REC-MOUZA-০৯-9306-2583",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -4.12,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.56,
-    "jpeg_quality": 40,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 52,
   "fields": {
     "survey_type": {
       "value": "SA",
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "হেমায়েতপুর",
+      "value": "শাসনগাছা",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "৩৫",
+      "value": "০৯",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৫৬৬২",
-      "raw": "5662",
+      "value": "৯৩০৬",
+      "raw": "9306",
+      "main_no": 9306,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৩৯৭২",
-      "raw": "3972",
+      "value": "২৫৮৩/৪",
+      "raw": "2583/4",
+      "main_no": 2583,
+      "sub_no": 4,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "শিরীন আক্তার",
+      "value": "আখতারুজ্জামান",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "নাল",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "২৭.৭২",
-      "raw": 27.72,
+      "value": "৩৩.৭৯",
+      "raw": 33.79,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/5662"
+      "payload": "khatian/9306"
     }
   }
 }

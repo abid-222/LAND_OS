@@ -1,17 +1,23 @@
 {
   "image_file": "doc_100.jpg",
   "document_id": "DOC-SYN-0100",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -1.75,
-    "perspective_warp_max_px": 7,
-    "blur_radius": 1.0,
-    "jpeg_quality": 51,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-৩৫-8195-7343",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 57,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "সালনা",
+      "value": "হেমায়েতপুর",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "১১",
+      "value": "৩৫",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১৪২১",
-      "raw": "1421",
+      "value": "8195",
+      "raw": "8195",
+      "main_no": 8195,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "১৭৮৩",
-      "raw": "1783",
+      "value": "7343",
+      "raw": "7343",
+      "main_no": 7343,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "কুলসুম বিবি",
+      "value": "সালমা চৌধুরী",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "ভিটি",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৫৬.৩২",
-      "raw": 56.32,
+      "value": "59.76",
+      "raw": 59.76,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/1421"
+      "payload": "khatian/8195"
     }
   }
 }

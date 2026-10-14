@@ -1,14 +1,21 @@
 {
   "image_file": "doc_103.jpg",
   "document_id": "DOC-SYN-0103",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": 0.03,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.75,
-    "jpeg_quality": 33,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-০৯-3760-7195",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "motion blur",
+    "jpeg"
+  ],
+  "jpeg_quality": 53,
   "fields": {
     "survey_type": {
       "value": "BS",
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "মুড়াপাড়া",
+      "value": "শাসনগাছা",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৮",
+      "value": "০৯",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৪১০৫",
-      "raw": "4105",
+      "value": "3760",
+      "raw": "3760",
+      "main_no": 3760,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৪৪২",
-      "raw": "2442",
+      "value": "7195",
+      "raw": "7195",
+      "main_no": 7195,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "শাহানাজ পারভীন",
+      "value": "নাসরীন আক্তার",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "নাল",
       "bbox": [
         500,
         375,
@@ -76,8 +87,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৬৫.৩০",
-      "raw": 65.3,
+      "value": "33.41",
+      "raw": 33.41,
       "bbox": [
         710,
         375,
@@ -92,7 +103,7 @@
         801,
         941
       ],
-      "payload": "khatian/4105"
+      "payload": "khatian/3760"
     }
   }
 }

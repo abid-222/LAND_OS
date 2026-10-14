@@ -1,17 +1,18 @@
 {
   "image_file": "doc_059.jpg",
   "document_id": "DOC-SYN-0059",
+  "record_ref": "REC-MOUZA-০৫-8366-6583",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -3.56,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.73,
-    "jpeg_quality": 34,
-    "qr_code_present": false
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 87,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "SA",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "ময়নামতি",
+      "value": "টমসমব্রিজ",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৩",
+      "value": "০৫",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৪৪৮",
-      "raw": "448",
+      "value": "৮৩৬৬",
+      "raw": "8366",
+      "main_no": 8366,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "১২৪৯",
-      "raw": "1249",
+      "value": "৬৫৮৩",
+      "raw": "6583",
+      "main_no": 6583,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "নুরুল হক চৌধুরী",
+      "value": "মোহাম্মদ রফিকুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "পুকুর",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৫৩.০৫",
-      "raw": 53.05,
+      "value": "১১.৮৩",
+      "raw": 11.83,
       "bbox": [
         710,
         375,

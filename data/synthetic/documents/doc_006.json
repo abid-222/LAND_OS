@@ -1,14 +1,19 @@
 {
   "image_file": "doc_006.jpg",
   "document_id": "DOC-SYN-0006",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 5.96,
-    "perspective_warp_max_px": 8,
-    "blur_radius": 1.15,
-    "jpeg_quality": 32,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-০২-571-5254",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "mixed",
+  "quality_tier": "BAD",
+  "quality_gate_passed": false,
+  "degradation": [
+    "blur",
+    "perspective",
+    "shadow",
+    "rotation",
+    "jpeg"
+  ],
+  "jpeg_quality": 18,
   "fields": {
     "survey_type": {
       "value": "SA",
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "মুড়াপাড়া",
+      "value": "সিদ্ধিরগঞ্জ",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৮",
+      "value": "০২",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৫৩৯৬",
-      "raw": "5396",
+      "value": "৫7১",
+      "raw": "571",
+      "main_no": 571,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭০১৩",
-      "raw": "7013",
+      "value": "৫2৫4",
+      "raw": "5254",
+      "main_no": 5254,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "মনোয়ারা বেগম",
+      "value": "সিরাজুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৬১.৬৪",
-      "raw": 61.64,
+      "value": "৫3.8৪",
+      "raw": 53.84,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/5396"
+      "payload": "khatian/571"
     }
   }
 }

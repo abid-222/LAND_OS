@@ -1,14 +1,19 @@
 {
   "image_file": "doc_214.jpg",
   "document_id": "DOC-SYN-0214",
+  "record_ref": "REC-MOUZA-১৫-3874-2585",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -0.23,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.77,
-    "jpeg_quality": 30,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 61,
   "fields": {
     "survey_type": {
       "value": "CS",
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৫৬২৮",
-      "raw": "5628",
+      "value": "৩৮৭৪",
+      "raw": "3874",
+      "main_no": 3874,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৯০৬",
-      "raw": "2906",
+      "value": "২৫৮৫",
+      "raw": "2585",
+      "main_no": 2585,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "খোরশেদ আলম",
+      "value": "আফসার আলী মুন্সী",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "নাল",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "১৬.০১",
-      "raw": 16.01,
+      "value": "৬১.৭০",
+      "raw": 61.7,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/5628"
+      "payload": "khatian/3874"
     }
   }
 }

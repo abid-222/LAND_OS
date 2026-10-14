@@ -1,17 +1,18 @@
 {
   "image_file": "doc_038.jpg",
   "document_id": "DOC-SYN-0038",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 5.0,
-    "perspective_warp_max_px": 8,
-    "blur_radius": 0.44,
-    "jpeg_quality": 44,
-    "qr_code_present": false
-  },
+  "record_ref": "REC-MOUZA-৩৯-5931-1233",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 90,
   "fields": {
     "survey_type": {
-      "value": "BS",
+      "value": "City Survey",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "ফুলবাড়িয়া",
+      "value": "বিরুলিয়া",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "৩০",
+      "value": "৩৯",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "২৬০৯",
-      "raw": "2609",
+      "value": "৫৯৩১",
+      "raw": "5931",
+      "main_no": 5931,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৪১৮৭",
-      "raw": "4187",
+      "value": "১২৩৩",
+      "raw": "1233",
+      "main_no": 1233,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "আবদুল করিম",
+      "value": "মোকাররম হোসেন",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "নাল",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,14 +81,23 @@
       ]
     },
     "area_decimal": {
-      "value": "৭১.৪৫",
-      "raw": 71.45,
+      "value": "২৮.২৬",
+      "raw": 28.26,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/5931"
     }
   }
 }

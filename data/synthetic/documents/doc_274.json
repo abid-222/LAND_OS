@@ -1,17 +1,24 @@
 {
   "image_file": "doc_274.jpg",
   "document_id": "DOC-SYN-0274",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": 4.24,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.44,
-    "jpeg_quality": 54,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-০৮-2832-3737",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "motion blur",
+    "jpeg"
+  ],
+  "jpeg_quality": 44,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "বাড্ডা উত্তর",
+      "value": "মহাখালী",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "১২",
+      "value": "০৮",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮৩৯৭",
-      "raw": "8397",
+      "value": "২৮৩২",
+      "raw": "2832",
+      "main_no": 2832,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭৪৭",
-      "raw": "747",
+      "value": "৩৭৩৭",
+      "raw": "3737",
+      "main_no": 3737,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "সুলতান মাহমুদ",
+      "value": "মরিয়ম নেসা",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "বাড়ি",
+      "value": "নাল",
       "bbox": [
         500,
         375,
@@ -76,8 +87,8 @@
       ]
     },
     "area_decimal": {
-      "value": "১১.০১",
-      "raw": 11.01,
+      "value": "২৪.২৭",
+      "raw": 24.27,
       "bbox": [
         710,
         375,
@@ -92,7 +103,7 @@
         801,
         941
       ],
-      "payload": "khatian/8397"
+      "payload": "khatian/2832"
     }
   }
 }

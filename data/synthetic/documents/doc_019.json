@@ -1,17 +1,22 @@
 {
   "image_file": "doc_019.jpg",
   "document_id": "DOC-SYN-0019",
+  "record_ref": "REC-MOUZA-১৮-9267-1209",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 0.05,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.71,
-    "jpeg_quality": 57,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "BAD",
+  "quality_gate_passed": false,
+  "degradation": [
+    "motion blur",
+    "perspective",
+    "shadow",
+    "rotation",
+    "jpeg"
+  ],
+  "jpeg_quality": 20,
   "fields": {
     "survey_type": {
-      "value": "SA",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "কংশনগর",
+      "value": "মুড়াপাড়া",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৭",
+      "value": "১৮",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮০২৬",
-      "raw": "8026",
+      "value": "৯২৬৭",
+      "raw": "9267",
+      "main_no": 9267,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮২৮৪",
-      "raw": "8284",
+      "value": "১২০৯",
+      "raw": "1209",
+      "main_no": 1209,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "রোকেয়া সুলতানা",
+      "value": "মোকাররম হোসেন",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "রাস্তা",
+      "value": "দোকান",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৭৮.৪৭",
-      "raw": 78.47,
+      "value": "৪৭.৪৬",
+      "raw": 47.46,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/8026"
+      "payload": "khatian/9267"
     }
   }
 }

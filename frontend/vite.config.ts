@@ -1,12 +1,14 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
+import basicSsl from '@vitejs/plugin-basic-ssl';
 import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
+    process.env.HTTPS === 'true' ? basicSsl() : null,
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
@@ -32,8 +34,22 @@ export default defineConfig({
           },
         ],
       },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        navigateFallback: '/index.html',
+        navigateFallbackDenylist: [/^\/api/],
+        runtimeCaching: [
+          {
+            urlPattern: /^\/api\/.*$/,
+            handler: 'NetworkOnly', // Never cache private data
+          },
+        ],
+      },
     }),
   ],
+  worker: {
+    format: 'es',
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -41,6 +57,7 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    host: true,
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:8000',
@@ -57,6 +74,8 @@ export default defineConfig({
           vendor: ['react', 'react-dom', 'react-router-dom'],
           query: ['@tanstack/react-query', 'zustand'],
           i18n: ['i18next', 'react-i18next'],
+          map: ['maplibre-gl'],
+          storage: ['dexie'],
         },
       },
     },

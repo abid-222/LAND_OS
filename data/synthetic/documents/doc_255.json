@@ -1,14 +1,19 @@
 {
   "image_file": "doc_255.jpg",
   "document_id": "DOC-SYN-0255",
+  "record_ref": "REC-MOUZA-০৯-8576-7063",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -2.52,
-    "perspective_warp_max_px": 10,
-    "blur_radius": 0.62,
-    "jpeg_quality": 44,
-    "qr_code_present": true
-  },
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 68,
   "fields": {
     "survey_type": {
       "value": "SA",
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "জয়দেবপুর",
+      "value": "শাসনগাছা",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৩",
+      "value": "০৯",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১০২৪",
-      "raw": "1024",
+      "value": "8576",
+      "raw": "8576",
+      "main_no": 8576,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৬৫৯৩",
-      "raw": "6593",
+      "value": "7063/2",
+      "raw": "7063/2",
+      "main_no": 7063,
+      "sub_no": 2,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "হাসিনা আক্তার",
+      "value": "বদরুল আলম",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "রাস্তা",
       "bbox": [
         500,
         375,
@@ -76,23 +85,14 @@
       ]
     },
     "area_decimal": {
-      "value": "৩২.৭০",
-      "raw": 32.7,
+      "value": "9.96",
+      "raw": 9.96,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/1024"
     }
   }
 }

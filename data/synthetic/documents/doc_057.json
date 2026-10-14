@@ -1,17 +1,18 @@
 {
   "image_file": "doc_057.jpg",
   "document_id": "DOC-SYN-0057",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -3.76,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.53,
-    "jpeg_quality": 61,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-৩০-9915-7275",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 90,
   "fields": {
     "survey_type": {
-      "value": "RS",
+      "value": "BS",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "সিদ্ধিরগঞ্জ",
+      "value": "ফুলবাড়িয়া",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "০২",
+      "value": "৩০",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১৯৭৪",
-      "raw": "1974",
+      "value": "৯৯১৫",
+      "raw": "9915",
+      "main_no": 9915,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৪৬৬৮",
-      "raw": "4668",
+      "value": "৭২৭৫",
+      "raw": "7275",
+      "main_no": 7275,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "আবদুল করিম",
+      "value": "এনামুল হক",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "দোকান",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৩৫.৯০",
-      "raw": 35.9,
+      "value": "৮.৯৩",
+      "raw": 8.93,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/1974"
+      "payload": "khatian/9915"
     }
   }
 }

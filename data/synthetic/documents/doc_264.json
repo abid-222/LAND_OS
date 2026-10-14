@@ -1,17 +1,23 @@
 {
   "image_file": "doc_264.jpg",
   "document_id": "DOC-SYN-0264",
+  "record_ref": "REC-MOUZA-২৬-6742-558",
   "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": -0.7,
-    "perspective_warp_max_px": 7,
-    "blur_radius": 1.13,
-    "jpeg_quality": 40,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 62,
   "fields": {
     "survey_type": {
-      "value": "RS",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৪৩৯",
-      "raw": "439",
+      "value": "৬৭৪২",
+      "raw": "6742",
+      "main_no": 6742,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৩৮৩২",
-      "raw": "3832",
+      "value": "৫৫৮",
+      "raw": "558",
+      "main_no": 558,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "দেওয়ান ফরিদ গাজী",
+      "value": "নুরুল হক চৌধুরী",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "পতিত",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৭০.৭০",
-      "raw": 70.7,
+      "value": "৫৫.৯০",
+      "raw": 55.9,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/439"
+      "payload": "khatian/6742"
     }
   }
 }

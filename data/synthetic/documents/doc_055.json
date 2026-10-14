@@ -1,14 +1,15 @@
 {
   "image_file": "doc_055.jpg",
   "document_id": "DOC-SYN-0055",
+  "record_ref": "REC-MOUZA-০৭-4991-8666",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -0.69,
-    "perspective_warp_max_px": 8,
-    "blur_radius": 1.12,
-    "jpeg_quality": 38,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 87,
   "fields": {
     "survey_type": {
       "value": "CS",
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "পানাম নগর",
+      "value": "চান্দনা",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "১০",
+      "value": "০৭",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৯৭৬৬",
-      "raw": "9766",
+      "value": "৪৯৯১",
+      "raw": "4991",
+      "main_no": 4991,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৬০৩",
-      "raw": "2603",
+      "value": "৮৬৬৬/৮",
+      "raw": "8666/8",
+      "main_no": 8666,
+      "sub_no": 8,
       "bbox": [
         620,
         212,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "রাস্তা",
+      "value": "বাগান",
       "bbox": [
         500,
         375,
@@ -76,23 +81,14 @@
       ]
     },
     "area_decimal": {
-      "value": "৩০.১৬",
-      "raw": 30.16,
+      "value": "৬৫.৫২",
+      "raw": 65.52,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/9766"
     }
   }
 }

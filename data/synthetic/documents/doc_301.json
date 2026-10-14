@@ -1,14 +1,18 @@
 {
   "image_file": "doc_301.jpg",
   "document_id": "DOC-SYN-0301",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -2.48,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.61,
-    "jpeg_quality": 62,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১০-4036-5773",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 40,
   "fields": {
     "survey_type": {
       "value": "City Survey",
@@ -20,7 +24,7 @@
       ]
     },
     "mouza": {
-      "value": "জিনজিরা",
+      "value": "পানাম নগর",
       "bbox": [
         580,
         155,
@@ -29,7 +33,7 @@
       ]
     },
     "jl_no": {
-      "value": "৫৩",
+      "value": "১০",
       "bbox": [
         760,
         155,
@@ -38,8 +42,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮৯৬৩",
-      "raw": "8963",
+      "value": "৪০৩৬",
+      "raw": "4036",
+      "main_no": 4036,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +54,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭০৩৩",
-      "raw": "7033",
+      "value": "৫৭৭৩/৬",
+      "raw": "5773/6",
+      "main_no": 5773,
+      "sub_no": 6,
       "bbox": [
         620,
         212,
@@ -58,7 +66,7 @@
       ]
     },
     "owner_name": {
-      "value": "আখতারুজ্জামান",
+      "value": "বদরুল আলম",
       "bbox": [
         180,
         375,
@@ -67,7 +75,7 @@
       ]
     },
     "land_class": {
-      "value": "ভিটি",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,8 +84,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৪৭.৩৪",
-      "raw": 47.34,
+      "value": "২৭.৮৬",
+      "raw": 27.86,
       "bbox": [
         710,
         375,
@@ -92,7 +100,7 @@
         801,
         941
       ],
-      "payload": "khatian/8963"
+      "payload": "khatian/4036"
     }
   }
 }

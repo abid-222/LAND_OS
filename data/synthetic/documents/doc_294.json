@@ -1,14 +1,20 @@
 {
   "image_file": "doc_294.jpg",
   "document_id": "DOC-SYN-0294",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": -5.47,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.52,
-    "jpeg_quality": 39,
-    "qr_code_present": false
-  },
+  "record_ref": "REC-MOUZA-০১-3387-1593",
+  "font_used": "Nirmala",
+  "digit_mode": "mixed",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "motion blur",
+    "jpeg"
+  ],
+  "jpeg_quality": 70,
   "fields": {
     "survey_type": {
       "value": "RS",
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "কংশনগর",
+      "value": "কাওরান বাজার",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৭",
+      "value": "০১",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৪২৬",
-      "raw": "426",
+      "value": "৩3৮7",
+      "raw": "3387",
+      "main_no": 3387,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৬৪৬২",
-      "raw": "6462",
+      "value": "১5৯3",
+      "raw": "1593",
+      "main_no": 1593,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "গোলাম কিবরিয়া",
+      "value": "মোহাম্মদ রফিকুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "পুকুর",
+      "value": "পতিত",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৭২.৭৭",
-      "raw": 72.77,
+      "value": "৬3.9৮",
+      "raw": 63.98,
       "bbox": [
         710,
         375,

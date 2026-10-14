@@ -1,17 +1,24 @@
 {
   "image_file": "doc_144.jpg",
   "document_id": "DOC-SYN-0144",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -5.25,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.67,
-    "jpeg_quality": 34,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-৩৯-9243-8832",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "motion blur",
+    "jpeg"
+  ],
+  "jpeg_quality": 49,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "SA",
       "bbox": [
         370,
         105,
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "কাফরুল",
+      "value": "বিরুলিয়া",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "২৫",
+      "value": "৩৯",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৬১৭৯",
-      "raw": "6179",
+      "value": "৯২৪৩",
+      "raw": "9243",
+      "main_no": 9243,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৭৬৮",
-      "raw": "2768",
+      "value": "৮৮৩২",
+      "raw": "8832",
+      "main_no": 8832,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "তারেক মাহমুদ",
+      "value": "আবদুল করিম",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "বাড়ি",
+      "value": "পতিত",
       "bbox": [
         500,
         375,
@@ -76,23 +87,14 @@
       ]
     },
     "area_decimal": {
-      "value": "৫১.৪২",
-      "raw": 51.42,
+      "value": "৬৮.৯১",
+      "raw": 68.91,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/6179"
     }
   }
 }

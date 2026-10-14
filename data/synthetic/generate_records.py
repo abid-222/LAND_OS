@@ -61,6 +61,25 @@ def generate_5000_records(output_path="data/seed/land_records_5000.json", target
 
         record_id = f"LR-SYN-{i:06d}"
 
+        # Sub-number handling (~20% of records have sub-numbers e.g. 1234/1)
+        if random.random() < 0.20:
+            dag_sub = random.randint(1, 12)
+            dag_str = f"{dag_int}/{dag_sub}"
+            dag_bn = f"{to_bn_digits(dag_int)}/{to_bn_digits(dag_sub)}"
+        else:
+            dag_sub = None
+            dag_str = str(dag_int)
+            dag_bn = to_bn_digits(dag_int)
+
+        if random.random() < 0.08:
+            khatian_sub = random.randint(1, 5)
+            khatian_str = f"{khatian_int}/{khatian_sub}"
+            khatian_bn = f"{to_bn_digits(khatian_int)}/{to_bn_digits(khatian_sub)}"
+        else:
+            khatian_sub = None
+            khatian_str = str(khatian_int)
+            khatian_bn = to_bn_digits(khatian_int)
+
         rec = {
             "id": str(uuid.uuid5(uuid.NAMESPACE_DNS, record_id)),
             "record_no": record_id,
@@ -71,10 +90,14 @@ def generate_5000_records(output_path="data/seed/land_records_5000.json", target
             "district": mouza["district"],
             "division": mouza["division"],
             "survey_type": survey_type,
-            "khatian_no": to_bn_digits(khatian_int),
-            "khatian_no_raw": str(khatian_int),
-            "dag_no": to_bn_digits(dag_int),
-            "dag_no_raw": str(dag_int),
+            "khatian_no": khatian_bn,
+            "khatian_no_raw": khatian_str,
+            "khatian_main_no": khatian_int,
+            "khatian_sub_no": khatian_sub,
+            "dag_no": dag_bn,
+            "dag_no_raw": dag_str,
+            "main_no": dag_int,
+            "sub_no": dag_sub,
             "owner_names_bn": ", ".join(chosen_owners),
             "land_type": random.choice(LAND_CLASSES_BN),
             "area_decimal": area_dec,
@@ -113,7 +136,10 @@ def generate_5000_records(output_path="data/seed/land_records_5000.json", target
             # Same dag number shifted from SA to RS or BS survey
             other_surveys = [s for s in SURVEY_TYPES if s != src["survey_type"]]
             new_rec["survey_type"] = random.choice(other_surveys)
-            new_rec["khatian_no"] = to_bn_digits(int(src["khatian_no_raw"]) + 50)
+            new_khatian_main = src["khatian_main_no"] + 50
+            new_rec["khatian_main_no"] = new_khatian_main
+            new_rec["khatian_no"] = to_bn_digits(new_khatian_main)
+            new_rec["khatian_no_raw"] = str(new_khatian_main)
             new_rec["trust_status"] = "POSSIBLE_MATCH"
 
         elif dupe_type == "area_correction":
@@ -123,9 +149,17 @@ def generate_5000_records(output_path="data/seed/land_records_5000.json", target
             new_rec["trust_status"] = "VERIFICATION_REQUIRED"
 
         elif dupe_type == "co_owner_share":
-            # Same khatian with partition dag
-            new_rec["dag_no"] = to_bn_digits(int(src["dag_no_raw"]) + 1)
-            new_rec["dag_no_raw"] = str(int(src["dag_no_raw"]) + 1)
+            # Same khatian with partition dag or sub-number increment
+            if src.get("sub_no"):
+                new_sub = src["sub_no"] + 1
+                new_rec["sub_no"] = new_sub
+                new_rec["dag_no"] = f"{to_bn_digits(src['main_no'])}/{to_bn_digits(new_sub)}"
+                new_rec["dag_no_raw"] = f"{src['main_no']}/{new_sub}"
+            else:
+                new_main = src["main_no"] + 1
+                new_rec["main_no"] = new_main
+                new_rec["dag_no"] = to_bn_digits(new_main)
+                new_rec["dag_no_raw"] = str(new_main)
             new_rec["trust_status"] = "POSSIBLE_MATCH"
 
         records.append(new_rec)

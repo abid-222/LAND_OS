@@ -1,14 +1,21 @@
 {
   "image_file": "doc_186.jpg",
   "document_id": "DOC-SYN-0186",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 4.56,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.55,
-    "jpeg_quality": 56,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১৮-6114-1814",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "motion blur",
+    "jpeg"
+  ],
+  "jpeg_quality": 57,
   "fields": {
     "survey_type": {
       "value": "BS",
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "আশুলিয়া",
+      "value": "মুড়াপাড়া",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "৪২",
+      "value": "১৮",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৯৮৫৪",
-      "raw": "9854",
+      "value": "৬১১৪",
+      "raw": "6114",
+      "main_no": 6114,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৪৬৫৮",
-      "raw": "4658",
+      "value": "১৮১৪",
+      "raw": "1814",
+      "main_no": 1814,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "আব্দুর রহিম তালুকদার",
+      "value": "নাসরীন আক্তার",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "পতিত",
+      "value": "নাল",
       "bbox": [
         500,
         375,
@@ -76,8 +87,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৫৩.৮৪",
-      "raw": 53.84,
+      "value": "৭২.৬৮",
+      "raw": 72.68,
       "bbox": [
         710,
         375,
@@ -92,7 +103,7 @@
         801,
         941
       ],
-      "payload": "khatian/9854"
+      "payload": "khatian/6114"
     }
   }
 }

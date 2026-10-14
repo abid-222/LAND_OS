@@ -1,17 +1,22 @@
 {
   "image_file": "doc_262.jpg",
   "document_id": "DOC-SYN-0262",
+  "record_ref": "REC-MOUZA-০৬-5374-5269",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -4.24,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.78,
-    "jpeg_quality": 47,
-    "qr_code_present": true
-  },
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 58,
   "fields": {
     "survey_type": {
-      "value": "RS",
+      "value": "BS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "শাসনগাছা",
+      "value": "ফতুল্লা",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৯",
+      "value": "০৬",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৩৭৩২",
-      "raw": "3732",
+      "value": "5374",
+      "raw": "5374",
+      "main_no": 5374,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮৪৬৩",
-      "raw": "8463",
+      "value": "5269",
+      "raw": "5269",
+      "main_no": 5269,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "মনোয়ারা বেগম",
+      "value": "নূরুল হক চৌধুরী",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "ভিটি",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৫২.৯৮",
-      "raw": 52.98,
+      "value": "10.11",
+      "raw": 10.11,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/3732"
+      "payload": "khatian/5374"
     }
   }
 }

@@ -1,17 +1,18 @@
 {
   "image_file": "doc_061.jpg",
   "document_id": "DOC-SYN-0061",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -1.39,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.92,
-    "jpeg_quality": 65,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-২১-8480-8102",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 94,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "তারানগর",
+      "value": "সেনপাড়া পর্বতা",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "৫৭",
+      "value": "২১",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮৭২",
-      "raw": "872",
+      "value": "৮৪৮০",
+      "raw": "8480",
+      "main_no": 8480,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮১২৫",
-      "raw": "8125",
+      "value": "৮১০২/৬",
+      "raw": "8102/6",
+      "main_no": 8102,
+      "sub_no": 6,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "হারুন অর রশিদ",
+      "value": "সিরাজুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "ভিটি",
+      "value": "রাস্তা",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "২২.০৩",
-      "raw": 22.03,
+      "value": "৫৪.৮৫",
+      "raw": 54.85,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/872"
+      "payload": "khatian/8480"
     }
   }
 }

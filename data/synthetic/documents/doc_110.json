@@ -1,17 +1,23 @@
 {
   "image_file": "doc_110.jpg",
   "document_id": "DOC-SYN-0110",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": -5.25,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.98,
-    "jpeg_quality": 52,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-৫৭-5889-3229",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "mixed",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 43,
   "fields": {
     "survey_type": {
-      "value": "SA",
+      "value": "City Survey",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "হেমায়েতপুর",
+      "value": "তারানগর",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "৩৫",
+      "value": "৫৭",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৯৬৮২",
-      "raw": "9682",
+      "value": "৫8৮9",
+      "raw": "5889",
+      "main_no": 5889,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮২১৮",
-      "raw": "8218",
+      "value": "৩2২9",
+      "raw": "3229",
+      "main_no": 3229,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "মরিয়ম নেসা",
+      "value": "জয়নাল আবেদীন",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,23 +86,14 @@
       ]
     },
     "area_decimal": {
-      "value": "৭৬.৭৩",
-      "raw": 76.73,
+      "value": "২4.1৩",
+      "raw": 24.13,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/9682"
     }
   }
 }

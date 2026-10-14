@@ -1,17 +1,22 @@
 {
   "image_file": "doc_003.jpg",
   "document_id": "DOC-SYN-0003",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 5.21,
-    "perspective_warp_max_px": 5,
-    "blur_radius": 0.51,
-    "jpeg_quality": 50,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১৮-9166-5168",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "BAD",
+  "quality_gate_passed": false,
+  "degradation": [
+    "motion blur",
+    "perspective",
+    "shadow",
+    "rotation",
+    "jpeg"
+  ],
+  "jpeg_quality": 21,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "SA",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "শাসনগাছা",
+      "value": "পাইকপাড়া",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৯",
+      "value": "১৮",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮৪৪৮",
-      "raw": "8448",
+      "value": "9166",
+      "raw": "9166",
+      "main_no": 9166,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৩৫৯০",
-      "raw": "3590",
+      "value": "5168/7",
+      "raw": "5168/7",
+      "main_no": 5168,
+      "sub_no": 7,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "আজহারুল ইসলাম",
+      "value": "আবদুল করিম",
       "bbox": [
         180,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৫৬.১৬",
-      "raw": 56.16,
+      "value": "20.24",
+      "raw": 20.24,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/8448"
+      "payload": "khatian/9166"
     }
   }
 }

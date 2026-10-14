@@ -1,17 +1,18 @@
 {
   "image_file": "doc_047.jpg",
   "document_id": "DOC-SYN-0047",
+  "record_ref": "REC-MOUZA-২৮-6265-4457",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -2.61,
-    "perspective_warp_max_px": 11,
-    "blur_radius": 1.2,
-    "jpeg_quality": 30,
-    "qr_code_present": true
-  },
+  "digit_mode": "mixed",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 92,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "City Survey",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "জয়দেবপুর",
+      "value": "জাফরাবাদ",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৩",
+      "value": "২৮",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮২৮৭",
-      "raw": "8287",
+      "value": "৬2৬5",
+      "raw": "6265",
+      "main_no": 6265,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৪০৩৫",
-      "raw": "4035",
+      "value": "৪4৫7",
+      "raw": "4457",
+      "main_no": 4457,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "খোরশেদ আলম",
+      "value": "হাসিনা আক্তার",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "দোকান",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৩৭.৩০",
-      "raw": 37.3,
+      "value": "২2.7০",
+      "raw": 22.7,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/8287"
+      "payload": "khatian/6265"
     }
   }
 }

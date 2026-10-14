@@ -230,6 +230,8 @@ async def run_seed():
                                 survey_type=r["survey_type"],
                                 khatian_no=r["khatian_no"],
                                 dag_no=r["dag_no"],
+                                main_no=r.get("main_no"),
+                                sub_no=r.get("sub_no"),
                                 owner_names_bn=r["owner_names_bn"],
                                 land_class_bn=r["land_type"],
                                 area_acres=r["area_acres"],

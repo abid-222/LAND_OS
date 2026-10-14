@@ -1,14 +1,21 @@
 {
   "image_file": "doc_217.jpg",
   "document_id": "DOC-SYN-0217",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": 4.93,
-    "perspective_warp_max_px": 10,
-    "blur_radius": 0.79,
-    "jpeg_quality": 59,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-৪৬-9952-8039",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "glare",
+    "jpeg"
+  ],
+  "jpeg_quality": 47,
   "fields": {
     "survey_type": {
       "value": "CS",
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "সিদ্ধিরগঞ্জ",
+      "value": "কুশুরা",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "০২",
+      "value": "৪৬",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৯২৬৪",
-      "raw": "9264",
+      "value": "৯৯৫২",
+      "raw": "9952",
+      "main_no": 9952,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৯১৮",
-      "raw": "2918",
+      "value": "৮০৩৯",
+      "raw": "8039",
+      "main_no": 8039,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "নুরুল হক চৌধুরী",
+      "value": "বদরুল আলম",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "নাল",
+      "value": "বাগান",
       "bbox": [
         500,
         375,
@@ -76,8 +87,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৫৬.৭০",
-      "raw": 56.7,
+      "value": "৬৪.৫৩",
+      "raw": 64.53,
       "bbox": [
         710,
         375,
@@ -92,7 +103,7 @@
         801,
         941
       ],
-      "payload": "khatian/9264"
+      "payload": "khatian/9952"
     }
   }
 }

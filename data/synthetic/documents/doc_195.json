@@ -1,17 +1,23 @@
 {
   "image_file": "doc_195.jpg",
   "document_id": "DOC-SYN-0195",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -0.22,
-    "perspective_warp_max_px": 4,
-    "blur_radius": 0.45,
-    "jpeg_quality": 45,
-    "qr_code_present": false
-  },
+  "record_ref": "REC-MOUZA-১৪-2182-1813",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "mixed",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 60,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "টমসমব্রিজ",
+      "value": "কাঁচপুর",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৫",
+      "value": "১৪",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৫৫১৫",
-      "raw": "5515",
+      "value": "২1৮2",
+      "raw": "2182",
+      "main_no": 2182,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "২১৮০",
-      "raw": "2180",
+      "value": "১8১3",
+      "raw": "1813",
+      "main_no": 1813,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "কামাল উদ্দিন আহমেদ",
+      "value": "নাসরীন আক্তার",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,14 +86,23 @@
       ]
     },
     "area_decimal": {
-      "value": "৮৪.৩৩",
-      "raw": 84.33,
+      "value": "১6.2৬",
+      "raw": 16.26,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/2182"
     }
   }
 }

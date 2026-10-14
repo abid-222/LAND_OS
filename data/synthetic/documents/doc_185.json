@@ -1,14 +1,18 @@
 {
   "image_file": "doc_185.jpg",
   "document_id": "DOC-SYN-0185",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": -4.94,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.7,
-    "jpeg_quality": 43,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-২৬-5965-4485",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 58,
   "fields": {
     "survey_type": {
       "value": "SA",
@@ -20,7 +24,7 @@
       ]
     },
     "mouza": {
-      "value": "জাফরাবাদ",
+      "value": "চন্দ্রা",
       "bbox": [
         580,
         155,
@@ -29,7 +33,7 @@
       ]
     },
     "jl_no": {
-      "value": "২৮",
+      "value": "২৬",
       "bbox": [
         760,
         155,
@@ -38,8 +42,10 @@
       ]
     },
     "khatian_no": {
-      "value": "২৭৯৯",
-      "raw": "2799",
+      "value": "5965",
+      "raw": "5965",
+      "main_no": 5965,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +54,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮৭৯৬",
-      "raw": "8796",
+      "value": "4485",
+      "raw": "4485",
+      "main_no": 4485,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +66,7 @@
       ]
     },
     "owner_name": {
-      "value": "হাসিনা আক্তার",
+      "value": "মোহাম্মদ রফিকুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -67,7 +75,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "পতিত",
       "bbox": [
         500,
         375,
@@ -76,8 +84,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৮৪.৭৮",
-      "raw": 84.78,
+      "value": "58.04",
+      "raw": 58.04,
       "bbox": [
         710,
         375,
@@ -92,7 +100,7 @@
         801,
         941
       ],
-      "payload": "khatian/2799"
+      "payload": "khatian/5965"
     }
   }
 }

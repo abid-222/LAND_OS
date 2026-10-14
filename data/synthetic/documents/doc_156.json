@@ -1,17 +1,24 @@
 {
   "image_file": "doc_156.jpg",
   "document_id": "DOC-SYN-0156",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 5.72,
-    "perspective_warp_max_px": 5,
-    "blur_radius": 0.61,
-    "jpeg_quality": 55,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-৫৩-6075-7355",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "motion blur",
+    "jpeg"
+  ],
+  "jpeg_quality": 58,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "ঢাকা দক্ষিণ",
+      "value": "জিনজিরা",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৬",
+      "value": "৫৩",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৫০৬২",
-      "raw": "5062",
+      "value": "৬০৭৫",
+      "raw": "6075",
+      "main_no": 6075,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭৯৮২",
-      "raw": "7982",
+      "value": "৭৩৫৫/৬",
+      "raw": "7355/6",
+      "main_no": 7355,
+      "sub_no": 6,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "গোলাম কিবরিয়া",
+      "value": "তারেক মাহমুদ",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "রাস্তা",
       "bbox": [
         500,
         375,
@@ -76,8 +87,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৭৪.৬৬",
-      "raw": 74.66,
+      "value": "৩০.৭৭",
+      "raw": 30.77,
       "bbox": [
         710,
         375,
@@ -92,7 +103,7 @@
         801,
         941
       ],
-      "payload": "khatian/5062"
+      "payload": "khatian/6075"
     }
   }
 }

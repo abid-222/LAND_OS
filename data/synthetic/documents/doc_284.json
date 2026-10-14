@@ -1,14 +1,19 @@
 {
   "image_file": "doc_284.jpg",
   "document_id": "DOC-SYN-0284",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 2.42,
-    "perspective_warp_max_px": 5,
-    "blur_radius": 0.65,
-    "jpeg_quality": 30,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১৪-9166-8313",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 51,
   "fields": {
     "survey_type": {
       "value": "BS",
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "আশুলিয়া",
+      "value": "কাঁচপুর",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "৪২",
+      "value": "১৪",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১৩৮৪",
-      "raw": "1384",
+      "value": "৯১৬৬",
+      "raw": "9166",
+      "main_no": 9166,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৪৮৭",
-      "raw": "2487",
+      "value": "৮৩১৩",
+      "raw": "8313",
+      "main_no": 8313,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -76,23 +85,14 @@
       ]
     },
     "area_decimal": {
-      "value": "৫৭.৯০",
-      "raw": 57.9,
+      "value": "৬৯.৪৫",
+      "raw": 69.45,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/1384"
     }
   }
 }

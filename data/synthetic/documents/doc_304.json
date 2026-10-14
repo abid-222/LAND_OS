@@ -1,17 +1,23 @@
 {
   "image_file": "doc_304.jpg",
   "document_id": "DOC-SYN-0304",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 1.4,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 1.11,
-    "jpeg_quality": 55,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-৩২-8859-6426",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 62,
   "fields": {
     "survey_type": {
-      "value": "BS",
+      "value": "SA",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "মুড়াপাড়া",
+      "value": "সুলতানগঞ্জ",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৮",
+      "value": "৩২",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৯৭৮২",
-      "raw": "9782",
+      "value": "৮৮৫৯",
+      "raw": "8859",
+      "main_no": 8859,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৬৩১৮",
-      "raw": "6318",
+      "value": "৬৪২৬/৫",
+      "raw": "6426/5",
+      "main_no": 6426,
+      "sub_no": 5,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "আজহারুল ইসলাম",
+      "value": "জয়নাল আবেদীন",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "রাস্তা",
+      "value": "নাল",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৬৪.৬৮",
-      "raw": 64.68,
+      "value": "১৫.২৯",
+      "raw": 15.29,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/9782"
+      "payload": "khatian/8859"
     }
   }
 }

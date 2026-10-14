@@ -1,17 +1,22 @@
 {
   "image_file": "doc_248.jpg",
   "document_id": "DOC-SYN-0248",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 4.27,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.62,
-    "jpeg_quality": 54,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-০২-3110-6778",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 68,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "কাফরুল",
+      "value": "সিদ্ধিরগঞ্জ",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "২৫",
+      "value": "০২",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৭৪০২",
-      "raw": "7402",
+      "value": "৩১১০",
+      "raw": "3110",
+      "main_no": 3110,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৩১৭৫",
-      "raw": "3175",
+      "value": "৬৭৭৮",
+      "raw": "6778",
+      "main_no": 6778,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "আফসার আলী মুন্সী",
+      "value": "শাহজাহান মিয়া",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "১৫.০০",
-      "raw": 15.0,
+      "value": "৫৬.২৫",
+      "raw": 56.25,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/7402"
+      "payload": "khatian/3110"
     }
   }
 }

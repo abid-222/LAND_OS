@@ -1,14 +1,21 @@
 {
   "image_file": "doc_201.jpg",
   "document_id": "DOC-SYN-0201",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -5.62,
-    "perspective_warp_max_px": 7,
-    "blur_radius": 1.12,
-    "jpeg_quality": 40,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১৫-6576-5435",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "motion blur",
+    "jpeg"
+  ],
+  "jpeg_quality": 48,
   "fields": {
     "survey_type": {
       "value": "BS",
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "সুলতানগঞ্জ",
+      "value": "ভাটারা",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "৩২",
+      "value": "১৫",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৪১৪২",
-      "raw": "4142",
+      "value": "৬৫৭৬",
+      "raw": "6576",
+      "main_no": 6576,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৩৮৭৩",
-      "raw": "3873",
+      "value": "৫৪৩৫",
+      "raw": "5435",
+      "main_no": 5435,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "নূরুল হক চৌধুরী",
+      "value": "আমেনা খাতুন",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "রাস্তা",
       "bbox": [
         500,
         375,
@@ -76,8 +87,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৪৪.৭৬",
-      "raw": 44.76,
+      "value": "৪২.৫৬",
+      "raw": 42.56,
       "bbox": [
         710,
         375,
@@ -92,7 +103,7 @@
         801,
         941
       ],
-      "payload": "khatian/4142"
+      "payload": "khatian/6576"
     }
   }
 }

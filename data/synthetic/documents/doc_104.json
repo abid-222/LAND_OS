@@ -1,17 +1,24 @@
 {
   "image_file": "doc_104.jpg",
   "document_id": "DOC-SYN-0104",
+  "record_ref": "REC-MOUZA-০৭-2714-6308",
   "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": -1.82,
-    "perspective_warp_max_px": 4,
-    "blur_radius": 1.18,
-    "jpeg_quality": 42,
-    "qr_code_present": true
-  },
+  "digit_mode": "mixed",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "glare",
+    "jpeg"
+  ],
+  "jpeg_quality": 52,
   "fields": {
     "survey_type": {
-      "value": "SA",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "ঢাকা দক্ষিণ",
+      "value": "চান্দনা",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৬",
+      "value": "০৭",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৭৬২০",
-      "raw": "7620",
+      "value": "২7১4",
+      "raw": "2714",
+      "main_no": 2714,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭১৫৯",
-      "raw": "7159",
+      "value": "৬3০8",
+      "raw": "6308",
+      "main_no": 6308,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "এনামুল হক",
+      "value": "তারেক মাহমুদ",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "নাল",
+      "value": "পতিত",
       "bbox": [
         500,
         375,
@@ -76,8 +87,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৭১.০৬",
-      "raw": 71.06,
+      "value": "১3.1০",
+      "raw": 13.1,
       "bbox": [
         710,
         375,
@@ -92,7 +103,7 @@
         801,
         941
       ],
-      "payload": "khatian/7620"
+      "payload": "khatian/2714"
     }
   }
 }

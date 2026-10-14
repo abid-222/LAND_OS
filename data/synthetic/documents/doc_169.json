@@ -1,14 +1,19 @@
 {
   "image_file": "doc_169.jpg",
   "document_id": "DOC-SYN-0169",
+  "record_ref": "REC-MOUZA-৬০-3858-6817",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -3.07,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.9,
-    "jpeg_quality": 30,
-    "qr_code_present": true
-  },
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 66,
   "fields": {
     "survey_type": {
       "value": "City Survey",
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "শাসনগাছা",
+      "value": "রোহিতপুর",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৯",
+      "value": "৬০",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৩৭৬২",
-      "raw": "3762",
+      "value": "3858",
+      "raw": "3858",
+      "main_no": 3858,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৪৮৪১",
-      "raw": "4841",
+      "value": "6817",
+      "raw": "6817",
+      "main_no": 6817,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "রাবেয়া বসরী",
+      "value": "এনামুল হক",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "ভিটি",
+      "value": "পুকুর",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "১৫.৫৫",
-      "raw": 15.55,
+      "value": "65.18",
+      "raw": 65.18,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/3762"
+      "payload": "khatian/3858"
     }
   }
 }

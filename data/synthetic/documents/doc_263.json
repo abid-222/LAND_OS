@@ -1,17 +1,23 @@
 {
   "image_file": "doc_263.jpg",
   "document_id": "DOC-SYN-0263",
+  "record_ref": "REC-MOUZA-২৫-6297-2527",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -4.72,
-    "perspective_warp_max_px": 10,
-    "blur_radius": 0.76,
-    "jpeg_quality": 56,
-    "qr_code_present": true
-  },
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 50,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "সফিপুর",
+      "value": "কাফরুল",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "২২",
+      "value": "২৫",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১৩৯৫",
-      "raw": "1395",
+      "value": "6297",
+      "raw": "6297",
+      "main_no": 6297,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "১৫৮৫",
-      "raw": "1585",
+      "value": "2527/8",
+      "raw": "2527/8",
+      "main_no": 2527,
+      "sub_no": 8,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "হাসিনা আক্তার",
+      "value": "মতিউর রহমান",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "পুকুর",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৪.৯২",
-      "raw": 4.92,
+      "value": "44.66",
+      "raw": 44.66,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/1395"
+      "payload": "khatian/6297"
     }
   }
 }

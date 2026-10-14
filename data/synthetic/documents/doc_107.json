@@ -1,14 +1,20 @@
 {
   "image_file": "doc_107.jpg",
   "document_id": "DOC-SYN-0107",
+  "record_ref": "REC-MOUZA-৪৯-8875-6051",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 0.69,
-    "perspective_warp_max_px": 5,
-    "blur_radius": 1.09,
-    "jpeg_quality": 42,
-    "qr_code_present": true
-  },
+  "digit_mode": "mixed",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 56,
   "fields": {
     "survey_type": {
       "value": "City Survey",
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "জাফরাবাদ",
+      "value": "সোমভাগ",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "২৮",
+      "value": "৪৯",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৬৩৭৬",
-      "raw": "6376",
+      "value": "৮8৭5",
+      "raw": "8875",
+      "main_no": 8875,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৮৫০",
-      "raw": "2850",
+      "value": "৬0৫1/4",
+      "raw": "6051/4",
+      "main_no": 6051,
+      "sub_no": 4,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "জাহানারা বেগম",
+      "value": "ফাতেমা বেগম",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "রাস্তা",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৩২.৪৯",
-      "raw": 32.49,
+      "value": "১3.9৭",
+      "raw": 13.97,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/6376"
+      "payload": "khatian/8875"
     }
   }
 }

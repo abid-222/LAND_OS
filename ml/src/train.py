@@ -2,7 +2,6 @@
 ML Training Pipeline: Bengali Land Document OCR & Layout Model
 """
 
-import sys
 import logging
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")

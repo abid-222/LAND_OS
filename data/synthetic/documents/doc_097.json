@@ -1,17 +1,22 @@
 {
   "image_file": "doc_097.jpg",
   "document_id": "DOC-SYN-0097",
+  "record_ref": "REC-MOUZA-২২-3561-2304",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 5.71,
-    "perspective_warp_max_px": 11,
-    "blur_radius": 0.71,
-    "jpeg_quality": 51,
-    "qr_code_present": false
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 52,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "BS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "মহাখালী",
+      "value": "সফিপুর",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৮",
+      "value": "২২",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৩৫৩৫",
-      "raw": "3535",
+      "value": "৩৫৬১",
+      "raw": "3561",
+      "main_no": 3561,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৭৮৫",
-      "raw": "2785",
+      "value": "২৩০৪",
+      "raw": "2304",
+      "main_no": 2304,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "নূরুল হক চৌধুরী",
+      "value": "আজহারুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "নাল",
       "bbox": [
         500,
         375,
@@ -76,14 +85,23 @@
       ]
     },
     "area_decimal": {
-      "value": "৩০.০৯",
-      "raw": 30.09,
+      "value": "৬৮.১৬",
+      "raw": 68.16,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/3561"
     }
   }
 }

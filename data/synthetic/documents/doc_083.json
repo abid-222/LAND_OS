@@ -1,14 +1,20 @@
 {
   "image_file": "doc_083.jpg",
   "document_id": "DOC-SYN-0083",
+  "record_ref": "REC-MOUZA-০৫-229-7624",
   "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": 5.37,
-    "perspective_warp_max_px": 11,
-    "blur_radius": 1.12,
-    "jpeg_quality": 32,
-    "qr_code_present": false
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 48,
   "fields": {
     "survey_type": {
       "value": "CS",
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "বিরুলিয়া",
+      "value": "টমসমব্রিজ",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "৩৯",
+      "value": "০৫",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৩৪৩৮",
-      "raw": "3438",
+      "value": "২২৯",
+      "raw": "229",
+      "main_no": 229,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৩৪৫৩",
-      "raw": "3453",
+      "value": "৭৬২৪",
+      "raw": "7624",
+      "main_no": 7624,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "রাবেয়া বসরী",
+      "value": "সুলতান মাহমুদ",
       "bbox": [
         180,
         375,
@@ -76,14 +86,23 @@
       ]
     },
     "area_decimal": {
-      "value": "৬৭.৮২",
-      "raw": 67.82,
+      "value": "৭২.০২",
+      "raw": 72.02,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/229"
     }
   }
 }

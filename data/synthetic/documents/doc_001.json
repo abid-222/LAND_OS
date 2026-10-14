@@ -1,14 +1,19 @@
 {
   "image_file": "doc_001.jpg",
   "document_id": "DOC-SYN-0001",
+  "record_ref": "REC-MOUZA-৫৩-2386-2179",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 2.42,
-    "perspective_warp_max_px": 7,
-    "blur_radius": 0.74,
-    "jpeg_quality": 51,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "BAD",
+  "quality_gate_passed": false,
+  "degradation": [
+    "low-res",
+    "perspective",
+    "shadow",
+    "rotation",
+    "jpeg"
+  ],
+  "jpeg_quality": 30,
   "fields": {
     "survey_type": {
       "value": "SA",
@@ -40,6 +45,8 @@
     "khatian_no": {
       "value": "২৩৮৬",
       "raw": "2386",
+      "main_no": 2386,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "২১৭৯",
-      "raw": "2179",
+      "value": "২১৭৯/৪",
+      "raw": "2179/4",
+      "main_no": 2179,
+      "sub_no": 4,
       "bbox": [
         620,
         212,

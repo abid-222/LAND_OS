@@ -1,17 +1,18 @@
 {
   "image_file": "doc_069.jpg",
   "document_id": "DOC-SYN-0069",
+  "record_ref": "REC-MOUZA-১৪-6804-2652",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -3.46,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.83,
-    "jpeg_quality": 38,
-    "qr_code_present": true
-  },
+  "digit_mode": "ascii",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 89,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "চন্দ্রা",
+      "value": "কাঁচপুর",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "২৬",
+      "value": "১৪",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "২৪৬৮",
-      "raw": "2468",
+      "value": "6804",
+      "raw": "6804",
+      "main_no": 6804,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮৮১",
-      "raw": "881",
+      "value": "2652",
+      "raw": "2652",
+      "main_no": 2652,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "দেওয়ান ফরিদ গাজী",
+      "value": "কামাল উদ্দিন আহমেদ",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "পতিত",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "২৭.৪৫",
-      "raw": 27.45,
+      "value": "52.32",
+      "raw": 52.32,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/2468"
+      "payload": "khatian/6804"
     }
   }
 }

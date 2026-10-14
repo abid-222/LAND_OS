@@ -1,17 +1,22 @@
 {
   "image_file": "doc_220.jpg",
   "document_id": "DOC-SYN-0220",
+  "record_ref": "REC-MOUZA-০৮-2304-6409",
   "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": -3.21,
-    "perspective_warp_max_px": 10,
-    "blur_radius": 0.9,
-    "jpeg_quality": 48,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 62,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "কংশনগর",
+      "value": "মহাখালী",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৭",
+      "value": "০৮",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৭৯৬",
-      "raw": "796",
+      "value": "২৩০৪",
+      "raw": "2304",
+      "main_no": 2304,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৪৪৭৯",
-      "raw": "4479",
+      "value": "৬৪০৯/৭",
+      "raw": "6409/7",
+      "main_no": 6409,
+      "sub_no": 7,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "জয়নাল আবেদীন",
+      "value": "দেওয়ান ফরিদ গাজী",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "পতিত",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "১৩.১০",
-      "raw": 13.1,
+      "value": "৬৭.০৪",
+      "raw": 67.04,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/796"
+      "payload": "khatian/2304"
     }
   }
 }

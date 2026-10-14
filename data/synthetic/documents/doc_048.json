@@ -1,17 +1,16 @@
 {
   "image_file": "doc_048.jpg",
   "document_id": "DOC-SYN-0048",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 3.15,
-    "perspective_warp_max_px": 4,
-    "blur_radius": 0.61,
-    "jpeg_quality": 47,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-৩৯-6391-5742",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [],
+  "jpeg_quality": 94,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "BS",
       "bbox": [
         370,
         105,
@@ -20,7 +19,7 @@
       ]
     },
     "mouza": {
-      "value": "ফতুল্লা",
+      "value": "বিরুলিয়া",
       "bbox": [
         580,
         155,
@@ -29,7 +28,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৬",
+      "value": "৩৯",
       "bbox": [
         760,
         155,
@@ -38,8 +37,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১১১",
-      "raw": "111",
+      "value": "৬৩৯১",
+      "raw": "6391",
+      "main_no": 6391,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +49,10 @@
       ]
     },
     "dag_no": {
-      "value": "১৫১৭",
-      "raw": "1517",
+      "value": "৫৭৪২/৫",
+      "raw": "5742/5",
+      "main_no": 5742,
+      "sub_no": 5,
       "bbox": [
         620,
         212,
@@ -58,7 +61,7 @@
       ]
     },
     "owner_name": {
-      "value": "জাহানারা বেগম",
+      "value": "মফিজুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -67,7 +70,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "পুকুর",
       "bbox": [
         500,
         375,
@@ -76,8 +79,8 @@
       ]
     },
     "area_decimal": {
-      "value": "২৩.৫০",
-      "raw": 23.5,
+      "value": "৪৭.৫৩",
+      "raw": 47.53,
       "bbox": [
         710,
         375,
@@ -92,7 +95,7 @@
         801,
         941
       ],
-      "payload": "khatian/111"
+      "payload": "khatian/6391"
     }
   }
 }

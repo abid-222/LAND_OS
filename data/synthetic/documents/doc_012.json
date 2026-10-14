@@ -1,17 +1,22 @@
 {
   "image_file": "doc_012.jpg",
   "document_id": "DOC-SYN-0012",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -2.79,
-    "perspective_warp_max_px": 4,
-    "blur_radius": 0.7,
-    "jpeg_quality": 61,
-    "qr_code_present": false
-  },
+  "record_ref": "REC-MOUZA-১৯-4077-8526",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "BAD",
+  "quality_gate_passed": false,
+  "degradation": [
+    "blur",
+    "perspective",
+    "shadow",
+    "rotation",
+    "jpeg"
+  ],
+  "jpeg_quality": 28,
   "fields": {
     "survey_type": {
-      "value": "RS",
+      "value": "SA",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "আশুলিয়া",
+      "value": "গোসিংগা",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "৪২",
+      "value": "১৯",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৭৯১২",
-      "raw": "7912",
+      "value": "৪০৭৭",
+      "raw": "4077",
+      "main_no": 4077,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৬৮৯৯",
-      "raw": "6899",
+      "value": "৮৫২৬",
+      "raw": "8526",
+      "main_no": 8526,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "এনামুল হক",
+      "value": "শাহানাজ পারভীন",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "বাড়ি",
+      "value": "পুকুর",
       "bbox": [
         500,
         375,
@@ -76,14 +85,23 @@
       ]
     },
     "area_decimal": {
-      "value": "৪২.৬৫",
-      "raw": 42.65,
+      "value": "৩৯.১৫",
+      "raw": 39.15,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/4077"
     }
   }
 }

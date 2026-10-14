@@ -1,17 +1,24 @@
 {
   "image_file": "doc_221.jpg",
   "document_id": "DOC-SYN-0221",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": -4.64,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.64,
-    "jpeg_quality": 49,
-    "qr_code_present": false
-  },
+  "record_ref": "REC-MOUZA-১১-7517-2013",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "glare",
+    "jpeg"
+  ],
+  "jpeg_quality": 50,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "SA",
       "bbox": [
         370,
         105,
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "ফতুল্লা",
+      "value": "সালনা",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৬",
+      "value": "১১",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৬৬৮৪",
-      "raw": "6684",
+      "value": "৭৫১৭",
+      "raw": "7517",
+      "main_no": 7517,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮৩৭০",
-      "raw": "8370",
+      "value": "২০১৩",
+      "raw": "2013",
+      "main_no": 2013,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "সুলতান মাহমুদ",
+      "value": "শাহাদাত হোসেন",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "পুকুর",
       "bbox": [
         500,
         375,
@@ -76,14 +87,23 @@
       ]
     },
     "area_decimal": {
-      "value": "৭১.৯৫",
-      "raw": 71.95,
+      "value": "১৭.৭৫",
+      "raw": 17.75,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/7517"
     }
   }
 }

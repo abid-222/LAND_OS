@@ -1,14 +1,15 @@
 {
   "image_file": "doc_070.jpg",
   "document_id": "DOC-SYN-0070",
+  "record_ref": "REC-MOUZA-০৯-8248-7458",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -0.9,
-    "perspective_warp_max_px": 10,
-    "blur_radius": 0.95,
-    "jpeg_quality": 54,
-    "qr_code_present": true
-  },
+  "digit_mode": "ascii",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 94,
   "fields": {
     "survey_type": {
       "value": "SA",
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "চন্দ্রা",
+      "value": "শাসনগাছা",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "২৬",
+      "value": "০৯",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৪৬০৬",
-      "raw": "4606",
+      "value": "8248",
+      "raw": "8248",
+      "main_no": 8248,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭০৮৭",
-      "raw": "7087",
+      "value": "7458",
+      "raw": "7458",
+      "main_no": 7458,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "শাহানাজ পারভীন",
+      "value": "নূরুল হক চৌধুরী",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "রাস্তা",
+      "value": "নাল",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "২৯.৭৭",
-      "raw": 29.77,
+      "value": "4.38",
+      "raw": 4.38,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/4606"
+      "payload": "khatian/8248"
     }
   }
 }

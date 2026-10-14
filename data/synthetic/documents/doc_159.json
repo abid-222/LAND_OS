@@ -1,17 +1,23 @@
 {
   "image_file": "doc_159.jpg",
   "document_id": "DOC-SYN-0159",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 1.11,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.85,
-    "jpeg_quality": 41,
-    "qr_code_present": false
-  },
+  "record_ref": "REC-MOUZA-০৪-2967-7652",
+  "font_used": "Nirmala",
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 61,
   "fields": {
     "survey_type": {
-      "value": "BS",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "কাঞ্চন",
+      "value": "তেজগাঁও শিল্পাঞ্চল",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "২৩",
+      "value": "০৪",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১২৬৮",
-      "raw": "1268",
+      "value": "2967",
+      "raw": "2967",
+      "main_no": 2967,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "১৬৮০",
-      "raw": "1680",
+      "value": "7652",
+      "raw": "7652",
+      "main_no": 7652,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "নুরুল হক চৌধুরী",
+      "value": "গোলাম কিবরিয়া",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "পতিত",
+      "value": "রাস্তা",
       "bbox": [
         500,
         375,
@@ -76,14 +86,23 @@
       ]
     },
     "area_decimal": {
-      "value": "৪১.৯৮",
-      "raw": 41.98,
+      "value": "36.35",
+      "raw": 36.35,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/2967"
     }
   }
 }

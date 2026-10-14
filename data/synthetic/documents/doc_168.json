@@ -1,14 +1,21 @@
 {
   "image_file": "doc_168.jpg",
   "document_id": "DOC-SYN-0168",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -3.64,
-    "perspective_warp_max_px": 5,
-    "blur_radius": 0.64,
-    "jpeg_quality": 35,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১৩-2660-7813",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "mixed",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "motion blur",
+    "jpeg"
+  ],
+  "jpeg_quality": 56,
   "fields": {
     "survey_type": {
       "value": "SA",
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "পানাম নগর",
+      "value": "ময়নামতি",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "১০",
+      "value": "১৩",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৩৮২৬",
-      "raw": "3826",
+      "value": "২6৬0",
+      "raw": "2660",
+      "main_no": 2660,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮৭০৭",
-      "raw": "8707",
+      "value": "৭8১3",
+      "raw": "7813",
+      "main_no": 7813,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "হারুন অর রশিদ",
+      "value": "এনামুল হক",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "পতিত",
+      "value": "দোকান",
       "bbox": [
         500,
         375,
@@ -76,8 +87,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৬৯.৫৮",
-      "raw": 69.58,
+      "value": "৬2.1৮",
+      "raw": 62.18,
       "bbox": [
         710,
         375,
@@ -92,7 +103,7 @@
         801,
         941
       ],
-      "payload": "khatian/3826"
+      "payload": "khatian/2660"
     }
   }
 }

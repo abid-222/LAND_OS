@@ -1,17 +1,23 @@
 {
   "image_file": "doc_184.jpg",
   "document_id": "DOC-SYN-0184",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 5.28,
-    "perspective_warp_max_px": 5,
-    "blur_radius": 0.94,
-    "jpeg_quality": 31,
-    "qr_code_present": false
-  },
+  "record_ref": "REC-MOUZA-০১-8749-4439",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 67,
   "fields": {
     "survey_type": {
-      "value": "SA",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "আশুলিয়া",
+      "value": "কাওরান বাজার",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "৪২",
+      "value": "০১",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৭২৫",
-      "raw": "725",
+      "value": "৮৭৪৯",
+      "raw": "8749",
+      "main_no": 8749,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭৭০৬",
-      "raw": "7706",
+      "value": "৪৪৩৯/৮",
+      "raw": "4439/8",
+      "main_no": 4439,
+      "sub_no": 8,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "তারেক মাহমুদ",
+      "value": "মরিয়ম নেসা",
       "bbox": [
         180,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৩৫.৯৮",
-      "raw": 35.98,
+      "value": "১৭.০৭",
+      "raw": 17.07,
       "bbox": [
         710,
         375,

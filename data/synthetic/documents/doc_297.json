@@ -1,14 +1,20 @@
 {
   "image_file": "doc_297.jpg",
   "document_id": "DOC-SYN-0297",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 0.63,
-    "perspective_warp_max_px": 4,
-    "blur_radius": 0.64,
-    "jpeg_quality": 30,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১৭-9311-4755",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 68,
   "fields": {
     "survey_type": {
       "value": "BS",
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "সেনপাড়া পর্বতা",
+      "value": "কংশনগর",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "২১",
+      "value": "১৭",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৯৩৮৮",
-      "raw": "9388",
+      "value": "৯৩১১",
+      "raw": "9311",
+      "main_no": 9311,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "২১৩৫",
-      "raw": "2135",
+      "value": "৪৭৫৫",
+      "raw": "4755",
+      "main_no": 4755,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "আখতারুজ্জামান",
+      "value": "নূরুল হক চৌধুরী",
       "bbox": [
         180,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৬০.৬৪",
-      "raw": 60.64,
+      "value": "৭৪.৭৪",
+      "raw": 74.74,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/9388"
+      "payload": "khatian/9311"
     }
   }
 }

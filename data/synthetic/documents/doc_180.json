@@ -1,17 +1,23 @@
 {
   "image_file": "doc_180.jpg",
   "document_id": "DOC-SYN-0180",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -4.15,
-    "perspective_warp_max_px": 11,
-    "blur_radius": 1.03,
-    "jpeg_quality": 56,
-    "qr_code_present": false
-  },
+  "record_ref": "REC-MOUZA-০১-5925-3017",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "glare",
+    "jpeg"
+  ],
+  "jpeg_quality": 63,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "বিরুলিয়া",
+      "value": "কাওরান বাজার",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "৩৯",
+      "value": "০১",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৯০৮৪",
-      "raw": "9084",
+      "value": "5925",
+      "raw": "5925",
+      "main_no": 5925,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৩৫৮৩",
-      "raw": "3583",
+      "value": "3017",
+      "raw": "3017",
+      "main_no": 3017,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "হাসিনা আক্তার",
+      "value": "আফসার আলী মুন্সী",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,14 +86,23 @@
       ]
     },
     "area_decimal": {
-      "value": "৪৭.৯৫",
-      "raw": 47.95,
+      "value": "25.49",
+      "raw": 25.49,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/5925"
     }
   }
 }

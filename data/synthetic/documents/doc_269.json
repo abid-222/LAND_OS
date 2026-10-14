@@ -1,17 +1,24 @@
 {
   "image_file": "doc_269.jpg",
   "document_id": "DOC-SYN-0269",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -3.56,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.86,
-    "jpeg_quality": 40,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-০৩-3477-7682",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "glare",
+    "jpeg"
+  ],
+  "jpeg_quality": 62,
   "fields": {
     "survey_type": {
-      "value": "RS",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "তেজগাঁও শিল্পাঞ্চল",
+      "value": "জয়দেবপুর",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৪",
+      "value": "০৩",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১২৬৮",
-      "raw": "1268",
+      "value": "৩৪৭৭",
+      "raw": "3477",
+      "main_no": 3477,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭১৪৮",
-      "raw": "7148",
+      "value": "৭৬৮২",
+      "raw": "7682",
+      "main_no": 7682,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "নাসরীন আক্তার",
+      "value": "আজহারুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "নাল",
+      "value": "রাস্তা",
       "bbox": [
         500,
         375,
@@ -76,8 +87,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৩৩.৩১",
-      "raw": 33.31,
+      "value": "২২.১৪",
+      "raw": 22.14,
       "bbox": [
         710,
         375,
@@ -92,7 +103,7 @@
         801,
         941
       ],
-      "payload": "khatian/1268"
+      "payload": "khatian/3477"
     }
   }
 }

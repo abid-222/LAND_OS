@@ -1,17 +1,18 @@
 {
   "image_file": "doc_068.jpg",
   "document_id": "DOC-SYN-0068",
+  "record_ref": "REC-MOUZA-০৬-4615-2347",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -2.61,
-    "perspective_warp_max_px": 11,
-    "blur_radius": 0.85,
-    "jpeg_quality": 39,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 90,
   "fields": {
     "survey_type": {
-      "value": "RS",
+      "value": "City Survey",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "আশুলিয়া",
+      "value": "ফতুল্লা",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "৪২",
+      "value": "০৬",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৪০১৯",
-      "raw": "4019",
+      "value": "৪৬১৫",
+      "raw": "4615",
+      "main_no": 4615,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৫৭৬২",
-      "raw": "5762",
+      "value": "২৩৪৭",
+      "raw": "2347",
+      "main_no": 2347,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "সালমা চৌধুরী",
+      "value": "মফিজুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "পুকুর",
+      "value": "দোকান",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৫২.৮৭",
-      "raw": 52.87,
+      "value": "৭০.০৩",
+      "raw": 70.03,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/4019"
+      "payload": "khatian/4615"
     }
   }
 }

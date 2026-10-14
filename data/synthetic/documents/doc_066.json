@@ -1,17 +1,18 @@
 {
   "image_file": "doc_066.jpg",
   "document_id": "DOC-SYN-0066",
+  "record_ref": "REC-MOUZA-০৫-1571-3563",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -0.84,
-    "perspective_warp_max_px": 8,
-    "blur_radius": 0.53,
-    "jpeg_quality": 60,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 85,
   "fields": {
     "survey_type": {
-      "value": "SA",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "ফতুল্লা",
+      "value": "টমসমব্রিজ",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৬",
+      "value": "০৫",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮৫১১",
-      "raw": "8511",
+      "value": "১৫৭১",
+      "raw": "1571",
+      "main_no": 1571,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "১৬৯১",
-      "raw": "1691",
+      "value": "৩৫৬৩",
+      "raw": "3563",
+      "main_no": 3563,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "বিলকিস বানু",
+      "value": "নাসরীন আক্তার",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "রাস্তা",
+      "value": "পতিত",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৪৫.১৮",
-      "raw": 45.18,
+      "value": "২৯.৬২",
+      "raw": 29.62,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/8511"
+      "payload": "khatian/1571"
     }
   }
 }

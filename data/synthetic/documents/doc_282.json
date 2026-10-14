@@ -1,14 +1,19 @@
 {
   "image_file": "doc_282.jpg",
   "document_id": "DOC-SYN-0282",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 4.37,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.7,
-    "jpeg_quality": 45,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-০৮-8373-5104",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 52,
   "fields": {
     "survey_type": {
       "value": "RS",
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "গোসিংগা",
+      "value": "মহাখালী",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৯",
+      "value": "০৮",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "২৭০৯",
-      "raw": "2709",
+      "value": "8373",
+      "raw": "8373",
+      "main_no": 8373,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৮৬৮",
-      "raw": "2868",
+      "value": "5104",
+      "raw": "5104",
+      "main_no": 5104,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "তারেক মাহমুদ",
+      "value": "আজহারুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "নাল",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৪৬.৩৮",
-      "raw": 46.38,
+      "value": "13.32",
+      "raw": 13.32,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/2709"
+      "payload": "khatian/8373"
     }
   }
 }

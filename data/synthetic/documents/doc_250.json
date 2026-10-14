@@ -1,14 +1,20 @@
 {
   "image_file": "doc_250.jpg",
   "document_id": "DOC-SYN-0250",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": 5.37,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 1.11,
-    "jpeg_quality": 32,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-০২-1296-7287",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 68,
   "fields": {
     "survey_type": {
       "value": "CS",
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "ফুলবাড়িয়া",
+      "value": "সিদ্ধিরগঞ্জ",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "৩০",
+      "value": "০২",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৭৭৩০",
-      "raw": "7730",
+      "value": "১২৯৬",
+      "raw": "1296",
+      "main_no": 1296,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭৫৭০",
-      "raw": "7570",
+      "value": "৭২৮৭",
+      "raw": "7287",
+      "main_no": 7287,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "বদরুল আলম",
+      "value": "সিরাজুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -76,23 +86,14 @@
       ]
     },
     "area_decimal": {
-      "value": "৬৬.৬৯",
-      "raw": 66.69,
+      "value": "৪০.৮৩",
+      "raw": 40.83,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/7730"
     }
   }
 }

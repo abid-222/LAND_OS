@@ -1,17 +1,22 @@
 {
   "image_file": "doc_090.jpg",
   "document_id": "DOC-SYN-0090",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 3.39,
-    "perspective_warp_max_px": 10,
-    "blur_radius": 1.09,
-    "jpeg_quality": 62,
-    "qr_code_present": false
-  },
+  "record_ref": "REC-MOUZA-৬০-4203-6008",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 42,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "চান্দনা",
+      "value": "রোহিতপুর",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৭",
+      "value": "৬০",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮৪৭",
-      "raw": "847",
+      "value": "৪২০৩",
+      "raw": "4203",
+      "main_no": 4203,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "১৩৭৮",
-      "raw": "1378",
+      "value": "৬০০৮/৪",
+      "raw": "6008/4",
+      "main_no": 6008,
+      "sub_no": 4,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "এনামুল হক",
+      "value": "নাসরীন আক্তার",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "ভিটি",
+      "value": "পতিত",
       "bbox": [
         500,
         375,
@@ -76,14 +85,23 @@
       ]
     },
     "area_decimal": {
-      "value": "৫৬.৪৭",
-      "raw": 56.47,
+      "value": "১০.৩৩",
+      "raw": 10.33,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/4203"
     }
   }
 }

@@ -1,17 +1,21 @@
 {
   "image_file": "doc_161.jpg",
   "document_id": "DOC-SYN-0161",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 3.09,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.48,
-    "jpeg_quality": 38,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-২৬-1477-2873",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 56,
   "fields": {
     "survey_type": {
-      "value": "BS",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +24,7 @@
       ]
     },
     "mouza": {
-      "value": "সুলতানগঞ্জ",
+      "value": "চন্দ্রা",
       "bbox": [
         580,
         155,
@@ -29,7 +33,7 @@
       ]
     },
     "jl_no": {
-      "value": "৩২",
+      "value": "২৬",
       "bbox": [
         760,
         155,
@@ -38,8 +42,10 @@
       ]
     },
     "khatian_no": {
-      "value": "২২৮২",
-      "raw": "2282",
+      "value": "1477",
+      "raw": "1477",
+      "main_no": 1477,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +54,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৩০৬",
-      "raw": "2306",
+      "value": "2873",
+      "raw": "2873",
+      "main_no": 2873,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +66,7 @@
       ]
     },
     "owner_name": {
-      "value": "মতিউর রহমান",
+      "value": "মেহেরুন্নেসা",
       "bbox": [
         180,
         375,
@@ -67,7 +75,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "বাগান",
       "bbox": [
         500,
         375,
@@ -76,8 +84,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৭৩.০৪",
-      "raw": 73.04,
+      "value": "73.12",
+      "raw": 73.12,
       "bbox": [
         710,
         375,
@@ -92,7 +100,7 @@
         801,
         941
       ],
-      "payload": "khatian/2282"
+      "payload": "khatian/1477"
     }
   }
 }

@@ -1,17 +1,24 @@
 {
   "image_file": "doc_128.jpg",
   "document_id": "DOC-SYN-0128",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 4.68,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.67,
-    "jpeg_quality": 51,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১০-3693-3206",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "motion blur",
+    "jpeg"
+  ],
+  "jpeg_quality": 55,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "SA",
       "bbox": [
         370,
         105,
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "তেজগাঁও শিল্পাঞ্চল",
+      "value": "পানাম নগর",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৪",
+      "value": "১০",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "২১৭১",
-      "raw": "2171",
+      "value": "৩৬৯৩",
+      "raw": "3693",
+      "main_no": 3693,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৪৬৫৯",
-      "raw": "4659",
+      "value": "৩২০৬",
+      "raw": "3206",
+      "main_no": 3206,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "এনামুল হক",
+      "value": "খোরশেদ আলম",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "রাস্তা",
       "bbox": [
         500,
         375,
@@ -76,8 +87,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৪৫.২৯",
-      "raw": 45.29,
+      "value": "৮৪.৮৩",
+      "raw": 84.83,
       "bbox": [
         710,
         375,
@@ -92,7 +103,7 @@
         801,
         941
       ],
-      "payload": "khatian/2171"
+      "payload": "khatian/3693"
     }
   }
 }

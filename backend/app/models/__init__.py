@@ -1,3 +1,4 @@
+import enum
 import uuid
 from datetime import datetime, timezone
 from typing import Optional
@@ -21,6 +22,14 @@ from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
+
+
+class StatusLabel(str, enum.Enum):
+    OCR_EXTRACTED = "OCR_EXTRACTED"
+    POSSIBLE_MATCH = "POSSIBLE_MATCH"
+    USER_CORRECTED = "USER_CORRECTED"
+    VERIFIED_AUTHORIZED_SOURCE = "VERIFIED_AUTHORIZED_SOURCE"
+    VERIFICATION_REQUIRED = "VERIFICATION_REQUIRED"
 
 
 def utc_now() -> datetime:
@@ -153,6 +162,8 @@ class LandRecord(Base):
     survey_type: Mapped[str] = mapped_column(String(50), nullable=False)
     khatian_no: Mapped[str] = mapped_column(String(50), nullable=False)
     dag_no: Mapped[str] = mapped_column(String(50), nullable=False)
+    main_no: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    sub_no: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
     owner_names_bn: Mapped[str] = mapped_column(Text, nullable=False)
     land_class_bn: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
     area_acres: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
@@ -172,6 +183,8 @@ class LandRecord(Base):
     __table_args__ = (
         # Composite index: (mouza_id, khatian_no, dag_no)
         Index("idx_land_records_mouza_khatian_dag", "mouza_id", "khatian_no", "dag_no"),
+        # Composite index: (mouza_id, main_no, sub_no)
+        Index("idx_land_records_mouza_main_sub", "mouza_id", "main_no", "sub_no"),
         # GIN trigram index on owner_names_bn
         Index(
             "idx_land_records_owners_trgm",
@@ -191,6 +204,10 @@ class Document(Base):
     mime_type: Mapped[str] = mapped_column(String(100), nullable=False)
     file_size: Mapped[int] = mapped_column(Integer, nullable=False)
     magic_bytes_verified: Mapped[bool] = mapped_column(Boolean, default=False)
+    idempotency_key: Mapped[Optional[str]] = mapped_column(
+        String(255), unique=True, nullable=True, index=True
+    )
+    status: Mapped[str] = mapped_column(String(50), default="queued")
     upload_status: Mapped[str] = mapped_column(String(50), default="PENDING")
     uploader_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True), ForeignKey("users.id"), nullable=False
@@ -213,8 +230,16 @@ class ExtractedField(Base):
     field_name: Mapped[str] = mapped_column(String(100), nullable=False)
     raw_value: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     normalized_value: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    main_no: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    sub_no: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    repaired: Mapped[bool] = mapped_column(Boolean, default=False)
     confidence: Mapped[float] = mapped_column(Float, default=0.0)
-    trust_status: Mapped[str] = mapped_column(String(50), default="OCR_EXTRACTED")
+    flagged: Mapped[bool] = mapped_column(Boolean, default=False)
+    flag_reason: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
+    user_corrected: Mapped[bool] = mapped_column(Boolean, default=False)
+    status_label: Mapped[str] = mapped_column(
+        String(50), default=StatusLabel.OCR_EXTRACTED.value
+    )
     bbox: Mapped[Optional[dict]] = mapped_column(
         JSONB().with_variant(JSON, "sqlite"), nullable=True
     )
@@ -224,6 +249,14 @@ class ExtractedField(Base):
     match_candidates = relationship(
         "MatchCandidate", back_populates="extracted_field", cascade="all, delete-orphan"
     )
+
+    @property
+    def trust_status(self) -> str:
+        return self.status_label
+
+    @trust_status.setter
+    def trust_status(self, val: str) -> None:
+        self.status_label = val
 
 
 class MatchCandidate(Base):
@@ -353,6 +386,10 @@ class AuditLog(Base):
 
 
 class EvalRun(Base):
+    """
+    Tracks evaluation benchmark runs and model evaluation metrics.
+    Stores per-field metrics JSONB: cer, fea, silent_error_rate, flag_recall, confusion matrix.
+    """
     __tablename__ = "eval_runs"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)

@@ -1,14 +1,15 @@
 {
   "image_file": "doc_040.jpg",
   "document_id": "DOC-SYN-0040",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 0.99,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.45,
-    "jpeg_quality": 65,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-৫৩-9013-5538",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "mixed",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 93,
   "fields": {
     "survey_type": {
       "value": "City Survey",
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "হেমায়েতপুর",
+      "value": "জিনজিরা",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "৩৫",
+      "value": "৫৩",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৫৭৭৭",
-      "raw": "5777",
+      "value": "৯0১3",
+      "raw": "9013",
+      "main_no": 9013,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৫৯৬৬",
-      "raw": "5966",
+      "value": "৫5৩8",
+      "raw": "5538",
+      "main_no": 5538,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "শাহানাজ পারভীন",
+      "value": "শামসুল আলম",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "পতিত",
+      "value": "দোকান",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৫৩.৯১",
-      "raw": 53.91,
+      "value": "৮.৯0",
+      "raw": 8.9,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/5777"
+      "payload": "khatian/9013"
     }
   }
 }

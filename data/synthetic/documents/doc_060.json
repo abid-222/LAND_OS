@@ -1,14 +1,15 @@
 {
   "image_file": "doc_060.jpg",
   "document_id": "DOC-SYN-0060",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -0.99,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.95,
-    "jpeg_quality": 43,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-৩৯-3121-4173",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 87,
   "fields": {
     "survey_type": {
       "value": "CS",
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "চান্দনা",
+      "value": "বিরুলিয়া",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৭",
+      "value": "৩৯",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৫৩৯",
-      "raw": "539",
+      "value": "3121",
+      "raw": "3121",
+      "main_no": 3121,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "১০১৯",
-      "raw": "1019",
+      "value": "4173",
+      "raw": "4173",
+      "main_no": 4173,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "খোরশেদ আলম",
+      "value": "সালমা চৌধুরী",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "রাস্তা",
+      "value": "নাল",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "১৩.৯২",
-      "raw": 13.92,
+      "value": "17.73",
+      "raw": 17.73,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/539"
+      "payload": "khatian/3121"
     }
   }
 }

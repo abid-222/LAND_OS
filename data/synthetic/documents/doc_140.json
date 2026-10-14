@@ -1,17 +1,22 @@
 {
   "image_file": "doc_140.jpg",
   "document_id": "DOC-SYN-0140",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -0.76,
-    "perspective_warp_max_px": 11,
-    "blur_radius": 1.03,
-    "jpeg_quality": 51,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-০৯-1888-3662",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 53,
   "fields": {
     "survey_type": {
-      "value": "SA",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "বাঘা",
+      "value": "শাসনগাছা",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "১২",
+      "value": "০৯",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৬২৩৩",
-      "raw": "6233",
+      "value": "১৮৮৮",
+      "raw": "1888",
+      "main_no": 1888,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৫০০৪",
-      "raw": "5004",
+      "value": "৩৬৬২",
+      "raw": "3662",
+      "main_no": 3662,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "জয়নাল আবেদীন",
+      "value": "মরিয়ম নেসা",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "নাল",
+      "value": "পতিত",
       "bbox": [
         500,
         375,
@@ -76,23 +85,14 @@
       ]
     },
     "area_decimal": {
-      "value": "৪৯.৭৫",
-      "raw": 49.75,
+      "value": "১১.৪৯",
+      "raw": 11.49,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/6233"
     }
   }
 }

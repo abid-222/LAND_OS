@@ -1,17 +1,18 @@
 {
   "image_file": "doc_037.jpg",
   "document_id": "DOC-SYN-0037",
+  "record_ref": "REC-MOUZA-২১-784-4955",
   "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": 2.8,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.91,
-    "jpeg_quality": 49,
-    "qr_code_present": false
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 90,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "টমসমব্রিজ",
+      "value": "সেনপাড়া পর্বতা",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৫",
+      "value": "২১",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৩৫৭১",
-      "raw": "3571",
+      "value": "৭৮৪",
+      "raw": "784",
+      "main_no": 784,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৩৩৫৯",
-      "raw": "3359",
+      "value": "৪৯৫৫",
+      "raw": "4955",
+      "main_no": 4955,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "জাহানারা বেগম",
+      "value": "নূরুল হক চৌধুরী",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "রাস্তা",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,14 +81,23 @@
       ]
     },
     "area_decimal": {
-      "value": "৬৬.২৩",
-      "raw": 66.23,
+      "value": "৪৪.১৭",
+      "raw": 44.17,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/784"
     }
   }
 }

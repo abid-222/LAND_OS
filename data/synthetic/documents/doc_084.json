@@ -1,14 +1,21 @@
 {
   "image_file": "doc_084.jpg",
   "document_id": "DOC-SYN-0084",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -3.05,
-    "perspective_warp_max_px": 7,
-    "blur_radius": 0.49,
-    "jpeg_quality": 30,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-৪৬-1013-6906",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "glare",
+    "jpeg"
+  ],
+  "jpeg_quality": 63,
   "fields": {
     "survey_type": {
       "value": "RS",
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "ফতুল্লা",
+      "value": "কুশুরা",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৬",
+      "value": "৪৬",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১৩৬১",
-      "raw": "1361",
+      "value": "১০১৩",
+      "raw": "1013",
+      "main_no": 1013,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৬৫৩৮",
-      "raw": "6538",
+      "value": "৬৯০৬",
+      "raw": "6906",
+      "main_no": 6906,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "নাল",
+      "value": "রাস্তা",
       "bbox": [
         500,
         375,
@@ -76,8 +87,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৬৩.০৮",
-      "raw": 63.08,
+      "value": "৬৯.৫২",
+      "raw": 69.52,
       "bbox": [
         710,
         375,
@@ -92,7 +103,7 @@
         801,
         941
       ],
-      "payload": "khatian/1361"
+      "payload": "khatian/1013"
     }
   }
 }

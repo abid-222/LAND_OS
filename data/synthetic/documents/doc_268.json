@@ -1,17 +1,24 @@
 {
   "image_file": "doc_268.jpg",
   "document_id": "DOC-SYN-0268",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": 0.72,
-    "perspective_warp_max_px": 5,
-    "blur_radius": 0.86,
-    "jpeg_quality": 56,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১২-1045-4582",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "mixed",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "glare",
+    "jpeg"
+  ],
+  "jpeg_quality": 48,
   "fields": {
     "survey_type": {
-      "value": "SA",
+      "value": "City Survey",
       "bbox": [
         370,
         105,
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "জয়দেবপুর",
+      "value": "বাড্ডা উত্তর",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৩",
+      "value": "১২",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১৭৫১",
-      "raw": "1751",
+      "value": "১0৪5",
+      "raw": "1045",
+      "main_no": 1045,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৫০১",
-      "raw": "2501",
+      "value": "৪5৮2",
+      "raw": "4582",
+      "main_no": 4582,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "মতিউর রহমান",
+      "value": "বদরুল আলম",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "পুকুর",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,8 +87,8 @@
       ]
     },
     "area_decimal": {
-      "value": "২৯.৮৪",
-      "raw": 29.84,
+      "value": "১3.1৫",
+      "raw": 13.15,
       "bbox": [
         710,
         375,
@@ -92,7 +103,7 @@
         801,
         941
       ],
-      "payload": "khatian/1751"
+      "payload": "khatian/1045"
     }
   }
 }

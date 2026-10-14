@@ -1,14 +1,19 @@
 {
   "image_file": "doc_096.jpg",
   "document_id": "DOC-SYN-0096",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -1.24,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.45,
-    "jpeg_quality": 49,
-    "qr_code_present": false
-  },
+  "record_ref": "REC-MOUZA-২৮-6019-4508",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 53,
   "fields": {
     "survey_type": {
       "value": "CS",
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "জয়দেবপুর",
+      "value": "জাফরাবাদ",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৩",
+      "value": "২৮",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৬৯৪",
-      "raw": "694",
+      "value": "6019",
+      "raw": "6019",
+      "main_no": 6019,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮০১১",
-      "raw": "8011",
+      "value": "4508",
+      "raw": "4508",
+      "main_no": 4508,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "রাবেয়া বসরী",
+      "value": "দেওয়ান ফরিদ গাজী",
       "bbox": [
         180,
         375,
@@ -76,14 +85,23 @@
       ]
     },
     "area_decimal": {
-      "value": "১৭.৪৭",
-      "raw": 17.47,
+      "value": "9.88",
+      "raw": 9.88,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/6019"
     }
   }
 }

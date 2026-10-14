@@ -1,17 +1,22 @@
 {
   "image_file": "doc_222.jpg",
   "document_id": "DOC-SYN-0222",
+  "record_ref": "REC-MOUZA-১৬-9081-5645",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 5.81,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 1.03,
-    "jpeg_quality": 56,
-    "qr_code_present": true
-  },
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 68,
   "fields": {
     "survey_type": {
-      "value": "SA",
+      "value": "City Survey",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "রোহিতপুর",
+      "value": "ঢাকা দক্ষিণ",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "৬০",
+      "value": "১৬",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১৫৬২",
-      "raw": "1562",
+      "value": "9081",
+      "raw": "9081",
+      "main_no": 9081,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৭৭২",
-      "raw": "2772",
+      "value": "5645",
+      "raw": "5645",
+      "main_no": 5645,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "ফাতেমা বেগম",
+      "value": "শাহজাহান মিয়া",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "নাল",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৫১.৮৭",
-      "raw": 51.87,
+      "value": "35.47",
+      "raw": 35.47,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/1562"
+      "payload": "khatian/9081"
     }
   }
 }

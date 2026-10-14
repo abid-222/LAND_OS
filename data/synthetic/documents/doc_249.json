@@ -1,17 +1,23 @@
 {
   "image_file": "doc_249.jpg",
   "document_id": "DOC-SYN-0249",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 0.32,
-    "perspective_warp_max_px": 11,
-    "blur_radius": 1.15,
-    "jpeg_quality": 64,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১৩-5160-4265",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 66,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "পানাম নগর",
+      "value": "ময়নামতি",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "১০",
+      "value": "১৩",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮০১৫",
-      "raw": "8015",
+      "value": "৫১৬০",
+      "raw": "5160",
+      "main_no": 5160,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "১১০০",
-      "raw": "1100",
+      "value": "৪২৬৫",
+      "raw": "4265",
+      "main_no": 4265,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "মফিজুল ইসলাম",
+      "value": "মোহাম্মদ রফিকুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "দোকান",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "১৭.২৮",
-      "raw": 17.28,
+      "value": "৩০.৯২",
+      "raw": 30.92,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/8015"
+      "payload": "khatian/5160"
     }
   }
 }

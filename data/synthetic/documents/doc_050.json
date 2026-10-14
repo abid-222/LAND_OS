@@ -1,17 +1,18 @@
 {
   "image_file": "doc_050.jpg",
   "document_id": "DOC-SYN-0050",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": 3.31,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.53,
-    "jpeg_quality": 62,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-৬০-6103-2217",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 94,
   "fields": {
     "survey_type": {
-      "value": "RS",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "চান্দনা",
+      "value": "রোহিতপুর",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৭",
+      "value": "৬০",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৫৯৮১",
-      "raw": "5981",
+      "value": "৬১০৩",
+      "raw": "6103",
+      "main_no": 6103,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "১০৬০",
-      "raw": "1060",
+      "value": "২২১৭/২",
+      "raw": "2217/2",
+      "main_no": 2217,
+      "sub_no": 2,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "খোরশেদ আলম",
+      "value": "সালমা চৌধুরী",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "রাস্তা",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "২৮.৩৩",
-      "raw": 28.33,
+      "value": "৪.৬৩",
+      "raw": 4.63,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/5981"
+      "payload": "khatian/6103"
     }
   }
 }

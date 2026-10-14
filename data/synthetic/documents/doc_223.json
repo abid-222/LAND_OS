@@ -1,14 +1,20 @@
 {
   "image_file": "doc_223.jpg",
   "document_id": "DOC-SYN-0223",
+  "record_ref": "REC-MOUZA-১৫-4560-1460",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -2.21,
-    "perspective_warp_max_px": 10,
-    "blur_radius": 0.96,
-    "jpeg_quality": 50,
-    "qr_code_present": false
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 58,
   "fields": {
     "survey_type": {
       "value": "BS",
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "মাওনা",
+      "value": "ভাটারা",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৬",
+      "value": "১৫",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮৯০৮",
-      "raw": "8908",
+      "value": "৪৫৬০",
+      "raw": "4560",
+      "main_no": 4560,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮৪৩২",
-      "raw": "8432",
+      "value": "১৪৬০",
+      "raw": "1460",
+      "main_no": 1460,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "আখতারুজ্জামান",
+      "value": "বদরুল আলম",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "রাস্তা",
+      "value": "পুকুর",
       "bbox": [
         500,
         375,
@@ -76,14 +86,23 @@
       ]
     },
     "area_decimal": {
-      "value": "৫১.৭০",
-      "raw": 51.7,
+      "value": "২৯.১৩",
+      "raw": 29.13,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/4560"
     }
   }
 }

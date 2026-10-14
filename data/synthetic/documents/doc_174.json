@@ -1,14 +1,20 @@
 {
   "image_file": "doc_174.jpg",
   "document_id": "DOC-SYN-0174",
+  "record_ref": "REC-MOUZA-১০-8094-5186",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 3.86,
-    "perspective_warp_max_px": 5,
-    "blur_radius": 0.53,
-    "jpeg_quality": 32,
-    "qr_code_present": true
-  },
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 57,
   "fields": {
     "survey_type": {
       "value": "City Survey",
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৭২৭২",
-      "raw": "7272",
+      "value": "8094",
+      "raw": "8094",
+      "main_no": 8094,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮৩৯৮",
-      "raw": "8398",
+      "value": "5186",
+      "raw": "5186",
+      "main_no": 5186,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "আব্দুল করিম",
+      "value": "মতিউর রহমান",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "পতিত",
       "bbox": [
         500,
         375,
@@ -76,23 +86,14 @@
       ]
     },
     "area_decimal": {
-      "value": "৬৬.৪৩",
-      "raw": 66.43,
+      "value": "73.83",
+      "raw": 73.83,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/7272"
     }
   }
 }

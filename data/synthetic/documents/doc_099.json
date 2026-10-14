@@ -1,17 +1,24 @@
 {
   "image_file": "doc_099.jpg",
   "document_id": "DOC-SYN-0099",
+  "record_ref": "REC-MOUZA-৪৬-5438-6085",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 0.4,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.96,
-    "jpeg_quality": 62,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "glare",
+    "jpeg"
+  ],
+  "jpeg_quality": 51,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৯০৫০",
-      "raw": "9050",
+      "value": "৫৪৩৮",
+      "raw": "5438",
+      "main_no": 5438,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৩৮৫৫",
-      "raw": "3855",
+      "value": "৬০৮৫",
+      "raw": "6085",
+      "main_no": 6085,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "হাসিনা আক্তার",
+      "value": "শামসুল আলম",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "ভিটি",
+      "value": "রাস্তা",
       "bbox": [
         500,
         375,
@@ -76,23 +87,14 @@
       ]
     },
     "area_decimal": {
-      "value": "৭৩.৮১",
-      "raw": 73.81,
+      "value": "৭৮.৩৭",
+      "raw": 78.37,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/9050"
     }
   }
 }

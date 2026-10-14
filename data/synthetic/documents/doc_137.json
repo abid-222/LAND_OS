@@ -1,17 +1,22 @@
 {
   "image_file": "doc_137.jpg",
   "document_id": "DOC-SYN-0137",
+  "record_ref": "REC-MOUZA-৩৯-5831-7169",
   "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": 3.32,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.8,
-    "jpeg_quality": 43,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 63,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "কাওরান বাজার",
+      "value": "বিরুলিয়া",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "০১",
+      "value": "৩৯",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৩৬৫৪",
-      "raw": "3654",
+      "value": "৫৮৩১",
+      "raw": "5831",
+      "main_no": 5831,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৩৬৮৯",
-      "raw": "3689",
+      "value": "৭১৬৯",
+      "raw": "7169",
+      "main_no": 7169,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "মোহাম্মদ রফিকুল ইসলাম",
+      "value": "আব্দুল করিম",
       "bbox": [
         180,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৭৯.০১",
-      "raw": 79.01,
+      "value": "৪৫.৬১",
+      "raw": 45.61,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/3654"
+      "payload": "khatian/5831"
     }
   }
 }

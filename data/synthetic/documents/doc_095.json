@@ -1,17 +1,22 @@
 {
   "image_file": "doc_095.jpg",
   "document_id": "DOC-SYN-0095",
+  "record_ref": "REC-MOUZA-০১-4078-1128",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 2.58,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.62,
-    "jpeg_quality": 30,
-    "qr_code_present": true
-  },
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 54,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "ঢাকা দক্ষিণ",
+      "value": "কাওরান বাজার",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৬",
+      "value": "০১",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১৫৭৬",
-      "raw": "1576",
+      "value": "4078",
+      "raw": "4078",
+      "main_no": 4078,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৪৮৪১",
-      "raw": "4841",
+      "value": "1128",
+      "raw": "1128",
+      "main_no": 1128,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "মরিয়ম নেসা",
+      "value": "মতিউর রহমান",
       "bbox": [
         180,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৪.৪৬",
-      "raw": 4.46,
+      "value": "13.15",
+      "raw": 13.15,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/1576"
+      "payload": "khatian/4078"
     }
   }
 }

@@ -1,14 +1,20 @@
 {
   "image_file": "doc_154.jpg",
   "document_id": "DOC-SYN-0154",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": -5.77,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.95,
-    "jpeg_quality": 31,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-৩৯-2821-1245",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 64,
   "fields": {
     "survey_type": {
       "value": "RS",
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "কুশুরা",
+      "value": "বিরুলিয়া",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "৪৬",
+      "value": "৩৯",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "২৫৬৮",
-      "raw": "2568",
+      "value": "2821",
+      "raw": "2821",
+      "main_no": 2821,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৬১৬৭",
-      "raw": "6167",
+      "value": "1245",
+      "raw": "1245",
+      "main_no": 1245,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "ফাতেমা বেগম",
+      "value": "হারুন অর রশিদ",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "পুকুর",
+      "value": "পতিত",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৭৭.১৪",
-      "raw": 77.14,
+      "value": "11.25",
+      "raw": 11.25,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/2568"
+      "payload": "khatian/2821"
     }
   }
 }

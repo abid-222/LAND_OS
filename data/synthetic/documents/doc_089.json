@@ -1,17 +1,22 @@
 {
   "image_file": "doc_089.jpg",
   "document_id": "DOC-SYN-0089",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": -2.31,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.99,
-    "jpeg_quality": 50,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-৩৯-4427-7959",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 61,
   "fields": {
     "survey_type": {
-      "value": "SA",
+      "value": "BS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "চন্দ্রা",
+      "value": "বিরুলিয়া",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "২৬",
+      "value": "৩৯",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৭২৬৩",
-      "raw": "7263",
+      "value": "4427",
+      "raw": "4427",
+      "main_no": 4427,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭০২৯",
-      "raw": "7029",
+      "value": "7959",
+      "raw": "7959",
+      "main_no": 7959,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "মনোয়ারা বেগম",
+      "value": "মেহেরুন্নেসা",
       "bbox": [
         180,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৮২.৪৩",
-      "raw": 82.43,
+      "value": "13.60",
+      "raw": 13.6,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/7263"
+      "payload": "khatian/4427"
     }
   }
 }

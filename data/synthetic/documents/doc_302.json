@@ -1,17 +1,23 @@
 {
   "image_file": "doc_302.jpg",
   "document_id": "DOC-SYN-0302",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -2.0,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.81,
-    "jpeg_quality": 45,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-০৫-5516-1323",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "motion blur",
+    "jpeg"
+  ],
+  "jpeg_quality": 45,
   "fields": {
     "survey_type": {
-      "value": "RS",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "ঢাকা দক্ষিণ",
+      "value": "টমসমব্রিজ",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৬",
+      "value": "০৫",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৬০৫৮",
-      "raw": "6058",
+      "value": "5516",
+      "raw": "5516",
+      "main_no": 5516,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "২২২১",
-      "raw": "2221",
+      "value": "1323",
+      "raw": "1323",
+      "main_no": 1323,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "জয়নাল আবেদীন",
+      "value": "এনামুল হক",
       "bbox": [
         180,
         375,
@@ -76,23 +86,14 @@
       ]
     },
     "area_decimal": {
-      "value": "৪১.৬৪",
-      "raw": 41.64,
+      "value": "70.22",
+      "raw": 70.22,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/6058"
     }
   }
 }

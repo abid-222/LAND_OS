@@ -1,14 +1,15 @@
 {
   "image_file": "doc_045.jpg",
   "document_id": "DOC-SYN-0045",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": -4.26,
-    "perspective_warp_max_px": 5,
-    "blur_radius": 0.85,
-    "jpeg_quality": 50,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১৫-3200-6212",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 85,
   "fields": {
     "survey_type": {
       "value": "City Survey",
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "তারানগর",
+      "value": "ভাটারা",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "৫৭",
+      "value": "১৫",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৭৫৬৩",
-      "raw": "7563",
+      "value": "৩২০০",
+      "raw": "3200",
+      "main_no": 3200,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৬৯২৪",
-      "raw": "6924",
+      "value": "৬২১২",
+      "raw": "6212",
+      "main_no": 6212,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "আখতারুজ্জামান",
+      "value": "বদরুল আলম",
       "bbox": [
         180,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৪৬.৭৫",
-      "raw": 46.75,
+      "value": "৬০.০৬",
+      "raw": 60.06,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/7563"
+      "payload": "khatian/3200"
     }
   }
 }

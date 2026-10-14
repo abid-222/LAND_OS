@@ -1,17 +1,22 @@
 {
   "image_file": "doc_238.jpg",
   "document_id": "DOC-SYN-0238",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 0.35,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.52,
-    "jpeg_quality": 64,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১৮-5280-5981",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 40,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "মাওনা",
+      "value": "মুড়াপাড়া",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৬",
+      "value": "১৮",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৫০৬৬",
-      "raw": "5066",
+      "value": "৫২৮০",
+      "raw": "5280",
+      "main_no": 5280,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭৬০০",
-      "raw": "7600",
+      "value": "৫৯৮১",
+      "raw": "5981",
+      "main_no": 5981,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "আবদুল করিম",
+      "value": "শিরীন আক্তার",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "পুকুর",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "১০.৩৫",
-      "raw": 10.35,
+      "value": "৭৪.৩৯",
+      "raw": 74.39,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/5066"
+      "payload": "khatian/5280"
     }
   }
 }

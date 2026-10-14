@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:https": "cross-env HTTPS=true vite --host",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -16,16 +17,20 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.28.9",
+    "browser-image-compression": "^2.0.2",
     "clsx": "^2.1.0",
+    "dexie": "^4.4.6",
     "i18next": "^23.10.1",
     "i18next-browser-languagedetector": "^7.2.0",
     "lucide-react": "^0.359.0",
+    "maplibre-gl": "^6.14.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^14.1.0",
     "react-router-dom": "^6.22.3",
     "tailwind-merge": "^2.2.2",
-    "zustand": "^4.5.2"
+    "zustand": "^4.5.2",
+    "zxing-wasm": "^3.1.5"
   },
   "devDependencies": {
     "@playwright/test": "^1.42.1",
@@ -36,10 +41,13 @@
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",
+    "@vitejs/plugin-basic-ssl": "^1.2.0",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
+    "cross-env": "^10.1.0",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.26",
     "jsdom": "^24.0.0",
     "openapi-typescript": "^6.7.5",
     "postcss": "^8.4.38",

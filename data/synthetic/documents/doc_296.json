@@ -1,17 +1,22 @@
 {
   "image_file": "doc_296.jpg",
   "document_id": "DOC-SYN-0296",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": 5.83,
-    "perspective_warp_max_px": 7,
-    "blur_radius": 1.0,
-    "jpeg_quality": 35,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-০২-5219-5778",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 41,
   "fields": {
     "survey_type": {
-      "value": "BS",
+      "value": "City Survey",
       "bbox": [
         370,
         105,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৯০৭৩",
-      "raw": "9073",
+      "value": "৫২১৯",
+      "raw": "5219",
+      "main_no": 5219,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮২০১",
-      "raw": "8201",
+      "value": "৫৭৭৮",
+      "raw": "5778",
+      "main_no": 5778,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "মোকাররম হোসেন",
+      "value": "সিরাজুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "বাগান",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,23 +85,14 @@
       ]
     },
     "area_decimal": {
-      "value": "১২.৪৪",
-      "raw": 12.44,
+      "value": "৪২.৭২",
+      "raw": 42.72,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/9073"
     }
   }
 }

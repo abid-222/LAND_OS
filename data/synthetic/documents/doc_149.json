@@ -1,17 +1,22 @@
 {
   "image_file": "doc_149.jpg",
   "document_id": "DOC-SYN-0149",
+  "record_ref": "REC-MOUZA-১২-7905-1041",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -2.23,
-    "perspective_warp_max_px": 11,
-    "blur_radius": 0.97,
-    "jpeg_quality": 31,
-    "qr_code_present": false
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 61,
   "fields": {
     "survey_type": {
-      "value": "RS",
+      "value": "City Survey",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "কাফরুল",
+      "value": "বাড্ডা উত্তর",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "২৫",
+      "value": "১২",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১৯৩৯",
-      "raw": "1939",
+      "value": "৭৯০৫",
+      "raw": "7905",
+      "main_no": 7905,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "১৫৪০",
-      "raw": "1540",
+      "value": "১০৪১",
+      "raw": "1041",
+      "main_no": 1041,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "সিরাজুল ইসলাম",
+      "value": "শাহানাজ পারভীন",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "ভিটি",
+      "value": "দোকান",
       "bbox": [
         500,
         375,
@@ -76,14 +85,23 @@
       ]
     },
     "area_decimal": {
-      "value": "২০.৯৭",
-      "raw": 20.97,
+      "value": "৪২.৮১",
+      "raw": 42.81,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/7905"
     }
   }
 }

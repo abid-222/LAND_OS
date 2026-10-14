@@ -1,14 +1,20 @@
 {
   "image_file": "doc_290.jpg",
   "document_id": "DOC-SYN-0290",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 0.72,
-    "perspective_warp_max_px": 5,
-    "blur_radius": 0.42,
-    "jpeg_quality": 54,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-২২-3226-5792",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 50,
   "fields": {
     "survey_type": {
       "value": "RS",
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "ময়নামতি",
+      "value": "সফিপুর",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৩",
+      "value": "২২",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "২৩৩৮",
-      "raw": "2338",
+      "value": "৩২২৬",
+      "raw": "3226",
+      "main_no": 3226,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "১৭৯৭",
-      "raw": "1797",
+      "value": "৫৭৯২",
+      "raw": "5792",
+      "main_no": 5792,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "সালমা চৌধুরী",
+      "value": "দেওয়ান ফরিদ গাজী",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "পুকুর",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৫১.০৪",
-      "raw": 51.04,
+      "value": "৪৫.০৫",
+      "raw": 45.05,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/2338"
+      "payload": "khatian/3226"
     }
   }
 }

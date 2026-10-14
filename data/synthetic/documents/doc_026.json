@@ -1,17 +1,22 @@
 {
   "image_file": "doc_026.jpg",
   "document_id": "DOC-SYN-0026",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -2.64,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.42,
-    "jpeg_quality": 49,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-০৬-7595-6466",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "BAD",
+  "quality_gate_passed": false,
+  "degradation": [
+    "glare",
+    "perspective",
+    "shadow",
+    "rotation",
+    "jpeg"
+  ],
+  "jpeg_quality": 25,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "SA",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "টমসমব্রিজ",
+      "value": "ফতুল্লা",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৫",
+      "value": "০৬",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "২৯৩৯",
-      "raw": "2939",
+      "value": "৭৫৯৫",
+      "raw": "7595",
+      "main_no": 7595,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭৮৫০",
-      "raw": "7850",
+      "value": "৬৪৬৬",
+      "raw": "6466",
+      "main_no": 6466,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "মতিউর রহমান",
+      "value": "আখতারুজ্জামান",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "ভিটি",
+      "value": "বাগান",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৪৩.৬৮",
-      "raw": 43.68,
+      "value": "৪৩.৯৯",
+      "raw": 43.99,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/2939"
+      "payload": "khatian/7595"
     }
   }
 }

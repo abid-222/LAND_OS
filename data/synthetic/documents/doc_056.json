@@ -1,17 +1,18 @@
 {
   "image_file": "doc_056.jpg",
   "document_id": "DOC-SYN-0056",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 1.31,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.61,
-    "jpeg_quality": 36,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১৯-7119-5607",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 86,
   "fields": {
     "survey_type": {
-      "value": "BS",
+      "value": "City Survey",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "বাঘা",
+      "value": "গোসিংগা",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "১২",
+      "value": "১৯",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৫৩৪৯",
-      "raw": "5349",
+      "value": "৭১১৯",
+      "raw": "7119",
+      "main_no": 7119,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৫৪১১",
-      "raw": "5411",
+      "value": "৫৬০৭",
+      "raw": "5607",
+      "main_no": 5607,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "দেওয়ান ফরিদ গাজী",
+      "value": "শাহানাজ পারভীন",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "বাড়ি",
+      "value": "পতিত",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৬৯.০৪",
-      "raw": 69.04,
+      "value": "৩৭.৫৪",
+      "raw": 37.54,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/5349"
+      "payload": "khatian/7119"
     }
   }
 }

@@ -1,14 +1,19 @@
 {
   "image_file": "doc_024.jpg",
   "document_id": "DOC-SYN-0024",
+  "record_ref": "REC-MOUZA-৩০-9834-4111",
   "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": -3.85,
-    "perspective_warp_max_px": 11,
-    "blur_radius": 0.56,
-    "jpeg_quality": 39,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "BAD",
+  "quality_gate_passed": false,
+  "degradation": [
+    "blur",
+    "perspective",
+    "shadow",
+    "rotation",
+    "jpeg"
+  ],
+  "jpeg_quality": 32,
   "fields": {
     "survey_type": {
       "value": "BS",
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "হেমায়েতপুর",
+      "value": "ফুলবাড়িয়া",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "৩৫",
+      "value": "৩০",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮১৪৫",
-      "raw": "8145",
+      "value": "৯৮৩৪",
+      "raw": "9834",
+      "main_no": 9834,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৫৩৩৯",
-      "raw": "5339",
+      "value": "৪১১১",
+      "raw": "4111",
+      "main_no": 4111,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "মোহাম্মদ রফিকুল ইসলাম",
+      "value": "মনোয়ারা বেগম",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "বাড়ি",
+      "value": "দোকান",
       "bbox": [
         500,
         375,
@@ -76,23 +85,14 @@
       ]
     },
     "area_decimal": {
-      "value": "৮.৬৩",
-      "raw": 8.63,
+      "value": "৫০.০৮",
+      "raw": 50.08,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/8145"
     }
   }
 }

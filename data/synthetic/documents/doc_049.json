@@ -1,17 +1,18 @@
 {
   "image_file": "doc_049.jpg",
   "document_id": "DOC-SYN-0049",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": -2.8,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.7,
-    "jpeg_quality": 41,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-২২-5753-5926",
+  "font_used": "Nirmala",
+  "digit_mode": "ascii",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 89,
   "fields": {
     "survey_type": {
-      "value": "BS",
+      "value": "City Survey",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "জয়দেবপুর",
+      "value": "সফিপুর",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৩",
+      "value": "২২",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৯৭০১",
-      "raw": "9701",
+      "value": "5753",
+      "raw": "5753",
+      "main_no": 5753,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮৪৭৩",
-      "raw": "8473",
+      "value": "5926/6",
+      "raw": "5926/6",
+      "main_no": 5926,
+      "sub_no": 6,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "জাহানারা বেগম",
+      "value": "শাহজাহান মিয়া",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "নাল",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৭৫.৭২",
-      "raw": 75.72,
+      "value": "9.48",
+      "raw": 9.48,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/9701"
+      "payload": "khatian/5753"
     }
   }
 }

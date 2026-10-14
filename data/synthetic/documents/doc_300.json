@@ -1,17 +1,24 @@
 {
   "image_file": "doc_300.jpg",
   "document_id": "DOC-SYN-0300",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": -2.98,
-    "perspective_warp_max_px": 10,
-    "blur_radius": 0.87,
-    "jpeg_quality": 34,
-    "qr_code_present": false
-  },
+  "record_ref": "REC-MOUZA-৩২-8018-1925",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "glare",
+    "jpeg"
+  ],
+  "jpeg_quality": 53,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "ফুলবাড়িয়া",
+      "value": "সুলতানগঞ্জ",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "৩০",
+      "value": "৩২",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৫৪০৩",
-      "raw": "5403",
+      "value": "৮০১৮",
+      "raw": "8018",
+      "main_no": 8018,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৬১৭৮",
-      "raw": "6178",
+      "value": "১৯২৫",
+      "raw": "1925",
+      "main_no": 1925,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "সালমা চৌধুরী",
+      "value": "শাহানাজ পারভীন",
       "bbox": [
         180,
         375,
@@ -76,14 +87,23 @@
       ]
     },
     "area_decimal": {
-      "value": "৪৪.৭৮",
-      "raw": 44.78,
+      "value": "৩৬.২১",
+      "raw": 36.21,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/8018"
     }
   }
 }

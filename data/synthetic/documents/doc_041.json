@@ -1,17 +1,18 @@
 {
   "image_file": "doc_041.jpg",
   "document_id": "DOC-SYN-0041",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -3.9,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.57,
-    "jpeg_quality": 60,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-০৮-7017-1303",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 94,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "ময়নামতি",
+      "value": "মহাখালী",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৩",
+      "value": "০৮",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৬৭৫৭",
-      "raw": "6757",
+      "value": "7017",
+      "raw": "7017",
+      "main_no": 7017,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৬৮৫৯",
-      "raw": "6859",
+      "value": "1303",
+      "raw": "1303",
+      "main_no": 1303,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "আমেনা খাতুন",
+      "value": "আজহারুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "নাল",
+      "value": "পুকুর",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "১১.৪৮",
-      "raw": 11.48,
+      "value": "57.41",
+      "raw": 57.41,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/6757"
+      "payload": "khatian/7017"
     }
   }
 }

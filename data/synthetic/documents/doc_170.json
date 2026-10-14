@@ -1,17 +1,22 @@
 {
   "image_file": "doc_170.jpg",
   "document_id": "DOC-SYN-0170",
+  "record_ref": "REC-MOUZA-১৮-1695-3403",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -4.48,
-    "perspective_warp_max_px": 7,
-    "blur_radius": 0.62,
-    "jpeg_quality": 38,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "noise",
+    "glare",
+    "jpeg"
+  ],
+  "jpeg_quality": 64,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "BS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "কুমারগাঁও",
+      "value": "পাইকপাড়া",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৭",
+      "value": "১৮",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮১১",
-      "raw": "811",
+      "value": "১৬৯৫",
+      "raw": "1695",
+      "main_no": 1695,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৫২১৮",
-      "raw": "5218",
+      "value": "৩৪০৩/৬",
+      "raw": "3403/6",
+      "main_no": 3403,
+      "sub_no": 6,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "নূরুল হক চৌধুরী",
+      "value": "মোসাঃ ফাতেমা খাতুন",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "রাস্তা",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "১৫.৫৭",
-      "raw": 15.57,
+      "value": "৫৯.০১",
+      "raw": 59.01,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/811"
+      "payload": "khatian/1695"
     }
   }
 }

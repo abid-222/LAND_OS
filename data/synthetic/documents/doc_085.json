@@ -1,17 +1,22 @@
 {
   "image_file": "doc_085.jpg",
   "document_id": "DOC-SYN-0085",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -4.77,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.89,
-    "jpeg_quality": 39,
-    "qr_code_present": false
-  },
+  "record_ref": "REC-MOUZA-০৪-7113-6094",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 42,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "মাওনা",
+      "value": "তেজগাঁও শিল্পাঞ্চল",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৬",
+      "value": "০৪",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "২৩১০",
-      "raw": "2310",
+      "value": "৭১১৩",
+      "raw": "7113",
+      "main_no": 7113,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৬৭৮",
-      "raw": "2678",
+      "value": "৬০৯৪",
+      "raw": "6094",
+      "main_no": 6094,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "মরিয়ম নেসা",
+      "value": "ফাতেমা বেগম",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "নাল",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,14 +85,23 @@
       ]
     },
     "area_decimal": {
-      "value": "৩৮.২৪",
-      "raw": 38.24,
+      "value": "৫৭.৭৫",
+      "raw": 57.75,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/7113"
     }
   }
 }

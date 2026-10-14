@@ -1,17 +1,23 @@
 {
   "image_file": "doc_216.jpg",
   "document_id": "DOC-SYN-0216",
+  "record_ref": "REC-MOUZA-০৩-6361-2054",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -1.22,
-    "perspective_warp_max_px": 10,
-    "blur_radius": 0.86,
-    "jpeg_quality": 62,
-    "qr_code_present": true
-  },
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 58,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "সেনপাড়া পর্বতা",
+      "value": "জয়দেবপুর",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "২১",
+      "value": "০৩",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৩০৯",
-      "raw": "309",
+      "value": "6361",
+      "raw": "6361",
+      "main_no": 6361,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮৮৫৫",
-      "raw": "8855",
+      "value": "2054/7",
+      "raw": "2054/7",
+      "main_no": 2054,
+      "sub_no": 7,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "শাহজাহান মিয়া",
+      "value": "জাহানারা বেগম",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "রাস্তা",
+      "value": "পতিত",
       "bbox": [
         500,
         375,
@@ -76,23 +86,14 @@
       ]
     },
     "area_decimal": {
-      "value": "৭৭.১২",
-      "raw": 77.12,
+      "value": "48.08",
+      "raw": 48.08,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/309"
     }
   }
 }

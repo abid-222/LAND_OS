@@ -1,17 +1,21 @@
 {
   "image_file": "doc_158.jpg",
   "document_id": "DOC-SYN-0158",
+  "record_ref": "REC-MOUZA-৩৫-270-7586",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -4.71,
-    "perspective_warp_max_px": 10,
-    "blur_radius": 0.7,
-    "jpeg_quality": 46,
-    "qr_code_present": true
-  },
+  "digit_mode": "mixed",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 54,
   "fields": {
     "survey_type": {
-      "value": "RS",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +24,7 @@
       ]
     },
     "mouza": {
-      "value": "ময়নামতি",
+      "value": "হেমায়েতপুর",
       "bbox": [
         580,
         155,
@@ -29,7 +33,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৩",
+      "value": "৩৫",
       "bbox": [
         760,
         155,
@@ -38,8 +42,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১২১০",
-      "raw": "1210",
+      "value": "২7০",
+      "raw": "270",
+      "main_no": 270,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +54,10 @@
       ]
     },
     "dag_no": {
-      "value": "৬১৩৬",
-      "raw": "6136",
+      "value": "৭5৮6",
+      "raw": "7586",
+      "main_no": 7586,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +66,7 @@
       ]
     },
     "owner_name": {
-      "value": "কুলসুম বিবি",
+      "value": "শিরীন আক্তার",
       "bbox": [
         180,
         375,
@@ -67,7 +75,7 @@
       ]
     },
     "land_class": {
-      "value": "রাস্তা",
+      "value": "নাল",
       "bbox": [
         500,
         375,
@@ -76,8 +84,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৮২.১২",
-      "raw": 82.12,
+      "value": "৬.৪8",
+      "raw": 6.48,
       "bbox": [
         710,
         375,
@@ -92,7 +100,7 @@
         801,
         941
       ],
-      "payload": "khatian/1210"
+      "payload": "khatian/270"
     }
   }
 }

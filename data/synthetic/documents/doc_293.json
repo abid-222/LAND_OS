@@ -1,17 +1,24 @@
 {
   "image_file": "doc_293.jpg",
   "document_id": "DOC-SYN-0293",
+  "record_ref": "REC-MOUZA-২১-4427-5450",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 3.13,
-    "perspective_warp_max_px": 10,
-    "blur_radius": 0.65,
-    "jpeg_quality": 57,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "motion blur",
+    "jpeg"
+  ],
+  "jpeg_quality": 66,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "BS",
       "bbox": [
         370,
         105,
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "আশুলিয়া",
+      "value": "সেনপাড়া পর্বতা",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "৪২",
+      "value": "২১",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৩৯৩০",
-      "raw": "3930",
+      "value": "৪৪২৭",
+      "raw": "4427",
+      "main_no": 4427,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭০৬৫",
-      "raw": "7065",
+      "value": "৫৪৫০/৮",
+      "raw": "5450/8",
+      "main_no": 5450,
+      "sub_no": 8,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "হাসিনা আক্তার",
+      "value": "সুলতান মাহমুদ",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "ভিটি",
+      "value": "দোকান",
       "bbox": [
         500,
         375,
@@ -76,8 +87,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৫৩.২২",
-      "raw": 53.22,
+      "value": "৫২.৯২",
+      "raw": 52.92,
       "bbox": [
         710,
         375,
@@ -92,7 +103,7 @@
         801,
         941
       ],
-      "payload": "khatian/3930"
+      "payload": "khatian/4427"
     }
   }
 }

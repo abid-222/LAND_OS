@@ -1,17 +1,18 @@
 {
   "image_file": "doc_064.jpg",
   "document_id": "DOC-SYN-0064",
+  "record_ref": "REC-MOUZA-০৬-9349-2077",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -1.16,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 1.07,
-    "jpeg_quality": 52,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 86,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "কুশুরা",
+      "value": "ফতুল্লা",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "৪৬",
+      "value": "০৬",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "২৩৬",
-      "raw": "236",
+      "value": "৯৩৪৯",
+      "raw": "9349",
+      "main_no": 9349,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৩০০৩",
-      "raw": "3003",
+      "value": "২০৭৭",
+      "raw": "2077",
+      "main_no": 2077,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "মেহেরুন্নেসা",
+      "value": "মোঃ রফিকুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "পতিত",
+      "value": "দোকান",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "২৫.৯৩",
-      "raw": 25.93,
+      "value": "৫৮.০৬",
+      "raw": 58.06,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/236"
+      "payload": "khatian/9349"
     }
   }
 }

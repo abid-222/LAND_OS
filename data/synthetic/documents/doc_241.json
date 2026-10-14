@@ -1,14 +1,20 @@
 {
   "image_file": "doc_241.jpg",
   "document_id": "DOC-SYN-0241",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 1.2,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.71,
-    "jpeg_quality": 63,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১৯-1827-5666",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 51,
   "fields": {
     "survey_type": {
       "value": "RS",
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "তেজগাঁও শিল্পাঞ্চল",
+      "value": "গোসিংগা",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৪",
+      "value": "১৯",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "২৯৪৩",
-      "raw": "2943",
+      "value": "১৮২৭",
+      "raw": "1827",
+      "main_no": 1827,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "১৬৭৪",
-      "raw": "1674",
+      "value": "৫৬৬৬",
+      "raw": "5666",
+      "main_no": 5666,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "এনামুল হক",
+      "value": "শাহাদাত হোসেন",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "রাস্তা",
+      "value": "পুকুর",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৯.০৭",
-      "raw": 9.07,
+      "value": "৫৩.৩৭",
+      "raw": 53.37,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/2943"
+      "payload": "khatian/1827"
     }
   }
 }

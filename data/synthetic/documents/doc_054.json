@@ -1,17 +1,18 @@
 {
   "image_file": "doc_054.jpg",
   "document_id": "DOC-SYN-0054",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -3.96,
-    "perspective_warp_max_px": 5,
-    "blur_radius": 0.7,
-    "jpeg_quality": 55,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-৪৬-6070-6195",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "mixed",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 87,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "কাফরুল",
+      "value": "কুশুরা",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "২৫",
+      "value": "৪৬",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৯২০৬",
-      "raw": "9206",
+      "value": "৬0৭0",
+      "raw": "6070",
+      "main_no": 6070,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৮৩২",
-      "raw": "832",
+      "value": "৬1৯5",
+      "raw": "6195",
+      "main_no": 6195,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "সুলতান মাহমুদ",
+      "value": "সালমা চৌধুরী",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "নাল",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "২৬.০৪",
-      "raw": 26.04,
+      "value": "৫5.5৮",
+      "raw": 55.58,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/9206"
+      "payload": "khatian/6070"
     }
   }
 }

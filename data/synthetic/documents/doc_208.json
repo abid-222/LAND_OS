@@ -1,14 +1,21 @@
 {
   "image_file": "doc_208.jpg",
   "document_id": "DOC-SYN-0208",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": -5.49,
-    "perspective_warp_max_px": 5,
-    "blur_radius": 0.85,
-    "jpeg_quality": 54,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-০৮-128-7954",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "glare",
+    "jpeg"
+  ],
+  "jpeg_quality": 62,
   "fields": {
     "survey_type": {
       "value": "BS",
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "জয়দেবপুর",
+      "value": "মহাখালী",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৩",
+      "value": "০৮",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "২৬৭৫",
-      "raw": "2675",
+      "value": "১২৮",
+      "raw": "128",
+      "main_no": 128,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৬৭২০",
-      "raw": "6720",
+      "value": "৭৯৫৪",
+      "raw": "7954",
+      "main_no": 7954,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "গোলাম কিবরিয়া",
+      "value": "রোকেয়া সুলতানা",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "পতিত",
+      "value": "দোকান",
       "bbox": [
         500,
         375,
@@ -76,23 +87,14 @@
       ]
     },
     "area_decimal": {
-      "value": "৬৯.৯১",
-      "raw": 69.91,
+      "value": "৬৪.২২",
+      "raw": 64.22,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/2675"
     }
   }
 }

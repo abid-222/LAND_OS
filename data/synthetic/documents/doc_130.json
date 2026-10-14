@@ -1,17 +1,23 @@
 {
   "image_file": "doc_130.jpg",
   "document_id": "DOC-SYN-0130",
+  "record_ref": "REC-MOUZA-০১-6135-6841",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -2.22,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.86,
-    "jpeg_quality": 58,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 68,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "BS",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "কুশুরা",
+      "value": "কাওরান বাজার",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "৪৬",
+      "value": "০১",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৭২৫৯",
-      "raw": "7259",
+      "value": "৬১৩৫",
+      "raw": "6135",
+      "main_no": 6135,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৩০৮১",
-      "raw": "3081",
+      "value": "৬৮৪১",
+      "raw": "6841",
+      "main_no": 6841,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "আমেনা খাতুন",
+      "value": "কামাল উদ্দিন আহমেদ",
       "bbox": [
         180,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৮.৭৭",
-      "raw": 8.77,
+      "value": "৫৩.৩৯",
+      "raw": 53.39,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/7259"
+      "payload": "khatian/6135"
     }
   }
 }

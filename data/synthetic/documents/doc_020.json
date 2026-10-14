@@ -1,14 +1,19 @@
 {
   "image_file": "doc_020.jpg",
   "document_id": "DOC-SYN-0020",
+  "record_ref": "REC-MOUZA-০৪-4507-3845",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -2.87,
-    "perspective_warp_max_px": 5,
-    "blur_radius": 1.16,
-    "jpeg_quality": 55,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "BAD",
+  "quality_gate_passed": false,
+  "degradation": [
+    "low-res",
+    "perspective",
+    "shadow",
+    "rotation",
+    "jpeg"
+  ],
+  "jpeg_quality": 30,
   "fields": {
     "survey_type": {
       "value": "BS",
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১৮৪৪",
-      "raw": "1844",
+      "value": "৪৫০৭",
+      "raw": "4507",
+      "main_no": 4507,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭৯৯৬",
-      "raw": "7996",
+      "value": "৩৮৪৫",
+      "raw": "3845",
+      "main_no": 3845,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "মরিয়ম নেসা",
+      "value": "দেওয়ান ফরিদ গাজী",
       "bbox": [
         180,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৭৪.৫৮",
-      "raw": 74.58,
+      "value": "৫০.৫৮",
+      "raw": 50.58,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/1844"
+      "payload": "khatian/4507"
     }
   }
 }

@@ -1,17 +1,23 @@
 {
   "image_file": "doc_270.jpg",
   "document_id": "DOC-SYN-0270",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -3.95,
-    "perspective_warp_max_px": 4,
-    "blur_radius": 1.01,
-    "jpeg_quality": 36,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১৮-1720-2326",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 67,
   "fields": {
     "survey_type": {
-      "value": "BS",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "কাঞ্চন",
+      "value": "পাইকপাড়া",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "২৩",
+      "value": "১৮",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৯৬৯২",
-      "raw": "9692",
+      "value": "১৭২০",
+      "raw": "1720",
+      "main_no": 1720,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭১৭৩",
-      "raw": "7173",
+      "value": "২৩২৬",
+      "raw": "2326",
+      "main_no": 2326,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "নূরুল হক চৌধুরী",
+      "value": "মোসাঃ ফাতেমা খাতুন",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৮৩.৯২",
-      "raw": 83.92,
+      "value": "৭৭.৭৬",
+      "raw": 77.76,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/9692"
+      "payload": "khatian/1720"
     }
   }
 }

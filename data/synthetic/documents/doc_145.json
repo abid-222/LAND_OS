@@ -1,14 +1,19 @@
 {
   "image_file": "doc_145.jpg",
   "document_id": "DOC-SYN-0145",
+  "record_ref": "REC-MOUZA-১৩-8179-5978",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -3.37,
-    "perspective_warp_max_px": 6,
-    "blur_radius": 0.99,
-    "jpeg_quality": 63,
-    "qr_code_present": false
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 70,
   "fields": {
     "survey_type": {
       "value": "SA",
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "কুমারগাঁও",
+      "value": "ময়নামতি",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৭",
+      "value": "১৩",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "১১০৫",
-      "raw": "1105",
+      "value": "৮১৭৯",
+      "raw": "8179",
+      "main_no": 8179,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "২৬১২",
-      "raw": "2612",
+      "value": "৫৯৭৮",
+      "raw": "5978",
+      "main_no": 5978,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,14 +85,23 @@
       ]
     },
     "area_decimal": {
-      "value": "২২.৩৫",
-      "raw": 22.35,
+      "value": "৭৭.৫৬",
+      "raw": 77.56,
       "bbox": [
         710,
         375,
         820,
         400
       ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/8179"
     }
   }
 }

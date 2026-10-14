@@ -1,17 +1,22 @@
 {
   "image_file": "doc_289.jpg",
   "document_id": "DOC-SYN-0289",
+  "record_ref": "REC-MOUZA-১৬-813-3010",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -4.31,
-    "perspective_warp_max_px": 5,
-    "blur_radius": 0.49,
-    "jpeg_quality": 48,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 57,
   "fields": {
     "survey_type": {
-      "value": "SA",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +25,7 @@
       ]
     },
     "mouza": {
-      "value": "বাঘা",
+      "value": "ঢাকা দক্ষিণ",
       "bbox": [
         580,
         155,
@@ -29,7 +34,7 @@
       ]
     },
     "jl_no": {
-      "value": "১২",
+      "value": "১৬",
       "bbox": [
         760,
         155,
@@ -38,8 +43,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৭৫৮৫",
-      "raw": "7585",
+      "value": "৮১৩",
+      "raw": "813",
+      "main_no": 813,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +55,10 @@
       ]
     },
     "dag_no": {
-      "value": "৪৮০৪",
-      "raw": "4804",
+      "value": "৩০১০",
+      "raw": "3010",
+      "main_no": 3010,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +67,7 @@
       ]
     },
     "owner_name": {
-      "value": "জয়নাল আবেদীন",
+      "value": "ফাতেমা বেগম",
       "bbox": [
         180,
         375,
@@ -67,7 +76,7 @@
       ]
     },
     "land_class": {
-      "value": "রাস্তা",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,8 +85,8 @@
       ]
     },
     "area_decimal": {
-      "value": "২৭.৪৯",
-      "raw": 27.49,
+      "value": "৪৩.৫২",
+      "raw": 43.52,
       "bbox": [
         710,
         375,
@@ -92,7 +101,7 @@
         801,
         941
       ],
-      "payload": "khatian/7585"
+      "payload": "khatian/813"
     }
   }
 }

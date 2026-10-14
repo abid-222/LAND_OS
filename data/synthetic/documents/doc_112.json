@@ -1,17 +1,23 @@
 {
   "image_file": "doc_112.jpg",
   "document_id": "DOC-SYN-0112",
+  "record_ref": "REC-MOUZA-১৯-1460-8799",
   "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": 2.07,
-    "perspective_warp_max_px": 12,
-    "blur_radius": 0.89,
-    "jpeg_quality": 51,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 41,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "আশুলিয়া",
+      "value": "গোসিংগা",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "৪২",
+      "value": "১৯",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৬০৯৪",
-      "raw": "6094",
+      "value": "১৪৬০",
+      "raw": "1460",
+      "main_no": 1460,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৯০২",
-      "raw": "902",
+      "value": "৮৭৯৯",
+      "raw": "8799",
+      "main_no": 8799,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "হাসিনা আক্তার",
+      "value": "রাবেয়া বসরী",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "দোকান",
+      "value": "বাগান",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "১৫.৭৮",
-      "raw": 15.78,
+      "value": "১৭.৭৭",
+      "raw": 17.77,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/6094"
+      "payload": "khatian/1460"
     }
   }
 }

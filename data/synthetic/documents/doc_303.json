@@ -1,17 +1,23 @@
 {
   "image_file": "doc_303.jpg",
   "document_id": "DOC-SYN-0303",
-  "font_used": "HindSiliguri-Regular",
-  "degradations": {
-    "rotation_degrees": -4.55,
-    "perspective_warp_max_px": 8,
-    "blur_radius": 0.54,
-    "jpeg_quality": 30,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-১২-1604-6124",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 62,
   "fields": {
     "survey_type": {
-      "value": "CS",
+      "value": "BS",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "ফুলবাড়িয়া",
+      "value": "বাঘা",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "৩০",
+      "value": "১২",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮৯৪৮",
-      "raw": "8948",
+      "value": "১৬০৪",
+      "raw": "1604",
+      "main_no": 1604,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৩৮৭৩",
-      "raw": "3873",
+      "value": "৬১২৪",
+      "raw": "6124",
+      "main_no": 6124,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "আব্দুর রহিম তালুকদার",
+      "value": "বিলকিস বানু",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "পতিত",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৩৩.৬৮",
-      "raw": 33.68,
+      "value": "৮৪.১৫",
+      "raw": 84.15,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/8948"
+      "payload": "khatian/1604"
     }
   }
 }

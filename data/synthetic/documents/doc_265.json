@@ -1,17 +1,23 @@
 {
   "image_file": "doc_265.jpg",
   "document_id": "DOC-SYN-0265",
+  "record_ref": "REC-MOUZA-০৮-2450-5257",
   "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": -2.97,
-    "perspective_warp_max_px": 7,
-    "blur_radius": 0.96,
-    "jpeg_quality": 47,
-    "qr_code_present": true
-  },
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 46,
   "fields": {
     "survey_type": {
-      "value": "BS",
+      "value": "RS",
       "bbox": [
         370,
         105,
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "তেজগাঁও শিল্পাঞ্চল",
+      "value": "মহাখালী",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "০৪",
+      "value": "০৮",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৪৪৬০",
-      "raw": "4460",
+      "value": "২৪৫০",
+      "raw": "2450",
+      "main_no": 2450,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৬০৮০",
-      "raw": "6080",
+      "value": "৫২৫৭",
+      "raw": "5257",
+      "main_no": 5257,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "আজহারুল ইসলাম",
+      "value": "সুলতান মাহমুদ",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "পুকুর",
+      "value": "বাড়ি",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৫৫.৫৬",
-      "raw": 55.56,
+      "value": "৩৪.৫৩",
+      "raw": 34.53,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/4460"
+      "payload": "khatian/2450"
     }
   }
 }

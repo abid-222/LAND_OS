@@ -1,17 +1,24 @@
 {
   "image_file": "doc_175.jpg",
   "document_id": "DOC-SYN-0175",
-  "font_used": "NotoSansBengali-Regular",
-  "degradations": {
-    "rotation_degrees": 4.28,
-    "perspective_warp_max_px": 11,
-    "blur_radius": 0.45,
-    "jpeg_quality": 53,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-৩০-9927-1623",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "glare",
+    "jpeg"
+  ],
+  "jpeg_quality": 61,
   "fields": {
     "survey_type": {
-      "value": "City Survey",
+      "value": "BS",
       "bbox": [
         370,
         105,
@@ -20,7 +27,7 @@
       ]
     },
     "mouza": {
-      "value": "জাফরাবাদ",
+      "value": "ফুলবাড়িয়া",
       "bbox": [
         580,
         155,
@@ -29,7 +36,7 @@
       ]
     },
     "jl_no": {
-      "value": "২৮",
+      "value": "৩০",
       "bbox": [
         760,
         155,
@@ -38,8 +45,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৯০১২",
-      "raw": "9012",
+      "value": "৯৯২৭",
+      "raw": "9927",
+      "main_no": 9927,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +57,10 @@
       ]
     },
     "dag_no": {
-      "value": "৭২৯৪",
-      "raw": "7294",
+      "value": "১৬২৩",
+      "raw": "1623",
+      "main_no": 1623,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +69,7 @@
       ]
     },
     "owner_name": {
-      "value": "আজহারুল ইসলাম",
+      "value": "সিরাজুল ইসলাম",
       "bbox": [
         180,
         375,
@@ -67,7 +78,7 @@
       ]
     },
     "land_class": {
-      "value": "বাড়ি",
+      "value": "পতিত",
       "bbox": [
         500,
         375,
@@ -76,23 +87,14 @@
       ]
     },
     "area_decimal": {
-      "value": "৫৭.৪২",
-      "raw": 57.42,
+      "value": "২১.৯৮",
+      "raw": 21.98,
       "bbox": [
         710,
         375,
         820,
         400
       ]
-    },
-    "qr_code": {
-      "bbox": [
-        690,
-        830,
-        801,
-        941
-      ],
-      "payload": "khatian/9012"
     }
   }
 }

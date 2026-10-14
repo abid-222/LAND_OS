@@ -1,14 +1,20 @@
 {
   "image_file": "doc_257.jpg",
   "document_id": "DOC-SYN-0257",
+  "record_ref": "REC-MOUZA-০৩-521-2106",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 1.74,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 0.75,
-    "jpeg_quality": 33,
-    "qr_code_present": true
-  },
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 40,
   "fields": {
     "survey_type": {
       "value": "CS",
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "আম্বরখানা",
+      "value": "জয়দেবপুর",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "০২",
+      "value": "০৩",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৩৫৯৩",
-      "raw": "3593",
+      "value": "521",
+      "raw": "521",
+      "main_no": 521,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৪১৩৩",
-      "raw": "4133",
+      "value": "2106",
+      "raw": "2106",
+      "main_no": 2106,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "মনোয়ারা বেগম",
+      "value": "ফাতেমা বেগম",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "বাড়ি",
+      "value": "ভিটি",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "১৯.৩৭",
-      "raw": 19.37,
+      "value": "49.11",
+      "raw": 49.11,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/3593"
+      "payload": "khatian/521"
     }
   }
 }

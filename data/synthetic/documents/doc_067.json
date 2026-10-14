@@ -1,17 +1,18 @@
 {
   "image_file": "doc_067.jpg",
   "document_id": "DOC-SYN-0067",
+  "record_ref": "REC-MOUZA-১৬-888-3859",
   "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": -5.11,
-    "perspective_warp_max_px": 9,
-    "blur_radius": 1.06,
-    "jpeg_quality": 43,
-    "qr_code_present": true
-  },
+  "digit_mode": "ascii",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 91,
   "fields": {
     "survey_type": {
-      "value": "SA",
+      "value": "CS",
       "bbox": [
         370,
         105,
@@ -20,7 +21,7 @@
       ]
     },
     "mouza": {
-      "value": "সুলতানগঞ্জ",
+      "value": "মাওনা",
       "bbox": [
         580,
         155,
@@ -29,7 +30,7 @@
       ]
     },
     "jl_no": {
-      "value": "৩২",
+      "value": "১৬",
       "bbox": [
         760,
         155,
@@ -38,8 +39,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮০৫০",
-      "raw": "8050",
+      "value": "888",
+      "raw": "888",
+      "main_no": 888,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +51,10 @@
       ]
     },
     "dag_no": {
-      "value": "৫৯২",
-      "raw": "592",
+      "value": "3859",
+      "raw": "3859",
+      "main_no": 3859,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +63,7 @@
       ]
     },
     "owner_name": {
-      "value": "নূরুল হক চৌধুরী",
+      "value": "মোসাঃ ফাতেমা খাতুন",
       "bbox": [
         180,
         375,
@@ -67,7 +72,7 @@
       ]
     },
     "land_class": {
-      "value": "ভিটি",
+      "value": "দোকান",
       "bbox": [
         500,
         375,
@@ -76,8 +81,8 @@
       ]
     },
     "area_decimal": {
-      "value": "৫০.০০",
-      "raw": 50.0,
+      "value": "71.55",
+      "raw": 71.55,
       "bbox": [
         710,
         375,
@@ -92,7 +97,7 @@
         801,
         941
       ],
-      "payload": "khatian/8050"
+      "payload": "khatian/888"
     }
   }
 }

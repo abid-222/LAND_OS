@@ -1,14 +1,20 @@
 {
   "image_file": "doc_287.jpg",
   "document_id": "DOC-SYN-0287",
-  "font_used": "Nirmala",
-  "degradations": {
-    "rotation_degrees": 2.77,
-    "perspective_warp_max_px": 8,
-    "blur_radius": 1.09,
-    "jpeg_quality": 42,
-    "qr_code_present": true
-  },
+  "record_ref": "REC-MOUZA-০১-1172-6542",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 55,
   "fields": {
     "survey_type": {
       "value": "CS",
@@ -20,7 +26,7 @@
       ]
     },
     "mouza": {
-      "value": "ঢাকা দক্ষিণ",
+      "value": "কাওরান বাজার",
       "bbox": [
         580,
         155,
@@ -29,7 +35,7 @@
       ]
     },
     "jl_no": {
-      "value": "১৬",
+      "value": "০১",
       "bbox": [
         760,
         155,
@@ -38,8 +44,10 @@
       ]
     },
     "khatian_no": {
-      "value": "৮৯৭০",
-      "raw": "8970",
+      "value": "1172",
+      "raw": "1172",
+      "main_no": 1172,
+      "sub_no": null,
       "bbox": [
         220,
         212,
@@ -48,8 +56,10 @@
       ]
     },
     "dag_no": {
-      "value": "৬৫৬৮",
-      "raw": "6568",
+      "value": "6542",
+      "raw": "6542",
+      "main_no": 6542,
+      "sub_no": null,
       "bbox": [
         620,
         212,
@@ -58,7 +68,7 @@
       ]
     },
     "owner_name": {
-      "value": "গোলাম কিবরিয়া",
+      "value": "নূরুল হক চৌধুরী",
       "bbox": [
         180,
         375,
@@ -67,7 +77,7 @@
       ]
     },
     "land_class": {
-      "value": "নাল",
+      "value": "দোকান",
       "bbox": [
         500,
         375,
@@ -76,8 +86,8 @@
       ]
     },
     "area_decimal": {
-      "value": "১৯.৯৪",
-      "raw": 19.94,
+      "value": "24.49",
+      "raw": 24.49,
       "bbox": [
         710,
         375,
@@ -92,7 +102,7 @@
         801,
         941
       ],
-      "payload": "khatian/8970"
+      "payload": "khatian/1172"
     }
   }
 }
