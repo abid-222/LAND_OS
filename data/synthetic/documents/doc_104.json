@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_104.jpg",
+  "document_id": "DOC-SYN-0104",
+  "font_used": "HindSiliguri-Regular",
+  "degradations": {
+    "rotation_degrees": -1.82,
+    "perspective_warp_max_px": 4,
+    "blur_radius": 1.18,
+    "jpeg_quality": 42,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "SA",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "ঢাকা দক্ষিণ",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "১৬",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৭৬২০",
+      "raw": "7620",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৭১৫৯",
+      "raw": "7159",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "এনামুল হক",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "নাল",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৭১.০৬",
+      "raw": 71.06,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/7620"
+    }
+  }
+}

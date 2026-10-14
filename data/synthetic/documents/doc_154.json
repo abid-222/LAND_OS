@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_154.jpg",
+  "document_id": "DOC-SYN-0154",
+  "font_used": "HindSiliguri-Regular",
+  "degradations": {
+    "rotation_degrees": -5.77,
+    "perspective_warp_max_px": 6,
+    "blur_radius": 0.95,
+    "jpeg_quality": 31,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "RS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "কুশুরা",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "৪৬",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "২৫৬৮",
+      "raw": "2568",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৬১৬৭",
+      "raw": "6167",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "ফাতেমা বেগম",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "পুকুর",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৭৭.১৪",
+      "raw": 77.14,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/2568"
+    }
+  }
+}

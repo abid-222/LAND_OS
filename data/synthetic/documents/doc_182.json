@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_182.jpg",
+  "document_id": "DOC-SYN-0182",
+  "font_used": "NotoSansBengali-Regular",
+  "degradations": {
+    "rotation_degrees": -4.69,
+    "perspective_warp_max_px": 4,
+    "blur_radius": 1.07,
+    "jpeg_quality": 46,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "RS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "সফিপুর",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "২২",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৪৩৭",
+      "raw": "437",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৪৬৫২",
+      "raw": "4652",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "আমেনা খাতুন",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "ভিটি",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৩২.৮০",
+      "raw": 32.8,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/437"
+    }
+  }
+}

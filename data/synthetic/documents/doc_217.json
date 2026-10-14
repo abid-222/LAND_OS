@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_217.jpg",
+  "document_id": "DOC-SYN-0217",
+  "font_used": "HindSiliguri-Regular",
+  "degradations": {
+    "rotation_degrees": 4.93,
+    "perspective_warp_max_px": 10,
+    "blur_radius": 0.79,
+    "jpeg_quality": 59,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "CS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "সিদ্ধিরগঞ্জ",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০২",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৯২৬৪",
+      "raw": "9264",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "২৯১৮",
+      "raw": "2918",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "নুরুল হক চৌধুরী",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "নাল",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৫৬.৭০",
+      "raw": 56.7,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/9264"
+    }
+  }
+}

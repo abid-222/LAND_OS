@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_199.jpg",
+  "document_id": "DOC-SYN-0199",
+  "font_used": "NotoSansBengali-Regular",
+  "degradations": {
+    "rotation_degrees": -1.26,
+    "perspective_warp_max_px": 7,
+    "blur_radius": 0.61,
+    "jpeg_quality": 39,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "City Survey",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "ফুলবাড়িয়া",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "৩০",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৮৭৬৫",
+      "raw": "8765",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৮০৮৭",
+      "raw": "8087",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "দেওয়ান ফরিদ গাজী",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "পতিত",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৭৭.৭৬",
+      "raw": 77.76,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

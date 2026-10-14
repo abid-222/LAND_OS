@@ -1,0 +1,8144 @@
+{
+  "type": "FeatureCollection",
+  "name": "Bangladesh LandOS Synthetic Demo Parcels & Cadastral Layers",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "disclaimer_bn": "প্রদর্শিত নকশা ও সীমানা শুধুমাত্র উদাহরণের জন্য / এটি কোনো আইনি সীমানা নয়।",
+  "disclaimer_en": "Illustrative / Not a legal boundary. Synthetic demo layers.",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "parcel_0001",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.390048,
+              23.759949
+            ],
+            [
+              90.391749,
+              23.760048
+            ],
+            [
+              90.391728,
+              23.76142
+            ],
+            [
+              90.38992,
+              23.761428
+            ],
+            [
+              90.390048,
+              23.759949
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৫-1001",
+        "khatian_no": "৩০৪",
+        "dag_no": "১০০১",
+        "mouza_bn": "কাফরুল",
+        "mouza_en": "Kafrul",
+        "upazila": "Mirpur",
+        "district": "Dhaka",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 65.02,
+        "area_sqm": 2631.2,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_002.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0002",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.391706,
+              23.759944
+            ],
+            [
+              90.393544,
+              23.759906
+            ],
+            [
+              90.393601,
+              23.761405
+            ],
+            [
+              90.391705,
+              23.761501
+            ],
+            [
+              90.391706,
+              23.759944
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৬-1002",
+        "khatian_no": "৩৬০",
+        "dag_no": "১০০২",
+        "mouza_bn": "ফতুল্লা",
+        "mouza_en": "Fatullah",
+        "upazila": "Narayanganj Sadar",
+        "district": "Narayanganj",
+        "land_type": "পতিত (Fallow/Unused)",
+        "area_decimal": 20.17,
+        "area_sqm": 816.1,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_003.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0003",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.393662,
+              23.759901
+            ],
+            [
+              90.395301,
+              23.760062
+            ],
+            [
+              90.395461,
+              23.76154
+            ],
+            [
+              90.39364,
+              23.761561
+            ],
+            [
+              90.393662,
+              23.759901
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১০-1003",
+        "khatian_no": "২৩৭৮",
+        "dag_no": "১০০৩",
+        "mouza_bn": "পানাম নগর",
+        "mouza_en": "Panam Nagar",
+        "upazila": "Sonargaon",
+        "district": "Narayanganj",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 31.87,
+        "area_sqm": 1289.8,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_004.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0004",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.395319,
+              23.759919
+            ],
+            [
+              90.397119,
+              23.759919
+            ],
+            [
+              90.397269,
+              23.761521
+            ],
+            [
+              90.395421,
+              23.761569
+            ],
+            [
+              90.395319,
+              23.759919
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৬-1004",
+        "khatian_no": "৯৩৭",
+        "dag_no": "১০০৪",
+        "mouza_bn": "মাওনা",
+        "mouza_en": "Mawna",
+        "upazila": "Sreepur",
+        "district": "Gazipur",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 70.52,
+        "area_sqm": 2853.9,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_005.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0005",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.397116,
+              23.759959
+            ],
+            [
+              90.398959,
+              23.759916
+            ],
+            [
+              90.399026,
+              23.761577
+            ],
+            [
+              90.397277,
+              23.761526
+            ],
+            [
+              90.397116,
+              23.759959
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৫-1005",
+        "khatian_no": "৩২০০",
+        "dag_no": "১০০৫",
+        "mouza_bn": "কাফরুল",
+        "mouza_en": "Kafrul",
+        "upazila": "Mirpur",
+        "district": "Dhaka",
+        "land_type": "বাগান (Bagan - Orchard)",
+        "area_decimal": 33.64,
+        "area_sqm": 1361.5,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_006.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0006",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.399032,
+              23.760055
+            ],
+            [
+              90.400855,
+              23.760032
+            ],
+            [
+              90.400897,
+              23.761571
+            ],
+            [
+              90.399071,
+              23.761597
+            ],
+            [
+              90.399032,
+              23.760055
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৫-1006",
+        "khatian_no": "৪৭৫",
+        "dag_no": "১০০৬",
+        "mouza_bn": "ভাটারা",
+        "mouza_en": "Vatara",
+        "upazila": "Gulshan",
+        "district": "Dhaka",
+        "land_type": "পতিত (Fallow/Unused)",
+        "area_decimal": 75.43,
+        "area_sqm": 3052.7,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_007.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0007",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.400733,
+              23.759971
+            ],
+            [
+              90.402571,
+              23.759933
+            ],
+            [
+              90.402634,
+              23.76154
+            ],
+            [
+              90.40084,
+              23.761534
+            ],
+            [
+              90.400733,
+              23.759971
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৪-1007",
+        "khatian_no": "৩০৮৮",
+        "dag_no": "১০০৭",
+        "mouza_bn": "কাঁচপুর",
+        "mouza_en": "Kanchpur",
+        "upazila": "Sonargaon",
+        "district": "Narayanganj",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 60.29,
+        "area_sqm": 2439.9,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_008.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0008",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.402646,
+              23.759933
+            ],
+            [
+              90.404333,
+              23.760046
+            ],
+            [
+              90.404376,
+              23.761598
+            ],
+            [
+              90.402698,
+              23.761476
+            ],
+            [
+              90.402646,
+              23.759933
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৩৫-1008",
+        "khatian_no": "৪৪৭৫",
+        "dag_no": "১০০৮",
+        "mouza_bn": "হেমায়েতপুর",
+        "mouza_en": "Hemayetpur",
+        "upazila": "Savar",
+        "district": "Dhaka",
+        "land_type": "বাগান (Bagan - Orchard)",
+        "area_decimal": 56.69,
+        "area_sqm": 2294.0,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_009.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0009",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.404346,
+              23.759906
+            ],
+            [
+              90.406106,
+              23.759946
+            ],
+            [
+              90.406163,
+              23.761454
+            ],
+            [
+              90.404354,
+              23.761463
+            ],
+            [
+              90.404346,
+              23.759906
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১১-1009",
+        "khatian_no": "৫৫৮",
+        "dag_no": "১০০৯",
+        "mouza_bn": "সালনা",
+        "mouza_en": "Salna",
+        "upazila": "Gazipur Sadar",
+        "district": "Gazipur",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 21.17,
+        "area_sqm": 856.8,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_010.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0010",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.406277,
+              23.760029
+            ],
+            [
+              90.408029,
+              23.760077
+            ],
+            [
+              90.407929,
+              23.761428
+            ],
+            [
+              90.406128,
+              23.761429
+            ],
+            [
+              90.406277,
+              23.760029
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৩-1010",
+        "khatian_no": "৩৩৪১",
+        "dag_no": "১০১০",
+        "mouza_bn": "কাঞ্চন",
+        "mouza_en": "Kanchan",
+        "upazila": "Rupganj",
+        "district": "Narayanganj",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 65.38,
+        "area_sqm": 2645.7,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_011.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0011",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.40808,
+              23.75998
+            ],
+            [
+              90.40978,
+              23.76008
+            ],
+            [
+              90.409744,
+              23.7616
+            ],
+            [
+              90.4081,
+              23.761444
+            ],
+            [
+              90.40808,
+              23.75998
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৭-1011",
+        "khatian_no": "৩৬০৯",
+        "dag_no": "১০১১",
+        "mouza_bn": "কুমারগাঁও",
+        "mouza_en": "Kumargaon",
+        "upazila": "Sylhet Sadar",
+        "district": "Sylhet",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 45.88,
+        "area_sqm": 1856.9,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_012.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0012",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.409825,
+              23.760058
+            ],
+            [
+              90.411658,
+              23.760025
+            ],
+            [
+              90.411584,
+              23.761413
+            ],
+            [
+              90.409713,
+              23.761484
+            ],
+            [
+              90.409825,
+              23.760058
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৫-1012",
+        "khatian_no": "১৩৫২",
+        "dag_no": "১০১২",
+        "mouza_bn": "কাফরুল",
+        "mouza_en": "Kafrul",
+        "upazila": "Mirpur",
+        "district": "Dhaka",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 35.3,
+        "area_sqm": 1428.4,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_013.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0013",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.411636,
+              23.759923
+            ],
+            [
+              90.413323,
+              23.760036
+            ],
+            [
+              90.413477,
+              23.76155
+            ],
+            [
+              90.41165,
+              23.761577
+            ],
+            [
+              90.411636,
+              23.759923
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৫৭-1013",
+        "khatian_no": "১৯৪",
+        "dag_no": "১০১৩",
+        "mouza_bn": "তারানগর",
+        "mouza_en": "Taranagar",
+        "upazila": "Keraniganj",
+        "district": "Dhaka",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 67.33,
+        "area_sqm": 2724.8,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_014.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0014",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.389932,
+              23.761401
+            ],
+            [
+              90.391701,
+              23.761432
+            ],
+            [
+              90.391844,
+              23.763044
+            ],
+            [
+              90.390044,
+              23.763044
+            ],
+            [
+              90.389932,
+              23.761401
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৩-1014",
+        "khatian_no": "৩৬৬১",
+        "dag_no": "১০১৪",
+        "mouza_bn": "জয়দেবপুর",
+        "mouza_en": "Joydebpur",
+        "upazila": "Gazipur Sadar",
+        "district": "Gazipur",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 84.16,
+        "area_sqm": 3405.8,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_015.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0015",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.391868,
+              23.761502
+            ],
+            [
+              90.393602,
+              23.761568
+            ],
+            [
+              90.39354,
+              23.762975
+            ],
+            [
+              90.391775,
+              23.76294
+            ],
+            [
+              90.391868,
+              23.761502
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২১-1015",
+        "khatian_no": "২৫৪৪",
+        "dag_no": "১০১৫",
+        "mouza_bn": "সেনপাড়া পর্বতা",
+        "mouza_en": "Senpara Parbata",
+        "upazila": "Mirpur",
+        "district": "Dhaka",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 17.08,
+        "area_sqm": 691.2,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_016.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0016",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.393504,
+              23.761586
+            ],
+            [
+              90.395486,
+              23.761404
+            ],
+            [
+              90.395476,
+              23.763066
+            ],
+            [
+              90.393666,
+              23.763076
+            ],
+            [
+              90.393504,
+              23.761586
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১১-1016",
+        "khatian_no": "৪১০২",
+        "dag_no": "১০১৬",
+        "mouza_bn": "সালনা",
+        "mouza_en": "Salna",
+        "upazila": "Gazipur Sadar",
+        "district": "Gazipur",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 29.16,
+        "area_sqm": 1180.2,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_017.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0017",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.395317,
+              23.761497
+            ],
+            [
+              90.397197,
+              23.761417
+            ],
+            [
+              90.397114,
+              23.763052
+            ],
+            [
+              90.395452,
+              23.762914
+            ],
+            [
+              90.395317,
+              23.761497
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০২-1017",
+        "khatian_no": "৭৪৫",
+        "dag_no": "১০১৭",
+        "mouza_bn": "আম্বরখানা",
+        "mouza_en": "Amberkhana",
+        "upazila": "Sylhet Sadar",
+        "district": "Sylhet",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 67.1,
+        "area_sqm": 2715.5,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_018.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0018",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.397153,
+              23.761574
+            ],
+            [
+              90.399074,
+              23.761453
+            ],
+            [
+              90.398985,
+              23.762942
+            ],
+            [
+              90.397142,
+              23.762985
+            ],
+            [
+              90.397153,
+              23.761574
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৮-1018",
+        "khatian_no": "১৪৫২",
+        "dag_no": "১০১৮",
+        "mouza_bn": "মুড়াপাড়া",
+        "mouza_en": "Murapara",
+        "upazila": "Rupganj",
+        "district": "Narayanganj",
+        "land_type": "বাগান (Bagan - Orchard)",
+        "area_decimal": 48.35,
+        "area_sqm": 1956.6,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_019.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0019",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.399099,
+              23.76153
+            ],
+            [
+              90.40083,
+              23.761599
+            ],
+            [
+              90.400788,
+              23.763004
+            ],
+            [
+              90.399004,
+              23.762988
+            ],
+            [
+              90.399099,
+              23.76153
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৭-1019",
+        "khatian_no": "৩৩৬৮",
+        "dag_no": "১০১৯",
+        "mouza_bn": "চান্দনা",
+        "mouza_en": "Chandana",
+        "upazila": "Gazipur Sadar",
+        "district": "Gazipur",
+        "land_type": "বাগান (Bagan - Orchard)",
+        "area_decimal": 13.72,
+        "area_sqm": 555.4,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_020.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0020",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.400818,
+              23.761446
+            ],
+            [
+              90.402546,
+              23.761518
+            ],
+            [
+              90.402544,
+              23.762914
+            ],
+            [
+              90.400714,
+              23.762944
+            ],
+            [
+              90.400818,
+              23.761446
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৬-1020",
+        "khatian_no": "২৭২",
+        "dag_no": "১০২০",
+        "mouza_bn": "মাওনা",
+        "mouza_en": "Mawna",
+        "upazila": "Sreepur",
+        "district": "Gazipur",
+        "land_type": "বাগান (Bagan - Orchard)",
+        "area_decimal": 55.95,
+        "area_sqm": 2264.2,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_021.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0021",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.402514,
+              23.761448
+            ],
+            [
+              90.404348,
+              23.761414
+            ],
+            [
+              90.404434,
+              23.762943
+            ],
+            [
+              90.402543,
+              23.763034
+            ],
+            [
+              90.402514,
+              23.761448
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৮-1021",
+        "khatian_no": "২৮০৬",
+        "dag_no": "১০২১",
+        "mouza_bn": "মহাখালী",
+        "mouza_en": "Mohakhali",
+        "upazila": "Gulshan",
+        "district": "Dhaka",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 14.66,
+        "area_sqm": 593.2,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_022.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0022",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.404338,
+              23.761419
+            ],
+            [
+              90.406119,
+              23.761438
+            ],
+            [
+              90.406186,
+              23.762985
+            ],
+            [
+              90.404385,
+              23.762986
+            ],
+            [
+              90.404338,
+              23.761419
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৮-1022",
+        "khatian_no": "৩৪৩৪",
+        "dag_no": "১০২২",
+        "mouza_bn": "মুড়াপাড়া",
+        "mouza_en": "Murapara",
+        "upazila": "Rupganj",
+        "district": "Narayanganj",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 42.37,
+        "area_sqm": 1714.5,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_023.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0023",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.406181,
+              23.761468
+            ],
+            [
+              90.407968,
+              23.761481
+            ],
+            [
+              90.408072,
+              23.76295
+            ],
+            [
+              90.40615,
+              23.763072
+            ],
+            [
+              90.406181,
+              23.761468
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২১-1023",
+        "khatian_no": "৫৯৬",
+        "dag_no": "১০২৩",
+        "mouza_bn": "সেনপাড়া পর্বতা",
+        "mouza_en": "Senpara Parbata",
+        "upazila": "Mirpur",
+        "district": "Dhaka",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 19.45,
+        "area_sqm": 787.2,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_024.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0024",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.407956,
+              23.76145
+            ],
+            [
+              90.40975,
+              23.761456
+            ],
+            [
+              90.409885,
+              23.762989
+            ],
+            [
+              90.407989,
+              23.763085
+            ],
+            [
+              90.407956,
+              23.76145
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৬-1024",
+        "khatian_no": "১৬০৩",
+        "dag_no": "১০২৪",
+        "mouza_bn": "ফতুল্লা",
+        "mouza_en": "Fatullah",
+        "upazila": "Narayanganj Sadar",
+        "district": "Narayanganj",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 75.01,
+        "area_sqm": 3035.5,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_025.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0025",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.409894,
+              23.761585
+            ],
+            [
+              90.411685,
+              23.761594
+            ],
+            [
+              90.41167,
+              23.762933
+            ],
+            [
+              90.409733,
+              23.76307
+            ],
+            [
+              90.409894,
+              23.761585
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৩-1025",
+        "khatian_no": "২২০",
+        "dag_no": "১০২৫",
+        "mouza_bn": "ময়নামতি",
+        "mouza_en": "Mainamati",
+        "upazila": "Burichang",
+        "district": "Cumilla",
+        "land_type": "বাগান (Bagan - Orchard)",
+        "area_decimal": 43.91,
+        "area_sqm": 1776.9,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_026.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0026",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.411576,
+              23.761597
+            ],
+            [
+              90.413497,
+              23.761476
+            ],
+            [
+              90.413353,
+              23.763057
+            ],
+            [
+              90.411657,
+              23.762953
+            ],
+            [
+              90.411576,
+              23.761597
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১২-1026",
+        "khatian_no": "১৪৪৮",
+        "dag_no": "১০২৬",
+        "mouza_bn": "বাড্ডা উত্তর",
+        "mouza_en": "Badda North",
+        "upazila": "Gulshan",
+        "district": "Dhaka",
+        "land_type": "পতিত (Fallow/Unused)",
+        "area_decimal": 41.37,
+        "area_sqm": 1674.3,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_027.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0027",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.389931,
+              23.762959
+            ],
+            [
+              90.391759,
+              23.762931
+            ],
+            [
+              90.391894,
+              23.764516
+            ],
+            [
+              90.390016,
+              23.764594
+            ],
+            [
+              90.389931,
+              23.762959
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৭-1027",
+        "khatian_no": "৪০৮৬",
+        "dag_no": "১০২৭",
+        "mouza_bn": "কংশনগর",
+        "mouza_en": "Kangshanagar",
+        "upazila": "Burichang",
+        "district": "Cumilla",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 48.59,
+        "area_sqm": 1966.4,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_028.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0028",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.391801,
+              23.763071
+            ],
+            [
+              90.393671,
+              23.763001
+            ],
+            [
+              90.393531,
+              23.764592
+            ],
+            [
+              90.391892,
+              23.764431
+            ],
+            [
+              90.391801,
+              23.763071
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১২-1028",
+        "khatian_no": "৪০০৫",
+        "dag_no": "১০২৮",
+        "mouza_bn": "বাড্ডা উত্তর",
+        "mouza_en": "Badda North",
+        "upazila": "Gulshan",
+        "district": "Dhaka",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 10.34,
+        "area_sqm": 418.4,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_029.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0029",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.393635,
+              23.762947
+            ],
+            [
+              90.395347,
+              23.763035
+            ],
+            [
+              90.395324,
+              23.764578
+            ],
+            [
+              90.393678,
+              23.764424
+            ],
+            [
+              90.393635,
+              23.762947
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১২-1029",
+        "khatian_no": "৬৫৬",
+        "dag_no": "১০২৯",
+        "mouza_bn": "বাঘা",
+        "mouza_en": "Bagha",
+        "upazila": "Golapganj",
+        "district": "Sylhet",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 24.09,
+        "area_sqm": 974.8,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_030.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0030",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.395431,
+              23.763013
+            ],
+            [
+              90.397213,
+              23.763031
+            ],
+            [
+              90.397163,
+              23.764452
+            ],
+            [
+              90.395352,
+              23.764463
+            ],
+            [
+              90.395431,
+              23.763013
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৮-1030",
+        "khatian_no": "৩৫৩৪",
+        "dag_no": "১০৩০",
+        "mouza_bn": "পাইকপাড়া",
+        "mouza_en": "Paikpara",
+        "upazila": "Mirpur",
+        "district": "Dhaka",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 59.15,
+        "area_sqm": 2393.6,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_031.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0031",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.397126,
+              23.763029
+            ],
+            [
+              90.399029,
+              23.762926
+            ],
+            [
+              90.398991,
+              23.764586
+            ],
+            [
+              90.397286,
+              23.764491
+            ],
+            [
+              90.397126,
+              23.763029
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৫৭-1031",
+        "khatian_no": "৩৩৪২",
+        "dag_no": "১০৩১",
+        "mouza_bn": "তারানগর",
+        "mouza_en": "Taranagar",
+        "upazila": "Keraniganj",
+        "district": "Dhaka",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 81.17,
+        "area_sqm": 3284.7,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_032.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0032",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.398915,
+              23.762943
+            ],
+            [
+              90.400743,
+              23.762915
+            ],
+            [
+              90.400753,
+              23.764587
+            ],
+            [
+              90.399087,
+              23.764453
+            ],
+            [
+              90.398915,
+              23.762943
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৬-1032",
+        "khatian_no": "৯১৯",
+        "dag_no": "১০৩২",
+        "mouza_bn": "ঢাকা দক্ষিণ",
+        "mouza_en": "Dhaka Dakshin",
+        "upazila": "Golapganj",
+        "district": "Sylhet",
+        "land_type": "বাগান (Bagan - Orchard)",
+        "area_decimal": 76.62,
+        "area_sqm": 3100.9,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_033.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0033",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.400788,
+              23.763009
+            ],
+            [
+              90.402609,
+              23.762988
+            ],
+            [
+              90.402561,
+              23.764597
+            ],
+            [
+              90.400897,
+              23.764461
+            ],
+            [
+              90.400788,
+              23.763009
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৩-1033",
+        "khatian_no": "১৩৯২",
+        "dag_no": "১০৩৩",
+        "mouza_bn": "জয়দেবপুর",
+        "mouza_en": "Joydebpur",
+        "upazila": "Gazipur Sadar",
+        "district": "Gazipur",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 70.52,
+        "area_sqm": 2853.8,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_034.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0034",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.402686,
+              23.762921
+            ],
+            [
+              90.404321,
+              23.763086
+            ],
+            [
+              90.404476,
+              23.764453
+            ],
+            [
+              90.402553,
+              23.764576
+            ],
+            [
+              90.402686,
+              23.762921
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৭-1034",
+        "khatian_no": "২৫৫২",
+        "dag_no": "১০৩৪",
+        "mouza_bn": "কংশনগর",
+        "mouza_en": "Kangshanagar",
+        "upazila": "Burichang",
+        "district": "Cumilla",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 77.36,
+        "area_sqm": 3130.5,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_035.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0035",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.404444,
+              23.762941
+            ],
+            [
+              90.406141,
+              23.763044
+            ],
+            [
+              90.406227,
+              23.764453
+            ],
+            [
+              90.404353,
+              23.764527
+            ],
+            [
+              90.404444,
+              23.762941
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৩-1035",
+        "khatian_no": "১৮২৫",
+        "dag_no": "১০৩৫",
+        "mouza_bn": "জয়দেবপুর",
+        "mouza_en": "Joydebpur",
+        "upazila": "Gazipur Sadar",
+        "district": "Gazipur",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 44.15,
+        "area_sqm": 1786.6,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_036.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0036",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.406109,
+              23.762967
+            ],
+            [
+              90.407967,
+              23.762909
+            ],
+            [
+              90.407926,
+              23.764596
+            ],
+            [
+              90.406296,
+              23.764426
+            ],
+            [
+              90.406109,
+              23.762967
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৬-1036",
+        "khatian_no": "২৩৬৬",
+        "dag_no": "১০৩৬",
+        "mouza_bn": "ফতুল্লা",
+        "mouza_en": "Fatullah",
+        "upazila": "Narayanganj Sadar",
+        "district": "Narayanganj",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 17.08,
+        "area_sqm": 691.3,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_037.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0037",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.407922,
+              23.763089
+            ],
+            [
+              90.409889,
+              23.762922
+            ],
+            [
+              90.409838,
+              23.76443
+            ],
+            [
+              90.40793,
+              23.764538
+            ],
+            [
+              90.407922,
+              23.763089
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৬-1037",
+        "khatian_no": "১৭৯",
+        "dag_no": "১০৩৭",
+        "mouza_bn": "ফতুল্লা",
+        "mouza_en": "Fatullah",
+        "upazila": "Narayanganj Sadar",
+        "district": "Narayanganj",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 6.69,
+        "area_sqm": 270.7,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_038.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0038",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.409786,
+              23.762908
+            ],
+            [
+              90.411508,
+              23.762986
+            ],
+            [
+              90.411573,
+              23.764587
+            ],
+            [
+              90.409887,
+              23.764473
+            ],
+            [
+              90.409786,
+              23.762908
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৭-1038",
+        "khatian_no": "১৩১৩",
+        "dag_no": "১০৩৮",
+        "mouza_bn": "কংশনগর",
+        "mouza_en": "Kangshanagar",
+        "upazila": "Burichang",
+        "district": "Cumilla",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 84.19,
+        "area_sqm": 3406.9,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_039.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0039",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.411633,
+              23.762971
+            ],
+            [
+              90.413371,
+              23.763033
+            ],
+            [
+              90.413412,
+              23.764575
+            ],
+            [
+              90.411675,
+              23.764512
+            ],
+            [
+              90.411633,
+              23.762971
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৪৬-1039",
+        "khatian_no": "২১৪৪",
+        "dag_no": "১০৩৯",
+        "mouza_bn": "কুশুরা",
+        "mouza_en": "Kushura",
+        "upazila": "Dhamrai",
+        "district": "Dhaka",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 84.32,
+        "area_sqm": 3412.4,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_040.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0040",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.390076,
+              23.764405
+            ],
+            [
+              90.391705,
+              23.764576
+            ],
+            [
+              90.391847,
+              23.765966
+            ],
+            [
+              90.389966,
+              23.766047
+            ],
+            [
+              90.390076,
+              23.764405
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৩৫-1040",
+        "khatian_no": "১৫৫০",
+        "dag_no": "১০৪০",
+        "mouza_bn": "হেমায়েতপুর",
+        "mouza_en": "Hemayetpur",
+        "upazila": "Savar",
+        "district": "Dhaka",
+        "land_type": "বাগান (Bagan - Orchard)",
+        "area_decimal": 80.76,
+        "area_sqm": 3268.2,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_041.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0041",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.391777,
+              23.764408
+            ],
+            [
+              90.393508,
+              23.764477
+            ],
+            [
+              90.393594,
+              23.76594
+            ],
+            [
+              90.39174,
+              23.765994
+            ],
+            [
+              90.391777,
+              23.764408
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৩৫-1041",
+        "khatian_no": "৯৮৫",
+        "dag_no": "১০৪১",
+        "mouza_bn": "হেমায়েতপুর",
+        "mouza_en": "Hemayetpur",
+        "upazila": "Savar",
+        "district": "Dhaka",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 79.74,
+        "area_sqm": 3226.8,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_042.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0042",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.393505,
+              23.764439
+            ],
+            [
+              90.395339,
+              23.764405
+            ],
+            [
+              90.395366,
+              23.766073
+            ],
+            [
+              90.393673,
+              23.765966
+            ],
+            [
+              90.393505,
+              23.764439
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৪৯-1042",
+        "khatian_no": "১৯২৬",
+        "dag_no": "১০৪২",
+        "mouza_bn": "সোমভাগ",
+        "mouza_en": "Sombhag",
+        "upazila": "Dhamrai",
+        "district": "Dhaka",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 83.75,
+        "area_sqm": 3389.1,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_043.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0043",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.395436,
+              23.764569
+            ],
+            [
+              90.397269,
+              23.764536
+            ],
+            [
+              90.397166,
+              23.765906
+            ],
+            [
+              90.395306,
+              23.765966
+            ],
+            [
+              90.395436,
+              23.764569
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৫-1043",
+        "khatian_no": "৩৩৭৪",
+        "dag_no": "১০৪৩",
+        "mouza_bn": "টমসমব্রিজ",
+        "mouza_en": "Tomsom Bridge",
+        "upazila": "Kotwali",
+        "district": "Cumilla",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 76.31,
+        "area_sqm": 3088.1,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_044.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0044",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.397108,
+              23.764519
+            ],
+            [
+              90.399019,
+              23.764408
+            ],
+            [
+              90.398969,
+              23.766057
+            ],
+            [
+              90.397257,
+              23.765969
+            ],
+            [
+              90.397108,
+              23.764519
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৭-1044",
+        "khatian_no": "২২৭৪",
+        "dag_no": "১০৪৪",
+        "mouza_bn": "কুমারগাঁও",
+        "mouza_en": "Kumargaon",
+        "upazila": "Sylhet Sadar",
+        "district": "Sylhet",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 39.83,
+        "area_sqm": 1611.9,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_045.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0045",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.398951,
+              23.764542
+            ],
+            [
+              90.400842,
+              23.764451
+            ],
+            [
+              90.4007,
+              23.766085
+            ],
+            [
+              90.399085,
+              23.7659
+            ],
+            [
+              90.398951,
+              23.764542
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০২-1045",
+        "khatian_no": "১৬৫৭",
+        "dag_no": "১০৪৫",
+        "mouza_bn": "আম্বরখানা",
+        "mouza_en": "Amberkhana",
+        "upazila": "Sylhet Sadar",
+        "district": "Sylhet",
+        "land_type": "বাগান (Bagan - Orchard)",
+        "area_decimal": 48.28,
+        "area_sqm": 1953.8,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_046.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0046",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.40089,
+              23.764584
+            ],
+            [
+              90.402684,
+              23.76459
+            ],
+            [
+              90.402625,
+              23.766033
+            ],
+            [
+              90.400833,
+              23.766025
+            ],
+            [
+              90.40089,
+              23.764584
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৬-1046",
+        "khatian_no": "৬৭৩",
+        "dag_no": "১০৪৬",
+        "mouza_bn": "ফতুল্লা",
+        "mouza_en": "Fatullah",
+        "upazila": "Narayanganj Sadar",
+        "district": "Narayanganj",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 14.02,
+        "area_sqm": 567.5,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_047.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0047",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.402565,
+              23.764539
+            ],
+            [
+              90.404439,
+              23.764465
+            ],
+            [
+              90.404411,
+              23.765938
+            ],
+            [
+              90.402538,
+              23.766011
+            ],
+            [
+              90.402565,
+              23.764539
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৭-1047",
+        "khatian_no": "৩৪৪৫",
+        "dag_no": "১০৪৭",
+        "mouza_bn": "চান্দনা",
+        "mouza_en": "Chandana",
+        "upazila": "Gazipur Sadar",
+        "district": "Gazipur",
+        "land_type": "পতিত (Fallow/Unused)",
+        "area_decimal": 58.75,
+        "area_sqm": 2377.5,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_048.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0048",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.404381,
+              23.764567
+            ],
+            [
+              90.406267,
+              23.764481
+            ],
+            [
+              90.406161,
+              23.765942
+            ],
+            [
+              90.404342,
+              23.765961
+            ],
+            [
+              90.404381,
+              23.764567
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৩৯-1048",
+        "khatian_no": "২৫৬৫",
+        "dag_no": "১০৪৮",
+        "mouza_bn": "বিরুলিয়া",
+        "mouza_en": "Birulia",
+        "upazila": "Savar",
+        "district": "Dhaka",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 68.75,
+        "area_sqm": 2782.3,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_049.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0049",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.406235,
+              23.764502
+            ],
+            [
+              90.408002,
+              23.764535
+            ],
+            [
+              90.408059,
+              23.766092
+            ],
+            [
+              90.406292,
+              23.766059
+            ],
+            [
+              90.406235,
+              23.764502
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১০-1049",
+        "khatian_no": "৩৭২২",
+        "dag_no": "১০৪৯",
+        "mouza_bn": "পানাম নগর",
+        "mouza_en": "Panam Nagar",
+        "upazila": "Sonargaon",
+        "district": "Narayanganj",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 64.63,
+        "area_sqm": 2615.5,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_050.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0050",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.407919,
+              23.76459
+            ],
+            [
+              90.40989,
+              23.764419
+            ],
+            [
+              90.409747,
+              23.765962
+            ],
+            [
+              90.407962,
+              23.765947
+            ],
+            [
+              90.407919,
+              23.76459
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৫-1050",
+        "khatian_no": "২৮৪৫",
+        "dag_no": "১০৫০",
+        "mouza_bn": "টমসমব্রিজ",
+        "mouza_en": "Tomsom Bridge",
+        "upazila": "Kotwali",
+        "district": "Cumilla",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 70.47,
+        "area_sqm": 2852.0,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_051.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0051",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.409897,
+              23.764522
+            ],
+            [
+              90.411622,
+              23.764597
+            ],
+            [
+              90.411654,
+              23.765991
+            ],
+            [
+              90.409791,
+              23.766054
+            ],
+            [
+              90.409897,
+              23.764522
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৮-1051",
+        "khatian_no": "২১০৫",
+        "dag_no": "১০৫১",
+        "mouza_bn": "মহাখালী",
+        "mouza_en": "Mohakhali",
+        "upazila": "Gulshan",
+        "district": "Dhaka",
+        "land_type": "বাগান (Bagan - Orchard)",
+        "area_decimal": 77.06,
+        "area_sqm": 3118.6,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_052.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0052",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.41158,
+              23.76443
+            ],
+            [
+              90.41333,
+              23.76448
+            ],
+            [
+              90.413438,
+              23.766079
+            ],
+            [
+              90.411679,
+              23.766038
+            ],
+            [
+              90.41158,
+              23.76443
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৬-1052",
+        "khatian_no": "৪১৪৯",
+        "dag_no": "১০৫২",
+        "mouza_bn": "চন্দ্রা",
+        "mouza_en": "Chandra",
+        "upazila": "Kaliakair",
+        "district": "Gazipur",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 74.93,
+        "area_sqm": 3032.5,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_053.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0053",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.390061,
+              23.766039
+            ],
+            [
+              90.391839,
+              23.766061
+            ],
+            [
+              90.391793,
+              23.767511
+            ],
+            [
+              90.390011,
+              23.767493
+            ],
+            [
+              90.390061,
+              23.766039
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৪৯-1053",
+        "khatian_no": "১৫৪০",
+        "dag_no": "১০৫৩",
+        "mouza_bn": "সোমভাগ",
+        "mouza_en": "Sombhag",
+        "upazila": "Dhamrai",
+        "district": "Dhaka",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 79.65,
+        "area_sqm": 3223.5,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_054.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0054",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.391834,
+              23.766098
+            ],
+            [
+              90.393698,
+              23.766034
+            ],
+            [
+              90.393619,
+              23.76759
+            ],
+            [
+              90.39189,
+              23.767519
+            ],
+            [
+              90.391834,
+              23.766098
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৮-1054",
+        "khatian_no": "৩৯০৬",
+        "dag_no": "১০৫৪",
+        "mouza_bn": "জাফরাবাদ",
+        "mouza_en": "Jafrabad",
+        "upazila": "Mohammadpur",
+        "district": "Dhaka",
+        "land_type": "পতিত (Fallow/Unused)",
+        "area_decimal": 77.5,
+        "area_sqm": 3136.3,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_055.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0055",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.393649,
+              23.765995
+            ],
+            [
+              90.395395,
+              23.766049
+            ],
+            [
+              90.395352,
+              23.767449
+            ],
+            [
+              90.393549,
+              23.767452
+            ],
+            [
+              90.393649,
+              23.765995
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১০-1055",
+        "khatian_no": "১৪০৩",
+        "dag_no": "১০৫৫",
+        "mouza_bn": "পানাম নগর",
+        "mouza_en": "Panam Nagar",
+        "upazila": "Sonargaon",
+        "district": "Narayanganj",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 56.49,
+        "area_sqm": 2286.2,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_056.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0056",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.395388,
+              23.766043
+            ],
+            [
+              90.397243,
+              23.765988
+            ],
+            [
+              90.397147,
+              23.767467
+            ],
+            [
+              90.395367,
+              23.767447
+            ],
+            [
+              90.395388,
+              23.766043
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৫৩-1056",
+        "khatian_no": "২৩৪৯",
+        "dag_no": "১০৫৬",
+        "mouza_bn": "জিনজিরা",
+        "mouza_en": "Zinzira",
+        "upazila": "Keraniganj",
+        "district": "Dhaka",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 77.63,
+        "area_sqm": 3141.6,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_057.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0057",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.397177,
+              23.765931
+            ],
+            [
+              90.398931,
+              23.765977
+            ],
+            [
+              90.398943,
+              23.767483
+            ],
+            [
+              90.397183,
+              23.767443
+            ],
+            [
+              90.397177,
+              23.765931
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৩২-1057",
+        "khatian_no": "১৯৯৪",
+        "dag_no": "১০৫৭",
+        "mouza_bn": "সুলতানগঞ্জ",
+        "mouza_en": "Sultanganj",
+        "upazila": "Mohammadpur",
+        "district": "Dhaka",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 31.1,
+        "area_sqm": 1258.5,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_058.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0058",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.399067,
+              23.765978
+            ],
+            [
+              90.400778,
+              23.766067
+            ],
+            [
+              90.400854,
+              23.767589
+            ],
+            [
+              90.399089,
+              23.767554
+            ],
+            [
+              90.399067,
+              23.765978
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১২-1058",
+        "khatian_no": "১৭৯৪",
+        "dag_no": "১০৫৮",
+        "mouza_bn": "বাড্ডা উত্তর",
+        "mouza_en": "Badda North",
+        "upazila": "Gulshan",
+        "district": "Dhaka",
+        "land_type": "পতিত (Fallow/Unused)",
+        "area_decimal": 5.32,
+        "area_sqm": 215.4,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_059.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0059",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.40076,
+              23.765978
+            ],
+            [
+              90.402578,
+              23.76596
+            ],
+            [
+              90.402678,
+              23.767567
+            ],
+            [
+              90.400867,
+              23.767578
+            ],
+            [
+              90.40076,
+              23.765978
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০১-1059",
+        "khatian_no": "২৯৮১",
+        "dag_no": "১০৫৯",
+        "mouza_bn": "কাওরান বাজার",
+        "mouza_en": "Kawran Bazar",
+        "upazila": "Tejgaon",
+        "district": "Dhaka",
+        "land_type": "বাগান (Bagan - Orchard)",
+        "area_decimal": 48.26,
+        "area_sqm": 1953.0,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_060.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0060",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.402587,
+              23.765906
+            ],
+            [
+              90.404306,
+              23.765987
+            ],
+            [
+              90.404367,
+              23.767536
+            ],
+            [
+              90.402636,
+              23.767467
+            ],
+            [
+              90.402587,
+              23.765906
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৪৯-1060",
+        "khatian_no": "২৩৩৫",
+        "dag_no": "১০৬০",
+        "mouza_bn": "সোমভাগ",
+        "mouza_en": "Sombhag",
+        "upazila": "Dhamrai",
+        "district": "Dhaka",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 37.18,
+        "area_sqm": 1504.5,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_061.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0061",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.404305,
+              23.765979
+            ],
+            [
+              90.406179,
+              23.765905
+            ],
+            [
+              90.406213,
+              23.767405
+            ],
+            [
+              90.404305,
+              23.767513
+            ],
+            [
+              90.404305,
+              23.765979
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৮-1061",
+        "khatian_no": "৪৪৭৫",
+        "dag_no": "১০৬১",
+        "mouza_bn": "জাফরাবাদ",
+        "mouza_en": "Jafrabad",
+        "upazila": "Mohammadpur",
+        "district": "Dhaka",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 56.91,
+        "area_sqm": 2303.2,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_062.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0062",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.406152,
+              23.765965
+            ],
+            [
+              90.407965,
+              23.765952
+            ],
+            [
+              90.407991,
+              23.767468
+            ],
+            [
+              90.406168,
+              23.767491
+            ],
+            [
+              90.406152,
+              23.765965
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৩৯-1062",
+        "khatian_no": "৫১১",
+        "dag_no": "১০৬২",
+        "mouza_bn": "বিরুলিয়া",
+        "mouza_en": "Birulia",
+        "upazila": "Savar",
+        "district": "Dhaka",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 76.52,
+        "area_sqm": 3096.8,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_063.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0063",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.407994,
+              23.76605
+            ],
+            [
+              90.40985,
+              23.765994
+            ],
+            [
+              90.40971,
+              23.76759
+            ],
+            [
+              90.40809,
+              23.76741
+            ],
+            [
+              90.407994,
+              23.76605
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৫৭-1063",
+        "khatian_no": "৭৭০",
+        "dag_no": "১০৬৩",
+        "mouza_bn": "তারানগর",
+        "mouza_en": "Taranagar",
+        "upazila": "Keraniganj",
+        "district": "Dhaka",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 22.27,
+        "area_sqm": 901.1,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_064.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0064",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.40989,
+              23.76594
+            ],
+            [
+              90.41154,
+              23.76609
+            ],
+            [
+              90.411504,
+              23.76743
+            ],
+            [
+              90.40973,
+              23.767404
+            ],
+            [
+              90.40989,
+              23.76594
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৮-1064",
+        "khatian_no": "৩৫৪",
+        "dag_no": "১০৬৪",
+        "mouza_bn": "মহাখালী",
+        "mouza_en": "Mohakhali",
+        "upazila": "Gulshan",
+        "district": "Dhaka",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 14.15,
+        "area_sqm": 572.8,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_065.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0065",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.41164,
+              23.766053
+            ],
+            [
+              90.413453,
+              23.76604
+            ],
+            [
+              90.413334,
+              23.767521
+            ],
+            [
+              90.411621,
+              23.767434
+            ],
+            [
+              90.41164,
+              23.766053
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৪৬-1065",
+        "khatian_no": "৩৯০৯",
+        "dag_no": "১০৬৫",
+        "mouza_bn": "কুশুরা",
+        "mouza_en": "Kushura",
+        "upazila": "Dhamrai",
+        "district": "Dhaka",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 65.62,
+        "area_sqm": 2655.6,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_066.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0066",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.390016,
+              23.767586
+            ],
+            [
+              90.391886,
+              23.767516
+            ],
+            [
+              90.391815,
+              23.769082
+            ],
+            [
+              90.390082,
+              23.769015
+            ],
+            [
+              90.390016,
+              23.767586
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৭-1066",
+        "khatian_no": "৯৮৫",
+        "dag_no": "১০৬৬",
+        "mouza_bn": "চান্দনা",
+        "mouza_en": "Chandana",
+        "upazila": "Gazipur Sadar",
+        "district": "Gazipur",
+        "land_type": "বাগান (Bagan - Orchard)",
+        "area_decimal": 34.78,
+        "area_sqm": 1407.3,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_067.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0067",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.39172,
+              23.767554
+            ],
+            [
+              90.393654,
+              23.76742
+            ],
+            [
+              90.39367,
+              23.76902
+            ],
+            [
+              90.39182,
+              23.76907
+            ],
+            [
+              90.39172,
+              23.767554
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৭-1067",
+        "khatian_no": "২০৮৯",
+        "dag_no": "১০৬৭",
+        "mouza_bn": "কুমারগাঁও",
+        "mouza_en": "Kumargaon",
+        "upazila": "Sylhet Sadar",
+        "district": "Sylhet",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 13.73,
+        "area_sqm": 555.5,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_068.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0068",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.393632,
+              23.767414
+            ],
+            [
+              90.395314,
+              23.767532
+            ],
+            [
+              90.39543,
+              23.768903
+            ],
+            [
+              90.393503,
+              23.76903
+            ],
+            [
+              90.393632,
+              23.767414
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৩-1068",
+        "khatian_no": "৩৬০৯",
+        "dag_no": "১০৬৮",
+        "mouza_bn": "ময়নামতি",
+        "mouza_en": "Mainamati",
+        "upazila": "Burichang",
+        "district": "Cumilla",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 38.48,
+        "area_sqm": 1557.2,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_069.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0069",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.395427,
+              23.767566
+            ],
+            [
+              90.397266,
+              23.767527
+            ],
+            [
+              90.397241,
+              23.768987
+            ],
+            [
+              90.395387,
+              23.769041
+            ],
+            [
+              90.395427,
+              23.767566
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৬-1069",
+        "khatian_no": "৩০৬৭",
+        "dag_no": "১০৬৯",
+        "mouza_bn": "ফতুল্লা",
+        "mouza_en": "Fatullah",
+        "upazila": "Narayanganj Sadar",
+        "district": "Narayanganj",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 64.45,
+        "area_sqm": 2608.2,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_070.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0070",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.397193,
+              23.767565
+            ],
+            [
+              90.399065,
+              23.767493
+            ],
+            [
+              90.399018,
+              23.768964
+            ],
+            [
+              90.397164,
+              23.769018
+            ],
+            [
+              90.397193,
+              23.767565
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৩-1070",
+        "khatian_no": "৪০৬০",
+        "dag_no": "১০৭০",
+        "mouza_bn": "ময়নামতি",
+        "mouza_en": "Mainamati",
+        "upazila": "Burichang",
+        "district": "Cumilla",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 24.03,
+        "area_sqm": 972.4,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_071.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0071",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.39905,
+              23.767514
+            ],
+            [
+              90.400814,
+              23.76755
+            ],
+            [
+              90.400834,
+              23.768967
+            ],
+            [
+              90.398967,
+              23.769034
+            ],
+            [
+              90.39905,
+              23.767514
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১০-1071",
+        "khatian_no": "২০৯৭",
+        "dag_no": "১০৭১",
+        "mouza_bn": "পানাম নগর",
+        "mouza_en": "Panam Nagar",
+        "upazila": "Sonargaon",
+        "district": "Narayanganj",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 44.62,
+        "area_sqm": 1805.9,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_072.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0072",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.400771,
+              23.767452
+            ],
+            [
+              90.402552,
+              23.767471
+            ],
+            [
+              90.402556,
+              23.769019
+            ],
+            [
+              90.400819,
+              23.768956
+            ],
+            [
+              90.400771,
+              23.767452
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৩-1072",
+        "khatian_no": "১৮৩৭",
+        "dag_no": "১০৭২",
+        "mouza_bn": "কাঞ্চন",
+        "mouza_en": "Kanchan",
+        "upazila": "Rupganj",
+        "district": "Narayanganj",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 76.56,
+        "area_sqm": 3098.4,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_073.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0073",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.402548,
+              23.767481
+            ],
+            [
+              90.404381,
+              23.767448
+            ],
+            [
+              90.404411,
+              23.768948
+            ],
+            [
+              90.402548,
+              23.769011
+            ],
+            [
+              90.402548,
+              23.767481
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৪২-1073",
+        "khatian_no": "৮০১",
+        "dag_no": "১০৭৩",
+        "mouza_bn": "আশুলিয়া",
+        "mouza_en": "Ashulia",
+        "upazila": "Savar",
+        "district": "Dhaka",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 43.12,
+        "area_sqm": 1744.9,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_074.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0074",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.404359,
+              23.767481
+            ],
+            [
+              90.406181,
+              23.767459
+            ],
+            [
+              90.406149,
+              23.769033
+            ],
+            [
+              90.404433,
+              23.768949
+            ],
+            [
+              90.404359,
+              23.767481
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৪-1074",
+        "khatian_no": "৮৬২",
+        "dag_no": "১০৭৪",
+        "mouza_bn": "তেজগাঁও শিল্পাঞ্চল",
+        "mouza_en": "Tejgaon I/A",
+        "upazila": "Tejgaon",
+        "district": "Dhaka",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 34.25,
+        "area_sqm": 1386.2,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_075.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0075",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.40617,
+              23.767491
+            ],
+            [
+              90.407991,
+              23.76747
+            ],
+            [
+              90.407961,
+              23.768946
+            ],
+            [
+              90.406146,
+              23.768961
+            ],
+            [
+              90.40617,
+              23.767491
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৭-1075",
+        "khatian_no": "২৮০৯",
+        "dag_no": "১০৭৫",
+        "mouza_bn": "কংশনগর",
+        "mouza_en": "Kangshanagar",
+        "upazila": "Burichang",
+        "district": "Cumilla",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 63.41,
+        "area_sqm": 2566.3,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_076.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0076",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.407938,
+              23.767548
+            ],
+            [
+              90.409848,
+              23.767438
+            ],
+            [
+              90.409755,
+              23.769018
+            ],
+            [
+              90.408018,
+              23.768955
+            ],
+            [
+              90.407938,
+              23.767548
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৩-1076",
+        "khatian_no": "১৬১৬",
+        "dag_no": "১০৭৬",
+        "mouza_bn": "ময়নামতি",
+        "mouza_en": "Mainamati",
+        "upazila": "Burichang",
+        "district": "Cumilla",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 66.64,
+        "area_sqm": 2696.7,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_077.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0077",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.409745,
+              23.767436
+            ],
+            [
+              90.411536,
+              23.767445
+            ],
+            [
+              90.411503,
+              23.769007
+            ],
+            [
+              90.409807,
+              23.768903
+            ],
+            [
+              90.409745,
+              23.767436
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৪২-1077",
+        "khatian_no": "২৫২৬",
+        "dag_no": "১০৭৭",
+        "mouza_bn": "আশুলিয়া",
+        "mouza_en": "Ashulia",
+        "upazila": "Savar",
+        "district": "Dhaka",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 26.41,
+        "area_sqm": 1068.9,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_078.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0078",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.411628,
+              23.767551
+            ],
+            [
+              90.413451,
+              23.767528
+            ],
+            [
+              90.413321,
+              23.768902
+            ],
+            [
+              90.411502,
+              23.768921
+            ],
+            [
+              90.411628,
+              23.767551
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৩-1078",
+        "khatian_no": "১১৩৪",
+        "dag_no": "১০৭৮",
+        "mouza_bn": "জয়দেবপুর",
+        "mouza_en": "Joydebpur",
+        "upazila": "Gazipur Sadar",
+        "district": "Gazipur",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 27.24,
+        "area_sqm": 1102.5,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_079.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0079",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.390093,
+              23.76895
+            ],
+            [
+              90.39175,
+              23.769093
+            ],
+            [
+              90.391872,
+              23.770423
+            ],
+            [
+              90.389923,
+              23.770572
+            ],
+            [
+              90.390093,
+              23.76895
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৬-1079",
+        "khatian_no": "১৬১০",
+        "dag_no": "১০৭৯",
+        "mouza_bn": "মাওনা",
+        "mouza_en": "Mawna",
+        "upazila": "Sreepur",
+        "district": "Gazipur",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 9.12,
+        "area_sqm": 368.9,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_080.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0080",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.39173,
+              23.769062
+            ],
+            [
+              90.393662,
+              23.76893
+            ],
+            [
+              90.39369,
+              23.770417
+            ],
+            [
+              90.391717,
+              23.77059
+            ],
+            [
+              90.39173,
+              23.769062
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০২-1080",
+        "khatian_no": "৫৩৯",
+        "dag_no": "১০৮০",
+        "mouza_bn": "আম্বরখানা",
+        "mouza_en": "Amberkhana",
+        "upazila": "Sylhet Sadar",
+        "district": "Sylhet",
+        "land_type": "পতিত (Fallow/Unused)",
+        "area_decimal": 24.25,
+        "area_sqm": 981.4,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_081.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0081",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.393655,
+              23.768976
+            ],
+            [
+              90.395376,
+              23.769055
+            ],
+            [
+              90.395482,
+              23.770459
+            ],
+            [
+              90.393559,
+              23.770582
+            ],
+            [
+              90.393655,
+              23.768976
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১২-1081",
+        "khatian_no": "১৯৪৮",
+        "dag_no": "১০৮১",
+        "mouza_bn": "বাঘা",
+        "mouza_en": "Bagha",
+        "upazila": "Golapganj",
+        "district": "Sylhet",
+        "land_type": "পতিত (Fallow/Unused)",
+        "area_decimal": 52.43,
+        "area_sqm": 2121.6,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_082.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0082",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.395422,
+              23.769048
+            ],
+            [
+              90.397248,
+              23.769022
+            ],
+            [
+              90.39729,
+              23.770442
+            ],
+            [
+              90.395342,
+              23.77059
+            ],
+            [
+              90.395422,
+              23.769048
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০২-1082",
+        "khatian_no": "৫৯৩",
+        "dag_no": "১০৮২",
+        "mouza_bn": "আম্বরখানা",
+        "mouza_en": "Amberkhana",
+        "upazila": "Sylhet Sadar",
+        "district": "Sylhet",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 21.17,
+        "area_sqm": 856.9,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_083.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0083",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.39721,
+              23.768931
+            ],
+            [
+              90.398931,
+              23.76901
+            ],
+            [
+              90.398982,
+              23.770538
+            ],
+            [
+              90.397238,
+              23.770482
+            ],
+            [
+              90.39721,
+              23.768931
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৫৩-1083",
+        "khatian_no": "১৫২৩",
+        "dag_no": "১০৮৩",
+        "mouza_bn": "জিনজিরা",
+        "mouza_en": "Zinzira",
+        "upazila": "Keraniganj",
+        "district": "Dhaka",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 42.61,
+        "area_sqm": 1724.2,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_084.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0084",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.399041,
+              23.768991
+            ],
+            [
+              90.400791,
+              23.769041
+            ],
+            [
+              90.400837,
+              23.770585
+            ],
+            [
+              90.399085,
+              23.770537
+            ],
+            [
+              90.399041,
+              23.768991
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৩-1084",
+        "khatian_no": "২৪১৬",
+        "dag_no": "১০৮৪",
+        "mouza_bn": "জয়দেবপুর",
+        "mouza_en": "Joydebpur",
+        "upazila": "Gazipur Sadar",
+        "district": "Gazipur",
+        "land_type": "বাগান (Bagan - Orchard)",
+        "area_decimal": 68.92,
+        "area_sqm": 2789.2,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_085.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0085",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.40083,
+              23.769082
+            ],
+            [
+              90.402682,
+              23.76903
+            ],
+            [
+              90.402665,
+              23.770414
+            ],
+            [
+              90.400714,
+              23.770565
+            ],
+            [
+              90.40083,
+              23.769082
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৫-1085",
+        "khatian_no": "১৯৪১",
+        "dag_no": "১০৮৫",
+        "mouza_bn": "কাফরুল",
+        "mouza_en": "Kafrul",
+        "upazila": "Mirpur",
+        "district": "Dhaka",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 17.44,
+        "area_sqm": 705.8,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_086.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0086",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.402588,
+              23.768994
+            ],
+            [
+              90.404394,
+              23.768988
+            ],
+            [
+              90.404361,
+              23.770481
+            ],
+            [
+              90.402581,
+              23.770461
+            ],
+            [
+              90.402588,
+              23.768994
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০২-1086",
+        "khatian_no": "২৪৬৪",
+        "dag_no": "১০৮৬",
+        "mouza_bn": "আম্বরখানা",
+        "mouza_en": "Amberkhana",
+        "upazila": "Sylhet Sadar",
+        "district": "Sylhet",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 26.24,
+        "area_sqm": 1062.0,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_087.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0087",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.404478,
+              23.769047
+            ],
+            [
+              90.406247,
+              23.769078
+            ],
+            [
+              90.406221,
+              23.770405
+            ],
+            [
+              90.404305,
+              23.770521
+            ],
+            [
+              90.404478,
+              23.769047
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৮-1087",
+        "khatian_no": "৪২৬",
+        "dag_no": "১০৮৭",
+        "mouza_bn": "পাইকপাড়া",
+        "mouza_en": "Paikpara",
+        "upazila": "Mirpur",
+        "district": "Dhaka",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 22.66,
+        "area_sqm": 916.9,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_088.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0088",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.406253,
+              23.768935
+            ],
+            [
+              90.407935,
+              23.769053
+            ],
+            [
+              90.408004,
+              23.770488
+            ],
+            [
+              90.406188,
+              23.770504
+            ],
+            [
+              90.406253,
+              23.768935
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৬০-1088",
+        "khatian_no": "৪২৯",
+        "dag_no": "১০৮৮",
+        "mouza_bn": "রোহিতপুর",
+        "mouza_en": "Rohitpur",
+        "upazila": "Keraniganj",
+        "district": "Dhaka",
+        "land_type": "পতিত (Fallow/Unused)",
+        "area_decimal": 26.73,
+        "area_sqm": 1081.8,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_089.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0089",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.407994,
+              23.768982
+            ],
+            [
+              90.409782,
+              23.768994
+            ],
+            [
+              90.409764,
+              23.770421
+            ],
+            [
+              90.407921,
+              23.770464
+            ],
+            [
+              90.407994,
+              23.768982
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৩-1089",
+        "khatian_no": "৮৪৭",
+        "dag_no": "১০৮৯",
+        "mouza_bn": "কাঞ্চন",
+        "mouza_en": "Kanchan",
+        "upazila": "Rupganj",
+        "district": "Narayanganj",
+        "land_type": "পতিত (Fallow/Unused)",
+        "area_decimal": 17.02,
+        "area_sqm": 688.8,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_090.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0090",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.409833,
+              23.76898
+            ],
+            [
+              90.41158,
+              23.769033
+            ],
+            [
+              90.411652,
+              23.770407
+            ],
+            [
+              90.409707,
+              23.770552
+            ],
+            [
+              90.409833,
+              23.76898
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৩-1090",
+        "khatian_no": "২৪৬১",
+        "dag_no": "১০৯০",
+        "mouza_bn": "কাঞ্চন",
+        "mouza_en": "Kanchan",
+        "upazila": "Rupganj",
+        "district": "Narayanganj",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 11.0,
+        "area_sqm": 445.0,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_091.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0091",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.411673,
+              23.769065
+            ],
+            [
+              90.413465,
+              23.769073
+            ],
+            [
+              90.4133,
+              23.770574
+            ],
+            [
+              90.411674,
+              23.7704
+            ],
+            [
+              90.411673,
+              23.769065
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৫-1091",
+        "khatian_no": "৩৪১১",
+        "dag_no": "১০৯১",
+        "mouza_bn": "কাফরুল",
+        "mouza_en": "Kafrul",
+        "upazila": "Mirpur",
+        "district": "Dhaka",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 41.95,
+        "area_sqm": 1697.6,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_092.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0092",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.390025,
+              23.7705
+            ],
+            [
+              90.3918,
+              23.770525
+            ],
+            [
+              90.391788,
+              23.77191
+            ],
+            [
+              90.38991,
+              23.771988
+            ],
+            [
+              90.390025,
+              23.7705
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৯-1092",
+        "khatian_no": "৩০৬৩",
+        "dag_no": "১০৯২",
+        "mouza_bn": "শাসনগাছা",
+        "mouza_en": "Shashongacha",
+        "upazila": "Kotwali",
+        "district": "Cumilla",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 25.81,
+        "area_sqm": 1044.6,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_093.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0093",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.391724,
+              23.770595
+            ],
+            [
+              90.393695,
+              23.770424
+            ],
+            [
+              90.393622,
+              23.771948
+            ],
+            [
+              90.391748,
+              23.772022
+            ],
+            [
+              90.391724,
+              23.770595
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১০-1093",
+        "khatian_no": "৪০৭০",
+        "dag_no": "১০৯৩",
+        "mouza_bn": "পানাম নগর",
+        "mouza_en": "Panam Nagar",
+        "upazila": "Sonargaon",
+        "district": "Narayanganj",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 16.82,
+        "area_sqm": 680.6,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_094.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0094",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.393545,
+              23.770568
+            ],
+            [
+              90.395468,
+              23.770445
+            ],
+            [
+              90.395323,
+              23.772089
+            ],
+            [
+              90.393689,
+              23.771923
+            ],
+            [
+              90.393545,
+              23.770568
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০২-1094",
+        "khatian_no": "৮৬৩",
+        "dag_no": "১০৯৪",
+        "mouza_bn": "সিদ্ধিরগঞ্জ",
+        "mouza_en": "Siddhirganj",
+        "upazila": "Narayanganj Sadar",
+        "district": "Narayanganj",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 57.32,
+        "area_sqm": 2319.8,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_095.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0095",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.395441,
+              23.770483
+            ],
+            [
+              90.397183,
+              23.770541
+            ],
+            [
+              90.397196,
+              23.771994
+            ],
+            [
+              90.395394,
+              23.771996
+            ],
+            [
+              90.395441,
+              23.770483
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৩-1095",
+        "khatian_no": "৪২৬৮",
+        "dag_no": "১০৯৫",
+        "mouza_bn": "জয়দেবপুর",
+        "mouza_en": "Joydebpur",
+        "upazila": "Gazipur Sadar",
+        "district": "Gazipur",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 41.52,
+        "area_sqm": 1680.2,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_096.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0096",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.397249,
+              23.770427
+            ],
+            [
+              90.398927,
+              23.770549
+            ],
+            [
+              90.398914,
+              23.772055
+            ],
+            [
+              90.397255,
+              23.771914
+            ],
+            [
+              90.397249,
+              23.770427
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৪২-1096",
+        "khatian_no": "৪২৬৩",
+        "dag_no": "১০৯৬",
+        "mouza_bn": "আশুলিয়া",
+        "mouza_en": "Ashulia",
+        "upazila": "Savar",
+        "district": "Dhaka",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 74.44,
+        "area_sqm": 3012.3,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_097.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0097",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.398957,
+              23.77046
+            ],
+            [
+              90.40076,
+              23.770457
+            ],
+            [
+              90.400817,
+              23.7721
+            ],
+            [
+              90.3991,
+              23.772017
+            ],
+            [
+              90.398957,
+              23.77046
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৬০-1097",
+        "khatian_no": "১২১",
+        "dag_no": "১০৯৭",
+        "mouza_bn": "রোহিতপুর",
+        "mouza_en": "Rohitpur",
+        "upazila": "Keraniganj",
+        "district": "Dhaka",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 44.24,
+        "area_sqm": 1790.3,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_098.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0098",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.400769,
+              23.77051
+            ],
+            [
+              90.40261,
+              23.770469
+            ],
+            [
+              90.402609,
+              23.771991
+            ],
+            [
+              90.400791,
+              23.772009
+            ],
+            [
+              90.400769,
+              23.77051
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৩-1098",
+        "khatian_no": "৪০৬৭",
+        "dag_no": "১০৯৮",
+        "mouza_bn": "ময়নামতি",
+        "mouza_en": "Mainamati",
+        "upazila": "Burichang",
+        "district": "Cumilla",
+        "land_type": "বাগান (Bagan - Orchard)",
+        "area_decimal": 30.34,
+        "area_sqm": 1228.0,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_099.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0099",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.402547,
+              23.770555
+            ],
+            [
+              90.404455,
+              23.770447
+            ],
+            [
+              90.404309,
+              23.772049
+            ],
+            [
+              90.402649,
+              23.771909
+            ],
+            [
+              90.402547,
+              23.770555
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৫৩-1099",
+        "khatian_no": "৩২৩৭",
+        "dag_no": "১০৯৯",
+        "mouza_bn": "জিনজিরা",
+        "mouza_en": "Zinzira",
+        "upazila": "Keraniganj",
+        "district": "Dhaka",
+        "land_type": "পতিত (Fallow/Unused)",
+        "area_decimal": 62.09,
+        "area_sqm": 2512.5,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_100.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0100",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.404493,
+              23.770425
+            ],
+            [
+              90.406125,
+              23.770593
+            ],
+            [
+              90.406293,
+              23.771966
+            ],
+            [
+              90.404366,
+              23.772093
+            ],
+            [
+              90.404493,
+              23.770425
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৩২-1100",
+        "khatian_no": "৪১৫৭",
+        "dag_no": "১১০০",
+        "mouza_bn": "সুলতানগঞ্জ",
+        "mouza_en": "Sultanganj",
+        "upazila": "Mohammadpur",
+        "district": "Dhaka",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 12.01,
+        "area_sqm": 486.2,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_101.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0101",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.406103,
+              23.770429
+            ],
+            [
+              90.407929,
+              23.770403
+            ],
+            [
+              90.408074,
+              23.772094
+            ],
+            [
+              90.406294,
+              23.772074
+            ],
+            [
+              90.406103,
+              23.770429
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৯-1101",
+        "khatian_no": "৩৮৪৩",
+        "dag_no": "১১০১",
+        "mouza_bn": "শাসনগাছা",
+        "mouza_en": "Shashongacha",
+        "upazila": "Kotwali",
+        "district": "Cumilla",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 9.9,
+        "area_sqm": 400.7,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_102.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0102",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.40803,
+              23.77057
+            ],
+            [
+              90.40987,
+              23.77053
+            ],
+            [
+              90.40987,
+              23.772072
+            ],
+            [
+              90.408072,
+              23.77207
+            ],
+            [
+              90.40803,
+              23.77057
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৬-1102",
+        "khatian_no": "৩৩৫৬",
+        "dag_no": "১১০২",
+        "mouza_bn": "ঢাকা দক্ষিণ",
+        "mouza_en": "Dhaka Dakshin",
+        "upazila": "Golapganj",
+        "district": "Sylhet",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 35.16,
+        "area_sqm": 1423.0,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_103.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0103",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.409823,
+              23.770447
+            ],
+            [
+              90.411547,
+              23.770523
+            ],
+            [
+              90.411637,
+              23.771957
+            ],
+            [
+              90.409757,
+              23.772037
+            ],
+            [
+              90.409823,
+              23.770447
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৩-1103",
+        "khatian_no": "৩৯৪",
+        "dag_no": "১১০৩",
+        "mouza_bn": "কাঞ্চন",
+        "mouza_en": "Kanchan",
+        "upazila": "Rupganj",
+        "district": "Narayanganj",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 22.54,
+        "area_sqm": 912.1,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_104.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0104",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.411589,
+              23.770539
+            ],
+            [
+              90.413439,
+              23.770489
+            ],
+            [
+              90.413481,
+              23.771909
+            ],
+            [
+              90.411509,
+              23.772081
+            ],
+            [
+              90.411589,
+              23.770539
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২১-1104",
+        "khatian_no": "৯২৩",
+        "dag_no": "১১০৪",
+        "mouza_bn": "সেনপাড়া পর্বতা",
+        "mouza_en": "Senpara Parbata",
+        "upazila": "Mirpur",
+        "district": "Dhaka",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 69.61,
+        "area_sqm": 2817.1,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_105.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0105",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.389929,
+              23.772006
+            ],
+            [
+              90.391806,
+              23.771929
+            ],
+            [
+              90.391813,
+              23.773559
+            ],
+            [
+              90.390059,
+              23.773513
+            ],
+            [
+              90.389929,
+              23.772006
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২২-1105",
+        "khatian_no": "৩৬২৮",
+        "dag_no": "১১০৫",
+        "mouza_bn": "সফিপুর",
+        "mouza_en": "Sofipur",
+        "upazila": "Kaliakair",
+        "district": "Gazipur",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 17.78,
+        "area_sqm": 719.4,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_106.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0106",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.3918,
+              23.772017
+            ],
+            [
+              90.393617,
+              23.772
+            ],
+            [
+              90.393546,
+              23.773528
+            ],
+            [
+              90.391828,
+              23.773446
+            ],
+            [
+              90.3918,
+              23.772017
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৬-1106",
+        "khatian_no": "২০৭২",
+        "dag_no": "১১০৬",
+        "mouza_bn": "চন্দ্রা",
+        "mouza_en": "Chandra",
+        "upazila": "Kaliakair",
+        "district": "Gazipur",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 41.75,
+        "area_sqm": 1689.6,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_107.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0107",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.393515,
+              23.772089
+            ],
+            [
+              90.395489,
+              23.771915
+            ],
+            [
+              90.395498,
+              23.77346
+            ],
+            [
+              90.39356,
+              23.773598
+            ],
+            [
+              90.393515,
+              23.772089
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৩-1107",
+        "khatian_no": "১৩৯৪",
+        "dag_no": "১১০৭",
+        "mouza_bn": "জয়দেবপুর",
+        "mouza_en": "Joydebpur",
+        "upazila": "Gazipur Sadar",
+        "district": "Gazipur",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 83.34,
+        "area_sqm": 3372.8,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_108.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0108",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.3955,
+              23.772071
+            ],
+            [
+              90.397271,
+              23.7721
+            ],
+            [
+              90.397121,
+              23.773476
+            ],
+            [
+              90.395376,
+              23.773421
+            ],
+            [
+              90.3955,
+              23.772071
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৭-1108",
+        "khatian_no": "১৭৩১",
+        "dag_no": "১১০৮",
+        "mouza_bn": "চান্দনা",
+        "mouza_en": "Chandana",
+        "upazila": "Gazipur Sadar",
+        "district": "Gazipur",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 33.42,
+        "area_sqm": 1352.5,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_109.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0109",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.397296,
+              23.772032
+            ],
+            [
+              90.399032,
+              23.772096
+            ],
+            [
+              90.398955,
+              23.773513
+            ],
+            [
+              90.397213,
+              23.773455
+            ],
+            [
+              90.397296,
+              23.772032
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৩-1109",
+        "khatian_no": "২৭৯",
+        "dag_no": "১১০৯",
+        "mouza_bn": "জয়দেবপুর",
+        "mouza_en": "Joydebpur",
+        "upazila": "Gazipur Sadar",
+        "district": "Gazipur",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 60.48,
+        "area_sqm": 2447.4,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_110.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0110",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.399055,
+              23.771946
+            ],
+            [
+              90.400746,
+              23.772055
+            ],
+            [
+              90.40086,
+              23.773444
+            ],
+            [
+              90.398944,
+              23.77356
+            ],
+            [
+              90.399055,
+              23.771946
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৩-1110",
+        "khatian_no": "২৪৪৪",
+        "dag_no": "১১১০",
+        "mouza_bn": "কাঞ্চন",
+        "mouza_en": "Kanchan",
+        "upazila": "Rupganj",
+        "district": "Narayanganj",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 19.44,
+        "area_sqm": 786.9,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_111.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0111",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.400881,
+              23.772029
+            ],
+            [
+              90.402629,
+              23.772081
+            ],
+            [
+              90.402562,
+              23.773488
+            ],
+            [
+              90.400788,
+              23.773462
+            ],
+            [
+              90.400881,
+              23.772029
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৮-1111",
+        "khatian_no": "৮৯৫",
+        "dag_no": "১১১১",
+        "mouza_bn": "জাফরাবাদ",
+        "mouza_en": "Jafrabad",
+        "upazila": "Mohammadpur",
+        "district": "Dhaka",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 51.68,
+        "area_sqm": 2091.6,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_112.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0112",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.402649,
+              23.771935
+            ],
+            [
+              90.404335,
+              23.772049
+            ],
+            [
+              90.404326,
+              23.773508
+            ],
+            [
+              90.402608,
+              23.773426
+            ],
+            [
+              90.402649,
+              23.771935
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৩-1112",
+        "khatian_no": "২৭৭৬",
+        "dag_no": "১১১২",
+        "mouza_bn": "জয়দেবপুর",
+        "mouza_en": "Joydebpur",
+        "upazila": "Gazipur Sadar",
+        "district": "Gazipur",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 84.13,
+        "area_sqm": 3404.5,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_113.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0113",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.404493,
+              23.771959
+            ],
+            [
+              90.406159,
+              23.772093
+            ],
+            [
+              90.406274,
+              23.773561
+            ],
+            [
+              90.404461,
+              23.773574
+            ],
+            [
+              90.404493,
+              23.771959
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৫৭-1113",
+        "khatian_no": "৪০৪৭",
+        "dag_no": "১১১৩",
+        "mouza_bn": "তারানগর",
+        "mouza_en": "Taranagar",
+        "upazila": "Keraniganj",
+        "district": "Dhaka",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 42.47,
+        "area_sqm": 1718.9,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_114.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0114",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.406293,
+              23.772061
+            ],
+            [
+              90.408061,
+              23.772093
+            ],
+            [
+              90.407973,
+              23.773558
+            ],
+            [
+              90.406258,
+              23.773473
+            ],
+            [
+              90.406293,
+              23.772061
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৪৯-1114",
+        "khatian_no": "৩৩৫৫",
+        "dag_no": "১১১৪",
+        "mouza_bn": "সোমভাগ",
+        "mouza_en": "Sombhag",
+        "upazila": "Dhamrai",
+        "district": "Dhaka",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 4.86,
+        "area_sqm": 196.6,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_115.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0115",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.408017,
+              23.772064
+            ],
+            [
+              90.409864,
+              23.772017
+            ],
+            [
+              90.409888,
+              23.773422
+            ],
+            [
+              90.407922,
+              23.773588
+            ],
+            [
+              90.408017,
+              23.772064
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২২-1115",
+        "khatian_no": "২২৪৭",
+        "dag_no": "১১১৫",
+        "mouza_bn": "সফিপুর",
+        "mouza_en": "Sofipur",
+        "upazila": "Kaliakair",
+        "district": "Gazipur",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 23.06,
+        "area_sqm": 933.3,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_116.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0116",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.409883,
+              23.771944
+            ],
+            [
+              90.411544,
+              23.772083
+            ],
+            [
+              90.411513,
+              23.773565
+            ],
+            [
+              90.409865,
+              23.773413
+            ],
+            [
+              90.409883,
+              23.771944
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৭-1116",
+        "khatian_no": "২৭৮৭",
+        "dag_no": "১১১৬",
+        "mouza_bn": "কংশনগর",
+        "mouza_en": "Kangshanagar",
+        "upazila": "Burichang",
+        "district": "Cumilla",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 78.98,
+        "area_sqm": 3196.4,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_117.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0117",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.411528,
+              23.772089
+            ],
+            [
+              90.413489,
+              23.771928
+            ],
+            [
+              90.413361,
+              23.773499
+            ],
+            [
+              90.411599,
+              23.773461
+            ],
+            [
+              90.411528,
+              23.772089
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০২-1117",
+        "khatian_no": "১০৫৫",
+        "dag_no": "১১১৭",
+        "mouza_bn": "সিদ্ধিরগঞ্জ",
+        "mouza_en": "Siddhirganj",
+        "upazila": "Narayanganj Sadar",
+        "district": "Narayanganj",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 11.75,
+        "area_sqm": 475.6,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_118.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0118",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.390034,
+              23.773549
+            ],
+            [
+              90.391849,
+              23.773534
+            ],
+            [
+              90.391889,
+              23.774984
+            ],
+            [
+              90.389984,
+              23.775089
+            ],
+            [
+              90.390034,
+              23.773549
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৪-1118",
+        "khatian_no": "৩১৩৯",
+        "dag_no": "১১১৮",
+        "mouza_bn": "কাঁচপুর",
+        "mouza_en": "Kanchpur",
+        "upazila": "Sonargaon",
+        "district": "Narayanganj",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 65.15,
+        "area_sqm": 2636.6,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_119.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0119",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.391823,
+              23.773588
+            ],
+            [
+              90.393688,
+              23.773523
+            ],
+            [
+              90.393556,
+              23.775038
+            ],
+            [
+              90.391838,
+              23.774956
+            ],
+            [
+              90.391823,
+              23.773588
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২১-1119",
+        "khatian_no": "৪১০৮",
+        "dag_no": "১১১৯",
+        "mouza_bn": "সেনপাড়া পর্বতা",
+        "mouza_en": "Senpara Parbata",
+        "upazila": "Mirpur",
+        "district": "Dhaka",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 21.69,
+        "area_sqm": 877.9,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_120.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0120",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.393696,
+              23.773473
+            ],
+            [
+              90.395373,
+              23.773596
+            ],
+            [
+              90.39548,
+              23.775029
+            ],
+            [
+              90.393629,
+              23.77508
+            ],
+            [
+              90.393696,
+              23.773473
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২২-1120",
+        "khatian_no": "৯১৩",
+        "dag_no": "১১২০",
+        "mouza_bn": "সফিপুর",
+        "mouza_en": "Sofipur",
+        "upazila": "Kaliakair",
+        "district": "Gazipur",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 8.72,
+        "area_sqm": 352.8,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_121.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0121",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.395318,
+              23.773442
+            ],
+            [
+              90.397142,
+              23.773418
+            ],
+            [
+              90.397228,
+              23.775094
+            ],
+            [
+              90.395494,
+              23.775028
+            ],
+            [
+              90.395318,
+              23.773442
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৫-1121",
+        "khatian_no": "৩৮২৫",
+        "dag_no": "১১২১",
+        "mouza_bn": "কাফরুল",
+        "mouza_en": "Kafrul",
+        "upazila": "Mirpur",
+        "district": "Dhaka",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 7.89,
+        "area_sqm": 319.4,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_122.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0122",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.397114,
+              23.773553
+            ],
+            [
+              90.399053,
+              23.773414
+            ],
+            [
+              90.398941,
+              23.774943
+            ],
+            [
+              90.397143,
+              23.774941
+            ],
+            [
+              90.397114,
+              23.773553
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৮-1122",
+        "khatian_no": "১৭৮১",
+        "dag_no": "১১২২",
+        "mouza_bn": "জাফরাবাদ",
+        "mouza_en": "Jafrabad",
+        "upazila": "Mohammadpur",
+        "district": "Dhaka",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 75.7,
+        "area_sqm": 3063.5,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_123.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0123",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.398955,
+              23.773597
+            ],
+            [
+              90.400897,
+              23.773455
+            ],
+            [
+              90.400898,
+              23.775008
+            ],
+            [
+              90.399008,
+              23.775098
+            ],
+            [
+              90.398955,
+              23.773597
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১২-1123",
+        "khatian_no": "১২৩",
+        "dag_no": "১১২৩",
+        "mouza_bn": "বাঘা",
+        "mouza_en": "Bagha",
+        "upazila": "Golapganj",
+        "district": "Sylhet",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 69.81,
+        "area_sqm": 2825.0,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_124.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0124",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.400703,
+              23.773558
+            ],
+            [
+              90.402658,
+              23.773403
+            ],
+            [
+              90.402548,
+              23.774965
+            ],
+            [
+              90.400765,
+              23.774948
+            ],
+            [
+              90.400703,
+              23.773558
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৪-1124",
+        "khatian_no": "১১৭৯",
+        "dag_no": "১১২৪",
+        "mouza_bn": "তেজগাঁও শিল্পাঞ্চল",
+        "mouza_en": "Tejgaon I/A",
+        "upazila": "Tejgaon",
+        "district": "Dhaka",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 18.13,
+        "area_sqm": 733.7,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_125.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0125",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.402523,
+              23.773413
+            ],
+            [
+              90.404313,
+              23.773423
+            ],
+            [
+              90.40439,
+              23.774972
+            ],
+            [
+              90.402572,
+              23.77499
+            ],
+            [
+              90.402523,
+              23.773413
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০২-1125",
+        "khatian_no": "৪৪০৯",
+        "dag_no": "১১২৫",
+        "mouza_bn": "সিদ্ধিরগঞ্জ",
+        "mouza_en": "Siddhirganj",
+        "upazila": "Narayanganj Sadar",
+        "district": "Narayanganj",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 52.85,
+        "area_sqm": 2138.8,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_126.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0126",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.404445,
+              23.773582
+            ],
+            [
+              90.406282,
+              23.773545
+            ],
+            [
+              90.406232,
+              23.77496
+            ],
+            [
+              90.40436,
+              23.775032
+            ],
+            [
+              90.404445,
+              23.773582
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৪৯-1126",
+        "khatian_no": "৪৫৫",
+        "dag_no": "১১২৬",
+        "mouza_bn": "সোমভাগ",
+        "mouza_en": "Sombhag",
+        "upazila": "Dhamrai",
+        "district": "Dhaka",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 56.96,
+        "area_sqm": 2305.2,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_127.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0127",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.406185,
+              23.773422
+            ],
+            [
+              90.407922,
+              23.773485
+            ],
+            [
+              90.408042,
+              23.774989
+            ],
+            [
+              90.406189,
+              23.775042
+            ],
+            [
+              90.406185,
+              23.773422
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৮-1127",
+        "khatian_no": "৩৩৯০",
+        "dag_no": "১১২৭",
+        "mouza_bn": "মুড়াপাড়া",
+        "mouza_en": "Murapara",
+        "upazila": "Rupganj",
+        "district": "Narayanganj",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 78.15,
+        "area_sqm": 3162.5,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_128.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0128",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.407925,
+              23.773525
+            ],
+            [
+              90.409825,
+              23.773425
+            ],
+            [
+              90.409817,
+              23.775042
+            ],
+            [
+              90.408042,
+              23.775017
+            ],
+            [
+              90.407925,
+              23.773525
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৩২-1128",
+        "khatian_no": "৬৩৮",
+        "dag_no": "১১২৮",
+        "mouza_bn": "সুলতানগঞ্জ",
+        "mouza_en": "Sultanganj",
+        "upazila": "Mohammadpur",
+        "district": "Dhaka",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 35.24,
+        "area_sqm": 1426.0,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_129.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0129",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.40972,
+              23.77354
+            ],
+            [
+              90.41164,
+              23.77342
+            ],
+            [
+              90.411671,
+              23.77503
+            ],
+            [
+              90.40983,
+              23.775071
+            ],
+            [
+              90.40972,
+              23.77354
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৫-1129",
+        "khatian_no": "৩৬২৪",
+        "dag_no": "১১২৯",
+        "mouza_bn": "টমসমব্রিজ",
+        "mouza_en": "Tomsom Bridge",
+        "upazila": "Kotwali",
+        "district": "Cumilla",
+        "land_type": "বাগান (Bagan - Orchard)",
+        "area_decimal": 67.36,
+        "area_sqm": 2726.0,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_130.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0130",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.411583,
+              23.773565
+            ],
+            [
+              90.413465,
+              23.773483
+            ],
+            [
+              90.41338,
+              23.775046
+            ],
+            [
+              90.411646,
+              23.77498
+            ],
+            [
+              90.411583,
+              23.773565
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১০-1130",
+        "khatian_no": "১৯৭১",
+        "dag_no": "১১৩০",
+        "mouza_bn": "পানাম নগর",
+        "mouza_en": "Panam Nagar",
+        "upazila": "Sonargaon",
+        "district": "Narayanganj",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 29.58,
+        "area_sqm": 1197.0,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_131.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0131",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.390091,
+              23.775037
+            ],
+            [
+              90.391837,
+              23.775091
+            ],
+            [
+              90.391795,
+              23.776418
+            ],
+            [
+              90.389918,
+              23.776495
+            ],
+            [
+              90.390091,
+              23.775037
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৫৭-1131",
+        "khatian_no": "৩১৬৬",
+        "dag_no": "১১৩১",
+        "mouza_bn": "তারানগর",
+        "mouza_en": "Taranagar",
+        "upazila": "Keraniganj",
+        "district": "Dhaka",
+        "land_type": "পতিত (Fallow/Unused)",
+        "area_decimal": 10.77,
+        "area_sqm": 436.0,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_132.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0132",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.391811,
+              23.775017
+            ],
+            [
+              90.393617,
+              23.775011
+            ],
+            [
+              90.393612,
+              23.776466
+            ],
+            [
+              90.391766,
+              23.776512
+            ],
+            [
+              90.391811,
+              23.775017
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২২-1132",
+        "khatian_no": "১১৬৫",
+        "dag_no": "১১৩২",
+        "mouza_bn": "সফিপুর",
+        "mouza_en": "Sofipur",
+        "upazila": "Kaliakair",
+        "district": "Gazipur",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 13.83,
+        "area_sqm": 559.5,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_133.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0133",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.393694,
+              23.77502
+            ],
+            [
+              90.39542,
+              23.775094
+            ],
+            [
+              90.39537,
+              23.776516
+            ],
+            [
+              90.393616,
+              23.77647
+            ],
+            [
+              90.393694,
+              23.77502
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৬-1133",
+        "khatian_no": "৫২১",
+        "dag_no": "১১৩৩",
+        "mouza_bn": "ফতুল্লা",
+        "mouza_en": "Fatullah",
+        "upazila": "Narayanganj Sadar",
+        "district": "Narayanganj",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 21.32,
+        "area_sqm": 862.7,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_134.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0134",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.395469,
+              23.774974
+            ],
+            [
+              90.397174,
+              23.775069
+            ],
+            [
+              90.397253,
+              23.776515
+            ],
+            [
+              90.395415,
+              23.776553
+            ],
+            [
+              90.395469,
+              23.774974
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২১-1134",
+        "khatian_no": "২৯৬৮",
+        "dag_no": "১১৩৪",
+        "mouza_bn": "সেনপাড়া পর্বতা",
+        "mouza_en": "Senpara Parbata",
+        "upazila": "Mirpur",
+        "district": "Dhaka",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 70.53,
+        "area_sqm": 2854.2,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_135.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0135",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.397136,
+              23.775041
+            ],
+            [
+              90.399041,
+              23.774936
+            ],
+            [
+              90.398962,
+              23.776468
+            ],
+            [
+              90.397168,
+              23.776462
+            ],
+            [
+              90.397136,
+              23.775041
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৬০-1135",
+        "khatian_no": "৩৩৭",
+        "dag_no": "১১৩৫",
+        "mouza_bn": "রোহিতপুর",
+        "mouza_en": "Rohitpur",
+        "upazila": "Keraniganj",
+        "district": "Dhaka",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 4.21,
+        "area_sqm": 170.5,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_136.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0136",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.398928,
+              23.775027
+            ],
+            [
+              90.400827,
+              23.774928
+            ],
+            [
+              90.400706,
+              23.776549
+            ],
+            [
+              90.399049,
+              23.776406
+            ],
+            [
+              90.398928,
+              23.775027
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৩০-1136",
+        "khatian_no": "৬৭০",
+        "dag_no": "১১৩৬",
+        "mouza_bn": "ফুলবাড়িয়া",
+        "mouza_en": "Fulbaria",
+        "upazila": "Kaliakair",
+        "district": "Gazipur",
+        "land_type": "পতিত (Fallow/Unused)",
+        "area_decimal": 21.52,
+        "area_sqm": 870.7,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_137.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0137",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.400774,
+              23.775044
+            ],
+            [
+              90.402644,
+              23.774974
+            ],
+            [
+              90.402655,
+              23.776514
+            ],
+            [
+              90.400814,
+              23.776555
+            ],
+            [
+              90.400774,
+              23.775044
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৬-1137",
+        "khatian_no": "১৩৮৯",
+        "dag_no": "১১৩৭",
+        "mouza_bn": "মাওনা",
+        "mouza_en": "Mawna",
+        "upazila": "Sreepur",
+        "district": "Gazipur",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 10.74,
+        "area_sqm": 434.6,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_138.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0138",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.402635,
+              23.774954
+            ],
+            [
+              90.404354,
+              23.775035
+            ],
+            [
+              90.404432,
+              23.776497
+            ],
+            [
+              90.402597,
+              23.776532
+            ],
+            [
+              90.402635,
+              23.774954
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৩৫-1138",
+        "khatian_no": "৫০৭",
+        "dag_no": "১১৩৮",
+        "mouza_bn": "হেমায়েতপুর",
+        "mouza_en": "Hemayetpur",
+        "upazila": "Savar",
+        "district": "Dhaka",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 40.3,
+        "area_sqm": 1630.8,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_139.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0139",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.404369,
+              23.774922
+            ],
+            [
+              90.406122,
+              23.774969
+            ],
+            [
+              90.406236,
+              23.776519
+            ],
+            [
+              90.404419,
+              23.776536
+            ],
+            [
+              90.404369,
+              23.774922
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৫-1139",
+        "khatian_no": "১০৩২",
+        "dag_no": "১১৩৯",
+        "mouza_bn": "টমসমব্রিজ",
+        "mouza_en": "Tomsom Bridge",
+        "upazila": "Kotwali",
+        "district": "Cumilla",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 47.33,
+        "area_sqm": 1915.2,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_140.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0140",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.406297,
+              23.774911
+            ],
+            [
+              90.407911,
+              23.775097
+            ],
+            [
+              90.407941,
+              23.776589
+            ],
+            [
+              90.406289,
+              23.776441
+            ],
+            [
+              90.406297,
+              23.774911
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৪৯-1140",
+        "khatian_no": "৩৩৩৭",
+        "dag_no": "১১৪০",
+        "mouza_bn": "সোমভাগ",
+        "mouza_en": "Sombhag",
+        "upazila": "Dhamrai",
+        "district": "Dhaka",
+        "land_type": "পুকুর (Pond/Waterbody)",
+        "area_decimal": 67.23,
+        "area_sqm": 2720.6,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_141.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0141",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.407902,
+              23.775049
+            ],
+            [
+              90.409849,
+              23.774902
+            ],
+            [
+              90.409735,
+              23.776476
+            ],
+            [
+              90.407976,
+              23.776435
+            ],
+            [
+              90.407902,
+              23.775049
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১১-1141",
+        "khatian_no": "১০৮২",
+        "dag_no": "১১৪১",
+        "mouza_bn": "সালনা",
+        "mouza_en": "Salna",
+        "upazila": "Gazipur Sadar",
+        "district": "Gazipur",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 61.96,
+        "area_sqm": 2507.3,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_142.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0142",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.409787,
+              23.774992
+            ],
+            [
+              90.411592,
+              23.774987
+            ],
+            [
+              90.411516,
+              23.776463
+            ],
+            [
+              90.409763,
+              23.776416
+            ],
+            [
+              90.409787,
+              23.774992
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৩০-1142",
+        "khatian_no": "৪৪৬",
+        "dag_no": "১১৪২",
+        "mouza_bn": "ফুলবাড়িয়া",
+        "mouza_en": "Fulbaria",
+        "upazila": "Kaliakair",
+        "district": "Gazipur",
+        "land_type": "পতিত (Fallow/Unused)",
+        "area_decimal": 39.24,
+        "area_sqm": 1588.1,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_143.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0143",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.411523,
+              23.774904
+            ],
+            [
+              90.413304,
+              23.774923
+            ],
+            [
+              90.413365,
+              23.77656
+            ],
+            [
+              90.41166,
+              23.776465
+            ],
+            [
+              90.411523,
+              23.774904
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০২-1143",
+        "khatian_no": "২৪৭১",
+        "dag_no": "১১৪৩",
+        "mouza_bn": "সিদ্ধিরগঞ্জ",
+        "mouza_en": "Siddhirganj",
+        "upazila": "Narayanganj Sadar",
+        "district": "Narayanganj",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 54.87,
+        "area_sqm": 2220.7,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_144.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0144",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.389949,
+              23.776518
+            ],
+            [
+              90.391818,
+              23.776449
+            ],
+            [
+              90.391805,
+              23.777979
+            ],
+            [
+              90.389979,
+              23.778005
+            ],
+            [
+              90.389949,
+              23.776518
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৬-1144",
+        "khatian_no": "৯৬৭",
+        "dag_no": "১১৪৪",
+        "mouza_bn": "ফতুল্লা",
+        "mouza_en": "Fatullah",
+        "upazila": "Narayanganj Sadar",
+        "district": "Narayanganj",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 29.39,
+        "area_sqm": 1189.4,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_145.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0145",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.391715,
+              23.776527
+            ],
+            [
+              90.393627,
+              23.776415
+            ],
+            [
+              90.393606,
+              23.777939
+            ],
+            [
+              90.391739,
+              23.778006
+            ],
+            [
+              90.391715,
+              23.776527
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৬-1145",
+        "khatian_no": "১৪৭৭",
+        "dag_no": "১১৪৫",
+        "mouza_bn": "মাওনা",
+        "mouza_en": "Mawna",
+        "upazila": "Sreepur",
+        "district": "Gazipur",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 67.96,
+        "area_sqm": 2750.4,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_146.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0146",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.393521,
+              23.776451
+            ],
+            [
+              90.395351,
+              23.776421
+            ],
+            [
+              90.395335,
+              23.777931
+            ],
+            [
+              90.393531,
+              23.777935
+            ],
+            [
+              90.393521,
+              23.776451
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৩২-1146",
+        "khatian_no": "২০৩৫",
+        "dag_no": "১১৪৬",
+        "mouza_bn": "সুলতানগঞ্জ",
+        "mouza_en": "Sultanganj",
+        "upazila": "Mohammadpur",
+        "district": "Dhaka",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 66.55,
+        "area_sqm": 2693.2,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_147.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0147",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.395451,
+              23.776552
+            ],
+            [
+              90.397252,
+              23.776551
+            ],
+            [
+              90.39719,
+              23.778085
+            ],
+            [
+              90.395485,
+              23.77799
+            ],
+            [
+              90.395451,
+              23.776552
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৩-1147",
+        "khatian_no": "৩৯০০",
+        "dag_no": "১১৪৭",
+        "mouza_bn": "কাঞ্চন",
+        "mouza_en": "Kanchan",
+        "upazila": "Rupganj",
+        "district": "Narayanganj",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 50.43,
+        "area_sqm": 2041.0,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_148.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0148",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.397188,
+              23.776494
+            ],
+            [
+              90.398994,
+              23.776488
+            ],
+            [
+              90.399026,
+              23.778059
+            ],
+            [
+              90.397259,
+              23.778026
+            ],
+            [
+              90.397188,
+              23.776494
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১১-1148",
+        "khatian_no": "১৩৩৬",
+        "dag_no": "১১৪৮",
+        "mouza_bn": "সালনা",
+        "mouza_en": "Salna",
+        "upazila": "Gazipur Sadar",
+        "district": "Gazipur",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 52.67,
+        "area_sqm": 2131.3,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_149.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0149",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.398992,
+              23.776408
+            ],
+            [
+              90.400708,
+              23.776492
+            ],
+            [
+              90.400774,
+              23.777957
+            ],
+            [
+              90.398957,
+              23.777974
+            ],
+            [
+              90.398992,
+              23.776408
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৫-1149",
+        "khatian_no": "২৬৪২",
+        "dag_no": "১১৪৯",
+        "mouza_bn": "ভাটারা",
+        "mouza_en": "Vatara",
+        "upazila": "Gulshan",
+        "district": "Dhaka",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 57.07,
+        "area_sqm": 2309.6,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_150.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0150",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.400777,
+              23.776516
+            ],
+            [
+              90.402616,
+              23.776477
+            ],
+            [
+              90.402691,
+              23.778048
+            ],
+            [
+              90.400848,
+              23.778091
+            ],
+            [
+              90.400777,
+              23.776516
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১২-1150",
+        "khatian_no": "৪২৫৩",
+        "dag_no": "১১৫০",
+        "mouza_bn": "বাঘা",
+        "mouza_en": "Bagha",
+        "upazila": "Golapganj",
+        "district": "Sylhet",
+        "land_type": "বাগান (Bagan - Orchard)",
+        "area_decimal": 7.1,
+        "area_sqm": 287.4,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_151.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0151",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.4026,
+              23.776592
+            ],
+            [
+              90.404492,
+              23.7765
+            ],
+            [
+              90.40439,
+              23.778062
+            ],
+            [
+              90.402662,
+              23.77799
+            ],
+            [
+              90.4026,
+              23.776592
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১২-1151",
+        "khatian_no": "৩৯৯৬",
+        "dag_no": "১১৫১",
+        "mouza_bn": "বাঘা",
+        "mouza_en": "Bagha",
+        "upazila": "Golapganj",
+        "district": "Sylhet",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 73.02,
+        "area_sqm": 2955.2,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_152.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0152",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.40435,
+              23.776488
+            ],
+            [
+              90.406188,
+              23.77645
+            ],
+            [
+              90.406188,
+              23.778005
+            ],
+            [
+              90.404405,
+              23.777988
+            ],
+            [
+              90.40435,
+              23.776488
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৩৯-1152",
+        "khatian_no": "৪২০",
+        "dag_no": "১১৫২",
+        "mouza_bn": "বিরুলিয়া",
+        "mouza_en": "Birulia",
+        "upazila": "Savar",
+        "district": "Dhaka",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 16.85,
+        "area_sqm": 681.8,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_153.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0153",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.406255,
+              23.776536
+            ],
+            [
+              90.408036,
+              23.776555
+            ],
+            [
+              90.40791,
+              23.778026
+            ],
+            [
+              90.406226,
+              23.77791
+            ],
+            [
+              90.406255,
+              23.776536
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-২৬-1153",
+        "khatian_no": "৩৪৪৮",
+        "dag_no": "১১৫৩",
+        "mouza_bn": "চন্দ্রা",
+        "mouza_en": "Chandra",
+        "upazila": "Kaliakair",
+        "district": "Gazipur",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 31.41,
+        "area_sqm": 1271.1,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_154.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0154",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.407957,
+              23.776545
+            ],
+            [
+              90.409845,
+              23.776457
+            ],
+            [
+              90.409831,
+              23.778081
+            ],
+            [
+              90.408081,
+              23.778031
+            ],
+            [
+              90.407957,
+              23.776545
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৭-1154",
+        "khatian_no": "৩২৬৬",
+        "dag_no": "১১৫৪",
+        "mouza_bn": "কংশনগর",
+        "mouza_en": "Kangshanagar",
+        "upazila": "Burichang",
+        "district": "Cumilla",
+        "land_type": "দোকান (Commercial/Shop)",
+        "area_decimal": 76.0,
+        "area_sqm": 3075.5,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_155.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0155",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.409883,
+              23.776462
+            ],
+            [
+              90.411562,
+              23.776583
+            ],
+            [
+              90.411631,
+              23.778032
+            ],
+            [
+              90.409832,
+              23.778031
+            ],
+            [
+              90.409883,
+              23.776462
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৭-1155",
+        "khatian_no": "১২৫৮",
+        "dag_no": "১১৫৫",
+        "mouza_bn": "কুমারগাঁও",
+        "mouza_en": "Kumargaon",
+        "upazila": "Sylhet Sadar",
+        "district": "Sylhet",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 14.38,
+        "area_sqm": 582.0,
+        "trust_status": "OCR_EXTRACTED",
+        "sample_docs": [
+          "doc_156.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0156",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.411629,
+              23.776466
+            ],
+            [
+              90.413366,
+              23.776529
+            ],
+            [
+              90.413326,
+              23.778041
+            ],
+            [
+              90.411641,
+              23.777926
+            ],
+            [
+              90.411629,
+              23.776466
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৭-1156",
+        "khatian_no": "৩১৮৫",
+        "dag_no": "১১৫৬",
+        "mouza_bn": "কংশনগর",
+        "mouza_en": "Kangshanagar",
+        "upazila": "Burichang",
+        "district": "Cumilla",
+        "land_type": "ভিটি (Viti - High homestead land)",
+        "area_decimal": 82.11,
+        "area_sqm": 3322.8,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_157.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0157",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.389972,
+              23.777973
+            ],
+            [
+              90.391773,
+              23.777972
+            ],
+            [
+              90.391736,
+              23.779443
+            ],
+            [
+              90.389943,
+              23.779436
+            ],
+            [
+              90.389972,
+              23.777973
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-০৬-1157",
+        "khatian_no": "৪২৬৫",
+        "dag_no": "১১৫৭",
+        "mouza_bn": "ফতুল্লা",
+        "mouza_en": "Fatullah",
+        "upazila": "Narayanganj Sadar",
+        "district": "Narayanganj",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 82.16,
+        "area_sqm": 3324.7,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_158.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0158",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.391731,
+              23.777959
+            ],
+            [
+              90.393559,
+              23.777931
+            ],
+            [
+              90.393658,
+              23.779502
+            ],
+            [
+              90.391802,
+              23.779558
+            ],
+            [
+              90.391731,
+              23.777959
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-৪৯-1158",
+        "khatian_no": "১২২৬",
+        "dag_no": "১১৫৮",
+        "mouza_bn": "সোমভাগ",
+        "mouza_en": "Sombhag",
+        "upazila": "Dhamrai",
+        "district": "Dhaka",
+        "land_type": "নাল (Nal - Agricultural)",
+        "area_decimal": 48.39,
+        "area_sqm": 1958.2,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_159.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0159",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.393619,
+              23.777931
+            ],
+            [
+              90.395331,
+              23.778019
+            ],
+            [
+              90.395336,
+              23.779539
+            ],
+            [
+              90.393639,
+              23.779436
+            ],
+            [
+              90.393619,
+              23.777931
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১৬-1159",
+        "khatian_no": "১১৭৩",
+        "dag_no": "১১৫৯",
+        "mouza_bn": "মাওনা",
+        "mouza_en": "Mawna",
+        "upazila": "Sreepur",
+        "district": "Gazipur",
+        "land_type": "বাড়ি (Bari - Residential)",
+        "area_decimal": 55.42,
+        "area_sqm": 2242.9,
+        "trust_status": "VERIFICATION_REQUIRED",
+        "sample_docs": [
+          "doc_160.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_0160",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.395382,
+              23.778035
+            ],
+            [
+              90.397235,
+              23.777982
+            ],
+            [
+              90.397148,
+              23.779489
+            ],
+            [
+              90.395389,
+              23.779448
+            ],
+            [
+              90.395382,
+              23.778035
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "parcels",
+        "feature_type": "parcel",
+        "parcel_id": "BD-P-১০-1160",
+        "khatian_no": "৪৫৭",
+        "dag_no": "১১৬০",
+        "mouza_bn": "পানাম নগর",
+        "mouza_en": "Panam Nagar",
+        "upazila": "Sonargaon",
+        "district": "Narayanganj",
+        "land_type": "রাস্তা (Access road)",
+        "area_decimal": 27.29,
+        "area_sqm": 1104.5,
+        "trust_status": "POSSIBLE_MATCH",
+        "sample_docs": [
+          "doc_161.jpg"
+        ],
+        "legal_notice": "Illustrative / Not a legal boundary (DEMO)"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road_001",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            90.388,
+            23.766
+          ],
+          [
+            90.4,
+            23.767
+          ],
+          [
+            90.414,
+            23.769
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "roads",
+        "feature_type": "primary_highway",
+        "name_bn": "মহাসড়ক (Highway - ৪ লেনে উন্নীত)",
+        "name_en": "Primary Upazila Highway",
+        "width_meters": 18.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road_002",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            90.398,
+            23.759
+          ],
+          [
+            90.399,
+            23.77
+          ],
+          [
+            90.401,
+            23.778
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "roads",
+        "feature_type": "access_road",
+        "name_bn": "মৌজা সংযোগ রাস্তা (Mouza Access Road)",
+        "name_en": "Connecting Feeder Road",
+        "width_meters": 6.5
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "water_001",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.387,
+              23.775
+            ],
+            [
+              90.415,
+              23.779
+            ],
+            [
+              90.415,
+              23.782
+            ],
+            [
+              90.387,
+              23.778
+            ],
+            [
+              90.387,
+              23.775
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "water",
+        "feature_type": "river",
+        "name_bn": "তুরাগ নদী সংযোগ খাল (Turag Tributary)",
+        "name_en": "Turag Canal Tributary"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "water_002",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              90.394,
+              23.763
+            ],
+            [
+              90.396,
+              23.763
+            ],
+            [
+              90.396,
+              23.765
+            ],
+            [
+              90.394,
+              23.765
+            ],
+            [
+              90.394,
+              23.763
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "layer": "water",
+        "feature_type": "pond",
+        "name_bn": "মৌজা সরকারি দিঘি (Public Pond)",
+        "name_en": "Cadastral Waterbody Parcel"
+      }
+    }
+  ]
+}

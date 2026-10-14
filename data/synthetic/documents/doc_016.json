@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_016.jpg",
+  "document_id": "DOC-SYN-0016",
+  "font_used": "Nirmala",
+  "degradations": {
+    "rotation_degrees": 3.96,
+    "perspective_warp_max_px": 10,
+    "blur_radius": 0.93,
+    "jpeg_quality": 63,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "BS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "গোসিংগা",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "১৯",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "২৬০০",
+      "raw": "2600",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "২৬৩০",
+      "raw": "2630",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "এনামুল হক",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "ভিটি",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৮১.৪৫",
+      "raw": 81.45,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_054.jpg",
+  "document_id": "DOC-SYN-0054",
+  "font_used": "Nirmala",
+  "degradations": {
+    "rotation_degrees": -3.96,
+    "perspective_warp_max_px": 5,
+    "blur_radius": 0.7,
+    "jpeg_quality": 55,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "City Survey",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "কাফরুল",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "২৫",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৯২০৬",
+      "raw": "9206",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৮৩২",
+      "raw": "832",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "সুলতান মাহমুদ",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "নাল",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "২৬.০৪",
+      "raw": 26.04,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/9206"
+    }
+  }
+}

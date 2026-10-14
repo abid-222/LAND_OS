@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_276.jpg",
+  "document_id": "DOC-SYN-0276",
+  "font_used": "Nirmala",
+  "degradations": {
+    "rotation_degrees": 5.16,
+    "perspective_warp_max_px": 10,
+    "blur_radius": 0.83,
+    "jpeg_quality": 36,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "BS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "সেনপাড়া পর্বতা",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "২১",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৬৮৮৬",
+      "raw": "6886",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৬৮১৯",
+      "raw": "6819",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "মোহাম্মদ রফিকুল ইসলাম",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "পতিত",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৫৯.৫৩",
+      "raw": 59.53,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

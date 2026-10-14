@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_241.jpg",
+  "document_id": "DOC-SYN-0241",
+  "font_used": "NotoSansBengali-Regular",
+  "degradations": {
+    "rotation_degrees": 1.2,
+    "perspective_warp_max_px": 9,
+    "blur_radius": 0.71,
+    "jpeg_quality": 63,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "RS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "তেজগাঁও শিল্পাঞ্চল",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০৪",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "২৯৪৩",
+      "raw": "2943",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "১৬৭৪",
+      "raw": "1674",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "এনামুল হক",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "রাস্তা",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৯.০৭",
+      "raw": 9.07,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/2943"
+    }
+  }
+}

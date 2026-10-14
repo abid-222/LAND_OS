@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_017.jpg",
+  "document_id": "DOC-SYN-0017",
+  "font_used": "NotoSansBengali-Regular",
+  "degradations": {
+    "rotation_degrees": -4.45,
+    "perspective_warp_max_px": 6,
+    "blur_radius": 0.71,
+    "jpeg_quality": 38,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "City Survey",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "সফিপুর",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "২২",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৫১৮৫",
+      "raw": "5185",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৮৪৩৯",
+      "raw": "8439",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "কুলসুম বিবি",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "বাড়ি",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "১৪.৪৯",
+      "raw": 14.49,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

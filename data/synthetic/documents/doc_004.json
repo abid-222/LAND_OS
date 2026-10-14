@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_004.jpg",
+  "document_id": "DOC-SYN-0004",
+  "font_used": "HindSiliguri-Regular",
+  "degradations": {
+    "rotation_degrees": -0.21,
+    "perspective_warp_max_px": 7,
+    "blur_radius": 0.88,
+    "jpeg_quality": 54,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "SA",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "আম্বরখানা",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০২",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৬২৭১",
+      "raw": "6271",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৬৭০১",
+      "raw": "6701",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "আখতারুজ্জামান",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "ভিটি",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৪৫.৬১",
+      "raw": 45.61,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

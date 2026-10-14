@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_113.jpg",
+  "document_id": "DOC-SYN-0113",
+  "font_used": "HindSiliguri-Regular",
+  "degradations": {
+    "rotation_degrees": -5.15,
+    "perspective_warp_max_px": 7,
+    "blur_radius": 0.58,
+    "jpeg_quality": 43,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "RS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "টমসমব্রিজ",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০৫",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৩৮৫৮",
+      "raw": "3858",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৫২১৩",
+      "raw": "5213",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "নূরুল হক চৌধুরী",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "বাড়ি",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "১১.৬৯",
+      "raw": 11.69,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

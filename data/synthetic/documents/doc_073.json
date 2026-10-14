@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_073.jpg",
+  "document_id": "DOC-SYN-0073",
+  "font_used": "Nirmala",
+  "degradations": {
+    "rotation_degrees": 5.12,
+    "perspective_warp_max_px": 5,
+    "blur_radius": 1.01,
+    "jpeg_quality": 60,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "SA",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "ময়নামতি",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "১৩",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৮৯৬৭",
+      "raw": "8967",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৩৪৫৫",
+      "raw": "3455",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "নূরুল হক চৌধুরী",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "ভিটি",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৭৯.৬৮",
+      "raw": 79.68,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

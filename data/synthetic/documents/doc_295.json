@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_295.jpg",
+  "document_id": "DOC-SYN-0295",
+  "font_used": "HindSiliguri-Regular",
+  "degradations": {
+    "rotation_degrees": 0.62,
+    "perspective_warp_max_px": 5,
+    "blur_radius": 0.6,
+    "jpeg_quality": 65,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "CS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "জিনজিরা",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "৫৩",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৩২৫৭",
+      "raw": "3257",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৭১১৯",
+      "raw": "7119",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "আব্দুর রহিম তালুকদার",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "নাল",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "২১.০৯",
+      "raw": 21.09,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/3257"
+    }
+  }
+}

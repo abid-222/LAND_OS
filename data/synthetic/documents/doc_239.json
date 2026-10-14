@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_239.jpg",
+  "document_id": "DOC-SYN-0239",
+  "font_used": "HindSiliguri-Regular",
+  "degradations": {
+    "rotation_degrees": -3.38,
+    "perspective_warp_max_px": 6,
+    "blur_radius": 0.5,
+    "jpeg_quality": 43,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "RS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "আশুলিয়া",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "৪২",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৮৭১১",
+      "raw": "8711",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "১৬৪৫",
+      "raw": "1645",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "নূরুল হক চৌধুরী",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "দোকান",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৬৯.৬৩",
+      "raw": 69.63,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/8711"
+    }
+  }
+}

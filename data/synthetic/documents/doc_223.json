@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_223.jpg",
+  "document_id": "DOC-SYN-0223",
+  "font_used": "Nirmala",
+  "degradations": {
+    "rotation_degrees": -2.21,
+    "perspective_warp_max_px": 10,
+    "blur_radius": 0.96,
+    "jpeg_quality": 50,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "BS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "মাওনা",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "১৬",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৮৯০৮",
+      "raw": "8908",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৮৪৩২",
+      "raw": "8432",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "আখতারুজ্জামান",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "রাস্তা",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৫১.৭০",
+      "raw": 51.7,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

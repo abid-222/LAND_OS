@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_296.jpg",
+  "document_id": "DOC-SYN-0296",
+  "font_used": "HindSiliguri-Regular",
+  "degradations": {
+    "rotation_degrees": 5.83,
+    "perspective_warp_max_px": 7,
+    "blur_radius": 1.0,
+    "jpeg_quality": 35,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "BS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "আম্বরখানা",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০২",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৯০৭৩",
+      "raw": "9073",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৮২০১",
+      "raw": "8201",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "মোকাররম হোসেন",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "বাগান",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "১২.৪৪",
+      "raw": 12.44,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/9073"
+    }
+  }
+}

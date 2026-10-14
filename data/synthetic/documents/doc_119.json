@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_119.jpg",
+  "document_id": "DOC-SYN-0119",
+  "font_used": "HindSiliguri-Regular",
+  "degradations": {
+    "rotation_degrees": 5.04,
+    "perspective_warp_max_px": 7,
+    "blur_radius": 0.92,
+    "jpeg_quality": 53,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "City Survey",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "রোহিতপুর",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "৬০",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৭৯৫৫",
+      "raw": "7955",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "২৮৫৯",
+      "raw": "2859",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "নাসরীন আক্তার",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "বাগান",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৫৬.০২",
+      "raw": 56.02,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/7955"
+    }
+  }
+}

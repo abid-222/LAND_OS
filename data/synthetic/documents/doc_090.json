@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_090.jpg",
+  "document_id": "DOC-SYN-0090",
+  "font_used": "NotoSansBengali-Regular",
+  "degradations": {
+    "rotation_degrees": 3.39,
+    "perspective_warp_max_px": 10,
+    "blur_radius": 1.09,
+    "jpeg_quality": 62,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "City Survey",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "চান্দনা",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০৭",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৮৪৭",
+      "raw": "847",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "১৩৭৮",
+      "raw": "1378",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "এনামুল হক",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "ভিটি",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৫৬.৪৭",
+      "raw": 56.47,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

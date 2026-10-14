@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_111.jpg",
+  "document_id": "DOC-SYN-0111",
+  "font_used": "HindSiliguri-Regular",
+  "degradations": {
+    "rotation_degrees": 2.45,
+    "perspective_warp_max_px": 10,
+    "blur_radius": 0.92,
+    "jpeg_quality": 63,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "RS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "মুড়াপাড়া",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "১৮",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "১৭৬",
+      "raw": "176",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৫০৯৭",
+      "raw": "5097",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "কামাল উদ্দিন আহমেদ",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "পতিত",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "১০.১৫",
+      "raw": 10.15,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

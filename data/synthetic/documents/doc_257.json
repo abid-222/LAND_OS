@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_257.jpg",
+  "document_id": "DOC-SYN-0257",
+  "font_used": "Nirmala",
+  "degradations": {
+    "rotation_degrees": 1.74,
+    "perspective_warp_max_px": 9,
+    "blur_radius": 0.75,
+    "jpeg_quality": 33,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "CS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "আম্বরখানা",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০২",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৩৫৯৩",
+      "raw": "3593",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৪১৩৩",
+      "raw": "4133",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "মনোয়ারা বেগম",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "বাড়ি",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "১৯.৩৭",
+      "raw": 19.37,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/3593"
+    }
+  }
+}

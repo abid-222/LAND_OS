@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_066.jpg",
+  "document_id": "DOC-SYN-0066",
+  "font_used": "Nirmala",
+  "degradations": {
+    "rotation_degrees": -0.84,
+    "perspective_warp_max_px": 8,
+    "blur_radius": 0.53,
+    "jpeg_quality": 60,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "SA",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "ফতুল্লা",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০৬",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৮৫১১",
+      "raw": "8511",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "১৬৯১",
+      "raw": "1691",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "বিলকিস বানু",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "রাস্তা",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৪৫.১৮",
+      "raw": 45.18,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/8511"
+    }
+  }
+}

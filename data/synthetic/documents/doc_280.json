@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_280.jpg",
+  "document_id": "DOC-SYN-0280",
+  "font_used": "Nirmala",
+  "degradations": {
+    "rotation_degrees": -5.85,
+    "perspective_warp_max_px": 9,
+    "blur_radius": 0.9,
+    "jpeg_quality": 55,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "BS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "পাইকপাড়া",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "১৮",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৪৪৯৩",
+      "raw": "4493",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "২৩৫৫",
+      "raw": "2355",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "হাসিনা আক্তার",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "ভিটি",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "১৫.৯৮",
+      "raw": 15.98,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/4493"
+    }
+  }
+}

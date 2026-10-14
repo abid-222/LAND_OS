@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_024.jpg",
+  "document_id": "DOC-SYN-0024",
+  "font_used": "HindSiliguri-Regular",
+  "degradations": {
+    "rotation_degrees": -3.85,
+    "perspective_warp_max_px": 11,
+    "blur_radius": 0.56,
+    "jpeg_quality": 39,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "BS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "হেমায়েতপুর",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "৩৫",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৮১৪৫",
+      "raw": "8145",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৫৩৩৯",
+      "raw": "5339",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "মোহাম্মদ রফিকুল ইসলাম",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "বাড়ি",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৮.৬৩",
+      "raw": 8.63,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/8145"
+    }
+  }
+}

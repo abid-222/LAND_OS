@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_042.jpg",
+  "document_id": "DOC-SYN-0042",
+  "font_used": "NotoSansBengali-Regular",
+  "degradations": {
+    "rotation_degrees": -3.39,
+    "perspective_warp_max_px": 11,
+    "blur_radius": 0.69,
+    "jpeg_quality": 59,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "City Survey",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "বাড্ডা উত্তর",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "১২",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৫৪৫৩",
+      "raw": "5453",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৫৩৩৫",
+      "raw": "5335",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "আব্দুর রহিম তালুকদার",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "দোকান",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৬০.১৫",
+      "raw": 60.15,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/5453"
+    }
+  }
+}

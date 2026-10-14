@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_086.jpg",
+  "document_id": "DOC-SYN-0086",
+  "font_used": "NotoSansBengali-Regular",
+  "degradations": {
+    "rotation_degrees": -5.0,
+    "perspective_warp_max_px": 6,
+    "blur_radius": 0.94,
+    "jpeg_quality": 46,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "RS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "কাওরান বাজার",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০১",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৫৬৩২",
+      "raw": "5632",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৬৭৪০",
+      "raw": "6740",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "বিলকিস বানু",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "রাস্তা",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৮৪.৪৮",
+      "raw": 84.48,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/5632"
+    }
+  }
+}

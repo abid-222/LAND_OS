@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_294.jpg",
+  "document_id": "DOC-SYN-0294",
+  "font_used": "HindSiliguri-Regular",
+  "degradations": {
+    "rotation_degrees": -5.47,
+    "perspective_warp_max_px": 12,
+    "blur_radius": 0.52,
+    "jpeg_quality": 39,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "RS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "কংশনগর",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "১৭",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৪২৬",
+      "raw": "426",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৬৪৬২",
+      "raw": "6462",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "গোলাম কিবরিয়া",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "পুকুর",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৭২.৭৭",
+      "raw": 72.77,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

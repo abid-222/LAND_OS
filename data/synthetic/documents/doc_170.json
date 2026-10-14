@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_170.jpg",
+  "document_id": "DOC-SYN-0170",
+  "font_used": "Nirmala",
+  "degradations": {
+    "rotation_degrees": -4.48,
+    "perspective_warp_max_px": 7,
+    "blur_radius": 0.62,
+    "jpeg_quality": 38,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "CS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "কুমারগাঁও",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০৭",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৮১১",
+      "raw": "811",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৫২১৮",
+      "raw": "5218",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "নূরুল হক চৌধুরী",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "দোকান",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "১৫.৫৭",
+      "raw": 15.57,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/811"
+    }
+  }
+}

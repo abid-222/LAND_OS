@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_133.jpg",
+  "document_id": "DOC-SYN-0133",
+  "font_used": "HindSiliguri-Regular",
+  "degradations": {
+    "rotation_degrees": 3.99,
+    "perspective_warp_max_px": 4,
+    "blur_radius": 0.41,
+    "jpeg_quality": 40,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "BS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "চন্দ্রা",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "২৬",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৫৮৫৯",
+      "raw": "5859",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৬২৪২",
+      "raw": "6242",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "রোকেয়া সুলতানা",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "রাস্তা",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৪৭.০৩",
+      "raw": 47.03,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_027.jpg",
+  "document_id": "DOC-SYN-0027",
+  "font_used": "NotoSansBengali-Regular",
+  "degradations": {
+    "rotation_degrees": 2.74,
+    "perspective_warp_max_px": 8,
+    "blur_radius": 0.45,
+    "jpeg_quality": 36,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "SA",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "মহাখালী",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০৮",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "২৫৯৯",
+      "raw": "2599",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৩৮৬৯",
+      "raw": "3869",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "সালমা চৌধুরী",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "নাল",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "২৪.০০",
+      "raw": 24.0,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

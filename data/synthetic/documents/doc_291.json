@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_291.jpg",
+  "document_id": "DOC-SYN-0291",
+  "font_used": "NotoSansBengali-Regular",
+  "degradations": {
+    "rotation_degrees": 2.75,
+    "perspective_warp_max_px": 7,
+    "blur_radius": 0.58,
+    "jpeg_quality": 46,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "CS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "কাঞ্চন",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "২৩",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৬২১",
+      "raw": "621",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৩২১৯",
+      "raw": "3219",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "রাবেয়া বসরী",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "রাস্তা",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৩৭.৭৬",
+      "raw": 37.76,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

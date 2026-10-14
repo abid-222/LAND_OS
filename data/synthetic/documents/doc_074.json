@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_074.jpg",
+  "document_id": "DOC-SYN-0074",
+  "font_used": "Nirmala",
+  "degradations": {
+    "rotation_degrees": 4.22,
+    "perspective_warp_max_px": 5,
+    "blur_radius": 0.46,
+    "jpeg_quality": 41,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "City Survey",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "সেনপাড়া পর্বতা",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "২১",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "২১৯৬",
+      "raw": "2196",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৫৪৪১",
+      "raw": "5441",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "শামসুল আলম",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "রাস্তা",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৮.৪৩",
+      "raw": 8.43,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/2196"
+    }
+  }
+}

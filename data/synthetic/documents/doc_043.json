@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_043.jpg",
+  "document_id": "DOC-SYN-0043",
+  "font_used": "Nirmala",
+  "degradations": {
+    "rotation_degrees": 3.13,
+    "perspective_warp_max_px": 9,
+    "blur_radius": 0.91,
+    "jpeg_quality": 48,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "CS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "ময়নামতি",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "১৩",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৮১৩৭",
+      "raw": "8137",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৪১৯৮",
+      "raw": "4198",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "জয়নাল আবেদীন",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "রাস্তা",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "১৩.৪৫",
+      "raw": 13.45,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/8137"
+    }
+  }
+}

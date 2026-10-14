@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_292.jpg",
+  "document_id": "DOC-SYN-0292",
+  "font_used": "Nirmala",
+  "degradations": {
+    "rotation_degrees": 0.16,
+    "perspective_warp_max_px": 9,
+    "blur_radius": 0.78,
+    "jpeg_quality": 54,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "CS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "কুমারগাঁও",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০৭",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৮৬১৯",
+      "raw": "8619",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৩০৭৫",
+      "raw": "3075",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "জয়নাল আবেদীন",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "নাল",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৬০.৯৫",
+      "raw": 60.95,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

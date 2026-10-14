@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_098.jpg",
+  "document_id": "DOC-SYN-0098",
+  "font_used": "Nirmala",
+  "degradations": {
+    "rotation_degrees": -1.83,
+    "perspective_warp_max_px": 8,
+    "blur_radius": 0.47,
+    "jpeg_quality": 34,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "BS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "মহাখালী",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০৮",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৯৪৩৫",
+      "raw": "9435",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৩৮৩৬",
+      "raw": "3836",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "ফাতেমা বেগম",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "পুকুর",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৬৬.০৭",
+      "raw": 66.07,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/9435"
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_149.jpg",
+  "document_id": "DOC-SYN-0149",
+  "font_used": "Nirmala",
+  "degradations": {
+    "rotation_degrees": -2.23,
+    "perspective_warp_max_px": 11,
+    "blur_radius": 0.97,
+    "jpeg_quality": 31,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "RS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "কাফরুল",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "২৫",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "১৯৩৯",
+      "raw": "1939",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "১৫৪০",
+      "raw": "1540",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "সিরাজুল ইসলাম",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "ভিটি",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "২০.৯৭",
+      "raw": 20.97,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

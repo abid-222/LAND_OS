@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_142.jpg",
+  "document_id": "DOC-SYN-0142",
+  "font_used": "HindSiliguri-Regular",
+  "degradations": {
+    "rotation_degrees": 2.61,
+    "perspective_warp_max_px": 8,
+    "blur_radius": 1.12,
+    "jpeg_quality": 51,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "City Survey",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "সালনা",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "১১",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৭২৫৮",
+      "raw": "7258",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "২৮১০",
+      "raw": "2810",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "মোকাররম হোসেন",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "পুকুর",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "২৮.২২",
+      "raw": 28.22,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

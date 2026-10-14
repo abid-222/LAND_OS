@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_221.jpg",
+  "document_id": "DOC-SYN-0221",
+  "font_used": "HindSiliguri-Regular",
+  "degradations": {
+    "rotation_degrees": -4.64,
+    "perspective_warp_max_px": 9,
+    "blur_radius": 0.64,
+    "jpeg_quality": 49,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "City Survey",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "ফতুল্লা",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০৬",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৬৬৮৪",
+      "raw": "6684",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৮৩৭০",
+      "raw": "8370",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "সুলতান মাহমুদ",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "দোকান",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৭১.৯৫",
+      "raw": 71.95,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

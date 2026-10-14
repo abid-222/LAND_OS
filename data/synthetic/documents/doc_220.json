@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_220.jpg",
+  "document_id": "DOC-SYN-0220",
+  "font_used": "HindSiliguri-Regular",
+  "degradations": {
+    "rotation_degrees": -3.21,
+    "perspective_warp_max_px": 10,
+    "blur_radius": 0.9,
+    "jpeg_quality": 48,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "City Survey",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "কংশনগর",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "১৭",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৭৯৬",
+      "raw": "796",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৪৪৭৯",
+      "raw": "4479",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "জয়নাল আবেদীন",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "পতিত",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "১৩.১০",
+      "raw": 13.1,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/796"
+    }
+  }
+}

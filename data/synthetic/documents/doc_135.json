@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_135.jpg",
+  "document_id": "DOC-SYN-0135",
+  "font_used": "Nirmala",
+  "degradations": {
+    "rotation_degrees": 3.72,
+    "perspective_warp_max_px": 7,
+    "blur_radius": 1.01,
+    "jpeg_quality": 32,
+    "qr_code_present": true
+  },
+  "fields": {
+    "survey_type": {
+      "value": "BS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "কাঁচপুর",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "১৪",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "১৯২৭",
+      "raw": "1927",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "২০২৪",
+      "raw": "2024",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "শাহানাজ পারভীন",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "নাল",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "২৬.২৪",
+      "raw": 26.24,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/1927"
+    }
+  }
+}

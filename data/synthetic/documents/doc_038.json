@@ -1,0 +1,89 @@
+{
+  "image_file": "doc_038.jpg",
+  "document_id": "DOC-SYN-0038",
+  "font_used": "Nirmala",
+  "degradations": {
+    "rotation_degrees": 5.0,
+    "perspective_warp_max_px": 8,
+    "blur_radius": 0.44,
+    "jpeg_quality": 44,
+    "qr_code_present": false
+  },
+  "fields": {
+    "survey_type": {
+      "value": "BS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "ফুলবাড়িয়া",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "৩০",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "২৬০৯",
+      "raw": "2609",
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৪১৮৭",
+      "raw": "4187",
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "আবদুল করিম",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "নাল",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৭১.৪৫",
+      "raw": 71.45,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}
