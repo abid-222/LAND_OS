@@ -1,0 +1,68 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.installed.cfg
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.manifest
+*.spec
+
+# Test & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+coverage/
+.nyc_output
+test-results/
+playwright-report/
+blob-report/
+
+# IDE & OS
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Secrets & Local runtime
+.env
+.env.local
+*.pem
+*.key
+
+# Database and Storage Volumes
+postgres_data/
+minio_data/
+redis_data/
+
+# Generated types and openapi temporary artifacts
+frontend/src/api/generated.ts.tmp

@@ -1,0 +1,150 @@
+version: '3.8'
+
+services:
+  db:
+    build:
+      context: ./infra/docker/db
+      dockerfile: Dockerfile
+    image: landos-db:16-postgis-pgvector
+    container_name: landos-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-landos_db}
+      POSTGRES_USER: ${POSTGRES_USER:-landos_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-landos_dev_password}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-landos_user} -d ${POSTGRES_DB:-landos_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: landos-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  minio:
+    image: minio/minio:RELEASE.2024-03-30T09-41-56Z
+    container_name: landos-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-minio_admin}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-minio_dev_password}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: landos-api:latest
+    container_name: landos-api
+    restart: unless-stopped
+    environment:
+      PROJECT_NAME: "Bangladesh LandOS"
+      ENVIRONMENT: "development"
+      DEBUG: "true"
+      API_V1_PREFIX: "/api/v1"
+      DATABASE_URL: "postgresql+asyncpg://${POSTGRES_USER:-landos_user}:${POSTGRES_PASSWORD:-landos_dev_password}@db:5432/${POSTGRES_DB:-landos_db}"
+      REDIS_URL: "redis://redis:6379/0"
+      MINIO_ENDPOINT: "minio:9000"
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minio_admin}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-minio_dev_password}
+      MINIO_BUCKET: ${MINIO_BUCKET:-landos-documents}
+      MINIO_USE_SSL: "false"
+      SECRET_KEY: ${SECRET_KEY:-development_secret_key_change_in_production_min_32_bytes_long}
+      BACKEND_CORS_ORIGINS: '["http://localhost:8080", "http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:3000"]'
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health/liveness"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  worker:
+    build:
+      context: .
+      dockerfile: workers/Dockerfile
+    image: landos-worker:latest
+    container_name: landos-worker
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: "postgresql+asyncpg://${POSTGRES_USER:-landos_user}:${POSTGRES_PASSWORD:-landos_dev_password}@db:5432/${POSTGRES_DB:-landos_db}"
+      REDIS_URL: "redis://redis:6379/0"
+      MINIO_ENDPOINT: "minio:9000"
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minio_admin}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-minio_dev_password}
+      MINIO_BUCKET: ${MINIO_BUCKET:-landos-documents}
+      MINIO_USE_SSL: "false"
+    depends_on:
+      - redis
+      - db
+      - api
+
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: landos-web:latest
+    container_name: landos-web
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+  prometheus:
+    image: prom/prometheus:v2.51.0
+    container_name: landos-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./infra/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+
+  grafana:
+    image: grafana/grafana:10.4.0
+    container_name: landos-grafana
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./infra/grafana/provisioning:/etc/grafana/provisioning:ro
+    depends_on:
+      - prometheus
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:

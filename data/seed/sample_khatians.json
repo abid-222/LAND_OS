@@ -1,0 +1,41 @@
+[
+  {
+    "record_no": "LR-2024-1001",
+    "mouza_jl": "০৪",
+    "mouza_name_bn": "তেজগাঁও",
+    "survey_type": "RS",
+    "khatian_no": "১২০৫",
+    "dag_no": "৪৫২০",
+    "owner_names_bn": "আব্দুল করিম, ফাতেমা বেগম",
+    "land_class_bn": "ভিটি (Viti)",
+    "area_acres": 0.155,
+    "trust_status": "POSSIBLE_MATCH",
+    "is_synthetic_demo": true
+  },
+  {
+    "record_no": "LR-2024-1002",
+    "mouza_jl": "১২",
+    "mouza_name_bn": "মিরপুর",
+    "survey_type": "BS",
+    "khatian_no": "৭৮৯",
+    "dag_no": "৩২০১",
+    "owner_names_bn": "মোহাম্মদ হোসেন",
+    "land_class_bn": "নাল (Nal)",
+    "area_acres": 0.420,
+    "trust_status": "VERIFICATION_REQUIRED",
+    "is_synthetic_demo": true
+  },
+  {
+    "record_no": "LR-2024-1003",
+    "mouza_jl": "২৮",
+    "mouza_name_bn": "বাড্ডা",
+    "survey_type": "City Survey",
+    "khatian_no": "৫৪৩",
+    "dag_no": "১০৮৯",
+    "owner_names_bn": "নুরুল ইসলাম খান, শাহানাজ বেগম",
+    "land_class_bn": "বাড়ি (Bari)",
+    "area_acres": 0.082,
+    "trust_status": "OCR_EXTRACTED",
+    "is_synthetic_demo": true
+  }
+]
