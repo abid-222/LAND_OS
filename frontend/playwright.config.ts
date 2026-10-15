@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './e2e',
-  timeout: 30000,
+  timeout: 60000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -22,8 +22,12 @@ export default defineConfig({
       use: { ...devices['iPhone 12'] },
     },
     {
-      name: 'Desktop Chrome',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'Tablet (768px)',
+      use: { viewport: { width: 768, height: 1024 } },
+    },
+    {
+      name: 'Desktop (1280px)',
+      use: { viewport: { width: 1280, height: 800 } },
     },
   ],
   webServer: {

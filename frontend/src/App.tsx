@@ -1,22 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
 import './i18n';
 import { Header } from './components/Header';
 import { BottomNav } from './components/BottomNav';
-import { HomePage } from './pages/HomePage';
+import { getQueuedUploads } from './lib/offlineQueue';
+import { RefreshCw } from 'lucide-react';
+
+// Route-level lazy loading for optimal bundle size and performance (Lighthouse >= 90)
+const HomePage = lazy(() => import('./pages/HomePage').then((m) => ({ default: m.HomePage })));
+const ScanPage = lazy(() => import('./pages/ScanPage').then((m) => ({ default: m.ScanPage })));
+const ConfirmPage = lazy(() => import('./pages/ConfirmPage').then((m) => ({ default: m.ConfirmPage })));
+const SearchPage = lazy(() => import('./pages/SearchPage').then((m) => ({ default: m.SearchPage })));
+const GuidePage = lazy(() => import('./pages/GuidePage').then((m) => ({ default: m.GuidePage })));
+const MapPage = lazy(() => import('./pages/MapPage').then((m) => ({ default: m.MapPage })));
+const PendingUploadsPage = lazy(() => import('./pages/PendingUploadsPage').then((m) => ({ default: m.PendingUploadsPage })));
+const StaffPage = lazy(() => import('./pages/StaffPage').then((m) => ({ default: m.StaffPage })));
+const AdminPage = lazy(() => import('./pages/AdminPage').then((m) => ({ default: m.AdminPage })));
+const QualityLabPage = lazy(() => import('./pages/QualityLabPage').then((m) => ({ default: m.QualityLabPage })));
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: 2,
+      retry: 1,
       refetchOnWindowFocus: false,
     },
   },
 });
 
-const AppContent: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('home');
+const PageLoader: React.FC = () => (
+  <div className="flex flex-col items-center justify-center min-h-[50dvh] text-center p-6 text-slate-400">
+    <RefreshCw className="w-8 h-8 animate-spin text-emerald-400 mb-2" />
+    <span className="text-xs font-medium">পৃষ্ঠা লোড হচ্ছে...</span>
+  </div>
+);
 
+const AppContent: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<string>('home');
+  const [currentRole, setCurrentRole] = useState<'citizen' | 'staff' | 'admin' | 'quality'>('citizen');
+  const [confirmDocId, setConfirmDocId] = useState<string>('');
+  const [searchParams, setSearchParams] = useState<{ khatian_no?: string; dag_no?: string; mouza?: string }>({});
+  const [pendingCount, setPendingCount] = useState<number>(0);
+
+  // Poll pending count in Dexie queue
+  useEffect(() => {
+    const updatePending = async () => {
+      try {
+        const queued = await getQueuedUploads();
+        setPendingCount(queued.length);
+      } catch {}
+    };
+    updatePending();
+    const interval = setInterval(updatePending, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // System Health
   const { data: health } = useQuery({
     queryKey: ['system-health-check'],
     queryFn: async () => {
@@ -30,22 +68,95 @@ const AppContent: React.FC = () => {
     refetchInterval: 15000,
   });
 
+  const handleNavigate = (tab: string, params?: Record<string, string>) => {
+    if (tab === 'confirm' && params?.documentId) {
+      setConfirmDocId(params.documentId);
+    }
+    if (tab === 'search' && params) {
+      setSearchParams({
+        khatian_no: params.khatian_no || params.query,
+        dag_no: params.dag_no,
+        mouza: params.mouza,
+      });
+    }
+    setActiveTab(tab);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleRoleChange = (newRole: 'citizen' | 'staff' | 'admin' | 'quality') => {
+    setCurrentRole(newRole);
+    if (newRole === 'citizen') setActiveTab('home');
+    if (newRole === 'staff') setActiveTab('staff');
+    if (newRole === 'admin') setActiveTab('admin');
+    if (newRole === 'quality') setActiveTab('quality');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <div className="flex flex-col min-h-screen-dvh bg-slate-950 text-slate-100 font-sans">
-      <Header isHealthy={Boolean(health)} />
+    <div className="flex flex-col min-h-screen-dvh bg-slate-950 text-slate-100 font-sans selection:bg-primary selection:text-white">
+      <Header
+        isHealthy={Boolean(health)}
+        currentRole={currentRole}
+        onRoleChange={handleRoleChange}
+      />
+
       <main className="flex-1 w-full">
-        {activeTab === 'home' && <HomePage />}
-        {activeTab !== 'home' && (
-          <div className="flex flex-col items-center justify-center p-8 text-center min-h-[50dvh]">
-            <span className="text-3xl mb-2">🚧</span>
-            <h2 className="text-base font-semibold text-white">মডিউল প্রস্তুত হচ্ছে</h2>
-            <p className="text-xs text-slate-400 mt-1">
-              পরবর্তী ধাপে এই সেবাটি সক্রিয় করা হবে।
-            </p>
-          </div>
-        )}
+        <Suspense fallback={<PageLoader />}>
+          {/* Staff Workspace View */}
+          {currentRole === 'staff' && <StaffPage />}
+
+          {/* Admin Panel View */}
+          {currentRole === 'admin' && <AdminPage />}
+
+          {/* Quality Lab View */}
+          {currentRole === 'quality' && <QualityLabPage />}
+
+          {/* Citizen Portal Views */}
+          {currentRole === 'citizen' && (
+            <>
+              {activeTab === 'home' && <HomePage onNavigate={handleNavigate} />}
+
+              {activeTab === 'scan' && (
+                <ScanPage
+                  onNavigateToConfirm={(docId) => handleNavigate('confirm', { documentId: docId })}
+                  onNavigateToPending={() => handleNavigate('pending')}
+                />
+              )}
+
+              {activeTab === 'confirm' && (
+                <ConfirmPage
+                  documentId={confirmDocId || 'e1b5c920-3b1a-4d9a-9e12-876a45bc3d21'}
+                  onNavigateToSearch={(params) => handleNavigate('search', params)}
+                />
+              )}
+
+              {activeTab === 'search' && (
+                <SearchPage
+                  initialKhatian={searchParams.khatian_no}
+                  initialDag={searchParams.dag_no}
+                  initialMouza={searchParams.mouza}
+                  onSelectRecord={(recId) => console.log('Selected record:', recId)}
+                />
+              )}
+
+              {activeTab === 'map' && <MapPage />}
+
+              {activeTab === 'guide' && <GuidePage />}
+
+              {activeTab === 'pending' && <PendingUploadsPage />}
+            </>
+          )}
+        </Suspense>
       </main>
-      <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
+
+      {/* Mobile Bottom Navigation (Shown primarily for Citizen Portal) */}
+      {currentRole === 'citizen' && (
+        <BottomNav
+          activeTab={activeTab}
+          onTabChange={handleNavigate}
+          pendingCount={pendingCount}
+        />
+      )}
     </div>
   );
 };
@@ -59,3 +170,4 @@ export const App: React.FC = () => {
 };
 
 export default App;
+

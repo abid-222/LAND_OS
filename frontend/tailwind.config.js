@@ -7,29 +7,54 @@ export default {
   theme: {
     extend: {
       colors: {
+        primary: {
+          DEFAULT: '#0B6B4A',
+          hover: '#09573c',
+          dark: '#06422d',
+          light: '#0f8a60',
+          50: '#e8f5f0',
+          100: '#c5e8dc',
+          500: '#0B6B4A',
+          600: '#09573c',
+          700: '#07442f',
+          800: '#053122',
+          900: '#031f15',
+        },
+        danger: {
+          DEFAULT: '#C8362B',
+          hover: '#aa2c23',
+          dark: '#85221b',
+          light: '#e14f44',
+          50: '#fdf2f1',
+          100: '#f9dedc',
+          500: '#C8362B',
+          600: '#aa2c23',
+          700: '#85221b',
+        },
         land: {
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          300: '#86efac',
-          400: '#4ade80',
-          500: '#22c55e',
-          600: '#16a34a',
-          700: '#15803d',
-          800: '#166534',
-          900: '#14532d',
-          950: '#052e16',
+          DEFAULT: '#0B6B4A',
+          50: '#e8f5f0',
+          100: '#c5e8dc',
+          200: '#9ed6c3',
+          300: '#72c2a7',
+          400: '#46af8c',
+          500: '#0B6B4A',
+          600: '#09573c',
+          700: '#07442f',
+          800: '#053122',
+          900: '#031f15',
+          950: '#02120c',
         },
         trust: {
           ocr: '#0284c7',       // OCR_EXTRACTED (Cyan/Sky)
           match: '#d97706',     // POSSIBLE_MATCH (Amber)
           user: '#6366f1',      // USER_CORRECTED (Indigo)
-          verified: '#059669',  // VERIFIED_AUTHORIZED_SOURCE (Emerald)
-          required: '#e11d48',  // VERIFICATION_REQUIRED (Rose)
+          verified: '#0B6B4A',  // VERIFIED_AUTHORIZED_SOURCE (Official Green)
+          required: '#C8362B',  // VERIFICATION_REQUIRED (Official Red)
         }
       },
       fontFamily: {
-        sans: ['"Hind Siliguri"', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['"Noto Sans Bengali"', '"Hind Siliguri"', 'Inter', 'system-ui', 'sans-serif'],
       },
       minHeight: {
         'screen-dvh': '100dvh',

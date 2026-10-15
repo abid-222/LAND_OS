@@ -29,30 +29,29 @@ describe('Bangladesh LandOS Frontend', () => {
     });
   });
 
-  it('renders application brand header and mobile scan-to-search card', async () => {
+  it('renders application brand header and mobile 4 large actions', async () => {
     render(<App />);
 
     // Brand title
     expect(screen.getByText('বাংলাদেশ ল্যান্ডওএস')).toBeInTheDocument();
 
-    // Scan to search prompt
-    expect(screen.getByText('দলিল বা খতিয়ান স্ক্যান করুন')).toBeInTheDocument();
+    // 4 large actions resolved after lazy import
+    expect(await screen.findByText('দলিল স্ক্যান')).toBeInTheDocument();
+    expect(await screen.findByText('রেকর্ড অনুসন্ধান')).toBeInTheDocument();
+    expect(await screen.findByText('ভূমি সেবা')).toBeInTheDocument();
+    expect(await screen.findByText('আমার আবেদন')).toBeInTheDocument();
 
     // Legal disclaimer banner
     expect(
-      screen.getByText('প্রদর্শিত নকশা ও সীমানা শুধুমাত্র উদাহরণের জন্য / এটি কোনো আইনি সীমানা নয়।')
+      await screen.findByText('প্রদর্শিত নকশা ও সীমানা শুধুমাত্র উদাহরণের জন্য / এটি কোনো আইনি সীমানা নয়।')
     ).toBeInTheDocument();
-
-    // Health card renders
-    const healthCard = screen.getByTestId('health-status-card');
-    expect(healthCard).toBeInTheDocument();
   });
 
   it('renders epistemic trust badge status indicators', async () => {
     render(<App />);
 
-    expect(screen.getByTestId('trust-badge-OCR_EXTRACTED')).toBeInTheDocument();
-    expect(screen.getByTestId('trust-badge-VERIFIED_AUTHORIZED_SOURCE')).toBeInTheDocument();
-    expect(screen.getByTestId('trust-badge-VERIFICATION_REQUIRED')).toBeInTheDocument();
+    expect(await screen.findByTestId('trust-badge-OCR_EXTRACTED')).toBeInTheDocument();
+    expect(await screen.findByTestId('trust-badge-VERIFIED_AUTHORIZED_SOURCE')).toBeInTheDocument();
+    expect(await screen.findByTestId('trust-badge-VERIFICATION_REQUIRED')).toBeInTheDocument();
   });
 });

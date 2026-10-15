@@ -1,53 +1,34 @@
 import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
 import {
-  Activity,
-  CheckCircle2,
-  Database,
-  Search,
   ScanLine,
-  Layers,
-  ArrowRight,
-  Server,
-  RefreshCw,
-  AlertCircle,
+  Search,
+  FolderOpen,
+  ExternalLink,
+  ShieldCheck,
+  Building2,
 } from 'lucide-react';
 import { TrustBadge } from '../components/TrustBadge';
 import { DisclaimerBanner } from '../components/DisclaimerBanner';
 import { TrustStatus } from '../types/trust';
+import { useNetworkStore } from '../lib/networkMonitor';
 
-interface HealthResponse {
-  status: string;
-  service: string;
-  environment: string;
-  version: string;
-  timestamp: string;
-  checks?: {
-    status: string;
-    database_connected: boolean;
-    redis_connected: boolean;
-    details: Record<string, string>;
-  };
+interface HomePageProps {
+  onNavigate?: (tab: string, params?: Record<string, string>) => void;
 }
 
-export const HomePage: React.FC = () => {
-  const { t, i18n } = useTranslation();
-  const isBn = i18n.language === 'bn';
+export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedService, setSelectedService] = useState<string | null>(null);
 
-  // Fetch /api/v1/health
-  const { data: health, isLoading, isError, refetch } = useQuery<HealthResponse>({
-    queryKey: ['system-health'],
-    queryFn: async () => {
-      const res = await fetch('/api/v1/health');
-      if (!res.ok) {
-        throw new Error(`Health check returned status ${res.status}`);
-      }
-      return res.json();
-    },
-    refetchInterval: 10000,
-  });
+  const { isLowNetworkMode } = useNetworkStore();
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+    if (onNavigate) {
+      onNavigate('search', { query: searchQuery.trim() });
+    }
+  };
 
   const trustStatuses: TrustStatus[] = [
     'OCR_EXTRACTED',
@@ -58,176 +39,152 @@ export const HomePage: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-5 pb-24 max-w-lg mx-auto w-full px-4 pt-4">
+    <div className="flex flex-col gap-5 pb-28 max-w-lg mx-auto w-full px-4 pt-4 text-slate-100">
       {/* Disclaimer Banners */}
       <DisclaimerBanner type="synthetic" />
       <DisclaimerBanner type="map" />
 
-      {/* Hero Scan-to-Search Card */}
-      <section className="glass-panel rounded-2xl p-4 sm:p-5 shadow-xl relative overflow-hidden border border-emerald-900/40 bg-gradient-to-b from-emerald-950/30 to-slate-900/60">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-              <ScanLine className="w-3.5 h-3.5" />
-              {isBn ? 'মোবাইল ক্যামেরা স্ক্যানার' : 'Mobile Camera Scanner'}
-            </span>
-            <h2 className="text-lg sm:text-xl font-bold text-white mt-2">
-              {t('scanToSearch')}
-            </h2>
-            <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-              {isBn
-                ? 'সিএস, এসএ, আরএস বা বিএস পরচা/দলিল স্ক্যান করে সরাসরি রেকর্ড সন্ধান করুন।'
-                : 'Instantly point camera at physical CS, SA, RS, BS khatians or deeds.'}
-            </p>
-          </div>
-        </div>
-
-        {/* Action Button & Hidden Camera Fallback */}
-        <div className="mt-4 flex flex-col sm:flex-row gap-2.5">
-          <label className="touch-target w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-semibold rounded-xl shadow-lg shadow-emerald-950/60 cursor-pointer active:scale-98 transition-transform text-sm">
-            <ScanLine className="w-5 h-5" />
-            <span>{isBn ? 'ক্যামেরা চালু করুন' : 'Open Camera'}</span>
-            <input
-              type="file"
-              accept="image/*"
-              capture="environment"
-              className="hidden"
-              onChange={(e) => {
-                if (e.target.files?.[0]) {
-                  alert(isBn ? 'দলিল সফলভাবে নির্বাচন করা হয়েছে!' : 'Document selected for OCR analysis!');
-                }
-              }}
-            />
-          </label>
-        </div>
-      </section>
-
-      {/* Quick Search with Numeric Keypad */}
-      <section className="glass-panel rounded-2xl p-4">
-        <h3 className="text-xs font-semibold text-slate-400 tracking-wider uppercase mb-2">
-          {isBn ? 'দ্রুত খতিয়ান অনুসন্ধান' : 'Direct Khatian Search'}
-        </h3>
-        <div className="flex gap-2">
-          <div className="relative flex-1">
-            <input
-              type="text"
-              inputMode="numeric"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={t('quickSearchPlaceholder')}
-              className="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-emerald-500 transition-colors"
-            />
-          </div>
-          <button
-            className="touch-target px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-emerald-400 font-semibold rounded-xl text-sm flex items-center gap-1.5 border border-slate-700 transition-colors"
-            onClick={() => {
-              if (searchQuery) alert(`Searching for: ${searchQuery}`);
-            }}
-          >
-            <Search className="w-4 h-4" />
-            <span>{t('searchBtn')}</span>
-          </button>
-        </div>
-      </section>
-
-      {/* Live System Health & Telemetry Status Card */}
-      <section
-        data-testid="health-status-card"
-        className="glass-panel rounded-2xl p-4 sm:p-5 border border-slate-800"
-      >
-        <div className="flex items-center justify-between border-b border-slate-800/80 pb-3 mb-3">
+      {/* Low-Network Alert Pill if active */}
+      {isLowNetworkMode && (
+        <div className="p-3 rounded-xl bg-amber-950/40 border border-amber-500/40 text-amber-200 text-xs flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Activity className="w-4 h-4 text-emerald-400" />
-            <h3 className="text-sm font-bold text-white tracking-wide">
-              {t('systemStatus')}
-            </h3>
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
+            <span>দুর্বল নেটওয়ার্ক মোড সক্রিয় (অফলাইন এনক্রিপ্ট ব্যাকআপ)</span>
           </div>
-          <button
-            onClick={() => refetch()}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-colors"
-            title="Refresh status"
-            aria-label="Refresh Status"
-          >
-            <RefreshCw className="w-3.5 h-3.5" />
-          </button>
-        </div>
-
-        {isLoading ? (
-          <div className="flex items-center justify-center py-6 text-xs text-slate-400 animate-pulse">
-            {isBn ? 'সিস্টেম স্ট্যাটাস লোড হচ্ছে...' : 'Querying health telemetry...'}
-          </div>
-        ) : isError ? (
-          <div className="flex items-center gap-2 py-3 text-xs text-rose-400">
-            <AlertCircle className="w-4 h-4 shrink-0" />
-            <span>{isBn ? 'ব্যাকএন্ড সংযোগ বিচ্ছিন্ন।' : 'Backend unreachable or starting up.'}</span>
-          </div>
-        ) : (
-          <div className="space-y-3">
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <div className="bg-slate-900/60 rounded-xl p-2.5 border border-slate-800/60">
-                <span className="text-[11px] text-slate-400 flex items-center gap-1 mb-1">
-                  <Server className="w-3 h-3 text-emerald-400" />
-                  {t('liveness')}
-                </span>
-                <span className="font-semibold text-emerald-400 flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  {health?.status === 'healthy' ? t('statusOnline') : t('statusDegraded')}
-                </span>
-              </div>
-
-              <div className="bg-slate-900/60 rounded-xl p-2.5 border border-slate-800/60">
-                <span className="text-[11px] text-slate-400 flex items-center gap-1 mb-1">
-                  <Database className="w-3 h-3 text-emerald-400" />
-                  {t('database')}
-                </span>
-                <span className="font-semibold text-emerald-400 flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  PostgreSQL 16
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between text-[11px] text-slate-400 px-1 pt-1 border-t border-slate-800/50">
-              <span>সার্ভিস: {health?.service}</span>
-              <span className="font-mono text-[10px] text-slate-500">v{health?.version}</span>
-            </div>
-          </div>
-        )}
-      </section>
-
-      {/* Epistemic Trust Badges System Showcase */}
-      <section className="glass-panel rounded-2xl p-4 sm:p-5">
-        <div className="flex items-center gap-2 mb-3">
-          <Layers className="w-4 h-4 text-emerald-400" />
-          <h3 className="text-sm font-bold text-white tracking-wide">
-            {t('trustBadgesTitle')}
-          </h3>
-        </div>
-        <p className="text-xs text-slate-400 mb-4 leading-relaxed">
-          {isBn
-            ? 'ল্যান্ডওএস কোনো সম্ভাব্য তথ্যকে আইনগত সত্য হিসেবে দাবি করে না। প্রতিটি তথ্য নির্দিষ্ট ৫-ধাপীয় বিশ্বস্ততা নির্দেশক ধারণ করে।'
-            : 'LandOS strictly categorizes all extracted and matched data into immutable epistemic trust states.'}
-        </p>
-        <div className="flex flex-col gap-2.5">
-          {trustStatuses.map((st) => (
-            <div
-              key={st}
-              className="bg-slate-900/40 rounded-xl p-2.5 border border-slate-800/60 flex flex-col gap-1"
+          {onNavigate && (
+            <button
+              onClick={() => onNavigate('pending')}
+              className="text-amber-300 font-semibold underline text-[11px]"
             >
-              <TrustBadge status={st} showDescription />
-            </div>
+              সংরক্ষিত নথি দেখুন
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Bangla Search Box */}
+      <form onSubmit={handleSearchSubmit} className="relative">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="দলিল নম্বর, খতিয়ান বা দাগ নম্বর দিয়ে সরাসরি অনুসন্ধান..."
+          className="touch-target w-full pl-4 pr-12 py-3.5 rounded-2xl bg-slate-900 text-white placeholder-slate-400 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary text-sm shadow-xl"
+        />
+        <button
+          type="submit"
+          className="absolute right-2 top-2 p-2 rounded-xl bg-primary hover:bg-primary-hover text-white transition-colors"
+          aria-label="অনুসন্ধান করুন"
+        >
+          <Search className="w-4 h-4" />
+        </button>
+      </form>
+
+      {/* 4 Large Actions (Citizen Portal) */}
+      <div className="grid grid-cols-2 gap-3.5">
+        {/* Action 1: Scan Document (দলিল স্ক্যান) */}
+        <button
+          onClick={() => onNavigate && onNavigate('scan')}
+          className="touch-target p-4 rounded-2xl bg-gradient-to-br from-emerald-950/70 to-slate-900 border border-emerald-500/40 hover:border-emerald-400 text-left shadow-xl active:scale-98 transition-all flex flex-col justify-between min-h-[140px] group"
+        >
+          <div className="w-10 h-10 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+            <ScanLine className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="text-base font-bold text-white leading-tight">দলিল স্ক্যান</h3>
+            <p className="text-xs text-slate-300 mt-1">ক্যামেরা দিয়ে সরাসরি খতিয়ান বা দলিল যাচাই</p>
+          </div>
+        </button>
+
+        {/* Action 2: Search Records (খতিয়ান ও রেকর্ড অনুসন্ধান) */}
+        <button
+          onClick={() => onNavigate && onNavigate('search')}
+          className="touch-target p-4 rounded-2xl bg-gradient-to-br from-sky-950/70 to-slate-900 border border-sky-500/40 hover:border-sky-400 text-left shadow-xl active:scale-98 transition-all flex flex-col justify-between min-h-[140px] group"
+        >
+          <div className="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-500/40 flex items-center justify-center text-sky-400 group-hover:scale-110 transition-transform">
+            <Search className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="text-base font-bold text-white leading-tight">রেকর্ড অনুসন্ধান</h3>
+            <p className="text-xs text-slate-300 mt-1">দাগ ও খতিয়ান মিলিয়ে বালাম বইয়ের সাথে মেলানো</p>
+          </div>
+        </button>
+
+        {/* Action 3: Land Services (ভূমি সেবা) */}
+        <button
+          onClick={() => setSelectedService(selectedService ? null : 'services')}
+          className="touch-target p-4 rounded-2xl bg-gradient-to-br from-indigo-950/70 to-slate-900 border border-indigo-500/40 hover:border-indigo-400 text-left shadow-xl active:scale-98 transition-all flex flex-col justify-between min-h-[140px] group"
+        >
+          <div className="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
+            <Building2 className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="text-base font-bold text-white leading-tight">ভূমি সেবা</h3>
+            <p className="text-xs text-slate-300 mt-1">ই-নামজারি, কর পরিশোধ ও পর্চা আবেদন</p>
+          </div>
+        </button>
+
+        {/* Action 4: My Requests / Saved Docs (আমার আবেদন ও সংরক্ষিত নথি) */}
+        <button
+          onClick={() => onNavigate && onNavigate('pending')}
+          className="touch-target p-4 rounded-2xl bg-gradient-to-br from-amber-950/70 to-slate-900 border border-amber-500/40 hover:border-amber-400 text-left shadow-xl active:scale-98 transition-all flex flex-col justify-between min-h-[140px] group"
+        >
+          <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+            <FolderOpen className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="text-base font-bold text-white leading-tight">আমার আবেদন</h3>
+            <p className="text-xs text-slate-300 mt-1">অফলাইন ও অনলাইনে সংরক্ষিত নথিসমূহ</p>
+          </div>
+        </button>
+      </div>
+
+      {/* Expanded Land Services Drawer if selected */}
+      {selectedService === 'services' && (
+        <div className="p-4 rounded-2xl bg-slate-900 border border-indigo-500/40 shadow-xl animate-in fade-in space-y-2.5">
+          <h4 className="text-sm font-bold text-white mb-2">ভূমি মন্ত্রণালয়ের ডিজিটাল সেবাসমূহ</h4>
+          <a
+            href="https://mutation.land.gov.bd"
+            target="_blank"
+            rel="noreferrer"
+            className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs text-slate-200 hover:text-white"
+          >
+            <span>ই-নামজারি (e-Mutation) অনলাইন আবেদন</span>
+            <ExternalLink className="w-4 h-4 text-emerald-400" />
+          </a>
+          <a
+            href="https://ldtax.gov.bd"
+            target="_blank"
+            rel="noreferrer"
+            className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs text-slate-200 hover:text-white"
+          >
+            <span>ভূমি উন্নয়ন কর (LD Tax) পরিশোধ</span>
+            <ExternalLink className="w-4 h-4 text-emerald-400" />
+          </a>
+          <a
+            href="https://eporcha.gov.bd"
+            target="_blank"
+            rel="noreferrer"
+            className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs text-slate-200 hover:text-white"
+          >
+            <span>ডিজিটাল পর্চা বা খতিয়ানের সার্টিফাইড কপি</span>
+            <ExternalLink className="w-4 h-4 text-emerald-400" />
+          </a>
+        </div>
+      )}
+
+      {/* Epistemic Trust States Legend */}
+      <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
+        <h4 className="text-xs font-bold text-white mb-3 flex items-center gap-1.5">
+          <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <span>নথির বিশ্বাসযোগ্যতা পর্যায় (Epistemic Trust States)</span>
+        </h4>
+        <div className="flex flex-wrap gap-2">
+          {trustStatuses.map((st) => (
+            <TrustBadge key={st} status={st} />
           ))}
         </div>
-      </section>
-
-      {/* Chain of Title & Audit Chain Integrity Notice */}
-      <section className="rounded-2xl p-4 bg-emerald-950/20 border border-emerald-800/30 text-xs text-slate-300 flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="w-2 h-2 rounded-full bg-emerald-400" />
-          <span>ক্রিপ্টোগ্রাফিক হ্যাশ-চেইন্ড অডিট লগ সক্রিয়</span>
-        </div>
-        <ArrowRight className="w-4 h-4 text-emerald-400" />
-      </section>
+      </div>
     </div>
   );
 };

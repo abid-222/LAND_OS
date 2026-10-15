@@ -16,8 +16,8 @@ export default defineConfig({
         name: 'বাংলাদেশ ল্যান্ডওএস (Bangladesh LandOS)',
         short_name: 'LandOS',
         description: 'মোবাইল-ফার্স্ট স্ক্যান-টু-সার্চ ডিজিটাল ভূমি সেবা ও দলিল গোয়েন্দা প্ল্যাটফর্ম',
-        theme_color: '#065f46',
-        background_color: '#022c22',
+        theme_color: '#0B6B4A',
+        background_color: '#02120c',
         display: 'standalone',
         orientation: 'portrait',
         icons: [
