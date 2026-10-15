@@ -11,17 +11,20 @@ import uuid
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-from app.models import Case, Document, ExtractedField, StatusLabel
+from app.models import Base, Case, Document, ExtractedField, StatusLabel
 from app.modules.review.service import guard_and_create_review_case
 
 
 @pytest.fixture
 async def memory_db():
     engine = create_async_engine("sqlite+aiosqlite:///:memory:", echo=False)
+    target_tables = [
+        Base.metadata.tables["cases"],
+        Base.metadata.tables["documents"],
+        Base.metadata.tables["extracted_fields"],
+    ]
     async with engine.begin() as conn:
-        await conn.run_sync(Case.__table__.create)
-        await conn.run_sync(Document.__table__.create)
-        await conn.run_sync(ExtractedField.__table__.create)
+        await conn.run_sync(lambda sync_conn: Base.metadata.create_all(sync_conn, tables=target_tables))
 
     session_maker = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
     async with session_maker() as session:
