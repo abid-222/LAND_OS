@@ -43,11 +43,10 @@ class GuideRetriever:
         self.model_name = model_name
         self.threshold = float(os.getenv("GUIDE_SIMILARITY_THRESHOLD", threshold))
         self._model = None
-        self._use_fallback = False
+        self._use_fallback = (os.getenv("GUIDE_RETRIEVER_OFFLINE", "1").lower() in ("true", "1", "yes"))
 
     def _get_model(self):
-        if os.getenv("GUIDE_RETRIEVER_OFFLINE", "1").lower() in ("true", "1", "yes"):
-            self._use_fallback = True
+        if self._use_fallback:
             return None
 
         if self._model is None and not self._use_fallback:
@@ -82,14 +81,28 @@ class GuideRetriever:
         return self._fallback_embedding(text)
 
     def _fallback_embedding(self, text: str) -> np.ndarray:
-        """Deterministic 768-d unit vector based on token hashed frequencies."""
+        """Deterministic 768-d unit vector with NFC Unicode normalization and stopword filtering."""
+        import unicodedata
+        import re
+
+        BENGALI_STOPWORDS = {
+            "জন্য", "কী", "কি", "কীভাবে", "কেন", "কার", "কোথায়", "কখন", "কত", "পারে", "হতে",
+            "হলে", "এবং", "ও", "বা", "থেকে", "দ্বারা", "দিয়ে", "করা", "করলে", "হবে", "আছে", "না",
+            "একটি", "এই", "সেই", "এর", "কে", "তে", "র", "সহ", "নিয়ে", "সার্ভিস", "সরকারি"
+        }
+
+        norm_text = unicodedata.normalize("NFC", text)
+        for pfx in ("query: ", "passage: "):
+            if norm_text.startswith(pfx):
+                norm_text = norm_text[len(pfx):]
+
         vec = np.zeros(768, dtype=np.float32)
-        words = text.lower().split()
+        clean = re.sub(r"[?!.,;:\-—()\"\'/]", " ", norm_text.lower()).strip()
+        words = [w for w in clean.split() if w not in BENGALI_STOPWORDS and len(w) > 1]
         for w in words:
-            h = int(hashlib.md5(w.encode("utf-8")).hexdigest(), 16)
-            idx = h % 768
-            sign = 1.0 if (h % 2 == 0) else -1.0
-            vec[idx] += sign * (1.0 + (len(w) / 10.0))
+            stem = w.rstrip("রদেতেয়ায়") if len(w) > 4 else w
+            h = int(hashlib.md5(stem.encode("utf-8")).hexdigest(), 16)
+            vec[h % 768] += 1.0 + (len(stem) / 4.0)
 
         norm = np.linalg.norm(vec)
         if norm > 0:

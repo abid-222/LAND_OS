@@ -278,6 +278,10 @@ async def verify(
         else:
             comparisons.append(FieldComparison("party_names", doc_name, rec_name, "mismatch", f"নাম অমিল (সাদৃশ্য {sim:.0f}%)"))
 
+
+    # Run Document Consistency Checker (mismatches, missing fields, implausible values with severity)
+    consistency_issues = check_document_consistency(doc_fields, record_data, mouza_max_no=5000)
+
     # Summary counts
     summary = {
         "exact": sum(1 for c in comparisons if c.result == "exact"),
@@ -286,6 +290,7 @@ async def verify(
         "mismatch": sum(1 for c in comparisons if c.result == "mismatch"),
         "missing": sum(1 for c in comparisons if c.result == "missing"),
         "total_fields": len(comparisons),
+        "total_consistency_issues": len(consistency_issues),
     }
 
     comp_dicts = [
@@ -315,5 +320,182 @@ async def verify(
         "record_id": str(record_id),
         "comparisons": comp_dicts,
         "summary": summary,
+        "consistency_issues": consistency_issues,
         "rule_version": "v1.0",
     }
+
+
+def check_document_consistency(
+    doc_fields: Dict[str, Any],
+    record_data: Optional[Dict[str, Any]] = None,
+    mouza_max_no: int = 5000,
+) -> List[Dict[str, Any]]:
+    """
+    Document Consistency Checker:
+    Flags:
+    1. Mismatches between document and baseline land record (severity: CRITICAL / HIGH).
+    2. Missing critical fields in document (severity: CRITICAL / HIGH / MEDIUM).
+    3. Implausible values:
+       - Dag number format invalid or exceeds mouza maximum range (severity: HIGH).
+       - Area outside valid range (<= 0 or > 500 acres) (severity: CRITICAL).
+       - Repaired OCR confusable characters (severity: INFO).
+    Each issue includes: field, issue_type, severity, message_bn, doc_value, record_value.
+    """
+    issues: List[Dict[str, Any]] = []
+
+    # 1. Missing fields check
+    critical_fields = [
+        ("dag_no", "দাগ নম্বর", "CRITICAL"),
+        ("khatian_no", "খতিয়ান নম্বর", "HIGH"),
+        ("mouza", "মৌজার নাম", "HIGH"),
+        ("area", "জমির পরিমাণ", "HIGH"),
+    ]
+    for key, name_bn, sev in critical_fields:
+        val = doc_fields.get(key)
+        if val is None or str(val).strip() == "":
+            issues.append({
+                "field": key,
+                "issue_type": "missing",
+                "severity": sev,
+                "message_bn": f"{name_bn} নথিতে অনুপস্থিত বা ফাঁকা রয়েছে।",
+                "doc_value": None,
+                "record_value": record_data.get(key) if record_data else None,
+            })
+
+    # 2. Implausible Dag Number check
+    doc_dag = doc_fields.get("dag_no")
+    if doc_dag is not None and str(doc_dag).strip() != "":
+        norm_dag = normalize_identifier(str(doc_dag), pattern_type="dag_no", mouza_max_no=mouza_max_no)
+        if not norm_dag.is_valid:
+            issues.append({
+                "field": "dag_no",
+                "issue_type": "implausible",
+                "severity": "HIGH",
+                "message_bn": f"দাগ নম্বরের ফরম্যাট সঠিক নয় ({doc_dag})। শুধুমাত্র বাংলা/ইংরেজি সংখ্যা ও সাব-দাগ সমর্থিত।",
+                "doc_value": str(doc_dag),
+                "record_value": record_data.get("dag_no") if record_data else None,
+            })
+        elif norm_dag.flagged and norm_dag.flag_reason == "implausible":
+            issues.append({
+                "field": "dag_no",
+                "issue_type": "implausible",
+                "severity": "HIGH",
+                "message_bn": f"দাগ নম্বর ({doc_dag}) মৌজার স্বাভাবিক সীমা (সর্বোচ্চ {mouza_max_no}) এর চেয়ে বেশি।",
+                "doc_value": str(doc_dag),
+                "record_value": record_data.get("dag_no") if record_data else None,
+            })
+        elif norm_dag.repaired:
+            issues.append({
+                "field": "dag_no",
+                "issue_type": "repaired_ocr",
+                "severity": "INFO",
+                "message_bn": f"দাগ নম্বরে বিভ্রান্তিকর হরফ পাওয়া গেছে (রিপেয়ারকৃত: {norm_dag.normalized_value})।",
+                "doc_value": str(doc_dag),
+                "record_value": record_data.get("dag_no") if record_data else None,
+            })
+
+    # 3. Implausible Area check
+    doc_area = doc_fields.get("area")
+    if doc_area is not None and str(doc_area).strip() != "":
+        raw_area_str = str(doc_area).strip()
+        is_negative = raw_area_str.startswith("-") or " -" in raw_area_str
+        region = (record_data.get("region") if record_data else None) or doc_fields.get("region")
+        norm_ar = normalize_area(doc_area, region_code=region)
+        dec_val = norm_ar.area_decimal if norm_ar.area_decimal is not None else norm_ar.parsed_value
+        if is_negative or (dec_val is not None and dec_val <= 0):
+            issues.append({
+                "field": "area",
+                "issue_type": "implausible",
+                "severity": "CRITICAL",
+                "message_bn": "জমির পরিমাণ শূন্য বা ঋণাত্মক হতে পারে না।",
+                "doc_value": str(doc_area),
+                "record_value": record_data.get("area_acres") if record_data else None,
+            })
+        elif dec_val is None:
+            issues.append({
+                "field": "area",
+                "issue_type": "implausible",
+                "severity": "HIGH",
+                "message_bn": f"জমির পরিমাণের একক বা সংখ্যা বোঝা যায়নি ({doc_area})।",
+                "doc_value": str(doc_area),
+                "record_value": record_data.get("area_acres") if record_data else None,
+            })
+        elif dec_val > 50000:  # > 500 acres = 50,000 decimals
+            issues.append({
+                "field": "area",
+                "issue_type": "implausible",
+                "severity": "CRITICAL",
+                "message_bn": f"জমির পরিমাণ অস্বাভাবিক রকমের বেশি ({dec_val:.1f} শতাংশ / > ৫০০ একর)।",
+                "doc_value": str(doc_area),
+                "record_value": record_data.get("area_acres") if record_data else None,
+            })
+
+    # 4. Mismatches against reference record (if provided)
+    if record_data:
+        # Dag mismatch
+        rec_dag = record_data.get("dag_no")
+        if doc_dag and rec_dag:
+            n_doc_dag = normalize_identifier(str(doc_dag), "dag_no").canonical
+            n_rec_dag = normalize_identifier(str(rec_dag), "dag_no").canonical
+            if n_doc_dag != n_rec_dag:
+                issues.append({
+                    "field": "dag_no",
+                    "issue_type": "mismatch",
+                    "severity": "CRITICAL",
+                    "message_bn": f"দাগ নম্বর অমিল: নথিতে '{doc_dag}', কিন্তু সরকারি বালাম রেকর্ডে '{rec_dag}'।",
+                    "doc_value": str(doc_dag),
+                    "record_value": str(rec_dag),
+                })
+
+        # Khatian mismatch
+        doc_kh = doc_fields.get("khatian_no")
+        rec_kh = record_data.get("khatian_no")
+        if doc_kh and rec_kh:
+            n_doc_kh = normalize_identifier(str(doc_kh), "khatian_no").canonical
+            n_rec_kh = normalize_identifier(str(rec_kh), "khatian_no").canonical
+            if n_doc_kh != n_rec_kh:
+                issues.append({
+                    "field": "khatian_no",
+                    "issue_type": "mismatch",
+                    "severity": "CRITICAL",
+                    "message_bn": f"খতিয়ান নম্বর অমিল: নথিতে '{doc_kh}', কিন্তু সরকারি বালাম রেকর্ডে '{rec_kh}'।",
+                    "doc_value": str(doc_kh),
+                    "record_value": str(rec_kh),
+                })
+
+        # Area mismatch
+        rec_ar = record_data.get("area_acres") or record_data.get("area_decimal") or record_data.get("area")
+        if doc_area and rec_ar:
+            norm_doc_ar = normalize_area(doc_area)
+            norm_rec_ar = normalize_area(rec_ar)
+            v_doc = norm_doc_ar.area_decimal if norm_doc_ar.area_decimal is not None else norm_doc_ar.parsed_value
+            v_rec = norm_rec_ar.area_decimal if norm_rec_ar.area_decimal is not None else norm_rec_ar.parsed_value
+            if v_doc and v_rec and v_rec > 0:
+                diff_pct = abs(v_doc - v_rec) / v_rec * 100.0
+                if diff_pct > 5.0:
+                    issues.append({
+                        "field": "area",
+                        "issue_type": "mismatch",
+                        "severity": "CRITICAL" if diff_pct > 25.0 else "HIGH",
+                        "message_bn": f"জমির পরিমাপে ব্যাপক অমিল: নথির সাথে সরকারি রেকর্ডের পার্থক্য {diff_pct:.1f}%।",
+                        "doc_value": str(doc_area),
+                        "record_value": str(rec_ar),
+                    })
+
+        # Party name mismatch
+        doc_party = doc_fields.get("party_names") or doc_fields.get("owner")
+        rec_party = record_data.get("owner_names_bn") or record_data.get("owner")
+        if doc_party and rec_party:
+            sim = fuzzy_compare_names(str(doc_party), str(rec_party))
+            if sim < 70.0:
+                issues.append({
+                    "field": "party_names",
+                    "issue_type": "mismatch",
+                    "severity": "HIGH",
+                    "message_bn": f"মালিকের নাম সম্পূর্ণ ভিন্ন: নথিতে '{doc_party}', রেকর্ডে '{rec_party}' (সাদৃশ্য মাত্র {sim:.0f}%)।",
+                    "doc_value": str(doc_party),
+                    "record_value": str(rec_party),
+                })
+
+    return issues
+

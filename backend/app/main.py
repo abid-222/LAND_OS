@@ -1,11 +1,14 @@
 import json
+import logging
 import os
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from app.core.config import settings
+from app.core.csrf import verify_csrf
 from app.core.logging import setup_logging
 from app.core.metrics import PrometheusLatencyMiddleware, get_prometheus_metrics_response
 from app.core.timeout import RequestTimeoutMiddleware
@@ -13,10 +16,13 @@ from app.modules.admin.audit import router as audit_router
 from app.modules.admin.users import router as admin_users_router
 from app.modules.alerts.router import alerts_router, parcels_alerts_router
 from app.modules.auth.router import router as auth_router
+from app.modules.consent.router import router as consent_router
 from app.modules.documents.router import router as documents_router
+from app.modules.feedback.router import router as feedback_router
 from app.modules.guide.router import router as guide_router
 from app.modules.health.router import router as health_router
 from app.modules.map.router import router as map_router
+from app.modules.notifications.router import router as notifications_router
 from app.modules.quality.router import router as quality_router
 from app.modules.records.router import router as records_router
 from app.modules.reports.router import buyer_reports_router, parcels_reports_router
@@ -24,11 +30,13 @@ from app.modules.review.router import router as review_router
 from app.modules.scan.router import router as scan_router
 from app.modules.search.router import router as search_router
 
+logger = logging.getLogger("landos.main")
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Initialize logging
-    logger = setup_logging(settings.LOG_LEVEL)
+    setup_logging(settings.LOG_LEVEL)
     logger.info(f"Starting {settings.PROJECT_NAME} in [{settings.ENVIRONMENT}] environment.")
     yield
     logger.info(f"Shutting down {settings.PROJECT_NAME}.")
@@ -57,8 +65,49 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-    expose_headers=["X-LandOS-MFA-Required"],
+    expose_headers=["X-LandOS-MFA-Required", "X-CSRF-Token"],
 )
+
+
+@app.middleware("http")
+async def security_and_csrf_middleware(request: Request, call_next):
+    """
+    Enforces Double Submit Cookie CSRF defense on state-changing requests,
+    and applies standard OWASP security headers (CSP, Frame Options, etc.).
+    """
+    try:
+        verify_csrf(request)
+    except HTTPException as exc:
+        return JSONResponse(status_code=exc.status_code, content={"detail": exc.detail})
+
+    response: Response = await call_next(request)
+
+    # Security Headers (Requirement 2.3)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["Permissions-Policy"] = "camera=(self), geolocation=(), microphone=()"
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; frame-ancestors 'none'; img-src 'self' data: blob: https:;"
+    )
+
+    return response
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    """
+    Sanitizes unhandled exceptions to prevent stack trace leaks to clients (Requirement 5.1).
+    """
+    if isinstance(exc, HTTPException):
+        return JSONResponse(status_code=exc.status_code, content={"detail": exc.detail})
+
+    logger.error(f"Unhandled error on {request.method} {request.url.path}: {exc}", exc_info=True)
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "An internal server error occurred. Please contact technical administration."},
+    )
+
 
 # API v1 Routers included directly with API_V1_PREFIX
 app.include_router(health_router, prefix=settings.API_V1_PREFIX)
@@ -77,6 +126,9 @@ app.include_router(parcels_alerts_router, prefix=settings.API_V1_PREFIX)
 app.include_router(alerts_router, prefix=settings.API_V1_PREFIX)
 app.include_router(parcels_reports_router, prefix=settings.API_V1_PREFIX)
 app.include_router(buyer_reports_router, prefix=settings.API_V1_PREFIX)
+app.include_router(notifications_router, prefix=settings.API_V1_PREFIX)
+app.include_router(feedback_router, prefix=settings.API_V1_PREFIX)
+app.include_router(consent_router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/metrics", summary="Export Prometheus metrics and latency histograms", tags=["Observability"])
@@ -98,15 +150,13 @@ async def root():
 
 
 def export_openapi(output_path: str = "openapi.json"):
-    """Utility function called by `make client` to export the OpenAPI specification."""
-    os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
+    """Serializes complete OpenAPI 3.1.0 schema to disk for TypeScript contract codegen."""
     schema = app.openapi()
+    os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(schema, f, indent=2, ensure_ascii=False)
-    print(f"Exported OpenAPI specification to {output_path}")
+    print(f"Exported clean OpenAPI schema to {output_path}")
 
 
 if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+    export_openapi("openapi.json")

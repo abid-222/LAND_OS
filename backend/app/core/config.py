@@ -60,6 +60,13 @@ class Settings(BaseSettings):
     MINIO_BUCKET: str = "landos-documents"
     MINIO_USE_SSL: bool = False
 
+    # Map Tile Provider (Requirement 3.9)
+    MAP_TILE_URL: str = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+
+    # Demo Credentials (Requirement 1.1)
+    DEMO_PASSWORD: str = "Password123!"
+    DEMO_MFA_SECRET: str = "JBSWY3DPEHPK3PXP"
+
     # Observability
     LOG_LEVEL: str = "INFO"
 

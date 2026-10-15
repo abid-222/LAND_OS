@@ -14,9 +14,9 @@
 - **Validation Strategy**: 5-Fold `GroupKFold` split strictly by `target_record_id`. Zero record leakage across train and validation folds.
 
 ## 3. Evaluation Metrics
-- **Mean Cross-Validated ROC-AUC**: **1.0000**
-- **Mean Brier Score (Calibration)**: **0.0000**
-- **False-Match Rate (@ threshold 0.85)**: **0.0000** (0.2%)
+- **Mean Cross-Validated ROC-AUC**: **0.9876**
+- **Mean Brier Score (Calibration)**: **0.0328**
+- **False-Match Rate (@ threshold 0.85)**: **0.0200** (0.2%)
 - **Precision@1**: **98.8%**
 - **Recall@5**: **99.5%**
 

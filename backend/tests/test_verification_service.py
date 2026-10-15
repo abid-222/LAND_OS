@@ -128,6 +128,12 @@ async def test_qr_hash_integrity_mismatch():
     assert res.hash_match is False
     assert res.scope == "integrity_only"
     assert res.ui_text_bn == "মেলেনি"
+    # Acceptance criterion: Hash mismatch is shown strictly as a mismatch, NOT as a fraud claim
+    full_text = f"{res.ui_text_bn} {res.scope}".lower()
+    assert "fraud" not in full_text
+    assert "জাল" not in full_text
+    assert "ভুয়া" not in full_text
+    assert "প্রতারণা" not in full_text
 
 
 def json_dump(obj):

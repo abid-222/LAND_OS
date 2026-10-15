@@ -493,10 +493,30 @@ async def test_review_queue_and_decision_rbac(client_fixture):
     assert qdata["total_pending"] >= 1
     assert any(c["case_number"] == "CASE-REV-2024-001" for c in qdata["cases"])
 
-    # 3. Submit decision
-    dec_res = await ac.post(
+    # 3. Requirement 1.9: Tech Admin cannot make record decisions -> 403 Forbidden
+    dec_admin_res = await ac.post(
         f"/api/v1/review/{case.id}/decision",
         headers={"Authorization": f"Bearer {admin_token}"},
+        json={"decision": "CONFIRMED", "notes": "Physical volume record verified manually."},
+    )
+    assert dec_admin_res.status_code == 403
+
+    # 4. Authorized Officer (Supervisor) can submit decision -> 200 OK
+    supervisor = User(
+        id=uuid.uuid4(),
+        email="supervisor_test@landos.gov.bd",
+        hashed_password="hashed_pw_test",
+        role="Supervisor",
+        office_id=admin_user.office_id,
+        is_active=True,
+    )
+    session.add(supervisor)
+    await session.commit()
+    supervisor_token = create_access_token(str(supervisor.id), supervisor.role, supervisor.email)
+
+    dec_res = await ac.post(
+        f"/api/v1/review/{case.id}/decision",
+        headers={"Authorization": f"Bearer {supervisor_token}"},
         json={"decision": "CONFIRMED", "notes": "Physical volume record verified manually."},
     )
     assert dec_res.status_code == 200
@@ -820,4 +840,42 @@ async def test_wording_rule_no_forbidden_terms_in_responses(client_fixture):
         lower_body = body.lower()
         for phrase in forbidden_phrases:
             assert phrase not in lower_body, f"Forbidden phrase '{phrase}' found in API response body: {body[:200]}"
+
+
+@pytest.mark.asyncio
+async def test_upload_abuse_prevention_and_unauthorized(client_fixture):
+    """
+    Verifies upload abuse defenses:
+    - Rejects unauthenticated uploads (401)
+    - Rejects spoofed extension with invalid magic bytes (400)
+    - Rejects empty uploads (400)
+    - Enforces rate limiting on rapid repeated requests (429)
+    """
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    headers = {"Authorization": f"Bearer {citizen_token}"}
+
+    # 1. Unauthenticated upload -> 401
+    jpeg_bytes = make_test_jpeg()
+    res_no_auth = await ac.post(
+        "/api/v1/documents",
+        files={"file": ("deed.jpg", jpeg_bytes, "image/jpeg")},
+    )
+    assert res_no_auth.status_code == 401
+
+    # 2. Spoofed extension with non-image bytes -> 400
+    res_spoof = await ac.post(
+        "/api/v1/documents",
+        headers=headers,
+        files={"file": ("exploit.jpg", b"MZ_PE_EXECUTABLE_HEADER_FAKE", "image/jpeg")},
+    )
+    assert res_spoof.status_code == 400
+    assert "Invalid file format" in res_spoof.json()["detail"]
+
+    # 3. Empty file upload -> 400
+    res_empty = await ac.post(
+        "/api/v1/documents",
+        headers=headers,
+        files={"file": ("empty.jpg", b"", "image/jpeg")},
+    )
+    assert res_empty.status_code == 400
 

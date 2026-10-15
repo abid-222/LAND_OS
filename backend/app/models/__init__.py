@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from typing import Optional
 
 from geoalchemy2 import Geometry
-from pgvector.sqlalchemy import Vector
+from pgvector.sqlalchemy import Vector  # type: ignore[import-untyped]
 from sqlalchemy import (
     JSON,
     BigInteger,
@@ -19,7 +19,7 @@ from sqlalchemy import (
     Text,
 )
 from sqlalchemy.dialects.postgresql import JSONB, UUID
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship, validates
 
 from app.core.database import Base
 
@@ -552,6 +552,12 @@ class Alert(Base):
     parcel = relationship("Parcel", back_populates="alerts")
     document = relationship("Document")
 
+    @validates("evidence")
+    def validate_evidence(self, key, value):
+        if not value or not isinstance(value, list) or len(value) < 1:
+            raise ValueError("Alerts must contain at least 1 evidence item.")
+        return value
+
 
 class BuyerReport(Base):
     """
@@ -576,4 +582,56 @@ class BuyerReport(Base):
 
     user = relationship("User")
     parcel = relationship("Parcel")
+
+
+class Notification(Base):
+    """
+    In-app notifications for background sync, review decisions, and conflict alerts.
+    """
+    __tablename__ = "notifications"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    type: Mapped[str] = mapped_column(String(50), nullable=False)  # "sync_finished" | "review_decision" | "alert_opened"
+    title: Mapped[str] = mapped_column(String(255), nullable=False)
+    message: Mapped[str] = mapped_column(Text, nullable=False)
+    data: Mapped[Optional[dict]] = mapped_column(JSONB().with_variant(JSON, "sqlite"), nullable=True)
+    is_read: Mapped[bool] = mapped_column(Boolean, default=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+    user = relationship("User")
+
+
+class ConsentRecord(Base):
+    """
+    Consent records tracking camera usage, offline storage, and privacy terms.
+    """
+    __tablename__ = "consent_records"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True, index=True)
+    consent_type: Mapped[str] = mapped_column(String(50), nullable=False)  # "camera" | "offline_storage" | "privacy_terms"
+    version: Mapped[str] = mapped_column(String(20), nullable=False, default="v1.0")
+    agreed: Mapped[bool] = mapped_column(Boolean, default=True)
+    ip_address: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+
+class FeedbackCorrection(Base):
+    """
+    Human-in-the-loop feedback corrections for evaluation set (never auto-trained).
+    """
+    __tablename__ = "feedback_corrections"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    document_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("documents.id"), nullable=True, index=True)
+    feedback_type: Mapped[str] = mapped_column(String(50), nullable=False)  # "wrong_match" | "wrong_field"
+    field_name: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    reported_value: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    corrected_value: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    comments: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    status: Mapped[str] = mapped_column(String(50), default="evaluation_candidate")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
 

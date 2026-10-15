@@ -24,6 +24,7 @@ from PIL import Image
 from pydantic import BaseModel, Field
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from app.core.config import settings
 from app.core.database import get_db
@@ -39,7 +40,7 @@ from app.models import (
 )
 from app.modules.admin.audit import write_audit_entry
 from app.modules.documents.verification import verify
-from app.modules.rbac.permissions import Permission, Scope, require
+from app.modules.rbac.permissions import Permission, Role, Scope, require
 from app.modules.review.service import guard_and_create_review_case
 
 logger = logging.getLogger("landos.documents.router")
@@ -134,10 +135,12 @@ class DocumentVerificationResponse(BaseModel):
     comparisons: List[FieldComparisonItem]
     summary: VerificationSummaryItem
     qr_integrity: QRIntegrityResult
+    consistency_issues: List[Dict[str, Any]] = []
     scope: str = "integrity_only"
     scope_text: str = "নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।"
     status_label: str
     verified_at: str
+
 
 
 # ------------------------------------------------------------------------------
@@ -192,12 +195,18 @@ async def _enqueue_ocr_task(document_id: str, file_name: str):
 # Endpoints
 # ------------------------------------------------------------------------------
 
+MAX_UPLOAD_SIZE = 15 * 1024 * 1024  # 15 MB limit
+
+
 @router.get("", summary="List ingested documents")
 async def list_documents(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(require(Permission.DOCUMENT_READ, Scope.OWN)),
 ):
-    stmt = select(Document).order_by(Document.created_at.desc()).limit(50)
+    stmt = select(Document).order_by(Document.created_at.desc())
+    if current_user.role == Role.CITIZEN.value:
+        stmt = stmt.where(Document.uploader_id == current_user.id)
+    stmt = stmt.limit(50)
     result = await db.execute(stmt)
     return result.scalars().all()
 
@@ -224,6 +233,12 @@ async def upload_document(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Uploaded file is empty.",
+        )
+
+    if len(raw_content) > MAX_UPLOAD_SIZE:
+        raise HTTPException(
+            status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+            detail=f"Uploaded file exceeds maximum limit of {MAX_UPLOAD_SIZE // (1024 * 1024)}MB.",
         )
 
     # 1. Magic-byte verification
@@ -314,6 +329,12 @@ async def get_document_extraction(
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")
 
+    if current_user.role == Role.CITIZEN.value and doc.uploader_id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied: You do not have permission to view another citizen's document.",
+        )
+
     # Fetch extracted fields
     f_stmt = select(ExtractedField).where(ExtractedField.document_id == doc_uuid)
     f_res = await db.execute(f_stmt)
@@ -396,6 +417,12 @@ async def patch_document_fields(
     doc = res.scalar_one_or_none()
     if not doc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")
+
+    if current_user.role == Role.CITIZEN.value and doc.uploader_id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied: You cannot modify another citizen's document.",
+        )
 
     f_stmt = select(ExtractedField).where(ExtractedField.document_id == doc_uuid)
     f_res = await db.execute(f_stmt)
@@ -506,12 +533,27 @@ async def patch_document_fields(
 async def document_progress_events(
     document_id: str,
     request: Request,
+    db: AsyncSession = Depends(get_db),
     current_user=Depends(require(Permission.DOCUMENT_READ, Scope.OWN)),
 ):
     """
     Server-Sent Events endpoint streaming real-time pipeline progress
     published by background workers to `document:progress:{document_id}`.
     """
+    try:
+        doc_uuid = uuid.UUID(document_id)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID.")
+
+    stmt = select(Document).where(Document.id == doc_uuid)
+    res = await db.execute(stmt)
+    doc = res.scalar_one_or_none()
+    if not doc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")
+
+    if current_user.role == Role.CITIZEN.value and doc.uploader_id != current_user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access denied to document events.")
+
     redis_url = settings.REDIS_URL
 
     async def event_generator():
@@ -586,6 +628,62 @@ async def document_progress_events(
     )
 
 
+class DownloadUrlResponse(BaseModel):
+    download_url: str
+    expires_in_seconds: int = 300
+
+
+@router.get(
+    "/{document_id}/download-url",
+    response_model=DownloadUrlResponse,
+    summary="Get presigned temporary download URL (valid <= 5 minutes) for document scan",
+)
+async def get_document_download_url(
+    document_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user=Depends(require(Permission.DOCUMENT_READ, Scope.OWN)),
+):
+    try:
+        doc_uuid = uuid.UUID(document_id)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID.")
+
+    stmt = select(Document).where(Document.id == doc_uuid)
+    res = await db.execute(stmt)
+    doc = res.scalar_one_or_none()
+    if not doc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")
+
+    if current_user.role == Role.CITIZEN.value and doc.uploader_id != current_user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access denied to document download.")
+
+    if ".." in doc.file_key or doc.file_key.startswith("/"):
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid object storage key.")
+
+    from datetime import timedelta
+    presigned_url = None
+    try:
+        minio_client = Minio(
+            settings.MINIO_ENDPOINT,
+            access_key=settings.MINIO_ACCESS_KEY,
+            secret_key=settings.MINIO_SECRET_KEY,
+            secure=settings.MINIO_USE_SSL,
+        )
+        presigned_url = minio_client.get_presigned_url(
+            "GET",
+            settings.MINIO_BUCKET,
+            doc.file_key,
+            expires=timedelta(seconds=300),
+        )
+    except Exception:
+        # Fallback local signed URL
+        from app.core.security import create_token
+        token = create_token({"sub": str(doc.id), "key": doc.file_key}, expires_delta=timedelta(seconds=300), token_type="download")
+        presigned_url = f"http://localhost:8000/api/v1/documents/{doc.id}/content?token={token}"
+
+    return DownloadUrlResponse(download_url=presigned_url, expires_in_seconds=300)
+
+
 @router.post(
     "/{document_id}/verify",
     response_model=DocumentVerificationResponse,
@@ -617,14 +715,14 @@ async def verify_document(
     rec = None
     try:
         rec_uuid = uuid.UUID(payload.record_id)
-        r_stmt = select(LandRecord).where(LandRecord.id == rec_uuid)
+        r_stmt = select(LandRecord).options(selectinload(LandRecord.mouza)).where(LandRecord.id == rec_uuid)
         r_res = await db.execute(r_stmt)
         rec = r_res.scalar_one_or_none()
     except ValueError:
         pass
 
     if not rec:
-        r_stmt = select(LandRecord).where(LandRecord.record_no == payload.record_id)
+        r_stmt = select(LandRecord).options(selectinload(LandRecord.mouza)).where(LandRecord.record_no == payload.record_id)
         r_res = await db.execute(r_stmt)
         rec = r_res.scalar_one_or_none()
 
@@ -681,7 +779,7 @@ async def verify_document(
 
     qr_integrity = QRIntegrityResult(
         payload_type=qr_check.payload_type if qr_check else "none",
-        hash_alg=qr_check.hash_alg if qr_check else "sha256",
+        hash_alg=qr_check.hash_alg if (qr_check and qr_check.hash_alg) else "sha256",
         hash_match=qr_check.hash_match if qr_check else False,
         scope="integrity_only",
         scope_text="নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।",
@@ -716,6 +814,7 @@ async def verify_document(
         comparisons=[FieldComparisonItem(**c) for c in verification_res["comparisons"]],
         summary=VerificationSummaryItem(**verification_res["summary"]),
         qr_integrity=qr_integrity,
+        consistency_issues=verification_res.get("consistency_issues", []),
         scope="integrity_only",
         scope_text="নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।",
         status_label=StatusLabel.POSSIBLE_MATCH.value,
@@ -770,7 +869,7 @@ async def get_latest_verification(
 
     qr_integrity = QRIntegrityResult(
         payload_type=qr_check.payload_type if qr_check else "none",
-        hash_alg=qr_check.hash_alg if qr_check else "sha256",
+        hash_alg=qr_check.hash_alg if (qr_check and qr_check.hash_alg) else "sha256",
         hash_match=qr_check.hash_match if qr_check else False,
         scope="integrity_only",
         scope_text="নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।",

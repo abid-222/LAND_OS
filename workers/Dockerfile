@@ -17,6 +17,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY backend/app /app/backend/app
 COPY workers /app/workers
 
+# Non-root user execution (Requirement 2.4)
+RUN useradd -u 1000 -m -s /bin/bash landos \
+    && chown -R landos:landos /app
+
+USER landos
+
 ENV PYTHONPATH=/app/backend:/app
 
 CMD ["python", "workers/main.py"]

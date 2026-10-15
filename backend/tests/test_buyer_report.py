@@ -83,9 +83,13 @@ async def test_buyer_report_structure_and_rules():
     assert "SAMPLE" in me["sample_disclaimer"] or "নমুনা" in me["sample_disclaimer"]
     assert len(me["items"]) >= 3
 
-    # 5. next_steps
+    # 5. next_steps (either cite approved KB article or show needs_verification)
     assert "next_steps" in sec
     assert len(sec["next_steps"]["items"]) >= 1
+    for item in sec["next_steps"]["items"]:
+        has_approved_source = bool(item.get("source") and item.get("last_verified_at"))
+        is_needs_verification = "যাচাই প্রয়োজন" in item.get("title", "") or "needs_verification" in item.get("status", "")
+        assert has_approved_source or is_needs_verification, f"Invalid next_step item: {item}"
 
     # 6. disclaimer
     assert "disclaimer" in sec
@@ -134,3 +138,38 @@ async def test_buyer_report_audit_logging():
         assert logs[0].prev_hash is not None
 
     await test_engine.dispose()
+
+
+def test_buyer_report_no_score_or_safe_unsafe_automated_grep():
+    """
+    Feature 11 Acceptance Criteria:
+    - Automated grep over UI strings, report engine, and API fixtures.
+    - No score or safe/unsafe wording anywhere.
+    - next_steps either cite an approved KB article (source + last_verified_at) or show needs_verification.
+    """
+    import os
+    import re
+
+    files_to_check = [
+        "frontend/src/pages/BuyerReportPage.tsx",
+        "backend/app/modules/reports/buyer_report.py",
+        "config/demo_evidence_checklist.yaml",
+    ]
+
+    for rel_path in files_to_check:
+        candidates = [
+            os.path.abspath(rel_path),
+            os.path.abspath(f"../{rel_path}"),
+            os.path.abspath(f"../../{rel_path}"),
+        ]
+        file_path = next((p for p in candidates if os.path.exists(p)), None)
+        assert file_path is not None, f"File {rel_path} not found"
+
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        # Check for banned score & safety judgment patterns
+        assert not re.search(r"\bsafety_score\b", content, re.IGNORECASE), f"Found safety_score in {rel_path}"
+        assert not re.search(r"['\"]safe['\"]", content, re.IGNORECASE), f"Found 'safe' string in {rel_path}"
+        assert not re.search(r"['\"]unsafe['\"]", content, re.IGNORECASE), f"Found 'unsafe' string in {rel_path}"
+        assert not re.search(r"নিরাপদ|ঝুঁকিমুক্ত", content), f"Found subjective safety verdict in {rel_path}"

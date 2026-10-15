@@ -5,6 +5,36 @@ All notable changes to the Bangladesh LandOS project will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [AUDIT-FIX] - 2026-10-15 (Full AUDIT + FIX Remediation Complete)
+
+### Added & Fixed
+1. **Role-Based Login & Security (Section 1)**:
+   - Seeded demo credentials for all 8 RBAC roles loaded from environment (`DEMO_PASSWORD`, `DEMO_MFA_SECRET`).
+   - Refresh token rotation, reuse detection (JTI tracking), session termination on logout, failed login lockout after 5 attempts.
+   - Double-submit cookie CSRF defense (`landos_csrf_token` cookie + `X-CSRF-Token` header) on all state-changing endpoints.
+   - Enforced Tech Admin cannot make record decisions (`Permission.CASE_REVIEW`, `CASE_APPROVE`, `RECORD_EDIT` restricted to Reviewer/Supervisor).
+   - Citizen IDOR isolation across documents, extraction endpoints, SSE streams, buyer reports, and presigned download URLs.
+2. **Security & Privacy (Section 2)**:
+   - Upload gates: magic bytes verification, 15MB file size limit, image re-encoding, GPS/EXIF metadata stripping, private storage keys.
+   - Presigned download URL endpoint (`GET /api/v1/documents/{id}/download-url`, 5-minute expiry, path-traversal guarded).
+   - Non-root container configuration (`landos` user UID 1000) for backend and worker Dockerfiles.
+   - PII log scrubbing filter (`PIIScrubFilter`) masking Bearer tokens, passwords, Bangladeshi phone numbers, and NID digits.
+3. **Connectivity & Diagnostics (Section 3)**:
+   - `make doctor`: 10-point system health check displaying green/red status table.
+   - `make smoke`: 10-step end-to-end user journey verifying 8-role login, upload abuse rejection, valid document ingestion, SSE connection, field correction, multi-identifier candidate search, cross-record integrity verification, conflict alert generation with reasons and evidence, buyer risk report generation & print view, audit chain continuity, and automated forbidden wording guard.
+4. **Data & ML Correctness (Section 4)**:
+   - Eager-loaded ORM relationships (`selectinload`) on `LandRecord.mouza` and `Parcel.mouza` to eliminate N+1 queries and async MissingGreenlet exceptions.
+   - Alert model `@validates("evidence")` constraint guaranteeing alerts cannot be saved without verifiable evidence.
+5. **Section 7 Missing Features (Section 7)**:
+   - Password change (`POST /api/v1/auth/password/change`) & password reset request/confirm flow.
+   - Office/Admin user management API (`POST /api/v1/admin/users`, `PATCH /{id}/role`, `PATCH /{id}/disable`) with role ceiling enforcement (Office Admin restricted to Operator, Citizen, Reviewer).
+   - In-app notifications table & endpoints (`GET /api/v1/notifications`, `PATCH /api/v1/notifications/{id}/read`).
+   - Human-in-the-loop evaluation dataset feedback corrections (`POST /api/v1/feedback/corrections`).
+   - Consent records tracking (`POST /api/v1/consent`, `GET /api/v1/consent/latest`).
+   - Extensible CSV import adapter with provenance tracking (`POST /api/v1/records/import-csv`).
+   - Printable HTML buyer report endpoint (`GET /api/v1/buyer-reports/{id}/print`).
+   - Demo reset command (`make demo-reset` via `scripts/demo_reset.py`).
+
 ## [State] (Prompts 0–5 Backend Core Completed & Synced)
 
 ### What Exists

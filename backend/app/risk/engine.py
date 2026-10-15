@@ -11,6 +11,7 @@ from typing import Dict, List, Optional
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from app.models import Alert, Deed, LandRecord, Mutation, Parcel
 from app.risk.rules import ALL_RULES, BaseRiskRule, ParcelContext, RuleAlert
@@ -30,7 +31,7 @@ class RiskEngine:
     async def build_context_from_db(self, parcel_id: str, db: AsyncSession) -> Optional[ParcelContext]:
         """Loads parcel and associated deeds, mutations, and records to build ParcelContext."""
         # 1. Load Parcel
-        p_stmt = select(Parcel).where(Parcel.parcel_id == parcel_id)
+        p_stmt = select(Parcel).options(selectinload(Parcel.mouza)).where(Parcel.parcel_id == parcel_id)
         p_res = await db.execute(p_stmt)
         parcel = p_res.scalar_one_or_none()
         if not parcel:

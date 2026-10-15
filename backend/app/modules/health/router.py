@@ -1,3 +1,4 @@
+import asyncio
 import datetime
 
 from fastapi import APIRouter, Depends
@@ -27,7 +28,7 @@ async def readiness(db: AsyncSession = Depends(get_db)):
 
     # 1. Database check
     try:
-        await db.execute(text("SELECT 1"))
+        await asyncio.wait_for(db.execute(text("SELECT 1")), timeout=1.0)
         db_healthy = True
         details["database"] = "connected"
     except Exception as e:
@@ -36,7 +37,7 @@ async def readiness(db: AsyncSession = Depends(get_db)):
     # 2. Redis check
     try:
         r = aioredis.from_url(settings.REDIS_URL, decode_responses=True)
-        pong = await r.ping()
+        pong = await asyncio.wait_for(r.ping(), timeout=1.0)
         await r.aclose()
         if pong:
             redis_healthy = True

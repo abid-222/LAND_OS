@@ -66,3 +66,11 @@ def test_deny_by_default_on_unknown():
     # Operator must NOT have user creation or system configure
     assert has_permission(Role.OPERATOR, Permission.SYSTEM_CONFIGURE) is False
     assert has_permission(Role.OPERATOR, Permission.USER_CREATE) is False
+
+    # Tech Admin cannot make record decisions or edit records (1.9 requirement)
+    assert has_permission(Role.TECH_ADMIN, Permission.CASE_REVIEW) is False
+    assert has_permission(Role.TECH_ADMIN, Permission.CASE_APPROVE) is False
+    assert has_permission(Role.TECH_ADMIN, Permission.RECORD_EDIT) is False
+
+    # Security Officer cannot edit records (1.9 requirement)
+    assert has_permission(Role.SECURITY_OFFICER, Permission.RECORD_EDIT) is False

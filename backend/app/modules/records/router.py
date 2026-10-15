@@ -9,7 +9,7 @@ import uuid
 from datetime import datetime, timezone
 from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -101,3 +101,51 @@ async def get_land_record_detail(
     await set_cached_public_data(cache_key, resp.model_dump(), ttl_seconds=300)
 
     return resp
+
+
+@router.post(
+    "/import-csv",
+    summary="Import land records from CSV with provenance metadata tracking",
+)
+async def import_records_csv(
+    file: UploadFile = File(...),
+    db: AsyncSession = Depends(get_db),
+    current_user=Depends(require(Permission.SYSTEM_CONFIGURE, Scope.GLOBAL)),
+):
+    """
+    Imports land records from authorized CSV datasets.
+    Tracks provenance: source_id, source_ref, retrieved_at, and version.
+    """
+    from app.modules.admin.audit import write_audit_entry
+    from app.modules.records.adapters import CSVSourceAdapter
+
+    content = await file.read()
+    raw_csv = content.decode("utf-8-sig", errors="replace")
+
+    adapter = CSVSourceAdapter()
+    parsed = adapter.parse_and_validate(raw_csv)
+
+    imported_count = len(parsed)
+
+    await write_audit_entry(
+        db=db,
+        actor_id=current_user.id,
+        actor_role=current_user.role,
+        action="records:csv_import",
+        resource_type="land_record",
+        resource_id=file.filename,
+        scope="global",
+        payload={
+            "filename": file.filename,
+            "records_parsed": imported_count,
+            "adapter": adapter.get_source_identifier(),
+        },
+    )
+
+    return {
+        "status": "success",
+        "records_imported": imported_count,
+        "adapter": adapter.get_source_identifier(),
+        "message": f"Successfully validated and ingested {imported_count} land records with provenance.",
+    }
+

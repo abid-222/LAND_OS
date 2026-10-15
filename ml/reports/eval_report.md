@@ -1,6 +1,6 @@
 # Bangladesh LandOS — ML Stack & Worker Intelligence Evaluation Report
 
-**Generated At**: 2026-10-15T03:16:33.496438+00:00 UTC  
+**Generated At**: 2026-10-15T19:08:06.318904+00:00 UTC  
 **Environment**: Production Verification & Quality Gate Audit  
 **Status**: **ALL RELEASE GATES PASSED**
 
@@ -55,7 +55,7 @@ Evaluated against `data/synthetic/conflict_truth.json` (150 parcels, seeded posi
 - **Engine Active**: `lightgbm_calibrated`
 - **Candidate Precision@1**: **98.8%**
 - **Candidate Recall@5**: **99.5%**
-- **False-Match Rate**: **0.00%** (Strict isolation of conflicting surveys)
+- **False-Match Rate**: **2.91%** (Strict isolation of conflicting surveys)
 
 ---
 
@@ -63,5 +63,5 @@ Evaluated against `data/synthetic/conflict_truth.json` (150 parcels, seeded posi
 
 - **Embedding Backbone**: `intfloat/multilingual-e5-base` (768-d unit vector)
 - **Formatting**: `"passage: "` for KB articles, `"query: "` for citizen queries
-- **Retrieval Hit Rate**: **0.0%**
+- **Retrieval Hit Rate**: **100.0%**
 - **Refusal Correctness**: **100.0%** (Correctly returns `needs_verification` for ungroundable questions)

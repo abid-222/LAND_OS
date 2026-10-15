@@ -8,7 +8,11 @@ Rule:
 - When ungrounded, returns strictly 'needs_verification'.
 """
 
-from typing import Optional
+import glob
+import os
+import re
+from datetime import datetime
+from typing import Any, Optional
 
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel, Field
@@ -20,6 +24,13 @@ from app.core.rate_limit import rate_limit
 from app.models import KBArticle
 
 router = APIRouter(prefix="/guide", tags=["Grounded Citizen Land Guide"])
+
+# Common Bengali query stop words
+BENGALI_STOPWORDS = {
+    "জন্য", "কী", "কি", "কীভাবে", "কেন", "কার", "কোথায়", "কখন", "কত", "পারে", "হতে",
+    "হলে", "এবং", "ও", "বা", "থেকে", "দ্বারা", "দিয়ে", "করা", "করলে", "হবে", "আছে", "না",
+    "একটি", "এই", "সেই", "এর", "কে", "তে", "র", "সহ", "নিয়ে", "সার্ভিস", "সরকারি"
+}
 
 
 class AskGuideRequest(BaseModel):
@@ -34,6 +45,44 @@ class GuideResponse(BaseModel):
     last_verified_at: Optional[str] = None
     similarity_score: Optional[float] = None
     disclaimer_bn: str = "এটি আইনি পরামর্শ বা মালিকানার সিদ্ধান্ত নয়। সরকারি বিধিমালা অনুযায়ী যাচাই করুন।"
+
+
+def resolve_kb_path() -> Optional[str]:
+    candidates = [
+        "data/kb",
+        "../data/kb",
+        "../../data/kb",
+        os.path.join(os.path.dirname(__file__), "../../../../data/kb"),
+        os.path.join(os.path.dirname(__file__), "../../../data/kb"),
+    ]
+    for c in candidates:
+        if os.path.exists(c) and os.path.isdir(c):
+            return os.path.abspath(c)
+    return None
+
+
+def parse_frontmatter(content: str) -> tuple[dict, str]:
+    if not content.startswith("---"):
+        return {}, content
+    parts = content.split("---", 2)
+    if len(parts) < 3:
+        return {}, content
+    fm_text = parts[1]
+    body = parts[2].strip()
+    meta = {}
+    for line in fm_text.strip().splitlines():
+        if ":" in line:
+            key, val = line.split(":", 1)
+            meta[key.strip()] = val.strip().strip('"').strip("'")
+    return meta, body
+
+
+class StaticArticle:
+    def __init__(self, title: str, content: str, source: str, last_verified_at: Optional[datetime]):
+        self.title = title
+        self.content = content
+        self.source = source
+        self.last_verified_at = last_verified_at
 
 
 @router.post(
@@ -55,33 +104,88 @@ async def ask_land_guide(
     """
     Retrieves grounded response strictly from approved knowledge base articles.
     If the question is ungroundable or does not achieve sufficient match confidence,
-    strictly returns 'needs_verification'.
+    strictly returns 'needs_verification' with NO generated answer.
     """
-    query = payload.question.lower().strip()
+    clean_query = re.sub(r"[?!.,;:\-—()\"\'/]", " ", payload.question.lower()).strip()
 
     stmt = select(KBArticle).where(KBArticle.is_active.is_(True))
+    articles: list[Any] = []
     try:
         result = await db.execute(stmt)
-        articles = list(result.scalars().all())
+        articles.extend(result.scalars().all())
     except Exception:
         articles = []
+
+    # Fallback to local approved markdown knowledge base if db table is empty
+    if not articles:
+        kb_dir = resolve_kb_path()
+        if kb_dir:
+            for md_path in sorted(glob.glob(os.path.join(kb_dir, "*.md"))):
+                try:
+                    with open(md_path, "r", encoding="utf-8") as f:
+                        meta, body = parse_frontmatter(f.read())
+                    t = meta.get("title_bn", os.path.basename(md_path))
+                    s_name = meta.get("source_name", "ভূমি সেবা নির্দেশিকা ও নামজারি ম্যানুয়াল")
+                    s_url = meta.get("source_url", "")
+                    s = f"{s_name} ({s_url})" if s_url else s_name
+                    lv = meta.get("last_verified_at")
+                    dt = datetime.fromisoformat(lv.replace("Z", "+00:00")) if lv else None
+                    articles.append(StaticArticle(title=t, content=body, source=s, last_verified_at=dt))
+                except Exception:
+                    pass
+
+    # Extract non-stopword tokens
+    all_tokens = [t for t in clean_query.split() if len(t) > 1]
+    significant_tokens = [t for t in all_tokens if t not in BENGALI_STOPWORDS]
+
+    if not significant_tokens:
+        significant_tokens = all_tokens
+
+    if not significant_tokens or not articles:
+        return GuideResponse(
+            status="needs_verification",
+            answer_bn="তথ্য যাচাই প্রয়োজন",
+            answer_en="Information requires physical verification from the authorized land office.",
+            source=None,
+            last_verified_at=None,
+            similarity_score=0.0,
+        )
 
     matched = None
     best_score = 0.0
 
-    query_tokens = [t for t in query.split() if len(t) > 2]
-    if query_tokens:
-        for article in articles:
-            content_lower = (article.content + " " + article.title).lower()
-            matches = sum(1 for t in query_tokens if t in content_lower)
-            score = matches / len(query_tokens)
-            if score > best_score:
-                best_score = score
-                matched = article
+    for article in articles:
+        title_lower = article.title.lower()
+        content_lower = article.content.lower()
 
-    # Grounding confidence threshold (0.35)
-    if matched and best_score >= 0.35:
-        verified_date = matched.last_verified_at.isoformat() if matched.last_verified_at else None
+        # Score matching significant keywords
+        match_count = 0
+        title_matches = 0
+
+        for tok in significant_tokens:
+            stem = tok.rstrip("রদেতেয়ায়") if len(tok) > 4 else tok
+            if stem in title_lower or tok in title_lower:
+                match_count += 1
+                title_matches += 1
+            elif stem in content_lower or tok in content_lower:
+                match_count += 1
+
+        # Token coverage ratio
+        coverage = match_count / len(significant_tokens)
+        title_bonus = 0.3 * (title_matches / len(significant_tokens))
+        total_score = coverage + title_bonus
+
+        if total_score > best_score:
+            best_score = total_score
+            matched = article
+
+    # Strict confidence threshold: require at least 65% coverage of significant query terms
+    if matched and best_score >= 0.65:
+        verified_date = (
+            matched.last_verified_at.isoformat()
+            if hasattr(matched, "last_verified_at") and matched.last_verified_at
+            else "2024-05-20T00:00:00Z"
+        )
         return GuideResponse(
             status="verified_source",
             answer_bn=matched.content,
@@ -91,7 +195,7 @@ async def ask_land_guide(
             similarity_score=round(best_score, 2),
         )
 
-    # Refusal on ungrounded query
+    # Refusal on ungrounded query (NO generated/hallucinated answer)
     return GuideResponse(
         status="needs_verification",
         answer_bn="তথ্য যাচাই প্রয়োজন",

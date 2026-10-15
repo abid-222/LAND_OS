@@ -155,7 +155,7 @@ def detect_qr(
 
     # 2. Fallback to pyzbar
     try:
-        from pyzbar.pyzbar import decode as zbar_decode, ZBarSymbol
+        from pyzbar.pyzbar import decode as zbar_decode, ZBarSymbol  # type: ignore[import-untyped]
 
         # Try on gray, then on CLAHE enhanced
         candidates = [gray]

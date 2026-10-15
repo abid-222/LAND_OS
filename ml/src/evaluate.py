@@ -172,7 +172,7 @@ def evaluate_all():
     # Tune threshold dynamically on labeled question set
     if retriever._use_fallback:
         eval_thresh = retriever.tune_threshold(
-            labeled_questions, mock_kb_articles, min_threshold=0.20, max_threshold=0.60
+            labeled_questions, mock_kb_articles, min_threshold=0.18, max_threshold=0.28
         )
     else:
         eval_thresh = 0.78

@@ -1,0 +1,4969 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Bangladesh LandOS",
+    "description": "Scan-to-Search Digital Land Service and Document Intelligence Platform for Bangladesh",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/health/liveness": {
+      "get": {
+        "tags": [
+          "System Health & Telemetry"
+        ],
+        "summary": "Container liveness probe",
+        "operationId": "liveness_api_v1_health_liveness_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/health/readiness": {
+      "get": {
+        "tags": [
+          "System Health & Telemetry"
+        ],
+        "summary": "Service readiness probe checking DB and Redis",
+        "operationId": "readiness_api_v1_health_readiness_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/health": {
+      "get": {
+        "tags": [
+          "System Health & Telemetry"
+        ],
+        "summary": "Overall health status",
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/register": {
+      "post": {
+        "tags": [
+          "Authentication & Session"
+        ],
+        "summary": "Register",
+        "operationId": "register_api_v1_auth_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "tags": [
+          "Authentication & Session"
+        ],
+        "summary": "Login",
+        "operationId": "login_api_v1_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/refresh": {
+      "post": {
+        "tags": [
+          "Authentication & Session"
+        ],
+        "summary": "Refresh Tokens",
+        "operationId": "refresh_tokens_api_v1_auth_refresh_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "tags": [
+          "Authentication & Session"
+        ],
+        "summary": "Logout",
+        "operationId": "logout_api_v1_auth_logout_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/password/change": {
+      "post": {
+        "tags": [
+          "Authentication & Session"
+        ],
+        "summary": "Change Password",
+        "description": "Allows authenticated user to change their password.",
+        "operationId": "change_password_api_v1_auth_password_change_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PasswordChangeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/password/reset-request": {
+      "post": {
+        "tags": [
+          "Authentication & Session"
+        ],
+        "summary": "Request Password Reset",
+        "description": "Initiates password reset flow.\nIn development / demo mode, returns the signed reset token directly.",
+        "operationId": "request_password_reset_api_v1_auth_password_reset_request_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PasswordResetRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/password/reset-confirm": {
+      "post": {
+        "tags": [
+          "Authentication & Session"
+        ],
+        "summary": "Confirm Password Reset",
+        "description": "Confirms password reset using valid reset token.",
+        "operationId": "confirm_password_reset_api_v1_auth_password_reset_confirm_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PasswordResetConfirmRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/mfa/setup": {
+      "post": {
+        "tags": [
+          "Authentication & Session"
+        ],
+        "summary": "Setup Mfa",
+        "operationId": "setup_mfa_api_v1_auth_mfa_setup_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MFASetupResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/mfa/verify": {
+      "post": {
+        "tags": [
+          "Authentication & Session"
+        ],
+        "summary": "Verify And Enable Mfa",
+        "operationId": "verify_and_enable_mfa_api_v1_auth_mfa_verify_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MFAVerifyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/me": {
+      "get": {
+        "tags": [
+          "Authentication & Session"
+        ],
+        "summary": "Get Current User Profile",
+        "operationId": "get_current_user_profile_api_v1_auth_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/audit": {
+      "get": {
+        "tags": [
+          "Admin Audit Chain"
+        ],
+        "summary": "Query audit logs",
+        "operationId": "list_audit_logs_api_v1_admin_audit_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "action",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Action"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/audit/verify-chain": {
+      "get": {
+        "tags": [
+          "Admin Audit Chain"
+        ],
+        "summary": "Cryptographically verify audit chain continuity",
+        "operationId": "verify_audit_chain_endpoint_api_v1_admin_audit_verify_chain_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/users": {
+      "get": {
+        "tags": [
+          "Admin User Management"
+        ],
+        "summary": "List registered users with roles and security status",
+        "description": "Returns list of users across offices and roles.\nOffice Admin sees users in their office; Tech Admin and Security Officer see globally.",
+        "operationId": "list_admin_users_api_v1_admin_users_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Admin User Management"
+        ],
+        "summary": "Create user with role ceiling limits",
+        "operationId": "create_admin_user_api_v1_admin_users_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserListItem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/users/{user_id}/disable": {
+      "patch": {
+        "tags": [
+          "Admin User Management"
+        ],
+        "summary": "Disable user account",
+        "operationId": "disable_user_account_api_v1_admin_users__user_id__disable_patch",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/users/{user_id}/role": {
+      "patch": {
+        "tags": [
+          "Admin User Management"
+        ],
+        "summary": "Update user role with ceiling check",
+        "operationId": "update_user_role_api_v1_admin_users__user_id__role_patch",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRoleRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scan/qr": {
+      "post": {
+        "tags": [
+          "QR Code Scanner"
+        ],
+        "summary": "Scan QR code from document image and verify integrity",
+        "description": "Scans an uploaded document image for QR codes.\nIf the QR payload contains a verification hash, checks mathematical integrity.\nUI Text:\n  Matched: '\u09a8\u09a5\u09bf\u09b0 \u09a4\u09a5\u09cd\u09af QR-\u098f\u09b0 \u09b8\u0999\u09cd\u0997\u09c7 \u09ae\u09bf\u09b2\u09c7\u099b\u09c7 (\u09ae\u09be\u09b2\u09bf\u0995\u09be\u09a8\u09be \u09af\u09be\u099a\u09be\u0987 \u09a8\u09af\u09bc)'\n  Mismatched / Not found: '\u09ae\u09c7\u09b2\u09c7\u09a8\u09bf' or 'QR \u0995\u09cb\u09a1 \u09b6\u09a8\u09be\u0995\u09cd\u09a4 \u0995\u09b0\u09be \u09af\u09be\u09af\u09bc\u09a8\u09bf'",
+        "operationId": "scan_qr_endpoint_api_v1_scan_qr_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_scan_qr_endpoint_api_v1_scan_qr_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QRScanResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents": {
+      "get": {
+        "tags": [
+          "Document Scanning & OCR"
+        ],
+        "summary": "List ingested documents",
+        "operationId": "list_documents_api_v1_documents_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Document Scanning & OCR"
+        ],
+        "summary": "Upload document with magic-byte verification, image re-encoding, and MinIO storage",
+        "operationId": "upload_document_api_v1_documents_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_document_api_v1_documents_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentUploadResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents/upload": {
+      "post": {
+        "tags": [
+          "Document Scanning & OCR"
+        ],
+        "summary": "Upload document (alias)",
+        "operationId": "upload_document_api_v1_documents_upload_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_document_api_v1_documents_upload_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentUploadResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents/{document_id}/extraction": {
+      "get": {
+        "tags": [
+          "Document Scanning & OCR"
+        ],
+        "summary": "Get document OCR extracted fields, confidence scores, and status label",
+        "operationId": "get_document_extraction_api_v1_documents__document_id__extraction_get",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentExtractionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents/{document_id}/fields": {
+      "patch": {
+        "tags": [
+          "Document Scanning & OCR"
+        ],
+        "summary": "Submit user corrections for extracted fields with status USER_CORRECTED and audit history",
+        "description": "Applies user corrections to document fields.\nNormalizes corrected values, updates status to USER_CORRECTED,\nmaintains audit log history of changes, and prevents auto-confirmation.",
+        "operationId": "patch_document_fields_api_v1_documents__document_id__fields_patch",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocumentFieldsPatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentFieldsPatchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents/{document_id}/events": {
+      "get": {
+        "tags": [
+          "Document Scanning & OCR"
+        ],
+        "summary": "Stream real-time document processing progress via SSE",
+        "description": "Server-Sent Events endpoint streaming real-time pipeline progress\npublished by background workers to `document:progress:{document_id}`.",
+        "operationId": "document_progress_events_api_v1_documents__document_id__events_get",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents/{document_id}/download-url": {
+      "get": {
+        "tags": [
+          "Document Scanning & OCR"
+        ],
+        "summary": "Get presigned temporary download URL (valid <= 5 minutes) for document scan",
+        "operationId": "get_document_download_url_api_v1_documents__document_id__download_url_get",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DownloadUrlResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents/{document_id}/verify": {
+      "post": {
+        "tags": [
+          "Document Scanning & OCR"
+        ],
+        "summary": "Cross-record verification with reference LandRecord & QR hash integrity",
+        "operationId": "verify_document_api_v1_documents__document_id__verify_post",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocumentVerifyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentVerificationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents/{document_id}/verification": {
+      "get": {
+        "tags": [
+          "Document Scanning & OCR"
+        ],
+        "summary": "Get latest document cross-record verification results",
+        "operationId": "get_latest_verification_api_v1_documents__document_id__verification_get",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentVerificationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/search": {
+      "post": {
+        "tags": [
+          "Land Records & Khatian Search"
+        ],
+        "summary": "Multi-identifier land record search with scorer & ambiguous top-2 detection",
+        "description": "Multi-identifier search using exact normalized matching and trigram similarity.\nCalculates candidate match score and generates human-readable reasons.\nIf the score difference between top 2 candidates is < 0.10, flags `ambiguous=True`.\nNever auto-confirms ownership.",
+        "operationId": "multi_identifier_search_api_v1_search_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Land Records & Khatian Search"
+        ],
+        "summary": "Scan-to-search query string endpoint",
+        "operationId": "search_land_records_api_v1_search_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Search query",
+              "title": "Q"
+            },
+            "description": "Search query"
+          },
+          {
+            "name": "mouza_jl",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Mouza JL Number",
+              "title": "Mouza Jl"
+            },
+            "description": "Mouza JL Number"
+          },
+          {
+            "name": "survey_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "CS, SA, RS, BS, City Survey",
+              "title": "Survey Type"
+            },
+            "description": "CS, SA, RS, BS, City Survey"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/records/{record_id}": {
+      "get": {
+        "tags": [
+          "Land Records"
+        ],
+        "summary": "Get land record detail by ID with verified source metadata",
+        "description": "Fetches official baseline land record by UUID or record_no.\nIncludes verified authorized source attribution and retrieval timestamp.\nPublic reference data is cached in Redis.",
+        "operationId": "get_land_record_detail_api_v1_records__record_id__get",
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Record Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecordDetailResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/records/import-csv": {
+      "post": {
+        "tags": [
+          "Land Records"
+        ],
+        "summary": "Import land records from CSV with provenance metadata tracking",
+        "description": "Imports land records from authorized CSV datasets.\nTracks provenance: source_id, source_ref, retrieved_at, and version.",
+        "operationId": "import_records_csv_api_v1_records_import_csv_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_import_records_csv_api_v1_records_import_csv_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/guide/query": {
+      "post": {
+        "tags": [
+          "Grounded Citizen Land Guide"
+        ],
+        "summary": "Query Land Guide (alias)",
+        "description": "Retrieves grounded response strictly from approved knowledge base articles.\nIf the question is ungroundable or does not achieve sufficient match confidence,\nstrictly returns 'needs_verification' with NO generated answer.",
+        "operationId": "ask_land_guide_api_v1_guide_query_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AskGuideRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GuideResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/guide/ask": {
+      "post": {
+        "tags": [
+          "Grounded Citizen Land Guide"
+        ],
+        "summary": "Ask grounded question to Land Guide knowledge base",
+        "description": "Retrieves grounded response strictly from approved knowledge base articles.\nIf the question is ungroundable or does not achieve sufficient match confidence,\nstrictly returns 'needs_verification' with NO generated answer.",
+        "operationId": "ask_land_guide_api_v1_guide_ask_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AskGuideRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GuideResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/map/parcels": {
+      "get": {
+        "tags": [
+          "Geospatial Cadastral Parcel Visualizer"
+        ],
+        "summary": "Fetch cadastral parcels GeoJSON with mandatory legal boundary disclaimer",
+        "description": "Returns cadastral parcel boundaries in GeoJSON format.\nEvery parcel is marked with `is_illustrative: true`.\nPublic reference data cached in Redis.",
+        "operationId": "get_parcels_api_v1_map_parcels_get",
+        "parameters": [
+          {
+            "name": "bbox",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Bounding box filter formatted as 'min_lon,min_lat,max_lon,max_lat'",
+              "title": "Bbox"
+            },
+            "description": "Bounding box filter formatted as 'min_lon,min_lat,max_lon,max_lat'"
+          },
+          {
+            "name": "mouza_jl",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Mouza JL number",
+              "title": "Mouza Jl"
+            },
+            "description": "Mouza JL number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/map/parcels/{synthetic_id}": {
+      "get": {
+        "tags": [
+          "Geospatial Cadastral Parcel Visualizer"
+        ],
+        "summary": "Get single synthetic parcel by ID",
+        "description": "Returns single cadastral parcel polygon detail.\nCached as public reference data.",
+        "operationId": "get_parcel_by_id_api_v1_map_parcels__synthetic_id__get",
+        "parameters": [
+          {
+            "name": "synthetic_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Synthetic Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/map/parcels/{synthetic_id}/summary": {
+      "get": {
+        "tags": [
+          "Geospatial Cadastral Parcel Visualizer"
+        ],
+        "summary": "Get parcel risk summary with alert counts by severity (no verdict)",
+        "description": "Returns parcel metadata and conflict alert counts by severity level.\nGlobal rule: Plain counts only. Never outputs or stores a composite score,\nor safe/unsafe or valid ownership verdicts.\nPublic reference summary cached in Redis.",
+        "operationId": "get_parcel_summary_api_v1_map_parcels__synthetic_id__summary_get",
+        "parameters": [
+          {
+            "name": "synthetic_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Synthetic Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParcelSummaryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review/cases": {
+      "get": {
+        "tags": [
+          "Human-in-the-Loop Case Review"
+        ],
+        "summary": "List cases (alias)",
+        "description": "Returns pending cases in the human review queue.\nShows cases requiring human verification (low confidence OCR, repaired fields, conflicting dates).",
+        "operationId": "get_review_queue_api_v1_review_cases_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ReviewCaseItem"
+                  },
+                  "type": "array",
+                  "title": "Response Get Review Queue Api V1 Review Cases Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review/queue": {
+      "get": {
+        "tags": [
+          "Human-in-the-Loop Case Review"
+        ],
+        "summary": "List pending review cases in review queue",
+        "description": "Returns pending cases in the human review queue.\nShows cases requiring human verification (low confidence OCR, repaired fields, conflicting dates).",
+        "operationId": "get_review_queue_api_v1_review_queue_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewQueueResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review/cases/{case_id}/decision": {
+      "post": {
+        "tags": [
+          "Human-in-the-Loop Case Review"
+        ],
+        "summary": "Submit review decision (alias)",
+        "description": "Records a reviewer decision on an unconfirmed or flagged case.\nUpdates case status, logs audit event, and sets document status.",
+        "operationId": "submit_case_decision_api_v1_review_cases__case_id__decision_post",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewDecisionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewDecisionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review/{case_id}/decision": {
+      "post": {
+        "tags": [
+          "Human-in-the-Loop Case Review"
+        ],
+        "summary": "Submit review decision for a case",
+        "description": "Records a reviewer decision on an unconfirmed or flagged case.\nUpdates case status, logs audit event, and sets document status.",
+        "operationId": "submit_case_decision_api_v1_review__case_id__decision_post",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewDecisionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewDecisionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review/cases/{case_id}/assign": {
+      "patch": {
+        "tags": [
+          "Human-in-the-Loop Case Review"
+        ],
+        "summary": "Assign or reassign a review case (alias)",
+        "operationId": "assign_case_api_v1_review_cases__case_id__assign_patch",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CaseAssignRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review/{case_id}/assign": {
+      "patch": {
+        "tags": [
+          "Human-in-the-Loop Case Review"
+        ],
+        "summary": "Assign or reassign a review case",
+        "operationId": "assign_case_api_v1_review__case_id__assign_patch",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CaseAssignRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/quality/eval-runs": {
+      "get": {
+        "tags": [
+          "Image Quality & Pipeline Metrics"
+        ],
+        "summary": "Get Accuracy and Reliability Lab evaluation benchmark runs",
+        "description": "Reads evaluation benchmark run reports from eval_runs/ directory.\nProvides field-separated CER, FEA, critical field FEA, silent error rates,\ndigit confusion matrix, and evaluated release gates from gates.yaml.",
+        "operationId": "get_eval_runs_api_v1_quality_eval_runs_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvalRunsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/quality/run-eval": {
+      "post": {
+        "tags": [
+          "Image Quality & Pipeline Metrics"
+        ],
+        "summary": "Run live evaluation pipeline benchmark (Tech Admin action)",
+        "description": "Executes a model benchmark run and records the results into eval_runs/.\nEnforces quality gates defined in eval/gates.yaml.",
+        "operationId": "trigger_eval_run_api_v1_quality_run_eval_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvalRunDetail"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/quality/summary": {
+      "get": {
+        "tags": [
+          "Image Quality & Pipeline Metrics"
+        ],
+        "summary": "Get pipeline quality gates and extraction accuracy summary",
+        "description": "Returns verified pipeline quality indicators and model benchmarks.\nCached as public telemetry reference data in Redis.",
+        "operationId": "get_quality_summary_api_v1_quality_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QualitySummaryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/quality/score": {
+      "post": {
+        "tags": [
+          "Image Quality & Pipeline Metrics"
+        ],
+        "summary": "Analyze scan quality before submission",
+        "description": "Lightweight client-side / edge quality assessor.",
+        "operationId": "evaluate_image_quality_api_v1_quality_score_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_evaluate_image_quality_api_v1_quality_score_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QualityScoreResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/parcels/{parcel_id}/alerts": {
+      "get": {
+        "tags": [
+          "Cadastral Parcels & Risk Alerts"
+        ],
+        "summary": "Get risk & conflict alerts for parcel with reason_bn and evidence",
+        "description": "Returns verified risk and conflict alerts for the specified parcel.\nBangla wording strictly follows '\u09b8\u09ae\u09cd\u09ad\u09be\u09ac\u09cd\u09af \u0985\u09b8\u0999\u09cd\u0997\u09a4\u09bf, \u09af\u09be\u099a\u09be\u0987 \u09aa\u09cd\u09b0\u09af\u09bc\u09cb\u099c\u09a8'.\nEvery alert is accompanied by explainable reason_bn and evidence.",
+        "operationId": "get_parcel_alerts_api_v1_parcels__parcel_id__alerts_get",
+        "parameters": [
+          {
+            "name": "parcel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Parcel Id"
+            }
+          },
+          {
+            "name": "severity",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^(info|warn|high)$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by severity level",
+              "title": "Severity"
+            },
+            "description": "Filter by severity level"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AlertResponseItem"
+                  },
+                  "title": "Response Get Parcel Alerts Api V1 Parcels  Parcel Id  Alerts Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/parcels/{parcel_id}/alerts/run": {
+      "post": {
+        "tags": [
+          "Cadastral Parcels & Risk Alerts"
+        ],
+        "summary": "Execute risk & conflict rules engine idempotently (Reviewer/Supervisor/Tech Admin)",
+        "description": "Executes rules R1 to R6 on the parcel context in an idempotent, deduplicated manner.\nRBAC: Enforced strictly for Reviewer, Supervisor, and Tech Admin. Denied for Citizens.\nNever overwrites or deletes reviewed or dismissed alert history.",
+        "operationId": "run_parcel_alerts_api_v1_parcels__parcel_id__alerts_run_post",
+        "parameters": [
+          {
+            "name": "parcel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Parcel Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlertsRunResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/alerts/{alert_id}": {
+      "patch": {
+        "tags": [
+          "Risk Alerts Management"
+        ],
+        "summary": "Update alert status to reviewed or dismissed with reviewer note",
+        "description": "Updates an alert's status to 'reviewed' or 'dismissed' with an explanatory note.\nRBAC: Enforced strictly for Reviewer+. Denied for Citizens.\nKeeps review history in evidence chain and records a cryptographic audit log.",
+        "operationId": "update_alert_status_api_v1_alerts__alert_id__patch",
+        "parameters": [
+          {
+            "name": "alert_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Alert Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlertPatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlertResponseItem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/parcels/{parcel_id}/buyer-report": {
+      "post": {
+        "tags": [
+          "Cadastral Parcels & Buyer Reports"
+        ],
+        "summary": "Generate comprehensive buyer parcel summary report (Citizen allowed for demo parcels only)",
+        "description": "Generates a 6-section buyer parcel summary report.\nCitizens are restricted to generating reports for synthetic demo parcels only.\nOfficers (Reviewer, Supervisor, Tech Admin) may generate for any parcel.\nPersists to `buyer_reports` and logs cryptographic audit trail.",
+        "operationId": "create_buyer_report_api_v1_parcels__parcel_id__buyer_report_post",
+        "parameters": [
+          {
+            "name": "parcel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Parcel Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuyerReportCreateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/buyer-reports/{report_id}": {
+      "get": {
+        "tags": [
+          "Buyer Risk Reports"
+        ],
+        "summary": "Get buyer risk report JSON (Citizens see only their own reports)",
+        "description": "Retrieves full buyer report in JSON format.\nEnforces isolation: Citizens see only reports they created.",
+        "operationId": "get_buyer_report_json_api_v1_buyer_reports__report_id__get",
+        "parameters": [
+          {
+            "name": "report_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Report Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuyerReportCreateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/buyer-reports/{report_id}/print": {
+      "get": {
+        "tags": [
+          "Buyer Risk Reports"
+        ],
+        "summary": "Render printable HTML for buyer risk report (Citizens see only their own reports)",
+        "description": "Renders styled, printable HTML with print media queries for server-side PDF or browser printing.\nEnforces isolation: Citizens see only reports they created.",
+        "operationId": "get_buyer_report_print_api_v1_buyer_reports__report_id__print_get",
+        "parameters": [
+          {
+            "name": "report_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Report Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/notifications": {
+      "get": {
+        "tags": [
+          "In-App Notifications"
+        ],
+        "summary": "List notifications for current user",
+        "operationId": "list_notifications_api_v1_notifications_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/notifications/{notification_id}/read": {
+      "patch": {
+        "tags": [
+          "In-App Notifications"
+        ],
+        "summary": "Mark notification as read",
+        "operationId": "mark_notification_read_api_v1_notifications__notification_id__read_patch",
+        "parameters": [
+          {
+            "name": "notification_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Notification Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/feedback/corrections": {
+      "post": {
+        "tags": [
+          "Human-in-the-Loop Feedback"
+        ],
+        "summary": "Submit human-in-the-loop labeled correction for the evaluation dataset (never auto-trained)",
+        "operationId": "submit_feedback_correction_api_v1_feedback_corrections_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackCorrectionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackCorrectionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/consent": {
+      "post": {
+        "tags": [
+          "Consent Records"
+        ],
+        "summary": "Record citizen consent for camera, offline storage, or privacy terms",
+        "operationId": "submit_consent_api_v1_consent_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsentSubmitRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConsentRecordResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/consent/latest": {
+      "get": {
+        "tags": [
+          "Consent Records"
+        ],
+        "summary": "Get latest consent status for user by type",
+        "operationId": "get_latest_consent_api_v1_consent_latest_get",
+        "parameters": [
+          {
+            "name": "consent_type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Consent Type"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/metrics": {
+      "get": {
+        "tags": [
+          "Observability"
+        ],
+        "summary": "Export Prometheus metrics",
+        "description": "Exports raw Prometheus metrics format with latency histograms for p95 computation.",
+        "operationId": "prometheus_metrics_api_v1_metrics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics": {
+      "get": {
+        "tags": [
+          "Observability"
+        ],
+        "summary": "Export Prometheus metrics and latency histograms",
+        "description": "Exports raw Prometheus metrics format with latency histograms for p95 computation.",
+        "operationId": "prometheus_metrics_metrics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Root"
+        ],
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AlertCountsBySeverity": {
+        "properties": {
+          "high": {
+            "type": "integer",
+            "title": "High",
+            "default": 0
+          },
+          "warn": {
+            "type": "integer",
+            "title": "Warn",
+            "default": 0
+          },
+          "info": {
+            "type": "integer",
+            "title": "Info",
+            "default": 0
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "AlertCountsBySeverity"
+      },
+      "AlertPatchRequest": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "pattern": "^(reviewed|dismissed)$",
+            "title": "Status",
+            "description": "New alert status ('reviewed' or 'dismissed')"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note",
+            "description": "Reviewer explanation kept in history"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "AlertPatchRequest"
+      },
+      "AlertResponseItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "parcel_id": {
+            "type": "string",
+            "title": "Parcel Id"
+          },
+          "rule_id": {
+            "type": "string",
+            "title": "Rule Id"
+          },
+          "severity": {
+            "type": "string",
+            "title": "Severity"
+          },
+          "title_bn": {
+            "type": "string",
+            "title": "Title Bn"
+          },
+          "reason_bn": {
+            "type": "string",
+            "title": "Reason Bn"
+          },
+          "evidence": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Evidence"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "rule_version": {
+            "type": "string",
+            "title": "Rule Version"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "parcel_id",
+          "rule_id",
+          "severity",
+          "title_bn",
+          "reason_bn",
+          "evidence",
+          "status",
+          "rule_version",
+          "created_at"
+        ],
+        "title": "AlertResponseItem"
+      },
+      "AlertsRunResponse": {
+        "properties": {
+          "parcel_id": {
+            "type": "string",
+            "title": "Parcel Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "total_alerts": {
+            "type": "integer",
+            "title": "Total Alerts"
+          },
+          "alerts": {
+            "items": {
+              "$ref": "#/components/schemas/AlertResponseItem"
+            },
+            "type": "array",
+            "title": "Alerts"
+          }
+        },
+        "type": "object",
+        "required": [
+          "parcel_id",
+          "status",
+          "total_alerts",
+          "alerts"
+        ],
+        "title": "AlertsRunResponse"
+      },
+      "AskGuideRequest": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "minLength": 2,
+            "title": "Question",
+            "description": "Citizen inquiry in Bengali or English"
+          }
+        },
+        "type": "object",
+        "required": [
+          "question"
+        ],
+        "title": "AskGuideRequest"
+      },
+      "Body_evaluate_image_quality_api_v1_quality_score_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_evaluate_image_quality_api_v1_quality_score_post"
+      },
+      "Body_import_records_csv_api_v1_records_import_csv_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_import_records_csv_api_v1_records_import_csv_post"
+      },
+      "Body_scan_qr_endpoint_api_v1_scan_qr_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_scan_qr_endpoint_api_v1_scan_qr_post"
+      },
+      "Body_upload_document_api_v1_documents_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_document_api_v1_documents_post"
+      },
+      "Body_upload_document_api_v1_documents_upload_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_document_api_v1_documents_upload_post"
+      },
+      "BuyerReportCreateResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "parcel_id": {
+            "type": "string",
+            "title": "Parcel Id"
+          },
+          "generated_at": {
+            "type": "string",
+            "title": "Generated At"
+          },
+          "sections": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Sections"
+          },
+          "rule_version": {
+            "type": "string",
+            "title": "Rule Version"
+          },
+          "disclaimer_version": {
+            "type": "string",
+            "title": "Disclaimer Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "parcel_id",
+          "generated_at",
+          "sections",
+          "rule_version",
+          "disclaimer_version"
+        ],
+        "title": "BuyerReportCreateResponse"
+      },
+      "CaseAssignRequest": {
+        "properties": {
+          "reviewer_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Reviewer Id"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reviewer_id"
+        ],
+        "title": "CaseAssignRequest"
+      },
+      "ConsentRecordResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "consent_type": {
+            "type": "string",
+            "title": "Consent Type"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "agreed": {
+            "type": "boolean",
+            "title": "Agreed"
+          },
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "consent_type",
+          "version",
+          "agreed",
+          "timestamp"
+        ],
+        "title": "ConsentRecordResponse"
+      },
+      "ConsentSubmitRequest": {
+        "properties": {
+          "consent_type": {
+            "type": "string",
+            "title": "Consent Type"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version",
+            "default": "v1.0"
+          },
+          "agreed": {
+            "type": "boolean",
+            "title": "Agreed",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "consent_type"
+        ],
+        "title": "ConsentSubmitRequest"
+      },
+      "CreateUserRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8,
+            "title": "Password"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "full_name_bn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name Bn"
+          },
+          "full_name_en": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name En"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          },
+          "office_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Office Id"
+          },
+          "region_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Region Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "password",
+          "role"
+        ],
+        "title": "CreateUserRequest"
+      },
+      "DocumentExtractionResponse": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "title": "Document Id"
+          },
+          "file_name": {
+            "type": "string",
+            "title": "File Name"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "status_label": {
+            "type": "string",
+            "title": "Status Label"
+          },
+          "overall_confidence": {
+            "type": "number",
+            "title": "Overall Confidence"
+          },
+          "flagged": {
+            "type": "boolean",
+            "title": "Flagged"
+          },
+          "fields": {
+            "items": {
+              "$ref": "#/components/schemas/ExtractedFieldItem"
+            },
+            "type": "array",
+            "title": "Fields"
+          },
+          "indicators_for_verification": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Indicators For Verification"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "file_name",
+          "status",
+          "status_label",
+          "overall_confidence",
+          "flagged",
+          "fields"
+        ],
+        "title": "DocumentExtractionResponse"
+      },
+      "DocumentFieldsPatchRequest": {
+        "properties": {
+          "fields": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Fields",
+            "description": "Map of field_name to user corrected string value"
+          },
+          "correction_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Correction Reason",
+            "description": "Optional explanation for audit tracking"
+          }
+        },
+        "type": "object",
+        "required": [
+          "fields"
+        ],
+        "title": "DocumentFieldsPatchRequest"
+      },
+      "DocumentFieldsPatchResponse": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "title": "Document Id"
+          },
+          "status_label": {
+            "type": "string",
+            "title": "Status Label"
+          },
+          "fields": {
+            "items": {
+              "$ref": "#/components/schemas/ExtractedFieldItem"
+            },
+            "type": "array",
+            "title": "Fields"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "status_label",
+          "fields",
+          "message"
+        ],
+        "title": "DocumentFieldsPatchResponse"
+      },
+      "DocumentUploadResponse": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "title": "Document Id"
+          },
+          "file_name": {
+            "type": "string",
+            "title": "File Name"
+          },
+          "file_size": {
+            "type": "integer",
+            "title": "File Size"
+          },
+          "magic_bytes_verified": {
+            "type": "boolean",
+            "title": "Magic Bytes Verified"
+          },
+          "re_encoded": {
+            "type": "boolean",
+            "title": "Re Encoded"
+          },
+          "upload_status": {
+            "type": "string",
+            "title": "Upload Status"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "status_label": {
+            "type": "string",
+            "title": "Status Label"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "file_name",
+          "file_size",
+          "magic_bytes_verified",
+          "re_encoded",
+          "upload_status",
+          "status",
+          "status_label",
+          "created_at"
+        ],
+        "title": "DocumentUploadResponse"
+      },
+      "DocumentVerificationResponse": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "title": "Document Id"
+          },
+          "record_id": {
+            "type": "string",
+            "title": "Record Id"
+          },
+          "verification_results": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Verification Results"
+          },
+          "comparisons": {
+            "items": {
+              "$ref": "#/components/schemas/FieldComparisonItem"
+            },
+            "type": "array",
+            "title": "Comparisons"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/VerificationSummaryItem"
+          },
+          "qr_integrity": {
+            "$ref": "#/components/schemas/QRIntegrityResult"
+          },
+          "consistency_issues": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Consistency Issues",
+            "default": []
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope",
+            "default": "integrity_only"
+          },
+          "scope_text": {
+            "type": "string",
+            "title": "Scope Text",
+            "default": "\u09a8\u09a5\u09bf\u09b0 \u09a4\u09a5\u09cd\u09af QR-\u098f\u09b0 \u09b8\u0999\u09cd\u0997\u09c7 \u09af\u09be\u099a\u09be\u0987 \u09b6\u09c1\u09a7\u09c1\u09ae\u09be\u09a4\u09cd\u09b0 \u0985\u0996\u09a3\u09cd\u09a1\u09a4\u09be\u09b0 \u09aa\u09cd\u09b0\u09ae\u09be\u09a3 (\u09ae\u09be\u09b2\u09bf\u0995\u09be\u09a8\u09be \u09ac\u09be \u09b8\u09cd\u09ac\u09a4\u09cd\u09ac \u09af\u09be\u099a\u09be\u0987 \u09a8\u09af\u09bc)\u0964"
+          },
+          "status_label": {
+            "type": "string",
+            "title": "Status Label"
+          },
+          "verified_at": {
+            "type": "string",
+            "title": "Verified At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "record_id",
+          "verification_results",
+          "comparisons",
+          "summary",
+          "qr_integrity",
+          "status_label",
+          "verified_at"
+        ],
+        "title": "DocumentVerificationResponse"
+      },
+      "DocumentVerifyRequest": {
+        "properties": {
+          "record_id": {
+            "type": "string",
+            "title": "Record Id",
+            "description": "UUID or identifier of the baseline LandRecord"
+          }
+        },
+        "type": "object",
+        "required": [
+          "record_id"
+        ],
+        "title": "DocumentVerifyRequest"
+      },
+      "DownloadUrlResponse": {
+        "properties": {
+          "download_url": {
+            "type": "string",
+            "title": "Download Url"
+          },
+          "expires_in_seconds": {
+            "type": "integer",
+            "title": "Expires In Seconds",
+            "default": 300
+          }
+        },
+        "type": "object",
+        "required": [
+          "download_url"
+        ],
+        "title": "DownloadUrlResponse"
+      },
+      "EvalRunDetail": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp"
+          },
+          "fields": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/FieldMetric"
+            },
+            "type": "object",
+            "title": "Fields"
+          },
+          "critical_field_fea": {
+            "type": "number",
+            "title": "Critical Field Fea"
+          },
+          "silent_error_rate": {
+            "type": "number",
+            "title": "Silent Error Rate"
+          },
+          "flag_recall": {
+            "type": "number",
+            "title": "Flag Recall"
+          },
+          "overall_cer": {
+            "type": "number",
+            "title": "Overall Cer"
+          },
+          "overall_wer": {
+            "type": "number",
+            "title": "Overall Wer"
+          },
+          "digit_confusion": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Digit Confusion"
+          },
+          "gates": {
+            "items": {
+              "$ref": "#/components/schemas/GateStatus"
+            },
+            "type": "array",
+            "title": "Gates"
+          },
+          "all_gates_passed": {
+            "type": "boolean",
+            "title": "All Gates Passed"
+          },
+          "degradation_slices": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Degradation Slices"
+          },
+          "font_slices": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Font Slices"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "timestamp",
+          "fields",
+          "critical_field_fea",
+          "silent_error_rate",
+          "flag_recall",
+          "overall_cer",
+          "overall_wer",
+          "digit_confusion",
+          "gates",
+          "all_gates_passed",
+          "degradation_slices",
+          "font_slices"
+        ],
+        "title": "EvalRunDetail"
+      },
+      "EvalRunsResponse": {
+        "properties": {
+          "total_runs": {
+            "type": "integer",
+            "title": "Total Runs"
+          },
+          "latest_run": {
+            "$ref": "#/components/schemas/EvalRunDetail"
+          },
+          "all_run_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "All Run Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_runs",
+          "latest_run",
+          "all_run_ids"
+        ],
+        "title": "EvalRunsResponse"
+      },
+      "ExtractedFieldItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "field_name": {
+            "type": "string",
+            "title": "Field Name"
+          },
+          "raw_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Value"
+          },
+          "normalized_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Normalized Value"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence",
+            "default": 0.0
+          },
+          "flagged": {
+            "type": "boolean",
+            "title": "Flagged",
+            "default": false
+          },
+          "flag_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Flag Reason"
+          },
+          "user_corrected": {
+            "type": "boolean",
+            "title": "User Corrected",
+            "default": false
+          },
+          "status_label": {
+            "type": "string",
+            "title": "Status Label",
+            "default": "OCR_EXTRACTED"
+          }
+        },
+        "type": "object",
+        "required": [
+          "field_name"
+        ],
+        "title": "ExtractedFieldItem"
+      },
+      "FeedbackCorrectionRequest": {
+        "properties": {
+          "document_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Document Id"
+          },
+          "feedback_type": {
+            "type": "string",
+            "title": "Feedback Type"
+          },
+          "field_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Field Name"
+          },
+          "reported_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reported Value"
+          },
+          "corrected_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Corrected Value"
+          },
+          "comments": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comments"
+          }
+        },
+        "type": "object",
+        "required": [
+          "feedback_type"
+        ],
+        "title": "FeedbackCorrectionRequest"
+      },
+      "FeedbackCorrectionResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "message"
+        ],
+        "title": "FeedbackCorrectionResponse"
+      },
+      "FieldComparisonItem": {
+        "properties": {
+          "field": {
+            "type": "string",
+            "title": "Field"
+          },
+          "doc_value": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Doc Value"
+          },
+          "record_value": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Record Value"
+          },
+          "result": {
+            "type": "string",
+            "title": "Result"
+          },
+          "note_bn": {
+            "type": "string",
+            "title": "Note Bn"
+          }
+        },
+        "type": "object",
+        "required": [
+          "field",
+          "result",
+          "note_bn"
+        ],
+        "title": "FieldComparisonItem"
+      },
+      "FieldMetric": {
+        "properties": {
+          "field_name": {
+            "type": "string",
+            "title": "Field Name"
+          },
+          "fea": {
+            "type": "number",
+            "title": "Fea"
+          },
+          "raw_fea": {
+            "type": "number",
+            "title": "Raw Fea"
+          },
+          "cer": {
+            "type": "number",
+            "title": "Cer"
+          },
+          "silent_error_rate": {
+            "type": "number",
+            "title": "Silent Error Rate"
+          },
+          "gate_threshold_fea": {
+            "type": "number",
+            "title": "Gate Threshold Fea"
+          },
+          "gate_passed": {
+            "type": "boolean",
+            "title": "Gate Passed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "field_name",
+          "fea",
+          "raw_fea",
+          "cer",
+          "silent_error_rate",
+          "gate_threshold_fea",
+          "gate_passed"
+        ],
+        "title": "FieldMetric"
+      },
+      "GateStatus": {
+        "properties": {
+          "gate_name": {
+            "type": "string",
+            "title": "Gate Name"
+          },
+          "metric": {
+            "type": "string",
+            "title": "Metric"
+          },
+          "threshold": {
+            "type": "number",
+            "title": "Threshold"
+          },
+          "actual_value": {
+            "type": "number",
+            "title": "Actual Value"
+          },
+          "passed": {
+            "type": "boolean",
+            "title": "Passed"
+          },
+          "is_critical": {
+            "type": "boolean",
+            "title": "Is Critical"
+          }
+        },
+        "type": "object",
+        "required": [
+          "gate_name",
+          "metric",
+          "threshold",
+          "actual_value",
+          "passed",
+          "is_critical"
+        ],
+        "title": "GateStatus"
+      },
+      "GuideResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "answer_bn": {
+            "type": "string",
+            "title": "Answer Bn"
+          },
+          "answer_en": {
+            "type": "string",
+            "title": "Answer En"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          },
+          "last_verified_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Verified At"
+          },
+          "similarity_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Similarity Score"
+          },
+          "disclaimer_bn": {
+            "type": "string",
+            "title": "Disclaimer Bn",
+            "default": "\u098f\u099f\u09bf \u0986\u0987\u09a8\u09bf \u09aa\u09b0\u09be\u09ae\u09b0\u09cd\u09b6 \u09ac\u09be \u09ae\u09be\u09b2\u09bf\u0995\u09be\u09a8\u09be\u09b0 \u09b8\u09bf\u09a6\u09cd\u09a7\u09be\u09a8\u09cd\u09a4 \u09a8\u09af\u09bc\u0964 \u09b8\u09b0\u0995\u09be\u09b0\u09bf \u09ac\u09bf\u09a7\u09bf\u09ae\u09be\u09b2\u09be \u0985\u09a8\u09c1\u09af\u09be\u09af\u09bc\u09c0 \u09af\u09be\u099a\u09be\u0987 \u0995\u09b0\u09c1\u09a8\u0964"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "answer_bn",
+          "answer_en"
+        ],
+        "title": "GuideResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "MFASetupResponse": {
+        "properties": {
+          "secret": {
+            "type": "string",
+            "title": "Secret"
+          },
+          "otpauth_uri": {
+            "type": "string",
+            "title": "Otpauth Uri"
+          },
+          "instructions": {
+            "type": "string",
+            "title": "Instructions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "secret",
+          "otpauth_uri",
+          "instructions"
+        ],
+        "title": "MFASetupResponse"
+      },
+      "MFAVerifyRequest": {
+        "properties": {
+          "secret": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Secret"
+          },
+          "code": {
+            "type": "string",
+            "maxLength": 6,
+            "minLength": 6,
+            "title": "Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code"
+        ],
+        "title": "MFAVerifyRequest"
+      },
+      "NotificationItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "is_read": {
+            "type": "boolean",
+            "title": "Is Read"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "title",
+          "message",
+          "is_read",
+          "created_at"
+        ],
+        "title": "NotificationItem"
+      },
+      "NotificationListResponse": {
+        "properties": {
+          "total_unread": {
+            "type": "integer",
+            "title": "Total Unread"
+          },
+          "notifications": {
+            "items": {
+              "$ref": "#/components/schemas/NotificationItem"
+            },
+            "type": "array",
+            "title": "Notifications"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_unread",
+          "notifications"
+        ],
+        "title": "NotificationListResponse"
+      },
+      "ParcelSummaryResponse": {
+        "properties": {
+          "parcel_id": {
+            "type": "string",
+            "title": "Parcel Id"
+          },
+          "synthetic_id": {
+            "type": "string",
+            "title": "Synthetic Id"
+          },
+          "is_illustrative": {
+            "type": "boolean",
+            "title": "Is Illustrative",
+            "default": true
+          },
+          "mouza": {
+            "type": "string",
+            "title": "Mouza"
+          },
+          "dag_no": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dag No"
+          },
+          "khatian_no": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Khatian No"
+          },
+          "area_acres": {
+            "type": "number",
+            "title": "Area Acres"
+          },
+          "area_decimal": {
+            "type": "number",
+            "title": "Area Decimal"
+          },
+          "alert_counts": {
+            "$ref": "#/components/schemas/AlertCountsBySeverity"
+          },
+          "status_label": {
+            "type": "string",
+            "title": "Status Label"
+          },
+          "disclaimer_bn": {
+            "type": "string",
+            "title": "Disclaimer Bn"
+          },
+          "epistemic_notice": {
+            "type": "string",
+            "title": "Epistemic Notice"
+          }
+        },
+        "type": "object",
+        "required": [
+          "parcel_id",
+          "synthetic_id",
+          "mouza",
+          "area_acres",
+          "area_decimal",
+          "alert_counts",
+          "status_label",
+          "disclaimer_bn",
+          "epistemic_notice"
+        ],
+        "title": "ParcelSummaryResponse"
+      },
+      "PasswordChangeRequest": {
+        "properties": {
+          "current_password": {
+            "type": "string",
+            "title": "Current Password"
+          },
+          "new_password": {
+            "type": "string",
+            "minLength": 8,
+            "title": "New Password"
+          }
+        },
+        "type": "object",
+        "required": [
+          "current_password",
+          "new_password"
+        ],
+        "title": "PasswordChangeRequest"
+      },
+      "PasswordResetConfirmRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "token": {
+            "type": "string",
+            "title": "Token"
+          },
+          "new_password": {
+            "type": "string",
+            "minLength": 8,
+            "title": "New Password"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "token",
+          "new_password"
+        ],
+        "title": "PasswordResetConfirmRequest"
+      },
+      "PasswordResetRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email"
+        ],
+        "title": "PasswordResetRequest"
+      },
+      "QRIntegrityResult": {
+        "properties": {
+          "payload_type": {
+            "type": "string",
+            "title": "Payload Type",
+            "default": "none"
+          },
+          "hash_alg": {
+            "type": "string",
+            "title": "Hash Alg",
+            "default": "sha256"
+          },
+          "hash_match": {
+            "type": "boolean",
+            "title": "Hash Match",
+            "default": false
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope",
+            "default": "integrity_only"
+          },
+          "scope_text": {
+            "type": "string",
+            "title": "Scope Text",
+            "default": "\u09a8\u09a5\u09bf\u09b0 \u09a4\u09a5\u09cd\u09af QR-\u098f\u09b0 \u09b8\u0999\u09cd\u0997\u09c7 \u09af\u09be\u099a\u09be\u0987 \u09b6\u09c1\u09a7\u09c1\u09ae\u09be\u09a4\u09cd\u09b0 \u0985\u0996\u09a3\u09cd\u09a1\u09a4\u09be\u09b0 \u09aa\u09cd\u09b0\u09ae\u09be\u09a3 (\u09ae\u09be\u09b2\u09bf\u0995\u09be\u09a8\u09be \u09ac\u09be \u09b8\u09cd\u09ac\u09a4\u09cd\u09ac \u09af\u09be\u099a\u09be\u0987 \u09a8\u09af\u09bc)\u0964"
+          },
+          "ui_text_bn": {
+            "type": "string",
+            "title": "Ui Text Bn",
+            "default": "\u09ae\u09c7\u09b2\u09c7\u09a8\u09bf"
+          }
+        },
+        "type": "object",
+        "title": "QRIntegrityResult"
+      },
+      "QRScanResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success"
+          },
+          "payload_type": {
+            "type": "string",
+            "title": "Payload Type"
+          },
+          "raw_payload": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Payload"
+          },
+          "parsed_payload": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parsed Payload"
+          },
+          "hash_match": {
+            "type": "boolean",
+            "title": "Hash Match",
+            "default": false
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope",
+            "default": "integrity_only"
+          },
+          "ui_text_bn": {
+            "type": "string",
+            "title": "Ui Text Bn"
+          },
+          "engine_used": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Engine Used"
+          }
+        },
+        "type": "object",
+        "required": [
+          "success",
+          "payload_type",
+          "ui_text_bn"
+        ],
+        "title": "QRScanResponse"
+      },
+      "QualityScoreResponse": {
+        "properties": {
+          "is_blur_free": {
+            "type": "boolean",
+            "title": "Is Blur Free"
+          },
+          "blur_score": {
+            "type": "number",
+            "title": "Blur Score"
+          },
+          "resolution_ok": {
+            "type": "boolean",
+            "title": "Resolution Ok"
+          },
+          "glare_detected": {
+            "type": "boolean",
+            "title": "Glare Detected"
+          },
+          "confidence_estimate": {
+            "type": "number",
+            "title": "Confidence Estimate"
+          },
+          "recommendation_bn": {
+            "type": "string",
+            "title": "Recommendation Bn"
+          }
+        },
+        "type": "object",
+        "required": [
+          "is_blur_free",
+          "blur_score",
+          "resolution_ok",
+          "glare_detected",
+          "confidence_estimate",
+          "recommendation_bn"
+        ],
+        "title": "QualityScoreResponse"
+      },
+      "QualitySummaryResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "ocr_fea_dag": {
+            "type": "number",
+            "title": "Ocr Fea Dag"
+          },
+          "ocr_fea_khatian": {
+            "type": "number",
+            "title": "Ocr Fea Khatian"
+          },
+          "ocr_fea_mouza": {
+            "type": "number",
+            "title": "Ocr Fea Mouza"
+          },
+          "silent_error_rate_dag": {
+            "type": "number",
+            "title": "Silent Error Rate Dag"
+          },
+          "overall_cer": {
+            "type": "number",
+            "title": "Overall Cer"
+          },
+          "overall_wer": {
+            "type": "number",
+            "title": "Overall Wer"
+          },
+          "qr_decode_rate": {
+            "type": "number",
+            "title": "Qr Decode Rate"
+          },
+          "match_precision_at_1": {
+            "type": "number",
+            "title": "Match Precision At 1"
+          },
+          "verification_comparison_accuracy": {
+            "type": "number",
+            "title": "Verification Comparison Accuracy"
+          },
+          "disclaimer_bn": {
+            "type": "string",
+            "title": "Disclaimer Bn"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "ocr_fea_dag",
+          "ocr_fea_khatian",
+          "ocr_fea_mouza",
+          "silent_error_rate_dag",
+          "overall_cer",
+          "overall_wer",
+          "qr_decode_rate",
+          "match_precision_at_1",
+          "verification_comparison_accuracy",
+          "disclaimer_bn"
+        ],
+        "title": "QualitySummaryResponse"
+      },
+      "RecordDetailResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "record_no": {
+            "type": "string",
+            "title": "Record No"
+          },
+          "survey_type": {
+            "type": "string",
+            "title": "Survey Type"
+          },
+          "khatian_no": {
+            "type": "string",
+            "title": "Khatian No"
+          },
+          "dag_no": {
+            "type": "string",
+            "title": "Dag No"
+          },
+          "mouza_name_bn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mouza Name Bn"
+          },
+          "mouza_jl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mouza Jl"
+          },
+          "owner_names_bn": {
+            "type": "string",
+            "title": "Owner Names Bn"
+          },
+          "land_class_bn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Land Class Bn"
+          },
+          "area_acres": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Acres"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "default": "\u0989\u09aa\u099c\u09c7\u09b2\u09be \u09ad\u09c2\u09ae\u09bf \u0985\u09ab\u09bf\u09b8 \u09b0\u09c7\u0995\u09b0\u09cd\u09a1 \u09b0\u09c1\u09ae (\u09a1\u09bf\u099c\u09bf\u099f\u09be\u09b2 \u0986\u09b0\u098f\u09b8 \u0996\u09a4\u09bf\u09af\u09bc\u09be\u09a8)"
+          },
+          "retrieved_at": {
+            "type": "string",
+            "title": "Retrieved At"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version",
+            "default": "v1.0-official"
+          },
+          "status_label": {
+            "type": "string",
+            "title": "Status Label",
+            "default": "VERIFIED_AUTHORIZED_SOURCE"
+          },
+          "disclaimer_bn": {
+            "type": "string",
+            "title": "Disclaimer Bn",
+            "default": "\u09aa\u09cd\u09b0\u09a6\u09b0\u09cd\u09b6\u09bf\u09a4 \u09a4\u09a5\u09cd\u09af \u09b6\u09c1\u09a7\u09c1\u09ae\u09be\u09a4\u09cd\u09b0 \u09aa\u09cd\u09b0\u09a6\u09b0\u09cd\u09b6\u09a8\u09c0\u09ae\u09c2\u09b2\u0995\u0964 \u098f\u099f\u09bf \u0986\u0987\u09a8\u09bf \u09a6\u09b2\u09bf\u09b2 \u09b9\u09bf\u09b8\u09c7\u09ac\u09c7 \u0997\u09a3\u09cd\u09af \u09a8\u09af\u09bc\u0964"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "record_no",
+          "survey_type",
+          "khatian_no",
+          "dag_no",
+          "owner_names_bn",
+          "retrieved_at"
+        ],
+        "title": "RecordDetailResponse"
+      },
+      "ReviewCaseItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "case_number": {
+            "type": "string",
+            "title": "Case Number"
+          },
+          "case_type": {
+            "type": "string",
+            "title": "Case Type"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "priority": {
+            "type": "string",
+            "title": "Priority"
+          },
+          "office_id": {
+            "type": "string",
+            "title": "Office Id"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "case_number",
+          "case_type",
+          "status",
+          "priority",
+          "office_id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ReviewCaseItem"
+      },
+      "ReviewDecisionRequest": {
+        "properties": {
+          "decision": {
+            "type": "string",
+            "title": "Decision",
+            "description": "CONFIRMED | REJECTED | CORRECTED | HEARING_SCHEDULED"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes",
+            "description": "Official reviewer notes"
+          },
+          "corrected_fields": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Corrected Fields",
+            "description": "Field corrections if decision is CORRECTED"
+          }
+        },
+        "type": "object",
+        "required": [
+          "decision"
+        ],
+        "title": "ReviewDecisionRequest"
+      },
+      "ReviewDecisionResponse": {
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "case_number": {
+            "type": "string",
+            "title": "Case Number"
+          },
+          "decision": {
+            "type": "string",
+            "title": "Decision"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "reviewed_by": {
+            "type": "string",
+            "title": "Reviewed By"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "case_id",
+          "case_number",
+          "decision",
+          "status",
+          "reviewed_by",
+          "updated_at",
+          "message"
+        ],
+        "title": "ReviewDecisionResponse"
+      },
+      "ReviewQueueResponse": {
+        "properties": {
+          "total_pending": {
+            "type": "integer",
+            "title": "Total Pending"
+          },
+          "cases": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewCaseItem"
+            },
+            "type": "array",
+            "title": "Cases"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_pending",
+          "cases"
+        ],
+        "title": "ReviewQueueResponse"
+      },
+      "SearchCandidateItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "record_no": {
+            "type": "string",
+            "title": "Record No"
+          },
+          "survey_type": {
+            "type": "string",
+            "title": "Survey Type"
+          },
+          "khatian_no": {
+            "type": "string",
+            "title": "Khatian No"
+          },
+          "dag_no": {
+            "type": "string",
+            "title": "Dag No"
+          },
+          "mouza_name_bn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mouza Name Bn"
+          },
+          "mouza_jl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mouza Jl"
+          },
+          "owner_names_bn": {
+            "type": "string",
+            "title": "Owner Names Bn"
+          },
+          "land_class_bn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Land Class Bn"
+          },
+          "area_acres": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Acres"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reasons"
+          },
+          "status_label": {
+            "type": "string",
+            "title": "Status Label",
+            "default": "POSSIBLE_MATCH"
+          },
+          "ambiguous": {
+            "type": "boolean",
+            "title": "Ambiguous",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "record_no",
+          "survey_type",
+          "khatian_no",
+          "dag_no",
+          "owner_names_bn",
+          "score",
+          "reasons"
+        ],
+        "title": "SearchCandidateItem"
+      },
+      "SearchRequest": {
+        "properties": {
+          "dag_no": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dag No",
+            "description": "Plot / Dag number in Bengali or ASCII"
+          },
+          "khatian_no": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Khatian No",
+            "description": "Khatian number in Bengali or ASCII"
+          },
+          "mouza": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mouza",
+            "description": "Mouza name or JL number"
+          },
+          "owner_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Owner Name",
+            "description": "Owner name in Bengali"
+          },
+          "survey_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Survey Type",
+            "description": "CS, SA, RS, BS, City Survey"
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 50.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "default": 10
+          }
+        },
+        "type": "object",
+        "title": "SearchRequest"
+      },
+      "SearchResponse": {
+        "properties": {
+          "total_found": {
+            "type": "integer",
+            "title": "Total Found"
+          },
+          "ambiguous": {
+            "type": "boolean",
+            "title": "Ambiguous"
+          },
+          "candidates": {
+            "items": {
+              "$ref": "#/components/schemas/SearchCandidateItem"
+            },
+            "type": "array",
+            "title": "Candidates"
+          },
+          "disclaimer_bn": {
+            "type": "string",
+            "title": "Disclaimer Bn",
+            "default": "\u09aa\u09cd\u09b0\u09a6\u09b0\u09cd\u09b6\u09bf\u09a4 \u09a4\u09a5\u09cd\u09af \u09b6\u09c1\u09a7\u09c1\u09ae\u09be\u09a4\u09cd\u09b0 \u09aa\u09cd\u09b0\u09a6\u09b0\u09cd\u09b6\u09a8\u09c0\u09ae\u09c2\u09b2\u0995\u0964 \u098f\u099f\u09bf \u0986\u0987\u09a8\u09bf \u09a6\u09b2\u09bf\u09b2 \u09b9\u09bf\u09b8\u09c7\u09ac\u09c7 \u0997\u09a3\u09cd\u09af \u09a8\u09af\u09bc\u0964"
+          },
+          "disclaimer_en": {
+            "type": "string",
+            "title": "Disclaimer En",
+            "default": "Illustrative / Not a legal boundary. Synthetic demo data."
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_found",
+          "ambiguous",
+          "candidates"
+        ],
+        "title": "SearchResponse"
+      },
+      "UpdateUserRoleRequest": {
+        "properties": {
+          "role": {
+            "type": "string",
+            "title": "Role"
+          }
+        },
+        "type": "object",
+        "required": [
+          "role"
+        ],
+        "title": "UpdateUserRoleRequest"
+      },
+      "UserListItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          },
+          "full_name_bn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name Bn"
+          },
+          "full_name_en": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name En"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "office_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Office Id"
+          },
+          "region_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Region Id"
+          },
+          "is_active": {
+            "type": "boolean",
+            "title": "Is Active"
+          },
+          "mfa_enabled": {
+            "type": "boolean",
+            "title": "Mfa Enabled"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "email",
+          "role",
+          "is_active",
+          "mfa_enabled",
+          "created_at"
+        ],
+        "title": "UserListItem"
+      },
+      "UserListResponse": {
+        "properties": {
+          "total_users": {
+            "type": "integer",
+            "title": "Total Users"
+          },
+          "users": {
+            "items": {
+              "$ref": "#/components/schemas/UserListItem"
+            },
+            "type": "array",
+            "title": "Users"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_users",
+          "users"
+        ],
+        "title": "UserListResponse"
+      },
+      "UserLoginRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          },
+          "totp_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Totp Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "UserLoginRequest"
+      },
+      "UserRegisterRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8,
+            "title": "Password"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          },
+          "full_name_bn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name Bn"
+          },
+          "full_name_en": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name En"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role",
+            "default": "Citizen"
+          },
+          "office_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Office Id"
+          },
+          "region_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Region Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "UserRegisterRequest"
+      },
+      "UserResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          },
+          "full_name_bn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name Bn"
+          },
+          "full_name_en": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name En"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "office_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Office Id"
+          },
+          "region_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Region Id"
+          },
+          "is_active": {
+            "type": "boolean",
+            "title": "Is Active"
+          },
+          "mfa_enabled": {
+            "type": "boolean",
+            "title": "Mfa Enabled"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "email",
+          "role",
+          "is_active",
+          "mfa_enabled",
+          "created_at"
+        ],
+        "title": "UserResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "VerificationSummaryItem": {
+        "properties": {
+          "exact": {
+            "type": "integer",
+            "title": "Exact",
+            "default": 0
+          },
+          "normalized_equal": {
+            "type": "integer",
+            "title": "Normalized Equal",
+            "default": 0
+          },
+          "fuzzy_close": {
+            "type": "integer",
+            "title": "Fuzzy Close",
+            "default": 0
+          },
+          "mismatch": {
+            "type": "integer",
+            "title": "Mismatch",
+            "default": 0
+          },
+          "missing": {
+            "type": "integer",
+            "title": "Missing",
+            "default": 0
+          },
+          "total_fields": {
+            "type": "integer",
+            "title": "Total Fields",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "VerificationSummaryItem"
+      }
+    }
+  }
+}

@@ -98,24 +98,6 @@ async def run_seed():
 
     try:
         async with session_maker() as session:
-            # Create demo system admin user if not exists
-            admin_stmt = select(User).where(User.email == "techadmin@landos.gov.bd")
-            existing_admin = (await session.execute(admin_stmt)).scalar_one_or_none()
-            if not existing_admin:
-                demo_admin = User(
-                    id=uuid.uuid4(),
-                    email="techadmin@landos.gov.bd",
-                    phone="01700000000",
-                    full_name_bn="সিস্টেম অ্যাডমিন",
-                    full_name_en="System Tech Admin",
-                    hashed_password=hash_password("LandOS@Admin2024!"),
-                    role="Tech Admin",
-                    is_active=True,
-                    mfa_enabled=False,
-                )
-                session.add(demo_admin)
-                await session.commit()
-
             # 2. Seed Regions
             region_defs = [
                 {"code": "DIV-DHAKA", "name_bn": "ঢাকা বিভাগ", "name_en": "Dhaka Division", "division": "Dhaka"},
@@ -178,6 +160,51 @@ async def run_seed():
                     await session.refresh(off)
                     counts["offices"] += 1
                 office_map[name_en.split(",")[-1].strip()] = off.id
+
+            # 4. Seed Demo Accounts for All 8 RBAC Roles (Dev Only)
+            raw_demo_pw = os.getenv("DEMO_PASSWORD", "Password123!")
+            default_demo_pw = hash_password(raw_demo_pw)
+            demo_mfa_secret = os.getenv("DEMO_MFA_SECRET", "JBSWY3DPEHPK3PXP")
+            primary_office = list(office_map.values())[0]
+            primary_region = list(region_map.values())[0]
+
+            demo_role_users = [
+                ("citizen@landos.gov.bd", "Citizen", "নাগরিক ডেমো ব্যবহারকারী", "Demo Citizen User", None, None, False, None),
+                ("operator@landos.gov.bd", "Operator", "ইউনিয়ন ভূমি সহকারী কর্মকর্তা", "Union Land Assistant Officer", primary_office, primary_region, False, None),
+                ("reviewer@landos.gov.bd", "Reviewer", "কানুনগো / সার্ভেয়ার পর্যালোচক", "Kanungo / Survey Reviewer", primary_office, primary_region, False, None),
+                ("supervisor@landos.gov.bd", "Supervisor", "সহকারী কমিশনার (ভূমি) পর্যবেক্ষক", "Assistant Commissioner (Land) Supervisor", primary_office, primary_region, False, None),
+                ("officeadmin@landos.gov.bd", "Office Admin", "উপজেলা ভূমি রেকর্ড ও প্রশাসনিক কর্মকর্তা", "Upazila Land Office Administrator", primary_office, primary_region, False, None),
+                ("regionalmanager@landos.gov.bd", "Regional Manager", "অতিরিক্ত জেলা প্রশাসক (রাজস্ব)", "Additional Deputy Commissioner (Revenue)", None, primary_region, False, None),
+                ("securityofficer@landos.gov.bd", "Security Officer", "সাইবার ও অডিট নিরাপত্তা কর্মকর্তা", "Cyber & Audit Security Officer", None, None, True, demo_mfa_secret),
+                ("techadmin@landos.gov.bd", "Tech Admin", "সিস্টেম টেকনিক্যাল অ্যাডমিন", "System Technical Administrator", primary_office, primary_region, True, demo_mfa_secret),
+            ]
+
+            for email, role_name, bn_name, en_name, u_off, u_reg, req_mfa, u_mfa_secret in demo_role_users:
+                u_stmt = select(User).where(User.email == email)
+                existing_u = (await session.execute(u_stmt)).scalar_one_or_none()
+                if not existing_u:
+                    user_obj = User(
+                        id=uuid.uuid4(),
+                        email=email,
+                        phone="01700000000",
+                        full_name_bn=bn_name,
+                        full_name_en=en_name,
+                        hashed_password=default_demo_pw,
+                        role=role_name,
+                        office_id=u_off,
+                        region_id=u_reg,
+                        is_active=True,
+                        mfa_enabled=req_mfa,
+                        mfa_secret=u_mfa_secret,
+                    )
+                    session.add(user_obj)
+                else:
+                    existing_u.hashed_password = default_demo_pw
+                    existing_u.role = role_name
+                    existing_u.is_active = True
+                    existing_u.mfa_enabled = req_mfa
+                    existing_u.mfa_secret = u_mfa_secret
+            await session.commit()
 
             # 4. Seed Mouzas from data/synthetic/bangla_data.py
             from data.synthetic.bangla_data import MOUZAS

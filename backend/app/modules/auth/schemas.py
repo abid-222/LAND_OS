@@ -48,3 +48,19 @@ class MFASetupResponse(BaseModel):
 class MFAVerifyRequest(BaseModel):
     secret: Optional[str] = None
     code: str = Field(..., min_length=6, max_length=6)
+
+
+class PasswordChangeRequest(BaseModel):
+    current_password: str
+    new_password: str = Field(..., min_length=8)
+
+
+class PasswordResetRequest(BaseModel):
+    email: EmailStr
+
+
+class PasswordResetConfirmRequest(BaseModel):
+    email: EmailStr
+    token: str
+    new_password: str = Field(..., min_length=8)
+
