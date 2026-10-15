@@ -191,7 +191,7 @@ export const AdminPage: React.FC = () => {
               <LinkIcon className="w-4 h-4 text-emerald-400" />
               <span>ক্রিপ্টোগ্রাফিক হ্যাশ চেইন্ড অডিট লগ (SHA-256)</span>
             </h3>
-            <span className="text-[11px] text-emerald-400 font-medium">অখণ্ডতা যাচাইকৃত (Tamper-evident)</span>
+            <span className="text-[11px] text-emerald-400 font-medium">হ্যাশ চেইন অক্ষত (Tamper-evident)</span>
           </div>
 
           <div className="flex flex-col gap-3">

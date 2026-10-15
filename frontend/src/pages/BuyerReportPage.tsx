@@ -13,6 +13,7 @@ import {
   MapPin,
 } from 'lucide-react';
 import { TrustBadge } from '../components/TrustBadge';
+import { DisclaimerBanner } from '../components/DisclaimerBanner';
 import type { TrustStatus } from '../types/trust';
 
 export interface ParcelSummary {
@@ -47,7 +48,7 @@ export interface ConflictAlert {
     document_id?: string;
     doc_type?: string;
     field_name?: string;
-    extracted_value?: any;
+    extracted_value?: unknown;
     details?: string;
   }>;
 }
@@ -381,10 +382,13 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
       {/* Header Bar with Action Buttons */}
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h1 className="text-lg font-bold text-white flex items-center gap-2">
-            <FileBarChart className="w-5 h-5 text-emerald-400" />
-            ক্রেতা ঝুঁকি ও তথ্য অনুসন্ধান প্রতিবেদন
-          </h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-lg font-bold text-white flex items-center gap-2">
+              <FileBarChart className="w-5 h-5 text-emerald-400" />
+              ক্রেতা ঝুঁকি ও তথ্য অনুসন্ধান প্রতিবেদন
+            </h1>
+            <DisclaimerBanner type="badge" />
+          </div>
           <p className="text-xs text-slate-400 mt-0.5 font-mono">
             পার্সেল: {selectedParcelId} • তৈরি: {new Date(report?.generated_at || Date.now()).toLocaleDateString('bn-BD')}
           </p>
@@ -695,7 +699,7 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
                       </span>
                     ) : (
                       <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
-                        যাচাইকৃত গাইড
+                        অনুমোদিত নির্দেশিকা
                       </span>
                     )}
                   </div>

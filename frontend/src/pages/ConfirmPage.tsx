@@ -12,8 +12,11 @@ import {
   FileSpreadsheet,
   CheckSquare,
   AlertOctagon,
+  MessageSquareWarning,
 } from 'lucide-react';
 import { TrustBadge } from '../components/TrustBadge';
+import { FeedbackModal, type FeedbackTarget } from '../components/FeedbackModal';
+import { DisclaimerBanner } from '../components/DisclaimerBanner';
 import type { TrustStatus } from '../types/trust';
 
 export type DocType = 'khatian' | 'deed' | 'porcha';
@@ -50,6 +53,7 @@ export const ConfirmPage: React.FC<ConfirmPageProps> = ({
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [reviewCaseCreated, setReviewCaseCreated] = useState(false);
+  const [feedbackTarget, setFeedbackTarget] = useState<FeedbackTarget | null>(null);
 
   useEffect(() => {
     async function fetchExtraction() {
@@ -276,7 +280,10 @@ export const ConfirmPage: React.FC<ConfirmPageProps> = ({
             <FileText className="w-5 h-5 text-emerald-400" />
             <h1 className="text-base font-bold text-white">শনাক্তকৃত তথ্যাবলি</h1>
           </div>
-          <span className="text-xs text-slate-400 font-mono">#{documentId.slice(0, 8)}</span>
+          <div className="flex items-center gap-2">
+            <DisclaimerBanner type="badge" />
+            <span className="text-xs text-slate-400 font-mono">#{documentId.slice(0, 8)}</span>
+          </div>
         </div>
 
         {/* Document Type Selector (Deed / Khatian / Porcha) */}
@@ -417,6 +424,26 @@ export const ConfirmPage: React.FC<ConfirmPageProps> = ({
                     <span>{f.flag_reason}</span>
                   </p>
                 )}
+
+                {/* "সঠিক নয়" Feedback Button */}
+                <div className="mt-2 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setFeedbackTarget({
+                        documentId,
+                        fieldName: f.field_name,
+                        fieldLabelBn: getFieldTitleBn(f.field_name),
+                        extractedValue: editedValues[f.field_name] || f.normalized_value,
+                        feedbackType: 'wrong_field',
+                      })
+                    }
+                    className="text-[11px] text-amber-400 hover:text-amber-300 flex items-center gap-1 underline"
+                  >
+                    <MessageSquareWarning className="w-3 h-3" />
+                    <span>সঠিক নয়? ফিডব্যাক দিন</span>
+                  </button>
+                </div>
               </div>
             );
           })}
@@ -453,6 +480,12 @@ export const ConfirmPage: React.FC<ConfirmPageProps> = ({
           </button>
         </div>
       </div>
+
+      <FeedbackModal
+        isOpen={Boolean(feedbackTarget)}
+        target={feedbackTarget}
+        onClose={() => setFeedbackTarget(null)}
+      />
     </div>
   );
 };

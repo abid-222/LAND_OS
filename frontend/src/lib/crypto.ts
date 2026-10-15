@@ -51,13 +51,25 @@ export async function getOrCreateEncryptionKey(): Promise<CryptoKey> {
   });
 }
 
+async function blobToArrayBuffer(blob: Blob): Promise<ArrayBuffer> {
+  if (typeof blob.arrayBuffer === 'function') {
+    return await blob.arrayBuffer();
+  }
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as ArrayBuffer);
+    reader.onerror = () => reject(reader.error);
+    reader.readAsArrayBuffer(blob);
+  });
+}
+
 /**
  * Encrypts an image Blob using AES-GCM with a fresh random 96-bit IV.
  */
 export async function encryptBlob(blob: Blob): Promise<{ encryptedBuffer: ArrayBuffer; iv: Uint8Array }> {
   const key = await getOrCreateEncryptionKey();
   const iv = crypto.getRandomValues(new Uint8Array(12));
-  const arrayBuffer = await blob.arrayBuffer();
+  const arrayBuffer = await blobToArrayBuffer(blob);
 
   const encryptedBuffer = await crypto.subtle.encrypt(
     { name: 'AES-GCM', iv: iv as unknown as BufferSource },

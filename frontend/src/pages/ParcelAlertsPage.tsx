@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   AlertTriangle,
   Info,
@@ -66,7 +66,7 @@ export const ParcelAlertsPage: React.FC<ParcelAlertsPageProps> = ({
   const [reviewNote, setReviewNote] = useState<string>('');
   const [isSubmittingAction, setIsSubmittingAction] = useState(false);
 
-  const fetchAlerts = async () => {
+  const fetchAlerts = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
@@ -164,11 +164,11 @@ export const ParcelAlertsPage: React.FC<ParcelAlertsPageProps> = ({
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [parcelId, severityFilter]);
 
   useEffect(() => {
     fetchAlerts();
-  }, [parcelId, severityFilter]);
+  }, [fetchAlerts]);
 
   const toggleExpand = (id: string) => {
     setExpandedAlertIds((prev) => {
@@ -289,7 +289,7 @@ export const ParcelAlertsPage: React.FC<ParcelAlertsPageProps> = ({
           <ShieldAlert className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
           <div>
             <span className="font-semibold text-white">অসঙ্গতি মূল্যায়ন নীতি:</span>{' '}
-            সিস্টেমে কোনো একক মালিকানা স্কোর বা নিশ্চিত বৈধ/অবৈধ রায় প্রকাশ করা হয় না। শুধুমাত্র সরকারি রেকর্ডের সাথে তুলনামূলক যেসব ক্ষেত্রে অসঙ্গতি রয়েছে তা প্রমাণের তালিকাসহ উপস্থাপন করা হলো।
+            সিস্টেমে কোনো একক মালিকানা রেটিং বা চূড়ান্ত সত্যতার রায় প্রকাশ করা হয় না। শুধুমাত্র সরকারি রেকর্ডের সাথে তুলনামূলক যেসব ক্ষেত্রে অসঙ্গতি রয়েছে তা প্রমাণের তালিকাসহ উপস্থাপন করা হলো।
           </div>
         </div>
       </div>

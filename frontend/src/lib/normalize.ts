@@ -28,7 +28,7 @@ export interface ParsedIdentifier {
 
 export type NormalizedId = ParsedIdentifier;
 
-const ZERO_WIDTH_REGEX = /[\u200B\u200C\u200D\uFEFF]/g;
+const ZERO_WIDTH_REGEX = /(?:\u200B|\u200C|\u200D|\uFEFF)/g;
 
 const BANGLA_DIGIT_MAP: Record<string, string> = {
   '০': '0',
@@ -46,7 +46,7 @@ const BANGLA_DIGIT_MAP: Record<string, string> = {
 const SEPARATOR_REGEX = /[/\\.\-—|।]+/g;
 
 const PREFIX_REGEX =
-  /^(?:দাগ\s*নং|খতিয়ান\s*নং|খতিয়ান\s*নং|দলিল\s*নং|দাগ|খতিয়ান|খতিয়ান|দলিল|dag\s*no\.?|dag:|dag|khatian\s*no\.?|khatian:|khatian|নং[:\-\s]*|no\.?[:\s]*)\s*[:\-\.]*\s*/i;
+  /^(?:দাগ\s*নং|খতিয়ান\s*নং|খতিয়ান\s*নং|দলিল\s*নং|দাগ|খতিয়ান|খতিয়ান|দলিল|dag\s*no\.?|dag:|dag|khatian\s*no\.?|khatian:|khatian|নং[:\-\s]*|no\.?[:\s]*)\s*[:\-.]*\s*/i;
 
 const CONFUSABLE_MAP: Record<string, string> = {
   O: '0',

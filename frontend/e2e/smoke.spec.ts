@@ -9,6 +9,13 @@ test.describe('LandOS Mobile-First Smoke Tests', () => {
         body: JSON.stringify({ status: 'healthy', database_connected: true, redis_connected: true }),
       });
     });
+    await page.route('**/api/v1/auth/me', async (route) => {
+      await route.fulfill({
+        status: 401,
+        contentType: 'application/json',
+        body: JSON.stringify({ detail: 'Unauthenticated' }),
+      });
+    });
   });
 
   test('loads home page, displays legal disclaimers and brand logo', async ({ page }) => {
@@ -29,15 +36,15 @@ test.describe('LandOS Mobile-First Smoke Tests', () => {
   test('verifies language toggle switch between Bengali and English', async ({ page }) => {
     await page.goto('/');
 
-    const toggleBtn = page.getByRole('button', { name: 'Toggle Language' });
-    await expect(toggleBtn).toBeVisible({ timeout: 15000 });
+    const heading = page.getByRole('heading', { level: 1 });
+    await expect(heading).toHaveText('বাংলাদেশ ল্যান্ডওএস', { timeout: 15000 });
 
     // Click to switch to English
-    await toggleBtn.click();
-    await expect(page.getByText('Bangladesh LandOS')).toBeVisible({ timeout: 10000 });
+    await page.getByRole('button', { name: 'Toggle Language' }).click();
+    await expect(heading).toHaveText('Bangladesh LandOS', { timeout: 10000 });
 
     // Click back to switch to Bengali
-    await toggleBtn.click();
-    await expect(page.getByText('বাংলাদেশ ল্যান্ডওএস')).toBeVisible({ timeout: 10000 });
+    await page.getByRole('button', { name: 'Toggle Language' }).click();
+    await expect(heading).toHaveText('বাংলাদেশ ল্যান্ডওএস', { timeout: 10000 });
   });
 });

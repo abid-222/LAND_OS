@@ -65,6 +65,9 @@ export default defineConfig({
       },
     },
   },
+  optimizeDeps: {
+    exclude: ['maplibre-gl'],
+  },
   build: {
     target: 'es2020',
     chunkSizeWarningLimit: 300,

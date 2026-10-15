@@ -11,6 +11,8 @@ import {
   ArrowRight,
   FileBarChart,
   ShieldAlert,
+  AlertOctagon,
+  Info,
 } from 'lucide-react';
 import { TrustBadge } from '../components/TrustBadge';
 import type { TrustStatus } from '../types/trust';
@@ -24,6 +26,15 @@ export interface FieldComparisonItem {
   record_value: string | number | null;
   result: ComparisonResultType;
   note_bn: string;
+}
+
+export interface ConsistencyIssue {
+  field: string;
+  issue_type: 'mismatch' | 'missing' | 'implausible' | 'repaired_ocr';
+  severity: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW' | 'INFO';
+  message_bn: string;
+  doc_value?: string | number | null;
+  record_value?: string | number | null;
 }
 
 export interface QRIntegrityResult {
@@ -49,6 +60,7 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
   onNavigateToConfirm,
 }) => {
   const [comparisons, setComparisons] = useState<FieldComparisonItem[]>([]);
+  const [consistencyIssues, setConsistencyIssues] = useState<ConsistencyIssue[]>([]);
   const [qrIntegrity, setQrIntegrity] = useState<QRIntegrityResult | null>(null);
   const [statusLabel, setStatusLabel] = useState<TrustStatus>('POSSIBLE_MATCH');
   const [isLoading, setIsLoading] = useState(true);
@@ -71,11 +83,11 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
 
         const data = await res.json();
         setComparisons(data.comparisons || []);
+        setConsistencyIssues(data.consistency_issues || []);
         setQrIntegrity(data.qr_integrity || null);
         if (data.status_label) setStatusLabel(data.status_label);
       } catch (err) {
         console.warn('Backend verification API offline, using robust synthetic comparison set:', err);
-        // Fallback synthetic comparisons with field types
         const fallbackComparisons: FieldComparisonItem[] = [
           {
             field: 'khatian_no',
@@ -127,6 +139,34 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
           },
         ];
 
+        // Sample consistency checker issues covering mismatches, missing fields, implausible values with severity
+        const fallbackIssues: ConsistencyIssue[] = [
+          {
+            field: 'dag_no',
+            issue_type: 'implausible',
+            severity: 'HIGH',
+            message_bn: 'দাগ নম্বরে সামান্য হরফ বিভ্রান্তি (OCR রি-চেক ও সংশোধন প্রস্তাবিত)।',
+            doc_value: '১২০৫',
+            record_value: '1205',
+          },
+          {
+            field: 'registry_office',
+            issue_type: 'missing',
+            severity: 'MEDIUM',
+            message_bn: 'সাব-রেজিস্ট্রি অফিস ফিল্ড ডিজিটাল বালাম রেকর্ডে অনুপস্থিত।',
+            doc_value: 'তেজগাঁও সাব-রেজিস্ট্রি',
+            record_value: null,
+          },
+          {
+            field: 'area_acres',
+            issue_type: 'implausible',
+            severity: 'LOW',
+            message_bn: 'জমির পরিমাপ একক রূপান্তর (শতক হতে একর) স্বাভাবিক সীমার মধ্যে রয়েছে।',
+            doc_value: '৩৩ শতক',
+            record_value: '০.৩৩ একর',
+          },
+        ];
+
         const fallbackQR: QRIntegrityResult = {
           payload_type: 'url_hash',
           hash_alg: 'sha256',
@@ -137,6 +177,7 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
         };
 
         setComparisons(fallbackComparisons);
+        setConsistencyIssues(fallbackIssues);
         setQrIntegrity(fallbackQR);
         setStatusLabel('POSSIBLE_MATCH');
       } finally {
@@ -177,6 +218,41 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
           <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-800 text-slate-300 border border-slate-700">
             <HelpCircle className="w-3 h-3" />
             পাওয়া যায়নি
+          </span>
+        );
+    }
+  };
+
+  const renderSeverityBadge = (severity: string) => {
+    switch (severity.toUpperCase()) {
+      case 'CRITICAL':
+        return (
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-red-950 text-red-300 border border-red-500 animate-pulse">
+            <AlertOctagon className="w-3 h-3" />
+            জরুরি (CRITICAL)
+          </span>
+        );
+      case 'HIGH':
+        return (
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-950/80 text-amber-300 border border-amber-500/80">
+            <AlertTriangle className="w-3 h-3" />
+            উচ্চ (HIGH)
+          </span>
+        );
+      case 'MEDIUM':
+        return (
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-yellow-950/60 text-yellow-300 border border-yellow-500/60">
+            <AlertTriangle className="w-3 h-3" />
+            মাঝারি (MEDIUM)
+          </span>
+        );
+      case 'LOW':
+      case 'INFO':
+      default:
+        return (
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-sky-950/60 text-sky-300 border border-sky-500/40">
+            <Info className="w-3 h-3" />
+            তথ্য (INFO)
           </span>
         );
     }
@@ -234,7 +310,6 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
           )}
         </div>
 
-        {/* Exact Scoped Text required by rules */}
         <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-slate-300 mt-2">
           <p className="font-semibold text-emerald-300 flex items-center gap-1.5 mb-1">
             <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -244,6 +319,71 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
             &ldquo;{qrIntegrity?.scope_text || 'নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।'}&rdquo;
           </p>
         </div>
+      </div>
+
+      {/* FEATURE 5: DOCUMENT CONSISTENCY CHECKER (FLAGS MISMATCHES, MISSING FIELDS, IMPLAUSIBLE VALUES WITH SEVERITY) */}
+      <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 mb-5 shadow-xl">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <AlertOctagon className="w-5 h-5 text-amber-400" />
+            <h2 className="text-sm font-bold text-white">
+              নথির ধারাবাহিকতা ও সঙ্গতি নিরীক্ষা (Document Consistency Checker)
+            </h2>
+          </div>
+          <span className="text-[11px] font-mono text-slate-400">
+            {consistencyIssues.length} টি পর্যবেক্ষণ
+          </span>
+        </div>
+
+        <p className="text-xs text-slate-400 mb-3 leading-relaxed">
+          নথির অভ্যন্তরীণ অখণ্ডতা, অনুপস্থিত ফিল্ড এবং অসম্ভব/অস্বাভাবিক মান (যেমন দাগ নম্বর মৌজার সীমার বাইরে বা ক্ষেত্রফল ঋণাত্মক) পরীক্ষা:
+        </p>
+
+        {consistencyIssues.length === 0 ? (
+          <div className="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span>কোনো অমিল, অনুপস্থিত ফিল্ড বা অসম্ভব মান পাওয়া যায়নি। নথিটি সঙ্গতিপূর্ণ।</span>
+          </div>
+        ) : (
+          <div className="space-y-2.5">
+            {consistencyIssues.map((issue, idx) => (
+              <div
+                key={idx}
+                className={`p-3 rounded-xl border text-xs flex flex-col gap-1.5 ${
+                  issue.severity === 'CRITICAL'
+                    ? 'bg-red-950/50 border-red-500/80 text-red-200'
+                    : issue.severity === 'HIGH'
+                    ? 'bg-amber-950/50 border-amber-500/70 text-amber-200'
+                    : issue.severity === 'MEDIUM'
+                    ? 'bg-yellow-950/40 border-yellow-600/50 text-yellow-200'
+                    : 'bg-slate-950 border-slate-800 text-slate-300'
+                }`}
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-bold text-white capitalize">{issue.field}</span>
+                  {renderSeverityBadge(issue.severity)}
+                </div>
+
+                <p className="text-[11px] leading-relaxed font-medium">{issue.message_bn}</p>
+
+                {(issue.doc_value || issue.record_value) && (
+                  <div className="flex gap-4 text-[10px] text-slate-400 pt-1 border-t border-slate-800/60">
+                    {issue.doc_value && (
+                      <span>
+                        নথির মান: <strong className="text-slate-200">{String(issue.doc_value)}</strong>
+                      </span>
+                    )}
+                    {issue.record_value && (
+                      <span>
+                        রেকর্ডের মান: <strong className="text-slate-200">{String(issue.record_value)}</strong>
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Field-by-Field Comparison Section */}
@@ -258,7 +398,6 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
       </div>
 
       {isLoading ? (
-        /* Loading Skeleton */
         <div className="space-y-3">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="p-4 rounded-xl bg-slate-900 border border-slate-800 animate-pulse space-y-2">
@@ -273,10 +412,6 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
       ) : error ? (
         <div className="p-4 rounded-xl bg-danger/20 border border-danger/40 text-danger-light text-xs">
           {error}
-        </div>
-      ) : comparisons.length === 0 ? (
-        <div className="p-8 text-center rounded-2xl bg-slate-900/60 border border-slate-800 text-slate-400">
-          কোনো তুলনামূলক রেকর্ড পাওয়া যায়নি।
         </div>
       ) : (
         <>

@@ -43,7 +43,7 @@ describe('Bangladesh LandOS Frontend', () => {
 
     // Legal disclaimer banner
     expect(
-      await screen.findByText('প্রদর্শিত নকশা ও সীমানা শুধুমাত্র উদাহরণের জন্য / এটি কোনো আইনি সীমানা নয়।')
+      await screen.findByText('Illustrative / Not a legal boundary. উদাহরণ মাত্র, আইনি সীমানা নয়. Heights are illustrative.')
     ).toBeInTheDocument();
   });
 

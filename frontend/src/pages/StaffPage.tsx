@@ -214,7 +214,7 @@ export const StaffPage: React.FC = () => {
                   </div>
 
                   <div className="text-right text-[10px] text-slate-500 border-t border-slate-700 pt-1 font-sans">
-                    QR কোড ডিজিটাল অখণ্ডতা: Verified (Sha-256)
+                    QR কোড ডিজিটাল অখণ্ডতা: হ্যাশ মিল (Sha-256 অখণ্ডতা যাচাই — স্বত্ব বা মালিকানা প্রমাণ নয়)
                   </div>
                 </div>
               </div>

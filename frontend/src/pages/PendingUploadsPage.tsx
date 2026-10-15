@@ -38,7 +38,9 @@ export const PendingUploadsPage: React.FC = () => {
           const usedMb = ((est.usage || 0) / (1024 * 1024)).toFixed(1);
           const quotaMb = ((est.quota || 0) / (1024 * 1024)).toFixed(0);
           setStorageUsage(`${usedMb} MB / ${quotaMb} MB`);
-        } catch {}
+        } catch (e) {
+          console.debug('Storage estimate not available', e);
+        }
       }
     } finally {
       setIsLoading(false);

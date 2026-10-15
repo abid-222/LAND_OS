@@ -3,7 +3,16 @@ import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-quer
 import './i18n';
 import { Header } from './components/Header';
 import { BottomNav } from './components/BottomNav';
+import { Forbidden403 } from './components/Forbidden403';
+import { MaintenanceBanner } from './components/MaintenanceBanner';
 import { getQueuedUploads } from './lib/offlineQueue';
+import { useNetworkStore } from './lib/networkMonitor';
+import {
+  useAuthStore,
+  canAccessTab,
+  ROLE_DEFAULT_TABS,
+  type UserRole,
+} from './lib/authStore';
 import { RefreshCw } from 'lucide-react';
 
 // Route-level lazy loading for optimal bundle size and performance (Lighthouse >= 90)
@@ -38,13 +47,37 @@ const PageLoader: React.FC = () => (
 );
 
 const AppContent: React.FC = () => {
+  const { user, checkSession, returnTab, setReturnTab } = useAuthStore();
+  const currentRole: UserRole = user?.role || 'Citizen';
+
   const [activeTab, setActiveTab] = useState<string>('home');
-  const [currentRole, setCurrentRole] = useState<'citizen' | 'staff' | 'admin' | 'quality'>('citizen');
   const [confirmDocId, setConfirmDocId] = useState<string>('');
   const [verifyRecordId, setVerifyRecordId] = useState<string>('REC-TG-001');
   const [selectedParcelId, setSelectedParcelId] = useState<string>('P-4520');
   const [searchParams, setSearchParams] = useState<{ khatian_no?: string; dag_no?: string; mouza?: string }>({});
   const [pendingCount, setPendingCount] = useState<number>(0);
+
+  const { isOnline } = useNetworkStore();
+
+  // Validate server session on startup
+  useEffect(() => {
+    checkSession();
+  }, [checkSession]);
+
+  // Navigate to role landing page on session restoration unless returnTab is active
+  useEffect(() => {
+    if (user?.role && !returnTab) {
+      setActiveTab(ROLE_DEFAULT_TABS[user.role] || 'home');
+    }
+  }, [user?.role, returnTab]);
+
+  // If user just logged in and had a return tab, navigate there
+  useEffect(() => {
+    if (returnTab) {
+      setActiveTab(returnTab);
+      setReturnTab(null);
+    }
+  }, [returnTab, setReturnTab]);
 
   // Poll pending count in Dexie queue
   useEffect(() => {
@@ -52,15 +85,17 @@ const AppContent: React.FC = () => {
       try {
         const queued = await getQueuedUploads();
         setPendingCount(queued.length);
-      } catch {}
+      } catch (err) {
+        console.debug('Failed to get queued uploads', err);
+      }
     };
     updatePending();
     const interval = setInterval(updatePending, 5000);
     return () => clearInterval(interval);
   }, []);
 
-  // System Health
-  const { data: health } = useQuery({
+  // System Health Polling
+  const { data: health, refetch: refetchHealth } = useQuery({
     queryKey: ['system-health-check'],
     queryFn: async () => {
       try {
@@ -98,14 +133,15 @@ const AppContent: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleRoleChange = (newRole: 'citizen' | 'staff' | 'admin' | 'quality') => {
-    setCurrentRole(newRole);
-    if (newRole === 'citizen') setActiveTab('home');
-    if (newRole === 'staff') setActiveTab('staff');
-    if (newRole === 'admin') setActiveTab('admin');
-    if (newRole === 'quality') setActiveTab('quality');
+  const handleRoleChange = (newRole: UserRole) => {
+    // If selecting a demo role without full login, we switch target tab
+    const targetTab = ROLE_DEFAULT_TABS[newRole] || 'home';
+    setActiveTab(targetTab);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Route Guard: enforce server role permission check
+  const isTabAllowed = canAccessTab(activeTab, currentRole);
 
   return (
     <div className="flex flex-col min-h-screen-dvh bg-slate-950 text-slate-100 font-sans selection:bg-primary selection:text-white">
@@ -113,28 +149,40 @@ const AppContent: React.FC = () => {
         isHealthy={Boolean(health)}
         currentRole={currentRole}
         onRoleChange={handleRoleChange}
+        onNavigateToTab={handleNavigate}
+      />
+
+      {/* Maintenance & Offline Warning Banner */}
+      <MaintenanceBanner
+        isHealthy={Boolean(health)}
+        isOnline={isOnline}
+        onRetry={() => refetchHealth()}
       />
 
       <main className="flex-1 w-full">
         <Suspense fallback={<PageLoader />}>
-          {/* Staff Workspace View */}
-          {currentRole === 'staff' && <StaffPage />}
-
-          {/* Admin Panel View */}
-          {currentRole === 'admin' && <AdminPage />}
-
-          {/* Quality Lab View */}
-          {currentRole === 'quality' && <QualityLabPage />}
-
-          {/* Citizen Portal Views */}
-          {currentRole === 'citizen' && (
+          {/* Direct Route Guard: Show 403 Forbidden Screen if not allowed */}
+          {!isTabAllowed ? (
+            <Forbidden403 onReturnToAllowed={(tab) => handleNavigate(tab)} />
+          ) : (
             <>
+              {/* Staff Workspace View */}
+              {activeTab === 'staff' && <StaffPage />}
+
+              {/* Admin Panel View */}
+              {activeTab === 'admin' && <AdminPage />}
+
+              {/* Quality Lab View */}
+              {activeTab === 'quality' && <QualityLabPage />}
+
+              {/* Citizen & Shared Portal Views */}
               {activeTab === 'home' && <HomePage onNavigate={handleNavigate} />}
 
               {activeTab === 'scan' && (
                 <ScanPage
                   onNavigateToConfirm={(docId) => handleNavigate('confirm', { documentId: docId })}
                   onNavigateToPending={() => handleNavigate('pending')}
+                  onNavigateToSearch={() => handleNavigate('search')}
                 />
               )}
 
@@ -162,7 +210,7 @@ const AppContent: React.FC = () => {
                   initialKhatian={searchParams.khatian_no}
                   initialDag={searchParams.dag_no}
                   initialMouza={searchParams.mouza}
-                  onSelectRecord={(recId) => console.log('Selected record:', recId)}
+                  onSelectRecord={(recId) => handleNavigate('verify', { recordId: recId })}
                 />
               )}
 
@@ -183,7 +231,7 @@ const AppContent: React.FC = () => {
               {activeTab === 'alerts' && (
                 <ParcelAlertsPage
                   parcelId={selectedParcelId || 'P-4520'}
-                  userRole={currentRole}
+                  userRole={currentRole.toLowerCase() as 'citizen' | 'staff' | 'admin' | 'quality'}
                   onNavigateBack={() => handleNavigate('report', { parcelId: selectedParcelId })}
                 />
               )}
@@ -196,14 +244,12 @@ const AppContent: React.FC = () => {
         </Suspense>
       </main>
 
-      {/* Mobile Bottom Navigation (Shown primarily for Citizen Portal) */}
-      {currentRole === 'citizen' && (
-        <BottomNav
-          activeTab={activeTab}
-          onTabChange={handleNavigate}
-          pendingCount={pendingCount}
-        />
-      )}
+      {/* Mobile Bottom Navigation (Shown for mobile viewports) */}
+      <BottomNav
+        activeTab={activeTab}
+        onTabChange={handleNavigate}
+        pendingCount={pendingCount}
+      />
     </div>
   );
 };
@@ -217,4 +263,3 @@ export const App: React.FC = () => {
 };
 
 export default App;
-
