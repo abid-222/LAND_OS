@@ -11,11 +11,13 @@ import os
 from typing import Any, Dict, List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
+from pydantic import BaseModel
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.cache import get_cached_public_data, set_cached_public_data
 from app.core.database import get_db
-from app.models import StatusLabel
+from app.models import Alert, StatusLabel
 
 router = APIRouter(prefix="/map", tags=["Geospatial Cadastral Parcel Visualizer"])
 
@@ -208,3 +210,104 @@ async def get_parcel_by_id(
 
     await set_cached_public_data(cache_key, target, ttl_seconds=300)
     return target
+
+
+class AlertCountsBySeverity(BaseModel):
+    high: int = 0
+    warn: int = 0
+    info: int = 0
+    total: int = 0
+
+
+class ParcelSummaryResponse(BaseModel):
+    parcel_id: str
+    synthetic_id: str
+    is_illustrative: bool = True
+    mouza: str
+    dag_no: Optional[str] = None
+    khatian_no: Optional[str] = None
+    area_acres: float
+    area_decimal: float
+    alert_counts: AlertCountsBySeverity
+    status_label: str
+    disclaimer_bn: str
+    epistemic_notice: str
+
+
+@router.get(
+    "/parcels/{synthetic_id}/summary",
+    response_model=ParcelSummaryResponse,
+    summary="Get parcel risk summary with alert counts by severity (no verdict)",
+)
+async def get_parcel_summary(
+    synthetic_id: str,
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Returns parcel metadata and conflict alert counts by severity level.
+    Global rule: Plain counts only. Never outputs or stores a composite score,
+    or safe/unsafe or valid ownership verdicts.
+    Public reference summary cached in Redis.
+    """
+    cache_key = f"public:map:parcels:summary:{synthetic_id}"
+    cached = await get_cached_public_data(cache_key)
+    if cached:
+        return ParcelSummaryResponse(**cached)
+
+    features = _load_fallback_parcels()
+    target = None
+    for f in features:
+        fid = str(f.get("id") or "")
+        props = f.get("properties", {})
+        syn_id = str(props.get("synthetic_id") or "")
+        p_id = str(props.get("parcel_id") or "")
+        p_num = str(props.get("parcel_number") or "")
+        dag = str(props.get("dag_no") or "")
+        if synthetic_id in (fid, syn_id, p_id, p_num, dag):
+            target = f
+            break
+
+    if not target:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Synthetic parcel '{synthetic_id}' not found.",
+        )
+
+    props = target.get("properties", {})
+    resolved_id = str(target.get("id") or props.get("parcel_id") or props.get("synthetic_id") or synthetic_id)
+    mouza = str(props.get("mouza_bn", props.get("mouza", "তেজগাঁও")))
+    dag_no = str(props.get("dag_no", "১২০৫"))
+    khatian_no = str(props.get("khatian_no", "৩৪০"))
+    area_dec = float(props.get("area_decimal", props.get("area_acres", 0.33) * 100.0 if props.get("area_acres") else 33.0))
+    area_ac = float(props.get("area_acres", round(area_dec / 100.0, 4)))
+
+    # Fetch alerts for this parcel from DB
+    stmt = select(Alert).where(Alert.parcel_id == resolved_id)
+    res = await db.execute(stmt)
+    alerts = res.scalars().all()
+
+    counts = {"high": 0, "warn": 0, "info": 0, "total": 0}
+    for a in alerts:
+        sev = (a.severity or "").lower()
+        if sev in counts:
+            counts[sev] += 1
+        counts["total"] += 1
+
+    resp = ParcelSummaryResponse(
+        parcel_id=resolved_id,
+        synthetic_id=resolved_id,
+        is_illustrative=True,
+        mouza=mouza,
+        dag_no=dag_no,
+        khatian_no=khatian_no,
+        area_acres=area_ac,
+        area_decimal=area_dec,
+        alert_counts=AlertCountsBySeverity(**counts),
+        status_label=StatusLabel.POSSIBLE_MATCH.value,
+        disclaimer_bn="প্রদর্শিত সীমানা শুধুমাত্র উদাহরণের জন্য / এটি কোনো আইনি সীমানা বা রেকর্ড নয়। ডেমো ডেটা।",
+        epistemic_notice="কোনো সার্বিক স্কোর বা রায় (verdict) প্রদান করা হয় না।",
+    )
+
+    await set_cached_public_data(cache_key, resp.dict(), ttl_seconds=300)
+    return resp
+

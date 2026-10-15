@@ -353,6 +353,105 @@
         }
       }
     },
+    "/api/v1/admin/users": {
+      "get": {
+        "tags": [
+          "Admin User Management"
+        ],
+        "summary": "List registered users with roles and security status",
+        "description": "Returns list of users across offices and roles.\nRequires elevated USER_READ permission with GLOBAL scope (Tech Admin / Security Officer).",
+        "operationId": "list_admin_users_api_v1_admin_users_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scan/qr": {
+      "post": {
+        "tags": [
+          "QR Code Scanner"
+        ],
+        "summary": "Scan QR code from document image and verify integrity",
+        "description": "Scans an uploaded document image for QR codes.\nIf the QR payload contains a verification hash, checks mathematical integrity.\nUI Text:\n  Matched: 'নথির তথ্য QR-এর সঙ্গে মিলেছে (মালিকানা যাচাই নয়)'\n  Mismatched / Not found: 'মেলেনি' or 'QR কোড শনাক্ত করা যায়নি'",
+        "operationId": "scan_qr_endpoint_api_v1_scan_qr_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_scan_qr_endpoint_api_v1_scan_qr_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QRScanResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/documents": {
       "get": {
         "tags": [
@@ -370,6 +469,45 @@
             }
           }
         }
+      },
+      "post": {
+        "tags": [
+          "Document Scanning & OCR"
+        ],
+        "summary": "Upload document with magic-byte verification, image re-encoding, and MinIO storage",
+        "operationId": "upload_document_api_v1_documents_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_document_api_v1_documents_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentUploadResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/v1/documents/upload": {
@@ -377,7 +515,7 @@
         "tags": [
           "Document Scanning & OCR"
         ],
-        "summary": "Upload deed or khatian scan with magic-byte validation",
+        "summary": "Upload document (alias)",
         "operationId": "upload_document_api_v1_documents_upload_post",
         "requestBody": {
           "content": {
@@ -389,6 +527,144 @@
           },
           "required": true
         },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentUploadResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents/{document_id}/extraction": {
+      "get": {
+        "tags": [
+          "Document Scanning & OCR"
+        ],
+        "summary": "Get document OCR extracted fields, confidence scores, and status label",
+        "operationId": "get_document_extraction_api_v1_documents__document_id__extraction_get",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentExtractionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents/{document_id}/fields": {
+      "patch": {
+        "tags": [
+          "Document Scanning & OCR"
+        ],
+        "summary": "Submit user corrections for extracted fields with status USER_CORRECTED and audit history",
+        "description": "Applies user corrections to document fields.\nNormalizes corrected values, updates status to USER_CORRECTED,\nmaintains audit log history of changes, and prevents auto-confirmation.",
+        "operationId": "patch_document_fields_api_v1_documents__document_id__fields_patch",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocumentFieldsPatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentFieldsPatchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents/{document_id}/events": {
+      "get": {
+        "tags": [
+          "Document Scanning & OCR"
+        ],
+        "summary": "Stream real-time document processing progress via SSE",
+        "description": "Server-Sent Events endpoint streaming real-time pipeline progress\npublished by background workers to `document:progress:{document_id}`.",
+        "operationId": "document_progress_events_api_v1_documents__document_id__events_get",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Document Id"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -411,12 +687,146 @@
         }
       }
     },
+    "/api/v1/documents/{document_id}/verify": {
+      "post": {
+        "tags": [
+          "Document Scanning & OCR"
+        ],
+        "summary": "Cross-record verification with reference LandRecord & QR hash integrity",
+        "operationId": "verify_document_api_v1_documents__document_id__verify_post",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocumentVerifyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentVerificationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents/{document_id}/verification": {
+      "get": {
+        "tags": [
+          "Document Scanning & OCR"
+        ],
+        "summary": "Get latest document cross-record verification results",
+        "operationId": "get_latest_verification_api_v1_documents__document_id__verification_get",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentVerificationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/search": {
+      "post": {
+        "tags": [
+          "Land Records & Khatian Search"
+        ],
+        "summary": "Multi-identifier land record search with scorer & ambiguous top-2 detection",
+        "description": "Multi-identifier search using exact normalized matching and trigram similarity.\nCalculates candidate match score and generates human-readable reasons.\nIf the score difference between top 2 candidates is < 0.10, flags `ambiguous=True`.\nNever auto-confirms ownership.",
+        "operationId": "multi_identifier_search_api_v1_search_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
       "get": {
         "tags": [
           "Land Records & Khatian Search"
         ],
-        "summary": "Scan-to-search and trigram fuzzy matching on Khatians",
+        "summary": "Scan-to-search query string endpoint",
         "operationId": "search_land_records_api_v1_search_get",
         "parameters": [
           {
@@ -432,10 +842,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Search query (khatian, dag, or owner name in Bengali)",
+              "description": "Search query",
               "title": "Q"
             },
-            "description": "Search query (khatian, dag, or owner name in Bengali)"
+            "description": "Search query"
           },
           {
             "name": "mouza_jl",
@@ -508,18 +918,104 @@
         }
       }
     },
+    "/api/v1/records/{record_id}": {
+      "get": {
+        "tags": [
+          "Land Records"
+        ],
+        "summary": "Get land record detail by ID with verified source metadata",
+        "description": "Fetches official baseline land record by UUID or record_no.\nIncludes verified authorized source attribution and retrieval timestamp.\nPublic reference data is cached in Redis.",
+        "operationId": "get_land_record_detail_api_v1_records__record_id__get",
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Record Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecordDetailResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/guide/query": {
       "post": {
         "tags": [
           "Grounded Citizen Land Guide"
         ],
-        "summary": "Query grounded AI Land Guide",
+        "summary": "Query Land Guide (alias)",
+        "description": "Retrieves grounded response strictly from approved knowledge base articles.\nIf the question is ungroundable or does not achieve sufficient match confidence,\nstrictly returns 'needs_verification'.",
         "operationId": "ask_land_guide_api_v1_guide_query_post",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GuideQueryRequest"
+                "$ref": "#/components/schemas/AskGuideRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GuideResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/guide/ask": {
+      "post": {
+        "tags": [
+          "Grounded Citizen Land Guide"
+        ],
+        "summary": "Ask grounded question to Land Guide knowledge base",
+        "description": "Retrieves grounded response strictly from approved knowledge base articles.\nIf the question is ungroundable or does not achieve sufficient match confidence,\nstrictly returns 'needs_verification'.",
+        "operationId": "ask_land_guide_api_v1_guide_ask_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AskGuideRequest"
               }
             }
           },
@@ -554,9 +1050,28 @@
         "tags": [
           "Geospatial Cadastral Parcel Visualizer"
         ],
-        "summary": "Fetch GeoJSON parcels with legal boundary disclaimer",
+        "summary": "Fetch cadastral parcels GeoJSON with mandatory legal boundary disclaimer",
+        "description": "Returns cadastral parcel boundaries in GeoJSON format.\nEvery parcel is marked with `is_illustrative: true`.\nPublic reference data cached in Redis.",
         "operationId": "get_parcels_api_v1_map_parcels_get",
         "parameters": [
+          {
+            "name": "bbox",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Bounding box filter formatted as 'min_lon,min_lat,max_lon,max_lat'",
+              "title": "Bbox"
+            },
+            "description": "Bounding box filter formatted as 'min_lon,min_lat,max_lon,max_lat'"
+          },
           {
             "name": "mouza_jl",
             "in": "query",
@@ -570,7 +1085,50 @@
                   "type": "null"
                 }
               ],
+              "description": "Mouza JL number",
               "title": "Mouza Jl"
+            },
+            "description": "Mouza JL number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/map/parcels/{synthetic_id}": {
+      "get": {
+        "tags": [
+          "Geospatial Cadastral Parcel Visualizer"
+        ],
+        "summary": "Get single synthetic parcel by ID",
+        "description": "Returns single cadastral parcel polygon detail.\nCached as public reference data.",
+        "operationId": "get_parcel_by_id_api_v1_map_parcels__synthetic_id__get",
+        "parameters": [
+          {
+            "name": "synthetic_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Synthetic Id"
             }
           }
         ],
@@ -580,6 +1138,49 @@
             "content": {
               "application/json": {
                 "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/map/parcels/{synthetic_id}/summary": {
+      "get": {
+        "tags": [
+          "Geospatial Cadastral Parcel Visualizer"
+        ],
+        "summary": "Get parcel risk summary with alert counts by severity (no verdict)",
+        "description": "Returns parcel metadata and conflict alert counts by severity level.\nGlobal rule: Plain counts only. Never outputs or stores a composite score,\nor safe/unsafe or valid ownership verdicts.\nPublic reference summary cached in Redis.",
+        "operationId": "get_parcel_summary_api_v1_map_parcels__synthetic_id__summary_get",
+        "parameters": [
+          {
+            "name": "synthetic_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Synthetic Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParcelSummaryResponse"
+                }
               }
             }
           },
@@ -601,41 +1202,42 @@
         "tags": [
           "Human-in-the-Loop Case Review"
         ],
-        "summary": "List pending mutation and correction cases",
-        "operationId": "list_cases_api_v1_review_cases_get",
-        "parameters": [
-          {
-            "name": "status_filter",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Status Filter"
-            }
-          }
-        ],
+        "summary": "List cases (alias)",
+        "description": "Returns pending cases in the human review queue.\nShows cases requiring human verification (low confidence OCR, repaired fields, conflicting dates).",
+        "operationId": "get_review_queue_api_v1_review_cases_get",
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ReviewCaseItem"
+                  },
+                  "type": "array",
+                  "title": "Response Get Review Queue Api V1 Review Cases Get"
+                }
               }
             }
-          },
-          "422": {
-            "description": "Validation Error",
+          }
+        }
+      }
+    },
+    "/api/v1/review/queue": {
+      "get": {
+        "tags": [
+          "Human-in-the-Loop Case Review"
+        ],
+        "summary": "List pending review cases in review queue",
+        "description": "Returns pending cases in the human review queue.\nShows cases requiring human verification (low confidence OCR, repaired fields, conflicting dates).",
+        "operationId": "get_review_queue_api_v1_review_queue_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ReviewQueueResponse"
                 }
               }
             }
@@ -648,7 +1250,8 @@
         "tags": [
           "Human-in-the-Loop Case Review"
         ],
-        "summary": "Submit review decision",
+        "summary": "Submit review decision (alias)",
+        "description": "Records a reviewer decision on an unconfirmed or flagged case.\nUpdates case status, logs audit event, and sets document status.",
         "operationId": "submit_case_decision_api_v1_review_cases__case_id__decision_post",
         "parameters": [
           {
@@ -676,7 +1279,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewDecisionResponse"
+                }
               }
             }
           },
@@ -693,12 +1298,88 @@
         }
       }
     },
+    "/api/v1/review/{case_id}/decision": {
+      "post": {
+        "tags": [
+          "Human-in-the-Loop Case Review"
+        ],
+        "summary": "Submit review decision for a case",
+        "description": "Records a reviewer decision on an unconfirmed or flagged case.\nUpdates case status, logs audit event, and sets document status.",
+        "operationId": "submit_case_decision_api_v1_review__case_id__decision_post",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewDecisionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewDecisionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/quality/summary": {
+      "get": {
+        "tags": [
+          "Image Quality & Pipeline Metrics"
+        ],
+        "summary": "Get pipeline quality gates and extraction accuracy summary",
+        "description": "Returns verified pipeline quality indicators and model benchmarks.\nCached as public telemetry reference data in Redis.",
+        "operationId": "get_quality_summary_api_v1_quality_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QualitySummaryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/quality/score": {
       "post": {
         "tags": [
-          "Image Quality & Blur Scoring"
+          "Image Quality & Pipeline Metrics"
         ],
         "summary": "Analyze scan quality before submission",
+        "description": "Lightweight client-side / edge quality assessor.",
         "operationId": "evaluate_image_quality_api_v1_quality_score_post",
         "requestBody": {
           "content": {
@@ -734,6 +1415,337 @@
         }
       }
     },
+    "/api/v1/parcels/{parcel_id}/alerts": {
+      "get": {
+        "tags": [
+          "Cadastral Parcels & Risk Alerts"
+        ],
+        "summary": "Get risk & conflict alerts for parcel with reason_bn and evidence",
+        "description": "Returns verified risk and conflict alerts for the specified parcel.\nBangla wording strictly follows 'সম্ভাব্য অসঙ্গতি, যাচাই প্রয়োজন'.\nEvery alert is accompanied by explainable reason_bn and evidence.",
+        "operationId": "get_parcel_alerts_api_v1_parcels__parcel_id__alerts_get",
+        "parameters": [
+          {
+            "name": "parcel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Parcel Id"
+            }
+          },
+          {
+            "name": "severity",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^(info|warn|high)$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by severity level",
+              "title": "Severity"
+            },
+            "description": "Filter by severity level"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AlertResponseItem"
+                  },
+                  "title": "Response Get Parcel Alerts Api V1 Parcels  Parcel Id  Alerts Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/parcels/{parcel_id}/alerts/run": {
+      "post": {
+        "tags": [
+          "Cadastral Parcels & Risk Alerts"
+        ],
+        "summary": "Execute risk & conflict rules engine idempotently (Reviewer/Supervisor/Tech Admin)",
+        "description": "Executes rules R1 to R6 on the parcel context in an idempotent, deduplicated manner.\nRBAC: Enforced strictly for Reviewer, Supervisor, and Tech Admin. Denied for Citizens.\nNever overwrites or deletes reviewed or dismissed alert history.",
+        "operationId": "run_parcel_alerts_api_v1_parcels__parcel_id__alerts_run_post",
+        "parameters": [
+          {
+            "name": "parcel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Parcel Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlertsRunResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/alerts/{alert_id}": {
+      "patch": {
+        "tags": [
+          "Risk Alerts Management"
+        ],
+        "summary": "Update alert status to reviewed or dismissed with reviewer note",
+        "description": "Updates an alert's status to 'reviewed' or 'dismissed' with an explanatory note.\nRBAC: Enforced strictly for Reviewer+. Denied for Citizens.\nKeeps review history in evidence chain and records a cryptographic audit log.",
+        "operationId": "update_alert_status_api_v1_alerts__alert_id__patch",
+        "parameters": [
+          {
+            "name": "alert_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Alert Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlertPatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlertResponseItem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/parcels/{parcel_id}/buyer-report": {
+      "post": {
+        "tags": [
+          "Cadastral Parcels & Buyer Reports"
+        ],
+        "summary": "Generate comprehensive buyer parcel summary report (Citizen allowed for demo parcels only)",
+        "description": "Generates a 6-section buyer parcel summary report.\nCitizens are restricted to generating reports for synthetic demo parcels only.\nOfficers (Reviewer, Supervisor, Tech Admin) may generate for any parcel.\nPersists to `buyer_reports` and logs cryptographic audit trail.",
+        "operationId": "create_buyer_report_api_v1_parcels__parcel_id__buyer_report_post",
+        "parameters": [
+          {
+            "name": "parcel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Parcel Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuyerReportCreateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/buyer-reports/{report_id}": {
+      "get": {
+        "tags": [
+          "Buyer Risk Reports"
+        ],
+        "summary": "Get buyer risk report JSON (Citizens see only their own reports)",
+        "description": "Retrieves full buyer report in JSON format.\nEnforces isolation: Citizens see only reports they created.",
+        "operationId": "get_buyer_report_json_api_v1_buyer_reports__report_id__get",
+        "parameters": [
+          {
+            "name": "report_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Report Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuyerReportCreateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/buyer-reports/{report_id}/print": {
+      "get": {
+        "tags": [
+          "Buyer Risk Reports"
+        ],
+        "summary": "Render printable HTML for buyer risk report (Citizens see only their own reports)",
+        "description": "Renders styled, printable HTML with print media queries for server-side PDF or browser printing.\nEnforces isolation: Citizens see only reports they created.",
+        "operationId": "get_buyer_report_print_api_v1_buyer_reports__report_id__print_get",
+        "parameters": [
+          {
+            "name": "report_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Report Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/metrics": {
+      "get": {
+        "tags": [
+          "Observability"
+        ],
+        "summary": "Export Prometheus metrics",
+        "description": "Exports raw Prometheus metrics format with latency histograms for p95 computation.",
+        "operationId": "prometheus_metrics_api_v1_metrics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics": {
+      "get": {
+        "tags": [
+          "Observability"
+        ],
+        "summary": "Export Prometheus metrics and latency histograms",
+        "description": "Exports raw Prometheus metrics format with latency histograms for p95 computation.",
+        "operationId": "prometheus_metrics_metrics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
     "/": {
       "get": {
         "tags": [
@@ -756,6 +1768,167 @@
   },
   "components": {
     "schemas": {
+      "AlertCountsBySeverity": {
+        "properties": {
+          "high": {
+            "type": "integer",
+            "title": "High",
+            "default": 0
+          },
+          "warn": {
+            "type": "integer",
+            "title": "Warn",
+            "default": 0
+          },
+          "info": {
+            "type": "integer",
+            "title": "Info",
+            "default": 0
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "AlertCountsBySeverity"
+      },
+      "AlertPatchRequest": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "pattern": "^(reviewed|dismissed)$",
+            "title": "Status",
+            "description": "New alert status ('reviewed' or 'dismissed')"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note",
+            "description": "Reviewer explanation kept in history"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "AlertPatchRequest"
+      },
+      "AlertResponseItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "parcel_id": {
+            "type": "string",
+            "title": "Parcel Id"
+          },
+          "rule_id": {
+            "type": "string",
+            "title": "Rule Id"
+          },
+          "severity": {
+            "type": "string",
+            "title": "Severity"
+          },
+          "title_bn": {
+            "type": "string",
+            "title": "Title Bn"
+          },
+          "reason_bn": {
+            "type": "string",
+            "title": "Reason Bn"
+          },
+          "evidence": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Evidence"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "rule_version": {
+            "type": "string",
+            "title": "Rule Version"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "parcel_id",
+          "rule_id",
+          "severity",
+          "title_bn",
+          "reason_bn",
+          "evidence",
+          "status",
+          "rule_version",
+          "created_at"
+        ],
+        "title": "AlertResponseItem"
+      },
+      "AlertsRunResponse": {
+        "properties": {
+          "parcel_id": {
+            "type": "string",
+            "title": "Parcel Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "total_alerts": {
+            "type": "integer",
+            "title": "Total Alerts"
+          },
+          "alerts": {
+            "items": {
+              "$ref": "#/components/schemas/AlertResponseItem"
+            },
+            "type": "array",
+            "title": "Alerts"
+          }
+        },
+        "type": "object",
+        "required": [
+          "parcel_id",
+          "status",
+          "total_alerts",
+          "alerts"
+        ],
+        "title": "AlertsRunResponse"
+      },
+      "AskGuideRequest": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "minLength": 2,
+            "title": "Question",
+            "description": "Citizen inquiry in Bengali or English"
+          }
+        },
+        "type": "object",
+        "required": [
+          "question"
+        ],
+        "title": "AskGuideRequest"
+      },
       "Body_evaluate_image_quality_api_v1_quality_score_post": {
         "properties": {
           "file": {
@@ -769,6 +1942,34 @@
           "file"
         ],
         "title": "Body_evaluate_image_quality_api_v1_quality_score_post"
+      },
+      "Body_scan_qr_endpoint_api_v1_scan_qr_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_scan_qr_endpoint_api_v1_scan_qr_post"
+      },
+      "Body_upload_document_api_v1_documents_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_document_api_v1_documents_post"
       },
       "Body_upload_document_api_v1_documents_upload_post": {
         "properties": {
@@ -784,18 +1985,408 @@
         ],
         "title": "Body_upload_document_api_v1_documents_upload_post"
       },
-      "GuideQueryRequest": {
+      "BuyerReportCreateResponse": {
         "properties": {
-          "query": {
+          "id": {
             "type": "string",
-            "title": "Query"
+            "title": "Id"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "parcel_id": {
+            "type": "string",
+            "title": "Parcel Id"
+          },
+          "generated_at": {
+            "type": "string",
+            "title": "Generated At"
+          },
+          "sections": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Sections"
+          },
+          "rule_version": {
+            "type": "string",
+            "title": "Rule Version"
+          },
+          "disclaimer_version": {
+            "type": "string",
+            "title": "Disclaimer Version"
           }
         },
         "type": "object",
         "required": [
-          "query"
+          "id",
+          "user_id",
+          "parcel_id",
+          "generated_at",
+          "sections",
+          "rule_version",
+          "disclaimer_version"
         ],
-        "title": "GuideQueryRequest"
+        "title": "BuyerReportCreateResponse"
+      },
+      "DocumentExtractionResponse": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "title": "Document Id"
+          },
+          "file_name": {
+            "type": "string",
+            "title": "File Name"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "status_label": {
+            "type": "string",
+            "title": "Status Label"
+          },
+          "overall_confidence": {
+            "type": "number",
+            "title": "Overall Confidence"
+          },
+          "flagged": {
+            "type": "boolean",
+            "title": "Flagged"
+          },
+          "fields": {
+            "items": {
+              "$ref": "#/components/schemas/ExtractedFieldItem"
+            },
+            "type": "array",
+            "title": "Fields"
+          },
+          "indicators_for_verification": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Indicators For Verification"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "file_name",
+          "status",
+          "status_label",
+          "overall_confidence",
+          "flagged",
+          "fields"
+        ],
+        "title": "DocumentExtractionResponse"
+      },
+      "DocumentFieldsPatchRequest": {
+        "properties": {
+          "fields": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Fields",
+            "description": "Map of field_name to user corrected string value"
+          },
+          "correction_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Correction Reason",
+            "description": "Optional explanation for audit tracking"
+          }
+        },
+        "type": "object",
+        "required": [
+          "fields"
+        ],
+        "title": "DocumentFieldsPatchRequest"
+      },
+      "DocumentFieldsPatchResponse": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "title": "Document Id"
+          },
+          "status_label": {
+            "type": "string",
+            "title": "Status Label"
+          },
+          "fields": {
+            "items": {
+              "$ref": "#/components/schemas/ExtractedFieldItem"
+            },
+            "type": "array",
+            "title": "Fields"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "status_label",
+          "fields",
+          "message"
+        ],
+        "title": "DocumentFieldsPatchResponse"
+      },
+      "DocumentUploadResponse": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "title": "Document Id"
+          },
+          "file_name": {
+            "type": "string",
+            "title": "File Name"
+          },
+          "file_size": {
+            "type": "integer",
+            "title": "File Size"
+          },
+          "magic_bytes_verified": {
+            "type": "boolean",
+            "title": "Magic Bytes Verified"
+          },
+          "re_encoded": {
+            "type": "boolean",
+            "title": "Re Encoded"
+          },
+          "upload_status": {
+            "type": "string",
+            "title": "Upload Status"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "status_label": {
+            "type": "string",
+            "title": "Status Label"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "file_name",
+          "file_size",
+          "magic_bytes_verified",
+          "re_encoded",
+          "upload_status",
+          "status",
+          "status_label",
+          "created_at"
+        ],
+        "title": "DocumentUploadResponse"
+      },
+      "DocumentVerificationResponse": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "title": "Document Id"
+          },
+          "record_id": {
+            "type": "string",
+            "title": "Record Id"
+          },
+          "verification_results": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Verification Results"
+          },
+          "comparisons": {
+            "items": {
+              "$ref": "#/components/schemas/FieldComparisonItem"
+            },
+            "type": "array",
+            "title": "Comparisons"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/VerificationSummaryItem"
+          },
+          "qr_integrity": {
+            "$ref": "#/components/schemas/QRIntegrityResult"
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope",
+            "default": "integrity_only"
+          },
+          "scope_text": {
+            "type": "string",
+            "title": "Scope Text",
+            "default": "নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।"
+          },
+          "status_label": {
+            "type": "string",
+            "title": "Status Label"
+          },
+          "verified_at": {
+            "type": "string",
+            "title": "Verified At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "record_id",
+          "verification_results",
+          "comparisons",
+          "summary",
+          "qr_integrity",
+          "status_label",
+          "verified_at"
+        ],
+        "title": "DocumentVerificationResponse"
+      },
+      "DocumentVerifyRequest": {
+        "properties": {
+          "record_id": {
+            "type": "string",
+            "title": "Record Id",
+            "description": "UUID or identifier of the baseline LandRecord"
+          }
+        },
+        "type": "object",
+        "required": [
+          "record_id"
+        ],
+        "title": "DocumentVerifyRequest"
+      },
+      "ExtractedFieldItem": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "field_name": {
+            "type": "string",
+            "title": "Field Name"
+          },
+          "raw_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Value"
+          },
+          "normalized_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Normalized Value"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence",
+            "default": 0.0
+          },
+          "flagged": {
+            "type": "boolean",
+            "title": "Flagged",
+            "default": false
+          },
+          "flag_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Flag Reason"
+          },
+          "user_corrected": {
+            "type": "boolean",
+            "title": "User Corrected",
+            "default": false
+          },
+          "status_label": {
+            "type": "string",
+            "title": "Status Label",
+            "default": "OCR_EXTRACTED"
+          }
+        },
+        "type": "object",
+        "required": [
+          "field_name"
+        ],
+        "title": "ExtractedFieldItem"
+      },
+      "FieldComparisonItem": {
+        "properties": {
+          "field": {
+            "type": "string",
+            "title": "Field"
+          },
+          "doc_value": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Doc Value"
+          },
+          "record_value": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Record Value"
+          },
+          "result": {
+            "type": "string",
+            "title": "Result"
+          },
+          "note_bn": {
+            "type": "string",
+            "title": "Note Bn"
+          }
+        },
+        "type": "object",
+        "required": [
+          "field",
+          "result",
+          "note_bn"
+        ],
+        "title": "FieldComparisonItem"
       },
       "GuideResponse": {
         "properties": {
@@ -804,25 +2395,11 @@
             "title": "Status"
           },
           "answer_bn": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
+            "type": "string",
             "title": "Answer Bn"
           },
           "answer_en": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
+            "type": "string",
             "title": "Answer En"
           },
           "source": {
@@ -857,11 +2434,18 @@
               }
             ],
             "title": "Similarity Score"
+          },
+          "disclaimer_bn": {
+            "type": "string",
+            "title": "Disclaimer Bn",
+            "default": "এটি আইনি পরামর্শ বা মালিকানার সিদ্ধান্ত নয়। সরকারি বিধিমালা অনুযায়ী যাচাই করুন।"
           }
         },
         "type": "object",
         "required": [
-          "status"
+          "status",
+          "answer_bn",
+          "answer_en"
         ],
         "title": "GuideResponse"
       },
@@ -927,6 +2511,185 @@
         ],
         "title": "MFAVerifyRequest"
       },
+      "ParcelSummaryResponse": {
+        "properties": {
+          "parcel_id": {
+            "type": "string",
+            "title": "Parcel Id"
+          },
+          "synthetic_id": {
+            "type": "string",
+            "title": "Synthetic Id"
+          },
+          "is_illustrative": {
+            "type": "boolean",
+            "title": "Is Illustrative",
+            "default": true
+          },
+          "mouza": {
+            "type": "string",
+            "title": "Mouza"
+          },
+          "dag_no": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dag No"
+          },
+          "khatian_no": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Khatian No"
+          },
+          "area_acres": {
+            "type": "number",
+            "title": "Area Acres"
+          },
+          "area_decimal": {
+            "type": "number",
+            "title": "Area Decimal"
+          },
+          "alert_counts": {
+            "$ref": "#/components/schemas/AlertCountsBySeverity"
+          },
+          "status_label": {
+            "type": "string",
+            "title": "Status Label"
+          },
+          "disclaimer_bn": {
+            "type": "string",
+            "title": "Disclaimer Bn"
+          },
+          "epistemic_notice": {
+            "type": "string",
+            "title": "Epistemic Notice"
+          }
+        },
+        "type": "object",
+        "required": [
+          "parcel_id",
+          "synthetic_id",
+          "mouza",
+          "area_acres",
+          "area_decimal",
+          "alert_counts",
+          "status_label",
+          "disclaimer_bn",
+          "epistemic_notice"
+        ],
+        "title": "ParcelSummaryResponse"
+      },
+      "QRIntegrityResult": {
+        "properties": {
+          "payload_type": {
+            "type": "string",
+            "title": "Payload Type",
+            "default": "none"
+          },
+          "hash_alg": {
+            "type": "string",
+            "title": "Hash Alg",
+            "default": "sha256"
+          },
+          "hash_match": {
+            "type": "boolean",
+            "title": "Hash Match",
+            "default": false
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope",
+            "default": "integrity_only"
+          },
+          "scope_text": {
+            "type": "string",
+            "title": "Scope Text",
+            "default": "নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।"
+          },
+          "ui_text_bn": {
+            "type": "string",
+            "title": "Ui Text Bn",
+            "default": "মেলেনি"
+          }
+        },
+        "type": "object",
+        "title": "QRIntegrityResult"
+      },
+      "QRScanResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success"
+          },
+          "payload_type": {
+            "type": "string",
+            "title": "Payload Type"
+          },
+          "raw_payload": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Payload"
+          },
+          "parsed_payload": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parsed Payload"
+          },
+          "hash_match": {
+            "type": "boolean",
+            "title": "Hash Match",
+            "default": false
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope",
+            "default": "integrity_only"
+          },
+          "ui_text_bn": {
+            "type": "string",
+            "title": "Ui Text Bn"
+          },
+          "engine_used": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Engine Used"
+          }
+        },
+        "type": "object",
+        "required": [
+          "success",
+          "payload_type",
+          "ui_text_bn"
+        ],
+        "title": "QRScanResponse"
+      },
       "QualityScoreResponse": {
         "properties": {
           "is_blur_free": {
@@ -965,11 +2728,201 @@
         ],
         "title": "QualityScoreResponse"
       },
-      "ReviewDecisionRequest": {
+      "QualitySummaryResponse": {
         "properties": {
-          "decision": {
+          "status": {
             "type": "string",
-            "title": "Decision"
+            "title": "Status"
+          },
+          "ocr_fea_dag": {
+            "type": "number",
+            "title": "Ocr Fea Dag"
+          },
+          "ocr_fea_khatian": {
+            "type": "number",
+            "title": "Ocr Fea Khatian"
+          },
+          "ocr_fea_mouza": {
+            "type": "number",
+            "title": "Ocr Fea Mouza"
+          },
+          "silent_error_rate_dag": {
+            "type": "number",
+            "title": "Silent Error Rate Dag"
+          },
+          "overall_cer": {
+            "type": "number",
+            "title": "Overall Cer"
+          },
+          "overall_wer": {
+            "type": "number",
+            "title": "Overall Wer"
+          },
+          "qr_decode_rate": {
+            "type": "number",
+            "title": "Qr Decode Rate"
+          },
+          "match_precision_at_1": {
+            "type": "number",
+            "title": "Match Precision At 1"
+          },
+          "verification_comparison_accuracy": {
+            "type": "number",
+            "title": "Verification Comparison Accuracy"
+          },
+          "disclaimer_bn": {
+            "type": "string",
+            "title": "Disclaimer Bn"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "ocr_fea_dag",
+          "ocr_fea_khatian",
+          "ocr_fea_mouza",
+          "silent_error_rate_dag",
+          "overall_cer",
+          "overall_wer",
+          "qr_decode_rate",
+          "match_precision_at_1",
+          "verification_comparison_accuracy",
+          "disclaimer_bn"
+        ],
+        "title": "QualitySummaryResponse"
+      },
+      "RecordDetailResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "record_no": {
+            "type": "string",
+            "title": "Record No"
+          },
+          "survey_type": {
+            "type": "string",
+            "title": "Survey Type"
+          },
+          "khatian_no": {
+            "type": "string",
+            "title": "Khatian No"
+          },
+          "dag_no": {
+            "type": "string",
+            "title": "Dag No"
+          },
+          "mouza_name_bn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mouza Name Bn"
+          },
+          "mouza_jl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mouza Jl"
+          },
+          "owner_names_bn": {
+            "type": "string",
+            "title": "Owner Names Bn"
+          },
+          "land_class_bn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Land Class Bn"
+          },
+          "area_acres": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Acres"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "default": "উপজেলা ভূমি অফিস রেকর্ড রুম (ডিজিটাল আরএস খতিয়ান)"
+          },
+          "retrieved_at": {
+            "type": "string",
+            "title": "Retrieved At"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version",
+            "default": "v1.0-official"
+          },
+          "status_label": {
+            "type": "string",
+            "title": "Status Label",
+            "default": "VERIFIED_AUTHORIZED_SOURCE"
+          },
+          "disclaimer_bn": {
+            "type": "string",
+            "title": "Disclaimer Bn",
+            "default": "প্রদর্শিত তথ্য শুধুমাত্র প্রদর্শনীমূলক। এটি আইনি দলিল হিসেবে গণ্য নয়।"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "record_no",
+          "survey_type",
+          "khatian_no",
+          "dag_no",
+          "owner_names_bn",
+          "retrieved_at"
+        ],
+        "title": "RecordDetailResponse"
+      },
+      "ReviewCaseItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "case_number": {
+            "type": "string",
+            "title": "Case Number"
+          },
+          "case_type": {
+            "type": "string",
+            "title": "Case Type"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "priority": {
+            "type": "string",
+            "title": "Priority"
+          },
+          "office_id": {
+            "type": "string",
+            "title": "Office Id"
           },
           "notes": {
             "anyOf": [
@@ -981,6 +2934,62 @@
               }
             ],
             "title": "Notes"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "case_number",
+          "case_type",
+          "status",
+          "priority",
+          "office_id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ReviewCaseItem"
+      },
+      "ReviewDecisionRequest": {
+        "properties": {
+          "decision": {
+            "type": "string",
+            "title": "Decision",
+            "description": "CONFIRMED | REJECTED | CORRECTED | HEARING_SCHEDULED"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes",
+            "description": "Official reviewer notes"
+          },
+          "corrected_fields": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Corrected Fields",
+            "description": "Field corrections if decision is CORRECTED"
           }
         },
         "type": "object",
@@ -988,6 +2997,398 @@
           "decision"
         ],
         "title": "ReviewDecisionRequest"
+      },
+      "ReviewDecisionResponse": {
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "case_number": {
+            "type": "string",
+            "title": "Case Number"
+          },
+          "decision": {
+            "type": "string",
+            "title": "Decision"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "reviewed_by": {
+            "type": "string",
+            "title": "Reviewed By"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "case_id",
+          "case_number",
+          "decision",
+          "status",
+          "reviewed_by",
+          "updated_at",
+          "message"
+        ],
+        "title": "ReviewDecisionResponse"
+      },
+      "ReviewQueueResponse": {
+        "properties": {
+          "total_pending": {
+            "type": "integer",
+            "title": "Total Pending"
+          },
+          "cases": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewCaseItem"
+            },
+            "type": "array",
+            "title": "Cases"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_pending",
+          "cases"
+        ],
+        "title": "ReviewQueueResponse"
+      },
+      "SearchCandidateItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "record_no": {
+            "type": "string",
+            "title": "Record No"
+          },
+          "survey_type": {
+            "type": "string",
+            "title": "Survey Type"
+          },
+          "khatian_no": {
+            "type": "string",
+            "title": "Khatian No"
+          },
+          "dag_no": {
+            "type": "string",
+            "title": "Dag No"
+          },
+          "mouza_name_bn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mouza Name Bn"
+          },
+          "mouza_jl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mouza Jl"
+          },
+          "owner_names_bn": {
+            "type": "string",
+            "title": "Owner Names Bn"
+          },
+          "land_class_bn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Land Class Bn"
+          },
+          "area_acres": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Acres"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reasons"
+          },
+          "status_label": {
+            "type": "string",
+            "title": "Status Label",
+            "default": "POSSIBLE_MATCH"
+          },
+          "ambiguous": {
+            "type": "boolean",
+            "title": "Ambiguous",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "record_no",
+          "survey_type",
+          "khatian_no",
+          "dag_no",
+          "owner_names_bn",
+          "score",
+          "reasons"
+        ],
+        "title": "SearchCandidateItem"
+      },
+      "SearchRequest": {
+        "properties": {
+          "dag_no": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dag No",
+            "description": "Plot / Dag number in Bengali or ASCII"
+          },
+          "khatian_no": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Khatian No",
+            "description": "Khatian number in Bengali or ASCII"
+          },
+          "mouza": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mouza",
+            "description": "Mouza name or JL number"
+          },
+          "owner_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Owner Name",
+            "description": "Owner name in Bengali"
+          },
+          "survey_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Survey Type",
+            "description": "CS, SA, RS, BS, City Survey"
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 50.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "default": 10
+          }
+        },
+        "type": "object",
+        "title": "SearchRequest"
+      },
+      "SearchResponse": {
+        "properties": {
+          "total_found": {
+            "type": "integer",
+            "title": "Total Found"
+          },
+          "ambiguous": {
+            "type": "boolean",
+            "title": "Ambiguous"
+          },
+          "candidates": {
+            "items": {
+              "$ref": "#/components/schemas/SearchCandidateItem"
+            },
+            "type": "array",
+            "title": "Candidates"
+          },
+          "disclaimer_bn": {
+            "type": "string",
+            "title": "Disclaimer Bn",
+            "default": "প্রদর্শিত তথ্য শুধুমাত্র প্রদর্শনীমূলক। এটি আইনি দলিল হিসেবে গণ্য নয়।"
+          },
+          "disclaimer_en": {
+            "type": "string",
+            "title": "Disclaimer En",
+            "default": "Illustrative / Not a legal boundary. Synthetic demo data."
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_found",
+          "ambiguous",
+          "candidates"
+        ],
+        "title": "SearchResponse"
+      },
+      "UserListItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          },
+          "full_name_bn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name Bn"
+          },
+          "full_name_en": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name En"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "office_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Office Id"
+          },
+          "region_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Region Id"
+          },
+          "is_active": {
+            "type": "boolean",
+            "title": "Is Active"
+          },
+          "mfa_enabled": {
+            "type": "boolean",
+            "title": "Mfa Enabled"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "email",
+          "role",
+          "is_active",
+          "mfa_enabled",
+          "created_at"
+        ],
+        "title": "UserListItem"
+      },
+      "UserListResponse": {
+        "properties": {
+          "total_users": {
+            "type": "integer",
+            "title": "Total Users"
+          },
+          "users": {
+            "items": {
+              "$ref": "#/components/schemas/UserListItem"
+            },
+            "type": "array",
+            "title": "Users"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_users",
+          "users"
+        ],
+        "title": "UserListResponse"
       },
       "UserLoginRequest": {
         "properties": {
@@ -1230,6 +3631,42 @@
           "type"
         ],
         "title": "ValidationError"
+      },
+      "VerificationSummaryItem": {
+        "properties": {
+          "exact": {
+            "type": "integer",
+            "title": "Exact",
+            "default": 0
+          },
+          "normalized_equal": {
+            "type": "integer",
+            "title": "Normalized Equal",
+            "default": 0
+          },
+          "fuzzy_close": {
+            "type": "integer",
+            "title": "Fuzzy Close",
+            "default": 0
+          },
+          "mismatch": {
+            "type": "integer",
+            "title": "Mismatch",
+            "default": 0
+          },
+          "missing": {
+            "type": "integer",
+            "title": "Missing",
+            "default": 0
+          },
+          "total_fields": {
+            "type": "integer",
+            "title": "Total Fields",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "VerificationSummaryItem"
       }
     }
   }

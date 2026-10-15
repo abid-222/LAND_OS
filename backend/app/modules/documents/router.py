@@ -29,9 +29,18 @@ from app.core.config import settings
 from app.core.database import get_db
 from app.core.normalize import normalize_area, normalize_identifier, normalize_name
 from app.core.rate_limit import rate_limit
-from app.models import Document, ExtractedField, StatusLabel
+from app.models import (
+    Document,
+    ExtractedField,
+    LandRecord,
+    QRCheck,
+    StatusLabel,
+    VerificationResult,
+)
 from app.modules.admin.audit import write_audit_entry
+from app.modules.documents.verification import verify
 from app.modules.rbac.permissions import Permission, Scope, require
+from app.modules.review.service import guard_and_create_review_case
 
 logger = logging.getLogger("landos.documents.router")
 router = APIRouter(prefix="/documents", tags=["Document Scanning & OCR"])
@@ -86,6 +95,49 @@ class DocumentFieldsPatchResponse(BaseModel):
     status_label: str
     fields: List[ExtractedFieldItem]
     message: str
+
+
+class DocumentVerifyRequest(BaseModel):
+    record_id: str = Field(..., description="UUID or identifier of the baseline LandRecord")
+
+
+class FieldComparisonItem(BaseModel):
+    field: str
+    doc_value: Optional[Any] = None
+    record_value: Optional[Any] = None
+    result: str  # exact | normalized-equal | fuzzy-close | mismatch | missing
+    note_bn: str
+
+
+class VerificationSummaryItem(BaseModel):
+    exact: int = 0
+    normalized_equal: int = 0
+    fuzzy_close: int = 0
+    mismatch: int = 0
+    missing: int = 0
+    total_fields: int = 0
+
+
+class QRIntegrityResult(BaseModel):
+    payload_type: str = "none"
+    hash_alg: str = "sha256"
+    hash_match: bool = False
+    scope: str = "integrity_only"
+    scope_text: str = "নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।"
+    ui_text_bn: str = "মেলেনি"
+
+
+class DocumentVerificationResponse(BaseModel):
+    document_id: str
+    record_id: str
+    verification_results: Dict[str, Any]
+    comparisons: List[FieldComparisonItem]
+    summary: VerificationSummaryItem
+    qr_integrity: QRIntegrityResult
+    scope: str = "integrity_only"
+    scope_text: str = "নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।"
+    status_label: str
+    verified_at: str
 
 
 # ------------------------------------------------------------------------------
@@ -531,4 +583,228 @@ async def document_progress_events(
             "Connection": "keep-alive",
             "X-Accel-Buffering": "no",
         },
+    )
+
+
+@router.post(
+    "/{document_id}/verify",
+    response_model=DocumentVerificationResponse,
+    summary="Cross-record verification with reference LandRecord & QR hash integrity",
+    dependencies=[Depends(rate_limit(requests=20, window_seconds=60))],
+)
+async def verify_document(
+    document_id: str,
+    payload: DocumentVerifyRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user=Depends(require(Permission.DOCUMENT_READ, Scope.OWN)),
+):
+    try:
+        doc_uuid = uuid.UUID(document_id)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID.")
+
+    # 1. Fetch document & check ownership
+    stmt = select(Document).where(Document.id == doc_uuid)
+    res = await db.execute(stmt)
+    doc = res.scalar_one_or_none()
+    if not doc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")
+
+    if current_user.role == "Citizen" and doc.uploader_id != current_user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="অননুমোদিত নথি অ্যাক্সেস।")
+
+    # 2. Fetch baseline LandRecord
+    rec = None
+    try:
+        rec_uuid = uuid.UUID(payload.record_id)
+        r_stmt = select(LandRecord).where(LandRecord.id == rec_uuid)
+        r_res = await db.execute(r_stmt)
+        rec = r_res.scalar_one_or_none()
+    except ValueError:
+        pass
+
+    if not rec:
+        r_stmt = select(LandRecord).where(LandRecord.record_no == payload.record_id)
+        r_res = await db.execute(r_stmt)
+        rec = r_res.scalar_one_or_none()
+
+    if not rec:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"LandRecord '{payload.record_id}' not found.",
+        )
+
+    # 3. Fetch extracted fields and enforce human-in-the-loop review guard
+    f_stmt = select(ExtractedField).where(ExtractedField.document_id == doc_uuid)
+    f_res = await db.execute(f_stmt)
+    db_fields = list(f_res.scalars().all())
+
+    can_proceed, case, flagged = await guard_and_create_review_case(
+        document=doc,
+        extracted_fields=db_fields,
+        doc_type=getattr(doc, "doc_type", None) or "khatian",
+        db=db,
+    )
+    if not can_proceed:
+        doc.status = "verification_required"
+        await db.commit()
+        case_no = case.case_number if case else "REV-NEW"
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"নথির গুরুত্বপূর্ণ ফিল্ডে সতর্কতা রয়েছে ({', '.join(flagged)})। পর্যালোচনা কেস #{case_no} তৈরি করা হয়েছে। তথ্য নিশ্চিত করার পর পুনরায় যাচাই করুন।",
+        )
+
+    # 4. Prepare fields for cross-record verification
+    doc_fields = {f.field_name: (f.normalized_value or f.raw_value) for f in db_fields}
+    record_data = {
+        "id": str(rec.id),
+        "khatian_no": rec.khatian_no,
+        "dag_no": rec.dag_no,
+        "mouza": rec.mouza.name_bn if rec.mouza else "",
+        "area_acres": rec.area_acres,
+        "owner_names_bn": rec.owner_names_bn,
+    }
+
+    # 5. Run verification service
+    verification_res = await verify(
+        document_id=doc.id,
+        record_id=rec.id,
+        doc_fields=doc_fields,
+        record_data=record_data,
+        db=db,
+    )
+
+    # 6. Fetch QR integrity check result
+    qr_stmt = select(QRCheck).where(QRCheck.document_id == doc.id).order_by(QRCheck.checked_at.desc())
+    qr_res = await db.execute(qr_stmt)
+    qr_check = qr_res.scalars().first()
+
+    qr_integrity = QRIntegrityResult(
+        payload_type=qr_check.payload_type if qr_check else "none",
+        hash_alg=qr_check.hash_alg if qr_check else "sha256",
+        hash_match=qr_check.hash_match if qr_check else False,
+        scope="integrity_only",
+        scope_text="নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।",
+        ui_text_bn="নথির তথ্য QR-এর সঙ্গে মিলেছে (মালিকানা যাচাই নয়)" if (qr_check and qr_check.hash_match) else "মেলেনি",
+    )
+
+    # Update document status
+    doc.status = "verified"
+    await db.commit()
+
+    # 7. Audit Logging
+    await write_audit_entry(
+        db=db,
+        actor_id=current_user.id,
+        actor_role=current_user.role,
+        action="document:verify",
+        resource_type="document",
+        resource_id=str(doc.id),
+        scope=Scope.OWN.value,
+        payload={
+            "record_id": str(rec.id),
+            "summary": verification_res["summary"],
+            "qr_match": qr_integrity.hash_match,
+        },
+    )
+
+    now_iso = datetime.now(timezone.utc).isoformat()
+    return DocumentVerificationResponse(
+        document_id=str(doc.id),
+        record_id=str(rec.id),
+        verification_results=verification_res,
+        comparisons=[FieldComparisonItem(**c) for c in verification_res["comparisons"]],
+        summary=VerificationSummaryItem(**verification_res["summary"]),
+        qr_integrity=qr_integrity,
+        scope="integrity_only",
+        scope_text="নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।",
+        status_label=StatusLabel.POSSIBLE_MATCH.value,
+        verified_at=now_iso,
+    )
+
+
+@router.get(
+    "/{document_id}/verification",
+    response_model=DocumentVerificationResponse,
+    summary="Get latest document cross-record verification results",
+    dependencies=[Depends(rate_limit(requests=30, window_seconds=60))],
+)
+async def get_latest_verification(
+    document_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user=Depends(require(Permission.DOCUMENT_READ, Scope.OWN)),
+):
+    try:
+        doc_uuid = uuid.UUID(document_id)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID.")
+
+    # Fetch document
+    d_stmt = select(Document).where(Document.id == doc_uuid)
+    d_res = await db.execute(d_stmt)
+    doc = d_res.scalar_one_or_none()
+    if not doc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")
+
+    if current_user.role == "Citizen" and doc.uploader_id != current_user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="অননুমোদিত নথি অ্যাক্সেস।")
+
+    # Fetch latest verification result
+    v_stmt = (
+        select(VerificationResult)
+        .where(VerificationResult.document_id == doc_uuid)
+        .order_by(VerificationResult.created_at.desc())
+    )
+    v_res = await db.execute(v_stmt)
+    latest_vr = v_res.scalars().first()
+    if not latest_vr:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No verification result found for this document.",
+        )
+
+    # Fetch latest QR check
+    qr_stmt = select(QRCheck).where(QRCheck.document_id == doc_uuid).order_by(QRCheck.checked_at.desc())
+    qr_res = await db.execute(qr_stmt)
+    qr_check = qr_res.scalars().first()
+
+    qr_integrity = QRIntegrityResult(
+        payload_type=qr_check.payload_type if qr_check else "none",
+        hash_alg=qr_check.hash_alg if qr_check else "sha256",
+        hash_match=qr_check.hash_match if qr_check else False,
+        scope="integrity_only",
+        scope_text="নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।",
+        ui_text_bn="নথির তথ্য QR-এর সঙ্গে মিলেছে (মালিকানা যাচাই নয়)" if (qr_check and qr_check.hash_match) else "মেলেনি",
+    )
+
+    comparisons = [FieldComparisonItem(**c) for c in (latest_vr.comparisons or [])]
+    summary_dict = {
+        "exact": sum(1 for c in comparisons if c.result == "exact"),
+        "normalized_equal": sum(1 for c in comparisons if c.result == "normalized-equal"),
+        "fuzzy_close": sum(1 for c in comparisons if c.result == "fuzzy-close"),
+        "mismatch": sum(1 for c in comparisons if c.result == "mismatch"),
+        "missing": sum(1 for c in comparisons if c.result == "missing"),
+        "total_fields": len(comparisons),
+    }
+
+    full_vr = {
+        "document_id": str(latest_vr.document_id),
+        "record_id": str(latest_vr.record_id),
+        "comparisons": [c.dict() for c in comparisons],
+        "summary": summary_dict,
+        "rule_version": latest_vr.rule_version,
+        "qr_integrity": qr_integrity.dict(),
+    }
+
+    return DocumentVerificationResponse(
+        document_id=str(latest_vr.document_id),
+        record_id=str(latest_vr.record_id),
+        verification_results=full_vr,
+        comparisons=comparisons,
+        summary=VerificationSummaryItem(**summary_dict),
+        qr_integrity=qr_integrity,
+        scope="integrity_only",
+        scope_text="নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।",
+        status_label=getattr(doc, "status_label", None) or StatusLabel.POSSIBLE_MATCH.value,
+        verified_at=latest_vr.created_at.isoformat() if latest_vr.created_at else datetime.now(timezone.utc).isoformat(),
     )

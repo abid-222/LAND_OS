@@ -11,6 +11,7 @@ from app.core.metrics import PrometheusLatencyMiddleware, get_prometheus_metrics
 from app.core.timeout import RequestTimeoutMiddleware
 from app.modules.admin.audit import router as audit_router
 from app.modules.admin.users import router as admin_users_router
+from app.modules.alerts.router import alerts_router, parcels_alerts_router
 from app.modules.auth.router import router as auth_router
 from app.modules.documents.router import router as documents_router
 from app.modules.guide.router import router as guide_router
@@ -18,6 +19,7 @@ from app.modules.health.router import router as health_router
 from app.modules.map.router import router as map_router
 from app.modules.quality.router import router as quality_router
 from app.modules.records.router import router as records_router
+from app.modules.reports.router import buyer_reports_router, parcels_reports_router
 from app.modules.review.router import router as review_router
 from app.modules.scan.router import router as scan_router
 from app.modules.search.router import router as search_router
@@ -71,6 +73,10 @@ app.include_router(guide_router, prefix=settings.API_V1_PREFIX)
 app.include_router(map_router, prefix=settings.API_V1_PREFIX)
 app.include_router(review_router, prefix=settings.API_V1_PREFIX)
 app.include_router(quality_router, prefix=settings.API_V1_PREFIX)
+app.include_router(parcels_alerts_router, prefix=settings.API_V1_PREFIX)
+app.include_router(alerts_router, prefix=settings.API_V1_PREFIX)
+app.include_router(parcels_reports_router, prefix=settings.API_V1_PREFIX)
+app.include_router(buyer_reports_router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/metrics", summary="Export Prometheus metrics and latency histograms", tags=["Observability"])

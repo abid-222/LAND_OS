@@ -53,37 +53,243 @@ export interface paths {
     /** Cryptographically verify audit chain continuity */
     get: operations["verify_audit_chain_endpoint_api_v1_admin_audit_verify_chain_get"];
   };
+  "/api/v1/admin/users": {
+    /**
+     * List registered users with roles and security status
+     * @description Returns list of users across offices and roles.
+     * Requires elevated USER_READ permission with GLOBAL scope (Tech Admin / Security Officer).
+     */
+    get: operations["list_admin_users_api_v1_admin_users_get"];
+  };
+  "/api/v1/scan/qr": {
+    /**
+     * Scan QR code from document image and verify integrity
+     * @description Scans an uploaded document image for QR codes.
+     * If the QR payload contains a verification hash, checks mathematical integrity.
+     * UI Text:
+     *   Matched: 'নথির তথ্য QR-এর সঙ্গে মিলেছে (মালিকানা যাচাই নয়)'
+     *   Mismatched / Not found: 'মেলেনি' or 'QR কোড শনাক্ত করা যায়নি'
+     */
+    post: operations["scan_qr_endpoint_api_v1_scan_qr_post"];
+  };
   "/api/v1/documents": {
     /** List ingested documents */
     get: operations["list_documents_api_v1_documents_get"];
+    /** Upload document with magic-byte verification, image re-encoding, and MinIO storage */
+    post: operations["upload_document_api_v1_documents_post"];
   };
   "/api/v1/documents/upload": {
-    /** Upload deed or khatian scan with magic-byte validation */
+    /** Upload document (alias) */
     post: operations["upload_document_api_v1_documents_upload_post"];
   };
+  "/api/v1/documents/{document_id}/extraction": {
+    /** Get document OCR extracted fields, confidence scores, and status label */
+    get: operations["get_document_extraction_api_v1_documents__document_id__extraction_get"];
+  };
+  "/api/v1/documents/{document_id}/fields": {
+    /**
+     * Submit user corrections for extracted fields with status USER_CORRECTED and audit history
+     * @description Applies user corrections to document fields.
+     * Normalizes corrected values, updates status to USER_CORRECTED,
+     * maintains audit log history of changes, and prevents auto-confirmation.
+     */
+    patch: operations["patch_document_fields_api_v1_documents__document_id__fields_patch"];
+  };
+  "/api/v1/documents/{document_id}/events": {
+    /**
+     * Stream real-time document processing progress via SSE
+     * @description Server-Sent Events endpoint streaming real-time pipeline progress
+     * published by background workers to `document:progress:{document_id}`.
+     */
+    get: operations["document_progress_events_api_v1_documents__document_id__events_get"];
+  };
+  "/api/v1/documents/{document_id}/verify": {
+    /** Cross-record verification with reference LandRecord & QR hash integrity */
+    post: operations["verify_document_api_v1_documents__document_id__verify_post"];
+  };
+  "/api/v1/documents/{document_id}/verification": {
+    /** Get latest document cross-record verification results */
+    get: operations["get_latest_verification_api_v1_documents__document_id__verification_get"];
+  };
   "/api/v1/search": {
-    /** Scan-to-search and trigram fuzzy matching on Khatians */
+    /** Scan-to-search query string endpoint */
     get: operations["search_land_records_api_v1_search_get"];
+    /**
+     * Multi-identifier land record search with scorer & ambiguous top-2 detection
+     * @description Multi-identifier search using exact normalized matching and trigram similarity.
+     * Calculates candidate match score and generates human-readable reasons.
+     * If the score difference between top 2 candidates is < 0.10, flags `ambiguous=True`.
+     * Never auto-confirms ownership.
+     */
+    post: operations["multi_identifier_search_api_v1_search_post"];
+  };
+  "/api/v1/records/{record_id}": {
+    /**
+     * Get land record detail by ID with verified source metadata
+     * @description Fetches official baseline land record by UUID or record_no.
+     * Includes verified authorized source attribution and retrieval timestamp.
+     * Public reference data is cached in Redis.
+     */
+    get: operations["get_land_record_detail_api_v1_records__record_id__get"];
   };
   "/api/v1/guide/query": {
-    /** Query grounded AI Land Guide */
+    /**
+     * Query Land Guide (alias)
+     * @description Retrieves grounded response strictly from approved knowledge base articles.
+     * If the question is ungroundable or does not achieve sufficient match confidence,
+     * strictly returns 'needs_verification'.
+     */
     post: operations["ask_land_guide_api_v1_guide_query_post"];
   };
+  "/api/v1/guide/ask": {
+    /**
+     * Ask grounded question to Land Guide knowledge base
+     * @description Retrieves grounded response strictly from approved knowledge base articles.
+     * If the question is ungroundable or does not achieve sufficient match confidence,
+     * strictly returns 'needs_verification'.
+     */
+    post: operations["ask_land_guide_api_v1_guide_ask_post"];
+  };
   "/api/v1/map/parcels": {
-    /** Fetch GeoJSON parcels with legal boundary disclaimer */
+    /**
+     * Fetch cadastral parcels GeoJSON with mandatory legal boundary disclaimer
+     * @description Returns cadastral parcel boundaries in GeoJSON format.
+     * Every parcel is marked with `is_illustrative: true`.
+     * Public reference data cached in Redis.
+     */
     get: operations["get_parcels_api_v1_map_parcels_get"];
   };
+  "/api/v1/map/parcels/{synthetic_id}": {
+    /**
+     * Get single synthetic parcel by ID
+     * @description Returns single cadastral parcel polygon detail.
+     * Cached as public reference data.
+     */
+    get: operations["get_parcel_by_id_api_v1_map_parcels__synthetic_id__get"];
+  };
+  "/api/v1/map/parcels/{synthetic_id}/summary": {
+    /**
+     * Get parcel risk summary with alert counts by severity (no verdict)
+     * @description Returns parcel metadata and conflict alert counts by severity level.
+     * Global rule: Plain counts only. Never outputs or stores a composite score,
+     * or safe/unsafe or valid ownership verdicts.
+     * Public reference summary cached in Redis.
+     */
+    get: operations["get_parcel_summary_api_v1_map_parcels__synthetic_id__summary_get"];
+  };
   "/api/v1/review/cases": {
-    /** List pending mutation and correction cases */
-    get: operations["list_cases_api_v1_review_cases_get"];
+    /**
+     * List cases (alias)
+     * @description Returns pending cases in the human review queue.
+     * Shows cases requiring human verification (low confidence OCR, repaired fields, conflicting dates).
+     */
+    get: operations["get_review_queue_api_v1_review_cases_get"];
+  };
+  "/api/v1/review/queue": {
+    /**
+     * List pending review cases in review queue
+     * @description Returns pending cases in the human review queue.
+     * Shows cases requiring human verification (low confidence OCR, repaired fields, conflicting dates).
+     */
+    get: operations["get_review_queue_api_v1_review_queue_get"];
   };
   "/api/v1/review/cases/{case_id}/decision": {
-    /** Submit review decision */
+    /**
+     * Submit review decision (alias)
+     * @description Records a reviewer decision on an unconfirmed or flagged case.
+     * Updates case status, logs audit event, and sets document status.
+     */
     post: operations["submit_case_decision_api_v1_review_cases__case_id__decision_post"];
   };
+  "/api/v1/review/{case_id}/decision": {
+    /**
+     * Submit review decision for a case
+     * @description Records a reviewer decision on an unconfirmed or flagged case.
+     * Updates case status, logs audit event, and sets document status.
+     */
+    post: operations["submit_case_decision_api_v1_review__case_id__decision_post"];
+  };
+  "/api/v1/quality/summary": {
+    /**
+     * Get pipeline quality gates and extraction accuracy summary
+     * @description Returns verified pipeline quality indicators and model benchmarks.
+     * Cached as public telemetry reference data in Redis.
+     */
+    get: operations["get_quality_summary_api_v1_quality_summary_get"];
+  };
   "/api/v1/quality/score": {
-    /** Analyze scan quality before submission */
+    /**
+     * Analyze scan quality before submission
+     * @description Lightweight client-side / edge quality assessor.
+     */
     post: operations["evaluate_image_quality_api_v1_quality_score_post"];
+  };
+  "/api/v1/parcels/{parcel_id}/alerts": {
+    /**
+     * Get risk & conflict alerts for parcel with reason_bn and evidence
+     * @description Returns verified risk and conflict alerts for the specified parcel.
+     * Bangla wording strictly follows 'সম্ভাব্য অসঙ্গতি, যাচাই প্রয়োজন'.
+     * Every alert is accompanied by explainable reason_bn and evidence.
+     */
+    get: operations["get_parcel_alerts_api_v1_parcels__parcel_id__alerts_get"];
+  };
+  "/api/v1/parcels/{parcel_id}/alerts/run": {
+    /**
+     * Execute risk & conflict rules engine idempotently (Reviewer/Supervisor/Tech Admin)
+     * @description Executes rules R1 to R6 on the parcel context in an idempotent, deduplicated manner.
+     * RBAC: Enforced strictly for Reviewer, Supervisor, and Tech Admin. Denied for Citizens.
+     * Never overwrites or deletes reviewed or dismissed alert history.
+     */
+    post: operations["run_parcel_alerts_api_v1_parcels__parcel_id__alerts_run_post"];
+  };
+  "/api/v1/alerts/{alert_id}": {
+    /**
+     * Update alert status to reviewed or dismissed with reviewer note
+     * @description Updates an alert's status to 'reviewed' or 'dismissed' with an explanatory note.
+     * RBAC: Enforced strictly for Reviewer+. Denied for Citizens.
+     * Keeps review history in evidence chain and records a cryptographic audit log.
+     */
+    patch: operations["update_alert_status_api_v1_alerts__alert_id__patch"];
+  };
+  "/api/v1/parcels/{parcel_id}/buyer-report": {
+    /**
+     * Generate comprehensive buyer parcel summary report (Citizen allowed for demo parcels only)
+     * @description Generates a 6-section buyer parcel summary report.
+     * Citizens are restricted to generating reports for synthetic demo parcels only.
+     * Officers (Reviewer, Supervisor, Tech Admin) may generate for any parcel.
+     * Persists to `buyer_reports` and logs cryptographic audit trail.
+     */
+    post: operations["create_buyer_report_api_v1_parcels__parcel_id__buyer_report_post"];
+  };
+  "/api/v1/buyer-reports/{report_id}": {
+    /**
+     * Get buyer risk report JSON (Citizens see only their own reports)
+     * @description Retrieves full buyer report in JSON format.
+     * Enforces isolation: Citizens see only reports they created.
+     */
+    get: operations["get_buyer_report_json_api_v1_buyer_reports__report_id__get"];
+  };
+  "/api/v1/buyer-reports/{report_id}/print": {
+    /**
+     * Render printable HTML for buyer risk report (Citizens see only their own reports)
+     * @description Renders styled, printable HTML with print media queries for server-side PDF or browser printing.
+     * Enforces isolation: Citizens see only reports they created.
+     */
+    get: operations["get_buyer_report_print_api_v1_buyer_reports__report_id__print_get"];
+  };
+  "/api/v1/metrics": {
+    /**
+     * Export Prometheus metrics
+     * @description Exports raw Prometheus metrics format with latency histograms for p95 computation.
+     */
+    get: operations["prometheus_metrics_api_v1_metrics_get"];
+  };
+  "/metrics": {
+    /**
+     * Export Prometheus metrics and latency histograms
+     * @description Exports raw Prometheus metrics format with latency histograms for p95 computation.
+     */
+    get: operations["prometheus_metrics_metrics_get"];
   };
   "/": {
     /** Root */
@@ -95,8 +301,104 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
+    /** AlertCountsBySeverity */
+    AlertCountsBySeverity: {
+      /**
+       * High
+       * @default 0
+       */
+      high?: number;
+      /**
+       * Warn
+       * @default 0
+       */
+      warn?: number;
+      /**
+       * Info
+       * @default 0
+       */
+      info?: number;
+      /**
+       * Total
+       * @default 0
+       */
+      total?: number;
+    };
+    /** AlertPatchRequest */
+    AlertPatchRequest: {
+      /**
+       * Status
+       * @description New alert status ('reviewed' or 'dismissed')
+       */
+      status: string;
+      /**
+       * Note
+       * @description Reviewer explanation kept in history
+       */
+      note?: string | null;
+    };
+    /** AlertResponseItem */
+    AlertResponseItem: {
+      /** Id */
+      id: string;
+      /** Parcel Id */
+      parcel_id: string;
+      /** Rule Id */
+      rule_id: string;
+      /** Severity */
+      severity: string;
+      /** Title Bn */
+      title_bn: string;
+      /** Reason Bn */
+      reason_bn: string;
+      /** Evidence */
+      evidence: {
+          [key: string]: unknown;
+        }[];
+      /** Status */
+      status: string;
+      /** Rule Version */
+      rule_version: string;
+      /** Created At */
+      created_at: string;
+    };
+    /** AlertsRunResponse */
+    AlertsRunResponse: {
+      /** Parcel Id */
+      parcel_id: string;
+      /** Status */
+      status: string;
+      /** Total Alerts */
+      total_alerts: number;
+      /** Alerts */
+      alerts: components["schemas"]["AlertResponseItem"][];
+    };
+    /** AskGuideRequest */
+    AskGuideRequest: {
+      /**
+       * Question
+       * @description Citizen inquiry in Bengali or English
+       */
+      question: string;
+    };
     /** Body_evaluate_image_quality_api_v1_quality_score_post */
     Body_evaluate_image_quality_api_v1_quality_score_post: {
+      /**
+       * File
+       * Format: binary
+       */
+      file: string;
+    };
+    /** Body_scan_qr_endpoint_api_v1_scan_qr_post */
+    Body_scan_qr_endpoint_api_v1_scan_qr_post: {
+      /**
+       * File
+       * Format: binary
+       */
+      file: string;
+    };
+    /** Body_upload_document_api_v1_documents_post */
+    Body_upload_document_api_v1_documents_post: {
       /**
        * File
        * Format: binary
@@ -111,25 +413,195 @@ export interface components {
        */
       file: string;
     };
-    /** GuideQueryRequest */
-    GuideQueryRequest: {
-      /** Query */
-      query: string;
+    /** BuyerReportCreateResponse */
+    BuyerReportCreateResponse: {
+      /** Id */
+      id: string;
+      /** User Id */
+      user_id: string;
+      /** Parcel Id */
+      parcel_id: string;
+      /** Generated At */
+      generated_at: string;
+      /** Sections */
+      sections: {
+        [key: string]: unknown;
+      };
+      /** Rule Version */
+      rule_version: string;
+      /** Disclaimer Version */
+      disclaimer_version: string;
+    };
+    /** DocumentExtractionResponse */
+    DocumentExtractionResponse: {
+      /** Document Id */
+      document_id: string;
+      /** File Name */
+      file_name: string;
+      /** Status */
+      status: string;
+      /** Status Label */
+      status_label: string;
+      /** Overall Confidence */
+      overall_confidence: number;
+      /** Flagged */
+      flagged: boolean;
+      /** Fields */
+      fields: components["schemas"]["ExtractedFieldItem"][];
+      /** Indicators For Verification */
+      indicators_for_verification?: {
+          [key: string]: unknown;
+        }[];
+    };
+    /** DocumentFieldsPatchRequest */
+    DocumentFieldsPatchRequest: {
+      /**
+       * Fields
+       * @description Map of field_name to user corrected string value
+       */
+      fields: {
+        [key: string]: string;
+      };
+      /**
+       * Correction Reason
+       * @description Optional explanation for audit tracking
+       */
+      correction_reason?: string | null;
+    };
+    /** DocumentFieldsPatchResponse */
+    DocumentFieldsPatchResponse: {
+      /** Document Id */
+      document_id: string;
+      /** Status Label */
+      status_label: string;
+      /** Fields */
+      fields: components["schemas"]["ExtractedFieldItem"][];
+      /** Message */
+      message: string;
+    };
+    /** DocumentUploadResponse */
+    DocumentUploadResponse: {
+      /** Document Id */
+      document_id: string;
+      /** File Name */
+      file_name: string;
+      /** File Size */
+      file_size: number;
+      /** Magic Bytes Verified */
+      magic_bytes_verified: boolean;
+      /** Re Encoded */
+      re_encoded: boolean;
+      /** Upload Status */
+      upload_status: string;
+      /** Status */
+      status: string;
+      /** Status Label */
+      status_label: string;
+      /** Created At */
+      created_at: string;
+    };
+    /** DocumentVerificationResponse */
+    DocumentVerificationResponse: {
+      /** Document Id */
+      document_id: string;
+      /** Record Id */
+      record_id: string;
+      /** Verification Results */
+      verification_results: {
+        [key: string]: unknown;
+      };
+      /** Comparisons */
+      comparisons: components["schemas"]["FieldComparisonItem"][];
+      summary: components["schemas"]["VerificationSummaryItem"];
+      qr_integrity: components["schemas"]["QRIntegrityResult"];
+      /**
+       * Scope
+       * @default integrity_only
+       */
+      scope?: string;
+      /**
+       * Scope Text
+       * @default নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।
+       */
+      scope_text?: string;
+      /** Status Label */
+      status_label: string;
+      /** Verified At */
+      verified_at: string;
+    };
+    /** DocumentVerifyRequest */
+    DocumentVerifyRequest: {
+      /**
+       * Record Id
+       * @description UUID or identifier of the baseline LandRecord
+       */
+      record_id: string;
+    };
+    /** ExtractedFieldItem */
+    ExtractedFieldItem: {
+      /** Id */
+      id?: string | null;
+      /** Field Name */
+      field_name: string;
+      /** Raw Value */
+      raw_value?: string | null;
+      /** Normalized Value */
+      normalized_value?: string | null;
+      /**
+       * Confidence
+       * @default 0
+       */
+      confidence?: number;
+      /**
+       * Flagged
+       * @default false
+       */
+      flagged?: boolean;
+      /** Flag Reason */
+      flag_reason?: string | null;
+      /**
+       * User Corrected
+       * @default false
+       */
+      user_corrected?: boolean;
+      /**
+       * Status Label
+       * @default OCR_EXTRACTED
+       */
+      status_label?: string;
+    };
+    /** FieldComparisonItem */
+    FieldComparisonItem: {
+      /** Field */
+      field: string;
+      /** Doc Value */
+      doc_value?: unknown;
+      /** Record Value */
+      record_value?: unknown;
+      /** Result */
+      result: string;
+      /** Note Bn */
+      note_bn: string;
     };
     /** GuideResponse */
     GuideResponse: {
       /** Status */
       status: string;
       /** Answer Bn */
-      answer_bn?: string | null;
+      answer_bn: string;
       /** Answer En */
-      answer_en?: string | null;
+      answer_en: string;
       /** Source */
       source?: string | null;
       /** Last Verified At */
       last_verified_at?: string | null;
       /** Similarity Score */
       similarity_score?: number | null;
+      /**
+       * Disclaimer Bn
+       * @default এটি আইনি পরামর্শ বা মালিকানার সিদ্ধান্ত নয়। সরকারি বিধিমালা অনুযায়ী যাচাই করুন।
+       */
+      disclaimer_bn?: string;
     };
     /** HTTPValidationError */
     HTTPValidationError: {
@@ -152,6 +624,93 @@ export interface components {
       /** Code */
       code: string;
     };
+    /** ParcelSummaryResponse */
+    ParcelSummaryResponse: {
+      /** Parcel Id */
+      parcel_id: string;
+      /** Synthetic Id */
+      synthetic_id: string;
+      /**
+       * Is Illustrative
+       * @default true
+       */
+      is_illustrative?: boolean;
+      /** Mouza */
+      mouza: string;
+      /** Dag No */
+      dag_no?: string | null;
+      /** Khatian No */
+      khatian_no?: string | null;
+      /** Area Acres */
+      area_acres: number;
+      /** Area Decimal */
+      area_decimal: number;
+      alert_counts: components["schemas"]["AlertCountsBySeverity"];
+      /** Status Label */
+      status_label: string;
+      /** Disclaimer Bn */
+      disclaimer_bn: string;
+      /** Epistemic Notice */
+      epistemic_notice: string;
+    };
+    /** QRIntegrityResult */
+    QRIntegrityResult: {
+      /**
+       * Payload Type
+       * @default none
+       */
+      payload_type?: string;
+      /**
+       * Hash Alg
+       * @default sha256
+       */
+      hash_alg?: string;
+      /**
+       * Hash Match
+       * @default false
+       */
+      hash_match?: boolean;
+      /**
+       * Scope
+       * @default integrity_only
+       */
+      scope?: string;
+      /**
+       * Scope Text
+       * @default নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।
+       */
+      scope_text?: string;
+      /**
+       * Ui Text Bn
+       * @default মেলেনি
+       */
+      ui_text_bn?: string;
+    };
+    /** QRScanResponse */
+    QRScanResponse: {
+      /** Success */
+      success: boolean;
+      /** Payload Type */
+      payload_type: string;
+      /** Raw Payload */
+      raw_payload?: string | null;
+      /** Parsed Payload */
+      parsed_payload?: unknown;
+      /**
+       * Hash Match
+       * @default false
+       */
+      hash_match?: boolean;
+      /**
+       * Scope
+       * @default integrity_only
+       */
+      scope?: string;
+      /** Ui Text Bn */
+      ui_text_bn: string;
+      /** Engine Used */
+      engine_used?: string | null;
+    };
     /** QualityScoreResponse */
     QualityScoreResponse: {
       /** Is Blur Free */
@@ -167,12 +726,261 @@ export interface components {
       /** Recommendation Bn */
       recommendation_bn: string;
     };
-    /** ReviewDecisionRequest */
-    ReviewDecisionRequest: {
-      /** Decision */
-      decision: string;
+    /** QualitySummaryResponse */
+    QualitySummaryResponse: {
+      /** Status */
+      status: string;
+      /** Ocr Fea Dag */
+      ocr_fea_dag: number;
+      /** Ocr Fea Khatian */
+      ocr_fea_khatian: number;
+      /** Ocr Fea Mouza */
+      ocr_fea_mouza: number;
+      /** Silent Error Rate Dag */
+      silent_error_rate_dag: number;
+      /** Overall Cer */
+      overall_cer: number;
+      /** Overall Wer */
+      overall_wer: number;
+      /** Qr Decode Rate */
+      qr_decode_rate: number;
+      /** Match Precision At 1 */
+      match_precision_at_1: number;
+      /** Verification Comparison Accuracy */
+      verification_comparison_accuracy: number;
+      /** Disclaimer Bn */
+      disclaimer_bn: string;
+    };
+    /** RecordDetailResponse */
+    RecordDetailResponse: {
+      /** Id */
+      id: string;
+      /** Record No */
+      record_no: string;
+      /** Survey Type */
+      survey_type: string;
+      /** Khatian No */
+      khatian_no: string;
+      /** Dag No */
+      dag_no: string;
+      /** Mouza Name Bn */
+      mouza_name_bn?: string | null;
+      /** Mouza Jl */
+      mouza_jl?: string | null;
+      /** Owner Names Bn */
+      owner_names_bn: string;
+      /** Land Class Bn */
+      land_class_bn?: string | null;
+      /** Area Acres */
+      area_acres?: number | null;
+      /**
+       * Source
+       * @default উপজেলা ভূমি অফিস রেকর্ড রুম (ডিজিটাল আরএস খতিয়ান)
+       */
+      source?: string;
+      /** Retrieved At */
+      retrieved_at: string;
+      /**
+       * Version
+       * @default v1.0-official
+       */
+      version?: string;
+      /**
+       * Status Label
+       * @default VERIFIED_AUTHORIZED_SOURCE
+       */
+      status_label?: string;
+      /**
+       * Disclaimer Bn
+       * @default প্রদর্শিত তথ্য শুধুমাত্র প্রদর্শনীমূলক। এটি আইনি দলিল হিসেবে গণ্য নয়।
+       */
+      disclaimer_bn?: string;
+    };
+    /** ReviewCaseItem */
+    ReviewCaseItem: {
+      /** Id */
+      id: string;
+      /** Case Number */
+      case_number: string;
+      /** Case Type */
+      case_type: string;
+      /** Status */
+      status: string;
+      /** Priority */
+      priority: string;
+      /** Office Id */
+      office_id: string;
       /** Notes */
       notes?: string | null;
+      /** Created At */
+      created_at: string;
+      /** Updated At */
+      updated_at: string;
+    };
+    /** ReviewDecisionRequest */
+    ReviewDecisionRequest: {
+      /**
+       * Decision
+       * @description CONFIRMED | REJECTED | CORRECTED | HEARING_SCHEDULED
+       */
+      decision: string;
+      /**
+       * Notes
+       * @description Official reviewer notes
+       */
+      notes?: string | null;
+      /**
+       * Corrected Fields
+       * @description Field corrections if decision is CORRECTED
+       */
+      corrected_fields?: {
+        [key: string]: string;
+      } | null;
+    };
+    /** ReviewDecisionResponse */
+    ReviewDecisionResponse: {
+      /** Case Id */
+      case_id: string;
+      /** Case Number */
+      case_number: string;
+      /** Decision */
+      decision: string;
+      /** Status */
+      status: string;
+      /** Reviewed By */
+      reviewed_by: string;
+      /** Updated At */
+      updated_at: string;
+      /** Message */
+      message: string;
+    };
+    /** ReviewQueueResponse */
+    ReviewQueueResponse: {
+      /** Total Pending */
+      total_pending: number;
+      /** Cases */
+      cases: components["schemas"]["ReviewCaseItem"][];
+    };
+    /** SearchCandidateItem */
+    SearchCandidateItem: {
+      /** Id */
+      id: string;
+      /** Record No */
+      record_no: string;
+      /** Survey Type */
+      survey_type: string;
+      /** Khatian No */
+      khatian_no: string;
+      /** Dag No */
+      dag_no: string;
+      /** Mouza Name Bn */
+      mouza_name_bn?: string | null;
+      /** Mouza Jl */
+      mouza_jl?: string | null;
+      /** Owner Names Bn */
+      owner_names_bn: string;
+      /** Land Class Bn */
+      land_class_bn?: string | null;
+      /** Area Acres */
+      area_acres?: number | null;
+      /** Score */
+      score: number;
+      /** Reasons */
+      reasons: string[];
+      /**
+       * Status Label
+       * @default POSSIBLE_MATCH
+       */
+      status_label?: string;
+      /**
+       * Ambiguous
+       * @default false
+       */
+      ambiguous?: boolean;
+    };
+    /** SearchRequest */
+    SearchRequest: {
+      /**
+       * Dag No
+       * @description Plot / Dag number in Bengali or ASCII
+       */
+      dag_no?: string | null;
+      /**
+       * Khatian No
+       * @description Khatian number in Bengali or ASCII
+       */
+      khatian_no?: string | null;
+      /**
+       * Mouza
+       * @description Mouza name or JL number
+       */
+      mouza?: string | null;
+      /**
+       * Owner Name
+       * @description Owner name in Bengali
+       */
+      owner_name?: string | null;
+      /**
+       * Survey Type
+       * @description CS, SA, RS, BS, City Survey
+       */
+      survey_type?: string | null;
+      /**
+       * Limit
+       * @default 10
+       */
+      limit?: number;
+    };
+    /** SearchResponse */
+    SearchResponse: {
+      /** Total Found */
+      total_found: number;
+      /** Ambiguous */
+      ambiguous: boolean;
+      /** Candidates */
+      candidates: components["schemas"]["SearchCandidateItem"][];
+      /**
+       * Disclaimer Bn
+       * @default প্রদর্শিত তথ্য শুধুমাত্র প্রদর্শনীমূলক। এটি আইনি দলিল হিসেবে গণ্য নয়।
+       */
+      disclaimer_bn?: string;
+      /**
+       * Disclaimer En
+       * @default Illustrative / Not a legal boundary. Synthetic demo data.
+       */
+      disclaimer_en?: string;
+    };
+    /** UserListItem */
+    UserListItem: {
+      /** Id */
+      id: string;
+      /** Email */
+      email: string;
+      /** Phone */
+      phone?: string | null;
+      /** Full Name Bn */
+      full_name_bn?: string | null;
+      /** Full Name En */
+      full_name_en?: string | null;
+      /** Role */
+      role: string;
+      /** Office Id */
+      office_id?: string | null;
+      /** Region Id */
+      region_id?: string | null;
+      /** Is Active */
+      is_active: boolean;
+      /** Mfa Enabled */
+      mfa_enabled: boolean;
+      /** Created At */
+      created_at: string;
+    };
+    /** UserListResponse */
+    UserListResponse: {
+      /** Total Users */
+      total_users: number;
+      /** Users */
+      users: components["schemas"]["UserListItem"][];
     };
     /** UserLoginRequest */
     UserLoginRequest: {
@@ -250,6 +1058,39 @@ export interface components {
       msg: string;
       /** Error Type */
       type: string;
+    };
+    /** VerificationSummaryItem */
+    VerificationSummaryItem: {
+      /**
+       * Exact
+       * @default 0
+       */
+      exact?: number;
+      /**
+       * Normalized Equal
+       * @default 0
+       */
+      normalized_equal?: number;
+      /**
+       * Fuzzy Close
+       * @default 0
+       */
+      fuzzy_close?: number;
+      /**
+       * Mismatch
+       * @default 0
+       */
+      mismatch?: number;
+      /**
+       * Missing
+       * @default 0
+       */
+      missing?: number;
+      /**
+       * Total Fields
+       * @default 0
+       */
+      total_fields?: number;
     };
   };
   responses: never;
@@ -443,6 +1284,62 @@ export interface operations {
       };
     };
   };
+  /**
+   * List registered users with roles and security status
+   * @description Returns list of users across offices and roles.
+   * Requires elevated USER_READ permission with GLOBAL scope (Tech Admin / Security Officer).
+   */
+  list_admin_users_api_v1_admin_users_get: {
+    parameters: {
+      query?: {
+        limit?: number;
+        offset?: number;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["UserListResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Scan QR code from document image and verify integrity
+   * @description Scans an uploaded document image for QR codes.
+   * If the QR payload contains a verification hash, checks mathematical integrity.
+   * UI Text:
+   *   Matched: 'নথির তথ্য QR-এর সঙ্গে মিলেছে (মালিকানা যাচাই নয়)'
+   *   Mismatched / Not found: 'মেলেনি' or 'QR কোড শনাক্ত করা যায়নি'
+   */
+  scan_qr_endpoint_api_v1_scan_qr_post: {
+    requestBody: {
+      content: {
+        "multipart/form-data": components["schemas"]["Body_scan_qr_endpoint_api_v1_scan_qr_post"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["QRScanResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   /** List ingested documents */
   list_documents_api_v1_documents_get: {
     responses: {
@@ -454,11 +1351,113 @@ export interface operations {
       };
     };
   };
-  /** Upload deed or khatian scan with magic-byte validation */
+  /** Upload document with magic-byte verification, image re-encoding, and MinIO storage */
+  upload_document_api_v1_documents_post: {
+    requestBody: {
+      content: {
+        "multipart/form-data": components["schemas"]["Body_upload_document_api_v1_documents_post"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["DocumentUploadResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Upload document (alias) */
   upload_document_api_v1_documents_upload_post: {
     requestBody: {
       content: {
         "multipart/form-data": components["schemas"]["Body_upload_document_api_v1_documents_upload_post"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["DocumentUploadResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Get document OCR extracted fields, confidence scores, and status label */
+  get_document_extraction_api_v1_documents__document_id__extraction_get: {
+    parameters: {
+      path: {
+        document_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["DocumentExtractionResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Submit user corrections for extracted fields with status USER_CORRECTED and audit history
+   * @description Applies user corrections to document fields.
+   * Normalizes corrected values, updates status to USER_CORRECTED,
+   * maintains audit log history of changes, and prevents auto-confirmation.
+   */
+  patch_document_fields_api_v1_documents__document_id__fields_patch: {
+    parameters: {
+      path: {
+        document_id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["DocumentFieldsPatchRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["DocumentFieldsPatchResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Stream real-time document processing progress via SSE
+   * @description Server-Sent Events endpoint streaming real-time pipeline progress
+   * published by background workers to `document:progress:{document_id}`.
+   */
+  document_progress_events_api_v1_documents__document_id__events_get: {
+    parameters: {
+      path: {
+        document_id: string;
       };
     };
     responses: {
@@ -476,11 +1475,60 @@ export interface operations {
       };
     };
   };
-  /** Scan-to-search and trigram fuzzy matching on Khatians */
+  /** Cross-record verification with reference LandRecord & QR hash integrity */
+  verify_document_api_v1_documents__document_id__verify_post: {
+    parameters: {
+      path: {
+        document_id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["DocumentVerifyRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["DocumentVerificationResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Get latest document cross-record verification results */
+  get_latest_verification_api_v1_documents__document_id__verification_get: {
+    parameters: {
+      path: {
+        document_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["DocumentVerificationResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Scan-to-search query string endpoint */
   search_land_records_api_v1_search_get: {
     parameters: {
       query?: {
-        /** @description Search query (khatian, dag, or owner name in Bengali) */
+        /** @description Search query */
         q?: string | null;
         /** @description Mouza JL Number */
         mouza_jl?: string | null;
@@ -504,11 +1552,71 @@ export interface operations {
       };
     };
   };
-  /** Query grounded AI Land Guide */
+  /**
+   * Multi-identifier land record search with scorer & ambiguous top-2 detection
+   * @description Multi-identifier search using exact normalized matching and trigram similarity.
+   * Calculates candidate match score and generates human-readable reasons.
+   * If the score difference between top 2 candidates is < 0.10, flags `ambiguous=True`.
+   * Never auto-confirms ownership.
+   */
+  multi_identifier_search_api_v1_search_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["SearchRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["SearchResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Get land record detail by ID with verified source metadata
+   * @description Fetches official baseline land record by UUID or record_no.
+   * Includes verified authorized source attribution and retrieval timestamp.
+   * Public reference data is cached in Redis.
+   */
+  get_land_record_detail_api_v1_records__record_id__get: {
+    parameters: {
+      path: {
+        record_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["RecordDetailResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Query Land Guide (alias)
+   * @description Retrieves grounded response strictly from approved knowledge base articles.
+   * If the question is ungroundable or does not achieve sufficient match confidence,
+   * strictly returns 'needs_verification'.
+   */
   ask_land_guide_api_v1_guide_query_post: {
     requestBody: {
       content: {
-        "application/json": components["schemas"]["GuideQueryRequest"];
+        "application/json": components["schemas"]["AskGuideRequest"];
       };
     };
     responses: {
@@ -526,10 +1634,45 @@ export interface operations {
       };
     };
   };
-  /** Fetch GeoJSON parcels with legal boundary disclaimer */
+  /**
+   * Ask grounded question to Land Guide knowledge base
+   * @description Retrieves grounded response strictly from approved knowledge base articles.
+   * If the question is ungroundable or does not achieve sufficient match confidence,
+   * strictly returns 'needs_verification'.
+   */
+  ask_land_guide_api_v1_guide_ask_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AskGuideRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["GuideResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Fetch cadastral parcels GeoJSON with mandatory legal boundary disclaimer
+   * @description Returns cadastral parcel boundaries in GeoJSON format.
+   * Every parcel is marked with `is_illustrative: true`.
+   * Public reference data cached in Redis.
+   */
   get_parcels_api_v1_map_parcels_get: {
     parameters: {
       query?: {
+        /** @description Bounding box filter formatted as 'min_lon,min_lat,max_lon,max_lat' */
+        bbox?: string | null;
+        /** @description Mouza JL number */
         mouza_jl?: string | null;
       };
     };
@@ -548,11 +1691,15 @@ export interface operations {
       };
     };
   };
-  /** List pending mutation and correction cases */
-  list_cases_api_v1_review_cases_get: {
+  /**
+   * Get single synthetic parcel by ID
+   * @description Returns single cadastral parcel polygon detail.
+   * Cached as public reference data.
+   */
+  get_parcel_by_id_api_v1_map_parcels__synthetic_id__get: {
     parameters: {
-      query?: {
-        status_filter?: string | null;
+      path: {
+        synthetic_id: string;
       };
     };
     responses: {
@@ -570,7 +1717,69 @@ export interface operations {
       };
     };
   };
-  /** Submit review decision */
+  /**
+   * Get parcel risk summary with alert counts by severity (no verdict)
+   * @description Returns parcel metadata and conflict alert counts by severity level.
+   * Global rule: Plain counts only. Never outputs or stores a composite score,
+   * or safe/unsafe or valid ownership verdicts.
+   * Public reference summary cached in Redis.
+   */
+  get_parcel_summary_api_v1_map_parcels__synthetic_id__summary_get: {
+    parameters: {
+      path: {
+        synthetic_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ParcelSummaryResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * List cases (alias)
+   * @description Returns pending cases in the human review queue.
+   * Shows cases requiring human verification (low confidence OCR, repaired fields, conflicting dates).
+   */
+  get_review_queue_api_v1_review_cases_get: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ReviewCaseItem"][];
+        };
+      };
+    };
+  };
+  /**
+   * List pending review cases in review queue
+   * @description Returns pending cases in the human review queue.
+   * Shows cases requiring human verification (low confidence OCR, repaired fields, conflicting dates).
+   */
+  get_review_queue_api_v1_review_queue_get: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ReviewQueueResponse"];
+        };
+      };
+    };
+  };
+  /**
+   * Submit review decision (alias)
+   * @description Records a reviewer decision on an unconfirmed or flagged case.
+   * Updates case status, logs audit event, and sets document status.
+   */
   submit_case_decision_api_v1_review_cases__case_id__decision_post: {
     parameters: {
       path: {
@@ -586,7 +1795,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["ReviewDecisionResponse"];
         };
       };
       /** @description Validation Error */
@@ -597,7 +1806,56 @@ export interface operations {
       };
     };
   };
-  /** Analyze scan quality before submission */
+  /**
+   * Submit review decision for a case
+   * @description Records a reviewer decision on an unconfirmed or flagged case.
+   * Updates case status, logs audit event, and sets document status.
+   */
+  submit_case_decision_api_v1_review__case_id__decision_post: {
+    parameters: {
+      path: {
+        case_id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ReviewDecisionRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ReviewDecisionResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Get pipeline quality gates and extraction accuracy summary
+   * @description Returns verified pipeline quality indicators and model benchmarks.
+   * Cached as public telemetry reference data in Redis.
+   */
+  get_quality_summary_api_v1_quality_summary_get: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["QualitySummaryResponse"];
+        };
+      };
+    };
+  };
+  /**
+   * Analyze scan quality before submission
+   * @description Lightweight client-side / edge quality assessor.
+   */
   evaluate_image_quality_api_v1_quality_score_post: {
     requestBody: {
       content: {
@@ -615,6 +1873,204 @@ export interface operations {
       422: {
         content: {
           "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Get risk & conflict alerts for parcel with reason_bn and evidence
+   * @description Returns verified risk and conflict alerts for the specified parcel.
+   * Bangla wording strictly follows 'সম্ভাব্য অসঙ্গতি, যাচাই প্রয়োজন'.
+   * Every alert is accompanied by explainable reason_bn and evidence.
+   */
+  get_parcel_alerts_api_v1_parcels__parcel_id__alerts_get: {
+    parameters: {
+      query?: {
+        /** @description Filter by severity level */
+        severity?: string | null;
+      };
+      path: {
+        parcel_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AlertResponseItem"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Execute risk & conflict rules engine idempotently (Reviewer/Supervisor/Tech Admin)
+   * @description Executes rules R1 to R6 on the parcel context in an idempotent, deduplicated manner.
+   * RBAC: Enforced strictly for Reviewer, Supervisor, and Tech Admin. Denied for Citizens.
+   * Never overwrites or deletes reviewed or dismissed alert history.
+   */
+  run_parcel_alerts_api_v1_parcels__parcel_id__alerts_run_post: {
+    parameters: {
+      path: {
+        parcel_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AlertsRunResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Update alert status to reviewed or dismissed with reviewer note
+   * @description Updates an alert's status to 'reviewed' or 'dismissed' with an explanatory note.
+   * RBAC: Enforced strictly for Reviewer+. Denied for Citizens.
+   * Keeps review history in evidence chain and records a cryptographic audit log.
+   */
+  update_alert_status_api_v1_alerts__alert_id__patch: {
+    parameters: {
+      path: {
+        alert_id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AlertPatchRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AlertResponseItem"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Generate comprehensive buyer parcel summary report (Citizen allowed for demo parcels only)
+   * @description Generates a 6-section buyer parcel summary report.
+   * Citizens are restricted to generating reports for synthetic demo parcels only.
+   * Officers (Reviewer, Supervisor, Tech Admin) may generate for any parcel.
+   * Persists to `buyer_reports` and logs cryptographic audit trail.
+   */
+  create_buyer_report_api_v1_parcels__parcel_id__buyer_report_post: {
+    parameters: {
+      path: {
+        parcel_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["BuyerReportCreateResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Get buyer risk report JSON (Citizens see only their own reports)
+   * @description Retrieves full buyer report in JSON format.
+   * Enforces isolation: Citizens see only reports they created.
+   */
+  get_buyer_report_json_api_v1_buyer_reports__report_id__get: {
+    parameters: {
+      path: {
+        report_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["BuyerReportCreateResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Render printable HTML for buyer risk report (Citizens see only their own reports)
+   * @description Renders styled, printable HTML with print media queries for server-side PDF or browser printing.
+   * Enforces isolation: Citizens see only reports they created.
+   */
+  get_buyer_report_print_api_v1_buyer_reports__report_id__print_get: {
+    parameters: {
+      path: {
+        report_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "text/html": string;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Export Prometheus metrics
+   * @description Exports raw Prometheus metrics format with latency histograms for p95 computation.
+   */
+  prometheus_metrics_api_v1_metrics_get: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+    };
+  };
+  /**
+   * Export Prometheus metrics and latency histograms
+   * @description Exports raw Prometheus metrics format with latency histograms for p95 computation.
+   */
+  prometheus_metrics_metrics_get: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
       };
     };

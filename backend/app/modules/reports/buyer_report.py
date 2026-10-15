@@ -139,7 +139,7 @@ async def build_report(
         },
         "by_severity": alerts_grouped,
         "alerts": alerts_flat,
-        "evaluation_rule": "Strictly indicators that need verification. No overall safety score.",
+        "evaluation_rule": "Strictly indicators that need verification. Counts by severity only.",
     }
 
     # Section 4: missing_evidence (Checklist comparison)

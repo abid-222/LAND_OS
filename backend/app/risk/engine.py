@@ -34,6 +34,46 @@ class RiskEngine:
         p_res = await db.execute(p_stmt)
         parcel = p_res.scalar_one_or_none()
         if not parcel:
+            # Fallback for synthetic demo parcels
+            from app.modules.map.router import _load_fallback_parcels
+
+            features = _load_fallback_parcels()
+            target_feat = None
+            for f in features:
+                fid = str(f.get("id") or "")
+                props = f.get("properties", {})
+                if parcel_id in (
+                    fid,
+                    str(props.get("synthetic_id")),
+                    str(props.get("parcel_id")),
+                    str(props.get("parcel_number")),
+                    str(props.get("dag_no")),
+                ):
+                    target_feat = f
+                    break
+
+            if target_feat:
+                props = target_feat.get("properties", {})
+                return ParcelContext(
+                    parcel_id=parcel_id,
+                    mouza_id=str(props.get("mouza_id", "demo-mouza-1")),
+                    mouza_name=str(props.get("mouza_bn", props.get("mouza", "তেজগাঁও"))),
+                    main_no=int(props.get("main_no", 1205)),
+                    sub_no=int(props.get("sub_no", 1)) if props.get("sub_no") else None,
+                    area_decimal=float(props.get("area_decimal", 33.0)),
+                    record={
+                        "id": "REC-DEMO-1",
+                        "khatian_no": str(props.get("khatian_no", "340")),
+                        "dag_no": str(props.get("dag_no", "1205")),
+                        "owner_names_bn": "আব্দুল করিম",
+                        "land_class_bn": "নাল",
+                        "area_acres": 0.33,
+                    },
+                    deeds=[],
+                    mutations=[],
+                    documents=[],
+                    all_registry_deeds=[],
+                )
             return None
 
         # 2. Load baseline LandRecord if linked

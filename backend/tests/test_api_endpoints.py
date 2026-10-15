@@ -26,6 +26,7 @@ import pytest
 import qrcode
 from httpx import ASGITransport, AsyncClient
 from PIL import Image
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from app.core.database import get_db
@@ -33,17 +34,24 @@ from app.core.rate_limit import limiter
 from app.core.security import create_access_token
 from app.main import app
 from app.models import (
+    Alert,
     AuditLog,
+    BuyerReport,
     Case,
+    Deed,
     Document,
     ExtractedField,
     KBArticle,
     LandRecord,
     Mouza,
+    Mutation,
     Office,
+    Parcel,
+    QRCheck,
     Region,
     StatusLabel,
     User,
+    VerificationResult,
 )
 from app.modules.rbac.permissions import Role
 
@@ -63,6 +71,13 @@ async def test_db():
             Case.__table__,
             KBArticle.__table__,
             AuditLog.__table__,
+            Parcel.__table__,
+            Deed.__table__,
+            Mutation.__table__,
+            Alert.__table__,
+            BuyerReport.__table__,
+            QRCheck.__table__,
+            VerificationResult.__table__,
         ]
         for t in tables:
             await conn.run_sync(t.create)
@@ -105,7 +120,16 @@ async def test_db():
             role=Role.CITIZEN.value,
             is_active=True,
         )
-        session.add_all([admin_user, citizen_user])
+        reviewer_user = User(
+            id=uuid.uuid4(),
+            email="reviewer@test.gov.bd",
+            hashed_password="fakehashreviewer",
+            role=Role.REVIEWER.value,
+            office_id=office.id,
+            region_id=region.id,
+            is_active=True,
+        )
+        session.add_all([admin_user, citizen_user, reviewer_user])
 
         # Seed demo Mouza and LandRecords
         mouza = Mouza(
@@ -158,6 +182,16 @@ async def test_db():
             last_verified_at=datetime.now(timezone.utc),
         )
         session.add(kb1)
+
+        parcel1 = Parcel(
+            parcel_id="P-4520",
+            mouza_id=mouza.id,
+            record_id=rec1.id,
+            main_no=4520,
+            sub_no=1,
+            area_decimal=15.5,
+        )
+        session.add(parcel1)
 
         await session.commit()
         yield session, admin_user, citizen_user, rec1, rec2, kb1
@@ -519,3 +553,271 @@ async def test_prometheus_metrics_and_rate_limit(client_fixture):
     allowed3, retry_after = limiter.is_allowed("test-client", max_requests=2, window_seconds=60)
     assert allowed3 is False
     assert retry_after > 0
+
+
+@pytest.mark.asyncio
+async def test_document_verify_and_verification_endpoints(client_fixture):
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    headers = {"Authorization": f"Bearer {citizen_token}"}
+
+    # 1. Create document with valid extracted fields
+    doc = Document(
+        id=uuid.uuid4(),
+        file_name="verified_khatian_scan.jpg",
+        file_key="uploads/verified_khatian_scan.jpg",
+        mime_type="image/jpeg",
+        file_size=2048,
+        uploader_id=citizen_user.id,
+        status="completed",
+    )
+    session.add(doc)
+
+    f_dag = ExtractedField(
+        id=uuid.uuid4(),
+        document_id=doc.id,
+        field_name="dag_no",
+        raw_value="১২০৫",
+        normalized_value="1205",
+        confidence=0.99,
+        flagged=False,
+        user_corrected=True,
+    )
+    f_khat = ExtractedField(
+        id=uuid.uuid4(),
+        document_id=doc.id,
+        field_name="khatian_no",
+        raw_value="৩৪০",
+        normalized_value="340",
+        confidence=0.99,
+        flagged=False,
+        user_corrected=True,
+    )
+    f_mouza = ExtractedField(
+        id=uuid.uuid4(),
+        document_id=doc.id,
+        field_name="mouza",
+        raw_value="তেজগাঁও",
+        normalized_value="তেজগাঁও",
+        confidence=0.98,
+        flagged=False,
+        user_corrected=True,
+    )
+    session.add_all([f_dag, f_khat, f_mouza])
+    await session.commit()
+
+    # 2. Call POST /api/v1/documents/{id}/verify
+    verify_payload = {"record_id": str(rec1.id)}
+    res_verify = await ac.post(f"/api/v1/documents/{doc.id}/verify", headers=headers, json=verify_payload)
+    assert res_verify.status_code == 200
+    vdata = res_verify.json()
+    assert vdata["document_id"] == str(doc.id)
+    assert vdata["record_id"] == str(rec1.id)
+    assert vdata["scope"] == "integrity_only"
+    assert "নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ" in vdata["scope_text"]
+    assert len(vdata["comparisons"]) >= 2
+    assert vdata["summary"]["total_fields"] >= 2
+    assert "qr_integrity" in vdata
+
+    # 3. Call GET /api/v1/documents/{id}/verification
+    res_get = await ac.get(f"/api/v1/documents/{doc.id}/verification", headers=headers)
+    assert res_get.status_code == 200
+    gdata = res_get.json()
+    assert gdata["document_id"] == str(doc.id)
+    assert gdata["record_id"] == str(rec1.id)
+    assert gdata["scope"] == "integrity_only"
+
+    # 4. Test low confidence critical field auto-creates review case and blocks verify
+    unconfirmed_doc = Document(
+        id=uuid.uuid4(),
+        file_name="unconfirmed_scan.jpg",
+        file_key="uploads/unconfirmed_scan.jpg",
+        mime_type="image/jpeg",
+        file_size=2048,
+        uploader_id=citizen_user.id,
+        status="completed",
+    )
+    session.add(unconfirmed_doc)
+    f_low = ExtractedField(
+        id=uuid.uuid4(),
+        document_id=unconfirmed_doc.id,
+        field_name="dag_no",
+        raw_value="???",
+        confidence=0.45,  # < 0.80 critical field!
+        flagged=True,
+        user_corrected=False,
+    )
+    session.add(f_low)
+    await session.commit()
+
+    res_blocked = await ac.post(
+        f"/api/v1/documents/{unconfirmed_doc.id}/verify",
+        headers=headers,
+        json={"record_id": str(rec1.id)},
+    )
+    assert res_blocked.status_code == 400
+    assert "পর্যালোচনা কেস" in res_blocked.json()["detail"]
+
+
+@pytest.mark.asyncio
+async def test_parcel_alerts_and_reviewer_run_endpoints(client_fixture):
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    res_user = await session.execute(select(User).where(User.role == Role.REVIEWER.value))
+    reviewer_user = res_user.scalars().first()
+    assert reviewer_user is not None
+    reviewer_token = create_access_token(str(reviewer_user.id), reviewer_user.role, reviewer_user.email)
+
+    # 1. GET /api/v1/parcels/P-4520/alerts (Citizen allowed)
+    res_alerts = await ac.get("/api/v1/parcels/P-4520/alerts", headers={"Authorization": f"Bearer {citizen_token}"})
+    assert res_alerts.status_code == 200
+    alerts = res_alerts.json()
+    assert isinstance(alerts, list)
+
+    # 2. POST /api/v1/parcels/P-4520/alerts/run (Citizen forbidden -> 403)
+    res_run_cit = await ac.post("/api/v1/parcels/P-4520/alerts/run", headers={"Authorization": f"Bearer {citizen_token}"})
+    assert res_run_cit.status_code == 403
+
+    # 3. POST /api/v1/parcels/P-4520/alerts/run (Reviewer allowed -> 200)
+    res_run_rev = await ac.post("/api/v1/parcels/P-4520/alerts/run", headers={"Authorization": f"Bearer {reviewer_token}"})
+    assert res_run_rev.status_code == 200
+    run_data = res_run_rev.json()
+    assert run_data["parcel_id"] == "P-4520"
+    assert run_data["status"] == "completed"
+
+    # Seed an alert directly to test PATCH /api/v1/alerts/{id}
+    alert = Alert(
+        id=uuid.uuid4(),
+        parcel_id="P-4520",
+        rule_id="R1_CONCURRENT_SALES",
+        severity="warn",
+        title_bn="সম্ভাব্য অসঙ্গতি, যাচাই প্রয়োজন",
+        reason_bn="একই দাগে স্বল্প সময়ের ব্যবধানে একাধিক হস্তান্তর নির্দেশিত হয়েছে।",
+        evidence=[{"source_type": "deed", "source_id": "D1", "field": "dag_no", "value": "4520"}],
+        status="open",
+    )
+    session.add(alert)
+    await session.commit()
+
+    # 4. PATCH /api/v1/alerts/{id} with citizen token -> 403 Forbidden
+    res_patch_cit = await ac.patch(
+        f"/api/v1/alerts/{alert.id}",
+        headers={"Authorization": f"Bearer {citizen_token}"},
+        json={"status": "reviewed", "note": "Citizen attempt"},
+    )
+    assert res_patch_cit.status_code == 403
+
+    # 5. PATCH /api/v1/alerts/{id} with reviewer token -> 200 OK
+    res_patch_rev = await ac.patch(
+        f"/api/v1/alerts/{alert.id}",
+        headers={"Authorization": f"Bearer {reviewer_token}"},
+        json={"status": "reviewed", "note": "মাঠ পর্যায়ে বালাম বই যাচাই করে নিশ্চিত করা হয়েছে"},
+    )
+    assert res_patch_rev.status_code == 200
+    pdata = res_patch_rev.json()
+    assert pdata["status"] == "reviewed"
+    # History preserved in evidence list
+    assert any(e.get("action") == "status_update" for e in pdata["evidence"])
+
+
+@pytest.mark.asyncio
+async def test_buyer_reports_and_citizen_isolation(client_fixture):
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    other_citizen = User(
+        id=uuid.uuid4(),
+        email="othercitizen@test.gov.bd",
+        hashed_password="hash",
+        role=Role.CITIZEN.value,
+        is_active=True,
+    )
+    session.add(other_citizen)
+    await session.commit()
+    other_citizen_token = create_access_token(str(other_citizen.id), other_citizen.role, other_citizen.email)
+
+    # 1. Citizen generates report on demo parcel P-4520 -> 200 OK
+    res_rep = await ac.post(
+        "/api/v1/parcels/P-4520/buyer-report",
+        headers={"Authorization": f"Bearer {citizen_token}"},
+    )
+    assert res_rep.status_code == 200
+    rdata = res_rep.json()
+    assert rdata["parcel_id"] == "P-4520"
+    assert "sections" in rdata
+    report_id = rdata["id"]
+
+    # 2. Citizen tries to generate report on real non-demo parcel -> 403 Forbidden
+    res_non_demo = await ac.post(
+        "/api/v1/parcels/REAL-PARCEL-9999/buyer-report",
+        headers={"Authorization": f"Bearer {citizen_token}"},
+    )
+    assert res_non_demo.status_code == 403
+    assert "ডেমো" in res_non_demo.json()["detail"]
+
+    # 3. GET /api/v1/buyer-reports/{id} as owner -> 200 OK
+    res_get_own = await ac.get(f"/api/v1/buyer-reports/{report_id}", headers={"Authorization": f"Bearer {citizen_token}"})
+    assert res_get_own.status_code == 200
+    assert res_get_own.json()["id"] == report_id
+
+    # 4. GET /api/v1/buyer-reports/{id} as other citizen -> 403 Forbidden (isolation)
+    res_get_other = await ac.get(f"/api/v1/buyer-reports/{report_id}", headers={"Authorization": f"Bearer {other_citizen_token}"})
+    assert res_get_other.status_code == 403
+
+    # 5. GET /api/v1/buyer-reports/{id}/print as owner -> 200 OK with printable HTML
+    res_print = await ac.get(f"/api/v1/buyer-reports/{report_id}/print", headers={"Authorization": f"Bearer {citizen_token}"})
+    assert res_print.status_code == 200
+    assert "text/html" in res_print.headers["content-type"]
+    assert "<!DOCTYPE html>" in res_print.text
+    assert "@media print" in res_print.text
+
+
+@pytest.mark.asyncio
+async def test_map_parcel_summary_endpoint(client_fixture):
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+
+    # GET /api/v1/map/parcels/P-4520/summary
+    res = await ac.get("/api/v1/map/parcels/P-4520/summary")
+    assert res.status_code == 200
+    sdata = res.json()
+    assert sdata["parcel_id"] == "P-4520"
+    assert sdata["is_illustrative"] is True
+    assert "alert_counts" in sdata
+    assert "high" in sdata["alert_counts"]
+    assert "warn" in sdata["alert_counts"]
+    assert "info" in sdata["alert_counts"]
+    assert "total" in sdata["alert_counts"]
+    assert "score" not in sdata
+    assert "safety" not in sdata
+
+
+@pytest.mark.asyncio
+async def test_wording_rule_no_forbidden_terms_in_responses(client_fixture):
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    headers = {"Authorization": f"Bearer {citizen_token}"}
+
+    # Fetch multiple representative endpoints
+    res_summary = await ac.get("/api/v1/map/parcels/P-4520/summary")
+    res_alerts = await ac.get("/api/v1/parcels/P-4520/alerts", headers=headers)
+    res_report = await ac.post("/api/v1/parcels/P-4520/buyer-report", headers=headers)
+    rep_id = res_report.json()["id"]
+    res_print = await ac.get(f"/api/v1/buyer-reports/{rep_id}/print", headers=headers)
+    res_search = await ac.post("/api/v1/search", headers=headers, json={"dag_no": "১২০৫", "limit": 2})
+
+    responses = [
+        res_summary.text,
+        res_alerts.text,
+        res_report.text,
+        res_print.text,
+        res_search.text,
+    ]
+
+    forbidden_phrases = [
+        "safe",
+        "unsafe",
+        "fraud",
+        "valid ownership",
+        "invalid ownership",
+    ]
+
+    for body in responses:
+        lower_body = body.lower()
+        for phrase in forbidden_phrases:
+            assert phrase not in lower_body, f"Forbidden phrase '{phrase}' found in API response body: {body[:200]}"
+
