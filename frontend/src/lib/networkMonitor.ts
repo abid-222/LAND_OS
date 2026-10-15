@@ -63,7 +63,7 @@ export const useNetworkStore = create<NetworkState>((set, get) => {
     checkHeartbeat: async () => {
       try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 3000);
+        const timeoutId = setTimeout(() => controller.abort(), 6000);
         const res = await fetch('/api/v1/health', {
           method: 'GET',
           cache: 'no-store',
@@ -74,9 +74,12 @@ export const useNetworkStore = create<NetworkState>((set, get) => {
         set({ isOnline: online, lastHeartbeatCheck: Date.now() });
         return online;
       } catch {
-        set({ isOnline: false, lastHeartbeatCheck: Date.now() });
-        get().recordFailedRequest();
-        return false;
+        const fallback = typeof navigator !== 'undefined' ? navigator.onLine : false;
+        set({ isOnline: fallback, lastHeartbeatCheck: Date.now() });
+        if (!fallback) {
+          get().recordFailedRequest();
+        }
+        return fallback;
       }
     },
   };

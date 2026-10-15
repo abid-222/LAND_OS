@@ -17,31 +17,40 @@ import {
   purgeAllOfflineData,
   type OfflineUploadRecord,
 } from '../lib/offlineQueue';
-import { syncAllQueuedItems, uploadSingleRecord } from '../lib/syncManager';
+import { syncAllQueuedItems, uploadSingleRecord, subscribeSyncProgress } from '../lib/syncManager';
 
 export const PendingUploadsPage: React.FC = () => {
   const [records, setRecords] = useState<OfflineUploadRecord[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [consent, setConsent] = useState(hasOfflineConsent());
   const [storageUsage, setStorageUsage] = useState<string>('');
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncStatusMsg, setSyncStatusMsg] = useState<string | null>(null);
 
   const loadData = async () => {
-    const list = await getQueuedUploads();
-    setRecords(list);
+    try {
+      const list = await getQueuedUploads();
+      setRecords(list);
 
-    if (navigator.storage && navigator.storage.estimate) {
-      try {
-        const est = await navigator.storage.estimate();
-        const usedMb = ((est.usage || 0) / (1024 * 1024)).toFixed(1);
-        const quotaMb = ((est.quota || 0) / (1024 * 1024)).toFixed(0);
-        setStorageUsage(`${usedMb} MB / ${quotaMb} MB`);
-      } catch {}
+      if (navigator.storage && navigator.storage.estimate) {
+        try {
+          const est = await navigator.storage.estimate();
+          const usedMb = ((est.usage || 0) / (1024 * 1024)).toFixed(1);
+          const quotaMb = ((est.quota || 0) / (1024 * 1024)).toFixed(0);
+          setStorageUsage(`${usedMb} MB / ${quotaMb} MB`);
+        } catch {}
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     loadData();
+    const unsub = subscribeSyncProgress(() => {
+      loadData();
+    });
+    return () => unsub();
   }, []);
 
   const handleConsentToggle = (checked: boolean) => {
@@ -53,7 +62,7 @@ export const PendingUploadsPage: React.FC = () => {
     setIsSyncing(true);
     setSyncStatusMsg(null);
     try {
-      const { total, succeeded } = await syncAllQueuedItems();
+      const { total, succeeded } = await syncAllQueuedItems(true);
       setSyncStatusMsg(`${total} টির মধ্যে ${succeeded} টি নথি সফলভাবে আপলোড হয়েছে।`);
     } finally {
       setIsSyncing(false);
@@ -148,7 +157,12 @@ export const PendingUploadsPage: React.FC = () => {
 
       {/* Queue List */}
       <div className="flex-1 flex flex-col gap-3">
-        {records.length === 0 ? (
+        {isLoading ? (
+          <div className="p-8 text-center rounded-2xl bg-slate-900/60 border border-slate-800 text-slate-400 my-auto">
+            <RefreshCw className="w-8 h-8 mx-auto text-emerald-400 animate-spin mb-2" />
+            <p className="text-sm font-medium">অফলাইন নথি লোড হচ্ছে...</p>
+          </div>
+        ) : records.length === 0 ? (
           <div className="p-8 text-center rounded-2xl bg-slate-900/60 border border-slate-800 text-slate-400 my-auto">
             <UploadCloud className="w-10 h-10 mx-auto text-slate-600 mb-2" />
             <p className="text-sm font-medium">কোনো অপেক্ষমান অফলাইন নথি নেই</p>

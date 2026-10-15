@@ -122,22 +122,23 @@ export async function uploadSingleRecord(record: OfflineUploadRecord): Promise<b
 /**
  * Triggers batch synchronization of all queued items.
  */
-export async function syncAllQueuedItems(): Promise<{ total: number; succeeded: number }> {
-  if (isSyncing) return { total: 0, succeeded: 0 };
+export async function syncAllQueuedItems(skipBackoff: boolean = false): Promise<{ total: number; succeeded: number }> {
+  if (isSyncing) {
+    // Wait briefly if another sync is completing
+    for (let i = 0; i < 5 && isSyncing; i++) {
+      await new Promise((r) => setTimeout(r, 200));
+    }
+    if (isSyncing) return { total: 0, succeeded: 0 };
+  }
   isSyncing = true;
 
   try {
-    const isOnline = await useNetworkStore.getState().checkHeartbeat();
-    if (!isOnline) {
-      return { total: 0, succeeded: 0 };
-    }
-
     const queued = await getQueuedUploads();
-    const actionable = queued.filter((q) => q.status === 'queued');
+    const actionable = queued.filter((q) => q.status === 'queued' || q.status === 'uploading');
 
     let succeeded = 0;
     for (const item of actionable) {
-      if (item.attempts > 0) {
+      if (!skipBackoff && item.attempts > 0) {
         const delay = getBackoffDelay(item.attempts);
         await new Promise((resolve) => setTimeout(resolve, delay));
       }

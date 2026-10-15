@@ -142,7 +142,25 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       {/* Expanded Land Services Drawer if selected */}
       {selectedService === 'services' && (
         <div className="p-4 rounded-2xl bg-slate-900 border border-indigo-500/40 shadow-xl animate-in fade-in space-y-2.5">
-          <h4 className="text-sm font-bold text-white mb-2">ভূমি মন্ত্রণালয়ের ডিজিটাল সেবাসমূহ</h4>
+          <h4 className="text-sm font-bold text-white mb-2">ভূমি সেবা ও অনুসন্ধান টুলস</h4>
+          {onNavigate && (
+            <button
+              onClick={() => onNavigate('report')}
+              className="touch-target w-full p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs text-white hover:border-emerald-500/50"
+            >
+              <span className="font-semibold text-emerald-300">ক্রেতা ঝুঁকি অনুসন্ধান প্রতিবেদন (Buyer Risk Report)</span>
+              <ExternalLink className="w-4 h-4 text-emerald-400" />
+            </button>
+          )}
+          {onNavigate && (
+            <button
+              onClick={() => onNavigate('map')}
+              className="touch-target w-full p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs text-white hover:border-emerald-500/50"
+            >
+              <span>ডিজিটাল ক্যাডাস্ট্রাল মানচিত্র (Cadastral Map)</span>
+              <ExternalLink className="w-4 h-4 text-emerald-400" />
+            </button>
+          )}
           <a
             href="https://mutation.land.gov.bd"
             target="_blank"
@@ -150,7 +168,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs text-slate-200 hover:text-white"
           >
             <span>ই-নামজারি (e-Mutation) অনলাইন আবেদন</span>
-            <ExternalLink className="w-4 h-4 text-emerald-400" />
+            <ExternalLink className="w-4 h-4 text-slate-400" />
           </a>
           <a
             href="https://ldtax.gov.bd"
@@ -159,7 +177,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs text-slate-200 hover:text-white"
           >
             <span>ভূমি উন্নয়ন কর (LD Tax) পরিশোধ</span>
-            <ExternalLink className="w-4 h-4 text-emerald-400" />
+            <ExternalLink className="w-4 h-4 text-slate-400" />
           </a>
           <a
             href="https://eporcha.gov.bd"
@@ -168,7 +186,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs text-slate-200 hover:text-white"
           >
             <span>ডিজিটাল পর্চা বা খতিয়ানের সার্টিফাইড কপি</span>
-            <ExternalLink className="w-4 h-4 text-emerald-400" />
+            <ExternalLink className="w-4 h-4 text-slate-400" />
           </a>
         </div>
       )}

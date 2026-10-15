@@ -6,6 +6,9 @@ import {
   X,
   FileText,
   AlertTriangle,
+  FileBarChart,
+  ArrowRight,
+  MapPin,
 } from 'lucide-react';
 
 interface ParcelDetail {
@@ -21,7 +24,11 @@ interface ParcelDetail {
   };
 }
 
-export const MapPage: React.FC = () => {
+interface MapPageProps {
+  onNavigateToReport?: (parcelId: string) => void;
+}
+
+export const MapPage: React.FC<MapPageProps> = ({ onNavigateToReport }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
 
@@ -173,6 +180,41 @@ export const MapPage: React.FC = () => {
         </div>
       </div>
 
+      {/* Demo Parcel Quick Selector Bar */}
+      <div className="absolute top-14 left-2 z-10 flex items-center gap-1.5 overflow-x-auto max-w-[calc(100%-80px)] p-1 rounded-xl bg-slate-950/80 border border-slate-800 backdrop-blur-md text-[11px]">
+        <span className="text-slate-400 pl-1 font-semibold flex items-center gap-0.5 shrink-0">
+          <MapPin className="w-3 h-3 text-emerald-400" /> ডেমো:
+        </span>
+        <button
+          onClick={() => {
+            setSelectedParcel({
+              synthetic_id: 'P-4520',
+              land_class: 'নাল',
+              area_acres: 0.155,
+              sample_documents: ['খতিয়ান ১২০৫', 'বায়া দলিল ১৯৯৮'],
+              alert_counts: { high: 1, warn: 1, info: 1, total: 3 },
+            });
+          }}
+          className="px-2 py-0.5 rounded-lg bg-slate-900 border border-slate-700 text-white font-mono hover:bg-slate-800 shrink-0 active:scale-95"
+        >
+          P-4520 (তেজগাঁও)
+        </button>
+        <button
+          onClick={() => {
+            setSelectedParcel({
+              synthetic_id: 'P-3201',
+              land_class: 'নাল',
+              area_acres: 0.420,
+              sample_documents: ['খতিয়ান ৭৮৯', 'নামজারি ২০০৫'],
+              alert_counts: { high: 0, warn: 1, info: 2, total: 3 },
+            });
+          }}
+          className="px-2 py-0.5 rounded-lg bg-slate-900 border border-slate-700 text-white font-mono hover:bg-slate-800 shrink-0 active:scale-95"
+        >
+          P-3201 (মিরপুর)
+        </button>
+      </div>
+
       {/* MapLibre Canvas Container */}
       <div ref={mapContainer} className="w-full h-full" />
 
@@ -232,7 +274,7 @@ export const MapPage: React.FC = () => {
 
       {/* Bottom Sheet for Selected Parcel */}
       {selectedParcel && (
-        <div className="absolute bottom-0 left-0 right-0 z-20 max-w-lg mx-auto p-4 bg-slate-900/95 border-t border-slate-700/80 rounded-t-3xl shadow-2xl backdrop-blur-xl animate-in slide-in-from-bottom duration-300">
+        <div className="absolute bottom-16 left-2 right-2 z-40 max-w-lg mx-auto p-4 bg-slate-900/95 border border-slate-700/80 rounded-2xl shadow-2xl backdrop-blur-xl animate-in slide-in-from-bottom duration-300">
           <div className="w-12 h-1 bg-slate-700 rounded-full mx-auto mb-3" />
 
           <div className="flex items-start justify-between gap-2 mb-3">
@@ -254,8 +296,13 @@ export const MapPage: React.FC = () => {
 
           {/* Alert Counts by Severity (Strictly no safety score or verdict) */}
           {selectedParcel.alert_counts && (
-            <div className="flex items-center gap-2 my-2.5 p-2 rounded-xl bg-slate-950/70 border border-slate-800 text-xs">
+            <div className="flex flex-wrap items-center gap-1.5 my-2.5 p-2 rounded-xl bg-slate-950/70 border border-slate-800 text-xs">
               <span className="text-slate-400 font-medium">যাচাই প্রয়োজন:</span>
+              {selectedParcel.alert_counts.high > 0 && (
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-danger/20 text-danger-light border border-danger/40">
+                  উচ্চ মনোযোগ: {selectedParcel.alert_counts.high}
+                </span>
+              )}
               {selectedParcel.alert_counts.warn > 0 && (
                 <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
                   সতর্কতা: {selectedParcel.alert_counts.warn}
@@ -286,6 +333,18 @@ export const MapPage: React.FC = () => {
                 </span>
               ))}
             </div>
+          </div>
+
+          {/* "ক্রেতা রিপোর্ট দেখুন" (View Buyer Report) Action Button */}
+          <div className="pt-3">
+            <button
+              onClick={() => onNavigateToReport && onNavigateToReport(selectedParcel.synthetic_id)}
+              className="touch-target w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-primary hover:bg-primary-hover text-white font-semibold text-xs shadow-lg shadow-primary/20 active:scale-98 transition-all"
+            >
+              <FileBarChart className="w-4 h-4" />
+              <span>ক্রেতা রিপোর্ট দেখুন</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
           </div>
         </div>
       )}

@@ -14,6 +14,9 @@ const SearchPage = lazy(() => import('./pages/SearchPage').then((m) => ({ defaul
 const GuidePage = lazy(() => import('./pages/GuidePage').then((m) => ({ default: m.GuidePage })));
 const MapPage = lazy(() => import('./pages/MapPage').then((m) => ({ default: m.MapPage })));
 const PendingUploadsPage = lazy(() => import('./pages/PendingUploadsPage').then((m) => ({ default: m.PendingUploadsPage })));
+const VerificationPage = lazy(() => import('./pages/VerificationPage').then((m) => ({ default: m.VerificationPage })));
+const ParcelAlertsPage = lazy(() => import('./pages/ParcelAlertsPage').then((m) => ({ default: m.ParcelAlertsPage })));
+const BuyerReportPage = lazy(() => import('./pages/BuyerReportPage').then((m) => ({ default: m.BuyerReportPage })));
 const StaffPage = lazy(() => import('./pages/StaffPage').then((m) => ({ default: m.StaffPage })));
 const AdminPage = lazy(() => import('./pages/AdminPage').then((m) => ({ default: m.AdminPage })));
 const QualityLabPage = lazy(() => import('./pages/QualityLabPage').then((m) => ({ default: m.QualityLabPage })));
@@ -38,6 +41,8 @@ const AppContent: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('home');
   const [currentRole, setCurrentRole] = useState<'citizen' | 'staff' | 'admin' | 'quality'>('citizen');
   const [confirmDocId, setConfirmDocId] = useState<string>('');
+  const [verifyRecordId, setVerifyRecordId] = useState<string>('REC-TG-001');
+  const [selectedParcelId, setSelectedParcelId] = useState<string>('P-4520');
   const [searchParams, setSearchParams] = useState<{ khatian_no?: string; dag_no?: string; mouza?: string }>({});
   const [pendingCount, setPendingCount] = useState<number>(0);
 
@@ -71,6 +76,16 @@ const AppContent: React.FC = () => {
   const handleNavigate = (tab: string, params?: Record<string, string>) => {
     if (tab === 'confirm' && params?.documentId) {
       setConfirmDocId(params.documentId);
+    }
+    if (tab === 'verify') {
+      if (params?.documentId) setConfirmDocId(params.documentId);
+      if (params?.recordId) setVerifyRecordId(params.recordId);
+    }
+    if (tab === 'report') {
+      if (params?.parcelId) setSelectedParcelId(params.parcelId);
+    }
+    if (tab === 'alerts') {
+      if (params?.parcelId) setSelectedParcelId(params.parcelId);
     }
     if (tab === 'search' && params) {
       setSearchParams({
@@ -127,6 +142,18 @@ const AppContent: React.FC = () => {
                 <ConfirmPage
                   documentId={confirmDocId || 'e1b5c920-3b1a-4d9a-9e12-876a45bc3d21'}
                   onNavigateToSearch={(params) => handleNavigate('search', params)}
+                  onNavigateToVerify={(docId, recId) =>
+                    handleNavigate('verify', { documentId: docId, recordId: recId || 'REC-TG-001' })
+                  }
+                />
+              )}
+
+              {activeTab === 'verify' && (
+                <VerificationPage
+                  documentId={confirmDocId || 'doc-test-1234'}
+                  recordId={verifyRecordId || 'REC-TG-001'}
+                  onNavigateToReport={(pid) => handleNavigate('report', { parcelId: pid })}
+                  onNavigateToConfirm={(docId) => handleNavigate('confirm', { documentId: docId })}
                 />
               )}
 
@@ -139,7 +166,27 @@ const AppContent: React.FC = () => {
                 />
               )}
 
-              {activeTab === 'map' && <MapPage />}
+              {activeTab === 'map' && (
+                <MapPage
+                  onNavigateToReport={(pid) => handleNavigate('report', { parcelId: pid })}
+                />
+              )}
+
+              {activeTab === 'report' && (
+                <BuyerReportPage
+                  initialParcelId={selectedParcelId || 'P-4520'}
+                  onNavigateToAlerts={(pid) => handleNavigate('alerts', { parcelId: pid })}
+                  onNavigateToMap={() => handleNavigate('map')}
+                />
+              )}
+
+              {activeTab === 'alerts' && (
+                <ParcelAlertsPage
+                  parcelId={selectedParcelId || 'P-4520'}
+                  userRole={currentRole}
+                  onNavigateBack={() => handleNavigate('report', { parcelId: selectedParcelId })}
+                />
+              )}
 
               {activeTab === 'guide' && <GuidePage />}
 
