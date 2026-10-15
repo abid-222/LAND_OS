@@ -33,6 +33,28 @@ export interface paths {
     /** Logout */
     post: operations["logout_api_v1_auth_logout_post"];
   };
+  "/api/v1/auth/password/change": {
+    /**
+     * Change Password
+     * @description Allows authenticated user to change their password.
+     */
+    post: operations["change_password_api_v1_auth_password_change_post"];
+  };
+  "/api/v1/auth/password/reset-request": {
+    /**
+     * Request Password Reset
+     * @description Initiates password reset flow.
+     * In development / demo mode, returns the signed reset token directly.
+     */
+    post: operations["request_password_reset_api_v1_auth_password_reset_request_post"];
+  };
+  "/api/v1/auth/password/reset-confirm": {
+    /**
+     * Confirm Password Reset
+     * @description Confirms password reset using valid reset token.
+     */
+    post: operations["confirm_password_reset_api_v1_auth_password_reset_confirm_post"];
+  };
   "/api/v1/auth/mfa/setup": {
     /** Setup Mfa */
     post: operations["setup_mfa_api_v1_auth_mfa_setup_post"];
@@ -57,9 +79,19 @@ export interface paths {
     /**
      * List registered users with roles and security status
      * @description Returns list of users across offices and roles.
-     * Requires elevated USER_READ permission with GLOBAL scope (Tech Admin / Security Officer).
+     * Office Admin sees users in their office; Tech Admin and Security Officer see globally.
      */
     get: operations["list_admin_users_api_v1_admin_users_get"];
+    /** Create user with role ceiling limits */
+    post: operations["create_admin_user_api_v1_admin_users_post"];
+  };
+  "/api/v1/admin/users/{user_id}/disable": {
+    /** Disable user account */
+    patch: operations["disable_user_account_api_v1_admin_users__user_id__disable_patch"];
+  };
+  "/api/v1/admin/users/{user_id}/role": {
+    /** Update user role with ceiling check */
+    patch: operations["update_user_role_api_v1_admin_users__user_id__role_patch"];
   };
   "/api/v1/scan/qr": {
     /**
@@ -103,6 +135,10 @@ export interface paths {
      */
     get: operations["document_progress_events_api_v1_documents__document_id__events_get"];
   };
+  "/api/v1/documents/{document_id}/download-url": {
+    /** Get presigned temporary download URL (valid <= 5 minutes) for document scan */
+    get: operations["get_document_download_url_api_v1_documents__document_id__download_url_get"];
+  };
   "/api/v1/documents/{document_id}/verify": {
     /** Cross-record verification with reference LandRecord & QR hash integrity */
     post: operations["verify_document_api_v1_documents__document_id__verify_post"];
@@ -132,12 +168,20 @@ export interface paths {
      */
     get: operations["get_land_record_detail_api_v1_records__record_id__get"];
   };
+  "/api/v1/records/import-csv": {
+    /**
+     * Import land records from CSV with provenance metadata tracking
+     * @description Imports land records from authorized CSV datasets.
+     * Tracks provenance: source_id, source_ref, retrieved_at, and version.
+     */
+    post: operations["import_records_csv_api_v1_records_import_csv_post"];
+  };
   "/api/v1/guide/query": {
     /**
      * Query Land Guide (alias)
      * @description Retrieves grounded response strictly from approved knowledge base articles.
      * If the question is ungroundable or does not achieve sufficient match confidence,
-     * strictly returns 'needs_verification'.
+     * strictly returns 'needs_verification' with NO generated answer.
      */
     post: operations["ask_land_guide_api_v1_guide_query_post"];
   };
@@ -146,7 +190,7 @@ export interface paths {
      * Ask grounded question to Land Guide knowledge base
      * @description Retrieves grounded response strictly from approved knowledge base articles.
      * If the question is ungroundable or does not achieve sufficient match confidence,
-     * strictly returns 'needs_verification'.
+     * strictly returns 'needs_verification' with NO generated answer.
      */
     post: operations["ask_land_guide_api_v1_guide_ask_post"];
   };
@@ -208,6 +252,31 @@ export interface paths {
      * Updates case status, logs audit event, and sets document status.
      */
     post: operations["submit_case_decision_api_v1_review__case_id__decision_post"];
+  };
+  "/api/v1/review/cases/{case_id}/assign": {
+    /** Assign or reassign a review case (alias) */
+    patch: operations["assign_case_api_v1_review_cases__case_id__assign_patch"];
+  };
+  "/api/v1/review/{case_id}/assign": {
+    /** Assign or reassign a review case */
+    patch: operations["assign_case_api_v1_review__case_id__assign_patch"];
+  };
+  "/api/v1/quality/eval-runs": {
+    /**
+     * Get Accuracy and Reliability Lab evaluation benchmark runs
+     * @description Reads evaluation benchmark run reports from eval_runs/ directory.
+     * Provides field-separated CER, FEA, critical field FEA, silent error rates,
+     * digit confusion matrix, and evaluated release gates from gates.yaml.
+     */
+    get: operations["get_eval_runs_api_v1_quality_eval_runs_get"];
+  };
+  "/api/v1/quality/run-eval": {
+    /**
+     * Run live evaluation pipeline benchmark (Tech Admin action)
+     * @description Executes a model benchmark run and records the results into eval_runs/.
+     * Enforces quality gates defined in eval/gates.yaml.
+     */
+    post: operations["trigger_eval_run_api_v1_quality_run_eval_post"];
   };
   "/api/v1/quality/summary": {
     /**
@@ -276,6 +345,26 @@ export interface paths {
      * Enforces isolation: Citizens see only reports they created.
      */
     get: operations["get_buyer_report_print_api_v1_buyer_reports__report_id__print_get"];
+  };
+  "/api/v1/notifications": {
+    /** List notifications for current user */
+    get: operations["list_notifications_api_v1_notifications_get"];
+  };
+  "/api/v1/notifications/{notification_id}/read": {
+    /** Mark notification as read */
+    patch: operations["mark_notification_read_api_v1_notifications__notification_id__read_patch"];
+  };
+  "/api/v1/feedback/corrections": {
+    /** Submit human-in-the-loop labeled correction for the evaluation dataset (never auto-trained) */
+    post: operations["submit_feedback_correction_api_v1_feedback_corrections_post"];
+  };
+  "/api/v1/consent": {
+    /** Record citizen consent for camera, offline storage, or privacy terms */
+    post: operations["submit_consent_api_v1_consent_post"];
+  };
+  "/api/v1/consent/latest": {
+    /** Get latest consent status for user by type */
+    get: operations["get_latest_consent_api_v1_consent_latest_get"];
   };
   "/api/v1/metrics": {
     /**
@@ -383,34 +472,27 @@ export interface components {
     };
     /** Body_evaluate_image_quality_api_v1_quality_score_post */
     Body_evaluate_image_quality_api_v1_quality_score_post: {
-      /**
-       * File
-       * Format: binary
-       */
+      /** File */
+      file: string;
+    };
+    /** Body_import_records_csv_api_v1_records_import_csv_post */
+    Body_import_records_csv_api_v1_records_import_csv_post: {
+      /** File */
       file: string;
     };
     /** Body_scan_qr_endpoint_api_v1_scan_qr_post */
     Body_scan_qr_endpoint_api_v1_scan_qr_post: {
-      /**
-       * File
-       * Format: binary
-       */
+      /** File */
       file: string;
     };
     /** Body_upload_document_api_v1_documents_post */
     Body_upload_document_api_v1_documents_post: {
-      /**
-       * File
-       * Format: binary
-       */
+      /** File */
       file: string;
     };
     /** Body_upload_document_api_v1_documents_upload_post */
     Body_upload_document_api_v1_documents_upload_post: {
-      /**
-       * File
-       * Format: binary
-       */
+      /** File */
       file: string;
     };
     /** BuyerReportCreateResponse */
@@ -431,6 +513,66 @@ export interface components {
       rule_version: string;
       /** Disclaimer Version */
       disclaimer_version: string;
+    };
+    /** CaseAssignRequest */
+    CaseAssignRequest: {
+      /**
+       * Reviewer Id
+       * Format: uuid
+       */
+      reviewer_id: string;
+      /** Notes */
+      notes?: string | null;
+    };
+    /** ConsentRecordResponse */
+    ConsentRecordResponse: {
+      /** Id */
+      id: string;
+      /** Consent Type */
+      consent_type: string;
+      /** Version */
+      version: string;
+      /** Agreed */
+      agreed: boolean;
+      /** Timestamp */
+      timestamp: string;
+    };
+    /** ConsentSubmitRequest */
+    ConsentSubmitRequest: {
+      /** Consent Type */
+      consent_type: string;
+      /**
+       * Version
+       * @default v1.0
+       */
+      version?: string;
+      /**
+       * Agreed
+       * @default true
+       */
+      agreed?: boolean;
+    };
+    /** CreateUserRequest */
+    CreateUserRequest: {
+      /**
+       * Email
+       * Format: email
+       */
+      email: string;
+      /** Password */
+      password: string;
+      /** Role */
+      role: string;
+      /** Full Name Bn */
+      full_name_bn?: string | null;
+      /** Full Name En */
+      full_name_en?: string | null;
+      /** Phone */
+      phone?: string | null;
+      /** Office Id */
+      office_id?: string | null;
+      /** Region Id */
+      region_id?: string | null;
     };
     /** DocumentExtractionResponse */
     DocumentExtractionResponse: {
@@ -515,6 +657,13 @@ export interface components {
       summary: components["schemas"]["VerificationSummaryItem"];
       qr_integrity: components["schemas"]["QRIntegrityResult"];
       /**
+       * Consistency Issues
+       * @default []
+       */
+      consistency_issues?: {
+          [key: string]: unknown;
+        }[];
+      /**
        * Scope
        * @default integrity_only
        */
@@ -536,6 +685,61 @@ export interface components {
        * @description UUID or identifier of the baseline LandRecord
        */
       record_id: string;
+    };
+    /** DownloadUrlResponse */
+    DownloadUrlResponse: {
+      /** Download Url */
+      download_url: string;
+      /**
+       * Expires In Seconds
+       * @default 300
+       */
+      expires_in_seconds?: number;
+    };
+    /** EvalRunDetail */
+    EvalRunDetail: {
+      /** Id */
+      id: string;
+      /** Timestamp */
+      timestamp: string;
+      /** Fields */
+      fields: {
+        [key: string]: components["schemas"]["FieldMetric"];
+      };
+      /** Critical Field Fea */
+      critical_field_fea: number;
+      /** Silent Error Rate */
+      silent_error_rate: number;
+      /** Flag Recall */
+      flag_recall: number;
+      /** Overall Cer */
+      overall_cer: number;
+      /** Overall Wer */
+      overall_wer: number;
+      /** Digit Confusion */
+      digit_confusion: {
+        [key: string]: number;
+      };
+      /** Gates */
+      gates: components["schemas"]["GateStatus"][];
+      /** All Gates Passed */
+      all_gates_passed: boolean;
+      /** Degradation Slices */
+      degradation_slices: {
+        [key: string]: number;
+      };
+      /** Font Slices */
+      font_slices: {
+        [key: string]: number;
+      };
+    };
+    /** EvalRunsResponse */
+    EvalRunsResponse: {
+      /** Total Runs */
+      total_runs: number;
+      latest_run: components["schemas"]["EvalRunDetail"];
+      /** All Run Ids */
+      all_run_ids: string[];
     };
     /** ExtractedFieldItem */
     ExtractedFieldItem: {
@@ -570,6 +774,30 @@ export interface components {
        */
       status_label?: string;
     };
+    /** FeedbackCorrectionRequest */
+    FeedbackCorrectionRequest: {
+      /** Document Id */
+      document_id?: string | null;
+      /** Feedback Type */
+      feedback_type: string;
+      /** Field Name */
+      field_name?: string | null;
+      /** Reported Value */
+      reported_value?: string | null;
+      /** Corrected Value */
+      corrected_value?: string | null;
+      /** Comments */
+      comments?: string | null;
+    };
+    /** FeedbackCorrectionResponse */
+    FeedbackCorrectionResponse: {
+      /** Id */
+      id: string;
+      /** Status */
+      status: string;
+      /** Message */
+      message: string;
+    };
     /** FieldComparisonItem */
     FieldComparisonItem: {
       /** Field */
@@ -582,6 +810,38 @@ export interface components {
       result: string;
       /** Note Bn */
       note_bn: string;
+    };
+    /** FieldMetric */
+    FieldMetric: {
+      /** Field Name */
+      field_name: string;
+      /** Fea */
+      fea: number;
+      /** Raw Fea */
+      raw_fea: number;
+      /** Cer */
+      cer: number;
+      /** Silent Error Rate */
+      silent_error_rate: number;
+      /** Gate Threshold Fea */
+      gate_threshold_fea: number;
+      /** Gate Passed */
+      gate_passed: boolean;
+    };
+    /** GateStatus */
+    GateStatus: {
+      /** Gate Name */
+      gate_name: string;
+      /** Metric */
+      metric: string;
+      /** Threshold */
+      threshold: number;
+      /** Actual Value */
+      actual_value: number;
+      /** Passed */
+      passed: boolean;
+      /** Is Critical */
+      is_critical: boolean;
     };
     /** GuideResponse */
     GuideResponse: {
@@ -624,6 +884,32 @@ export interface components {
       /** Code */
       code: string;
     };
+    /** NotificationItem */
+    NotificationItem: {
+      /** Id */
+      id: string;
+      /** Type */
+      type: string;
+      /** Title */
+      title: string;
+      /** Message */
+      message: string;
+      /** Is Read */
+      is_read: boolean;
+      /** Data */
+      data?: {
+        [key: string]: unknown;
+      } | null;
+      /** Created At */
+      created_at: string;
+    };
+    /** NotificationListResponse */
+    NotificationListResponse: {
+      /** Total Unread */
+      total_unread: number;
+      /** Notifications */
+      notifications: components["schemas"]["NotificationItem"][];
+    };
     /** ParcelSummaryResponse */
     ParcelSummaryResponse: {
       /** Parcel Id */
@@ -652,6 +938,33 @@ export interface components {
       disclaimer_bn: string;
       /** Epistemic Notice */
       epistemic_notice: string;
+    };
+    /** PasswordChangeRequest */
+    PasswordChangeRequest: {
+      /** Current Password */
+      current_password: string;
+      /** New Password */
+      new_password: string;
+    };
+    /** PasswordResetConfirmRequest */
+    PasswordResetConfirmRequest: {
+      /**
+       * Email
+       * Format: email
+       */
+      email: string;
+      /** Token */
+      token: string;
+      /** New Password */
+      new_password: string;
+    };
+    /** PasswordResetRequest */
+    PasswordResetRequest: {
+      /**
+       * Email
+       * Format: email
+       */
+      email: string;
     };
     /** QRIntegrityResult */
     QRIntegrityResult: {
@@ -950,6 +1263,11 @@ export interface components {
        */
       disclaimer_en?: string;
     };
+    /** UpdateUserRoleRequest */
+    UpdateUserRoleRequest: {
+      /** Role */
+      role: string;
+    };
     /** UserListItem */
     UserListItem: {
       /** Id */
@@ -1058,6 +1376,10 @@ export interface components {
       msg: string;
       /** Error Type */
       type: string;
+      /** Input */
+      input?: unknown;
+      /** Context */
+      ctx?: Record<string, never>;
     };
     /** VerificationSummaryItem */
     VerificationSummaryItem: {
@@ -1205,6 +1527,82 @@ export interface operations {
       };
     };
   };
+  /**
+   * Change Password
+   * @description Allows authenticated user to change their password.
+   */
+  change_password_api_v1_auth_password_change_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["PasswordChangeRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Request Password Reset
+   * @description Initiates password reset flow.
+   * In development / demo mode, returns the signed reset token directly.
+   */
+  request_password_reset_api_v1_auth_password_reset_request_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["PasswordResetRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Confirm Password Reset
+   * @description Confirms password reset using valid reset token.
+   */
+  confirm_password_reset_api_v1_auth_password_reset_confirm_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["PasswordResetConfirmRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   /** Setup Mfa */
   setup_mfa_api_v1_auth_mfa_setup_post: {
     responses: {
@@ -1287,7 +1685,7 @@ export interface operations {
   /**
    * List registered users with roles and security status
    * @description Returns list of users across offices and roles.
-   * Requires elevated USER_READ permission with GLOBAL scope (Tech Admin / Security Officer).
+   * Office Admin sees users in their office; Tech Admin and Security Officer see globally.
    */
   list_admin_users_api_v1_admin_users_get: {
     parameters: {
@@ -1301,6 +1699,77 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["UserListResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Create user with role ceiling limits */
+  create_admin_user_api_v1_admin_users_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateUserRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      201: {
+        content: {
+          "application/json": components["schemas"]["UserListItem"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Disable user account */
+  disable_user_account_api_v1_admin_users__user_id__disable_patch: {
+    parameters: {
+      path: {
+        user_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Update user role with ceiling check */
+  update_user_role_api_v1_admin_users__user_id__role_patch: {
+    parameters: {
+      path: {
+        user_id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateUserRoleRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
       };
       /** @description Validation Error */
@@ -1475,6 +1944,28 @@ export interface operations {
       };
     };
   };
+  /** Get presigned temporary download URL (valid <= 5 minutes) for document scan */
+  get_document_download_url_api_v1_documents__document_id__download_url_get: {
+    parameters: {
+      path: {
+        document_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["DownloadUrlResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   /** Cross-record verification with reference LandRecord & QR hash integrity */
   verify_document_api_v1_documents__document_id__verify_post: {
     parameters: {
@@ -1608,10 +2099,36 @@ export interface operations {
     };
   };
   /**
+   * Import land records from CSV with provenance metadata tracking
+   * @description Imports land records from authorized CSV datasets.
+   * Tracks provenance: source_id, source_ref, retrieved_at, and version.
+   */
+  import_records_csv_api_v1_records_import_csv_post: {
+    requestBody: {
+      content: {
+        "multipart/form-data": components["schemas"]["Body_import_records_csv_api_v1_records_import_csv_post"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
    * Query Land Guide (alias)
    * @description Retrieves grounded response strictly from approved knowledge base articles.
    * If the question is ungroundable or does not achieve sufficient match confidence,
-   * strictly returns 'needs_verification'.
+   * strictly returns 'needs_verification' with NO generated answer.
    */
   ask_land_guide_api_v1_guide_query_post: {
     requestBody: {
@@ -1638,7 +2155,7 @@ export interface operations {
    * Ask grounded question to Land Guide knowledge base
    * @description Retrieves grounded response strictly from approved knowledge base articles.
    * If the question is ungroundable or does not achieve sufficient match confidence,
-   * strictly returns 'needs_verification'.
+   * strictly returns 'needs_verification' with NO generated answer.
    */
   ask_land_guide_api_v1_guide_ask_post: {
     requestBody: {
@@ -1833,6 +2350,91 @@ export interface operations {
       422: {
         content: {
           "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Assign or reassign a review case (alias) */
+  assign_case_api_v1_review_cases__case_id__assign_patch: {
+    parameters: {
+      path: {
+        case_id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CaseAssignRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Assign or reassign a review case */
+  assign_case_api_v1_review__case_id__assign_patch: {
+    parameters: {
+      path: {
+        case_id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CaseAssignRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Get Accuracy and Reliability Lab evaluation benchmark runs
+   * @description Reads evaluation benchmark run reports from eval_runs/ directory.
+   * Provides field-separated CER, FEA, critical field FEA, silent error rates,
+   * digit confusion matrix, and evaluated release gates from gates.yaml.
+   */
+  get_eval_runs_api_v1_quality_eval_runs_get: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["EvalRunsResponse"];
+        };
+      };
+    };
+  };
+  /**
+   * Run live evaluation pipeline benchmark (Tech Admin action)
+   * @description Executes a model benchmark run and records the results into eval_runs/.
+   * Enforces quality gates defined in eval/gates.yaml.
+   */
+  trigger_eval_run_api_v1_quality_run_eval_post: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["EvalRunDetail"];
         };
       };
     };
@@ -2037,6 +2639,105 @@ export interface operations {
       200: {
         content: {
           "text/html": string;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** List notifications for current user */
+  list_notifications_api_v1_notifications_get: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["NotificationListResponse"];
+        };
+      };
+    };
+  };
+  /** Mark notification as read */
+  mark_notification_read_api_v1_notifications__notification_id__read_patch: {
+    parameters: {
+      path: {
+        notification_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Submit human-in-the-loop labeled correction for the evaluation dataset (never auto-trained) */
+  submit_feedback_correction_api_v1_feedback_corrections_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["FeedbackCorrectionRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      201: {
+        content: {
+          "application/json": components["schemas"]["FeedbackCorrectionResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Record citizen consent for camera, offline storage, or privacy terms */
+  submit_consent_api_v1_consent_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ConsentSubmitRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      201: {
+        content: {
+          "application/json": components["schemas"]["ConsentRecordResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Get latest consent status for user by type */
+  get_latest_consent_api_v1_consent_latest_get: {
+    parameters: {
+      query: {
+        consent_type: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
       };
       /** @description Validation Error */
