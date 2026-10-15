@@ -1,0 +1,18 @@
+# config/verification.yaml
+# Cross-Record Verification tolerances & thresholds for Bangladesh LandOS.
+# Defines field comparison strictness. All tolerances come from here; NO hard-coded numbers in code.
+
+tolerances:
+  area_tolerance_percent: 1.5   # Maximum percent difference for area to be considered 'normalized-equal' or 'fuzzy-close'
+  name_fuzzy_threshold: 85.0   # rapidfuzz score >= 85 is 'fuzzy-close', >= 98 is 'exact' or 'normalized-equal'
+  mouza_fuzzy_threshold: 90.0  # rapidfuzz score >= 90 is 'fuzzy-close'
+  date_tolerance_days: 30       # Calendar days margin for registration vs document date
+
+field_weights:
+  dag_no: 1.0
+  khatian_no: 1.0
+  mouza: 1.0
+  area: 0.9
+  party_names: 0.85
+  document_no: 0.75
+  registry_office: 0.6

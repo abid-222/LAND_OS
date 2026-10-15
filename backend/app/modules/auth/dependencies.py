@@ -22,6 +22,10 @@ async def get_current_user(
         if auth_header and auth_header.startswith("Bearer "):
             token = auth_header.split(" ")[1]
 
+    # 3. Fallback to query param (e.g. for EventSource / SSE connections)
+    if not token:
+        token = request.query_params.get("token")
+
     if not token:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

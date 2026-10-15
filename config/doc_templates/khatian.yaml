@@ -1,0 +1,57 @@
+# config/doc_templates/khatian.yaml
+# Template and zone extraction layout for Khatian (খতিয়ান)
+doc_type: "khatian"
+title_bn: "রেকর্ড অব রাইটস / খতিয়ান"
+title_en: "Record of Rights (Khatian)"
+critical_fields:
+  - "khatian_no"
+  - "mouza"
+  - "dag_no"
+zones:
+  header:
+    bbox: [0.0, 0.0, 1.0, 0.25]
+    fields:
+      - name: "khatian_no"
+        aliases: ["খতিয়ান নং", "খতিয়ান নং", "Khatian No", "নং"]
+        type: "identifier"
+        required: true
+      - name: "mouza"
+        aliases: ["মৌজা", "মৌজা ও জে. এল. নং", "Mouza"]
+        type: "mouza"
+        required: true
+      - name: "registry_office"
+        aliases: ["উপজেলা ভূমি অফিস", "সার্কেল", "Land Office"]
+        type: "text"
+        required: false
+      - name: "document_date"
+        aliases: ["প্রস্তুতের তারিখ", "তারিখ", "Date"]
+        type: "date"
+        required: false
+  owners:
+    bbox: [0.0, 0.23, 1.0, 0.50]
+    fields:
+      - name: "owner"
+        aliases: ["মালিকের নাম", "দখলকার", "রায়তের নাম", "Owner"]
+        type: "name"
+        required: true
+  plots:
+    bbox: [0.0, 0.48, 1.0, 0.88]
+    fields:
+      - name: "dag_no"
+        aliases: ["দাগ নং", "দাগ নম্বর", "Dag No"]
+        type: "identifier"
+        required: true
+      - name: "area"
+        aliases: ["জমির মোট পরিমাণ", "পরিমাণ", "জমির অংশ ও পরিমাণ", "Area"]
+        type: "area"
+        required: true
+      - name: "parcel_reference"
+        aliases: ["জমির শ্রেণি", "শ্রেণি", "Land Class"]
+        type: "text"
+        required: false
+  footer:
+    bbox: [0.0, 0.85, 1.0, 1.0]
+    fields:
+      - name: "qr_code"
+        type: "qr"
+        required: false

@@ -1,4 +1,4 @@
-.PHONY: help dev dev-https test seed train eval client lint clean build
+.PHONY: help dev dev-https test seed train eval client lint clean build models
 
 PYTHON ?= python
 NPM ?= npm
@@ -9,8 +9,9 @@ help:
 	@echo "  make dev-https  - Start frontend with HTTPS for camera testing on mobile"
 	@echo "  make test       - Run pytest (backend) and vitest + playwright (frontend)"
 	@echo "  make seed       - Populate synthetic land records & knowledge base"
-	@echo "  make train      - Execute Bengali OCR & NER model training"
-	@echo "  make eval       - Evaluate OCR CER/WER and RAG similarity metrics"
+	@echo "  make models     - Build / train machine learning models"
+	@echo "  make train      - Execute Bengali OCR & candidate match scorer training"
+	@echo "  make eval       - Evaluate OCR metrics, gates, candidate match, guide RAG"
 	@echo "  make client     - Export OpenAPI schema and regenerate TypeScript client"
 	@echo "  make lint       - Run code quality linters (ruff, mypy, eslint, tsc)"
 	@echo "  make build      - Build production docker containers"
@@ -29,6 +30,10 @@ test:
 
 seed:
 	cd backend && $(PYTHON) -m app.modules.documents.seed
+
+models:
+	@echo "Checking or training ML models..."
+	cd ml && $(PYTHON) src/train.py
 
 train:
 	cd ml && $(PYTHON) src/train.py

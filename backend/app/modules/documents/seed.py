@@ -27,10 +27,13 @@ for p in [backend_dir, repo_root]:
 from app.core.config import settings  # noqa: E402
 from app.core.security import hash_password  # noqa: E402
 from app.models import (  # noqa: E402
+    Deed,
     KBArticle,
     LandRecord,
     Mouza,
+    Mutation,
     Office,
+    Parcel,
     ParcelDemo,
     Region,
     User,
@@ -324,6 +327,83 @@ async def run_seed():
                         print(f"Spatial geometry insertion note (PostGIS extension required): {ge}")
                 else:
                     counts["parcels"] = existing_parcels
+
+            # 8. Seed P3 Cadastral Parcels, Deeds, and Mutations from conflict_truth.json
+            conflict_file = resolve_repo_path("data/synthetic/conflict_truth.json")
+            if os.path.exists(conflict_file):
+                with open(conflict_file, "r", encoding="utf-8") as f:
+                    c_data = json.load(f)
+                c_parcels = c_data.get("parcels", [])
+                existing_p3_parcels = (await session.execute(select(func.count(Parcel.parcel_id)))).scalar() or 0
+                if existing_p3_parcels < 50:
+                    default_mouza_id = list(mouza_db_map.values())[0] if mouza_db_map else uuid.uuid4()
+                    for p_item in c_parcels:
+                        p_obj = Parcel(
+                            parcel_id=p_item["parcel_id"],
+                            record_id=None,
+                            mouza_id=default_mouza_id,
+                            main_no=p_item["main_no"],
+                            sub_no=p_item.get("sub_no"),
+                            area_decimal=p_item["area_decimal"],
+                        )
+                        session.add(p_obj)
+                        await session.flush()
+
+                        for d_item in p_item.get("deeds", []):
+                            try:
+                                d_date = datetime.fromisoformat(d_item["deed_date"].replace("Z", "+00:00"))
+                            except Exception:
+                                d_date = utc_now()
+                            try:
+                                r_date = datetime.fromisoformat(d_item["registered_date"].replace("Z", "+00:00"))
+                            except Exception:
+                                r_date = d_date
+
+                            ar_val = d_item.get("area", p_item["area_decimal"])
+                            if isinstance(ar_val, str):
+                                import re
+                                m_re = re.search(r"(\d+(?:\.\d+)?)", ar_val)
+                                ar_val = float(m_re.group(1)) if m_re else p_item["area_decimal"]
+
+                            deed_obj = Deed(
+                                id=uuid.uuid4(),
+                                deed_no=d_item.get("deed_no", "D-0"),
+                                deed_type=d_item.get("deed_type", "sale"),
+                                registry_office=d_item.get("registry_office", "তেজগাঁও সাব-রেজিস্ট্রি অফিস"),
+                                deed_date=d_date,
+                                registered_date=r_date,
+                                seller=d_item.get("seller", "বিক্রেতা"),
+                                buyer=d_item.get("buyer", "ক্রেতা"),
+                                parcel_id=p_item["parcel_id"],
+                                area=float(ar_val),
+                            )
+                            session.add(deed_obj)
+
+                        for m_item in p_item.get("mutations", []):
+                            try:
+                                m_date = datetime.fromisoformat(m_item["mutation_date"].replace("Z", "+00:00"))
+                            except Exception:
+                                m_date = utc_now()
+                            m_ar = m_item.get("area", p_item["area_decimal"])
+                            if isinstance(m_ar, str):
+                                import re
+                                m_re = re.search(r"(\d+(?:\.\d+)?)", m_ar)
+                                m_ar = float(m_re.group(1)) if m_re else p_item["area_decimal"]
+
+                            mut_obj = Mutation(
+                                id=uuid.uuid4(),
+                                case_no=m_item.get("case_no", "MC-0"),
+                                mutation_date=m_date,
+                                deed_id=None,
+                                parcel_id=p_item["parcel_id"],
+                                from_party=m_item.get("from_party", "পক্ষ"),
+                                to_party=m_item.get("to_party", "পক্ষ"),
+                                area=float(m_ar),
+                            )
+                            session.add(mut_obj)
+
+                    await session.commit()
+                    print(f"Seeded {len(c_parcels)} cadastral parcels with deeds and mutations.")
 
     except Exception as dbe:
         print(f"Database connection note (PostgreSQL service check): {dbe}")

@@ -1,0 +1,67 @@
+# config/doc_templates/deed.yaml
+# Template and zone extraction layout for Registered Deed (দলিল)
+doc_type: "deed"
+title_bn: "সাব-রেজিস্ট্রি দলিল"
+title_en: "Sub-Registry Registered Deed"
+critical_fields:
+  - "document_no"
+  - "registry_office"
+  - "document_date"
+  - "mouza"
+  - "dag_no"
+zones:
+  header:
+    bbox: [0.0, 0.0, 1.0, 0.22]
+    fields:
+      - name: "document_no"
+        aliases: ["দলিল নং", "দলিল নম্বর", "Deed No", "No"]
+        type: "identifier"
+        required: true
+      - name: "registry_office"
+        aliases: ["সাব-রেজিস্ট্রি অফিস", "রেজিস্ট্রি অফিস", "Registry Office"]
+        type: "text"
+        required: true
+      - name: "document_date"
+        aliases: ["দলিলের তারিখ", "তারিখ", "Date"]
+        type: "date"
+        required: true
+  parties:
+    bbox: [0.0, 0.20, 1.0, 0.50]
+    fields:
+      - name: "seller"
+        aliases: ["দাতা", "বিক্রেতা", "Seller", "Transferor"]
+        type: "name"
+        required: true
+      - name: "buyer"
+        aliases: ["গ্রহীতা", "ক্রেতা", "Buyer", "Transferee"]
+        type: "name"
+        required: true
+  schedule:
+    bbox: [0.0, 0.48, 1.0, 0.85]
+    fields:
+      - name: "mouza"
+        aliases: ["মৌজা", "Mouza", "মৌজা ও জে. এল. নং"]
+        type: "mouza"
+        required: true
+      - name: "khatian_no"
+        aliases: ["খতিয়ান নং", "খতিয়ান নং", "Khatian No"]
+        type: "identifier"
+        required: false
+      - name: "dag_no"
+        aliases: ["দাগ নং", "দাগ নম্বর", "Dag No", "Plot No"]
+        type: "identifier"
+        required: true
+      - name: "area"
+        aliases: ["জমির পরিমাণ", "পরিমাণ", "Area"]
+        type: "area"
+        required: true
+      - name: "parcel_reference"
+        aliases: ["জমির বিবরণ", "চৌহদ্দি", "Boundary"]
+        type: "text"
+        required: false
+  footer:
+    bbox: [0.0, 0.82, 1.0, 1.0]
+    fields:
+      - name: "qr_code"
+        type: "qr"
+        required: false

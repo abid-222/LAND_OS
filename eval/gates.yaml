@@ -8,7 +8,16 @@ gates:
   khatian_no:
     fea: 0.95
     silent_error_rate: 0.02
+  party_names:
+    fea: 0.90               # Name normalization FEA
+  area:
+    fea: 0.90               # Area extraction & conversion FEA
   overall:
     cer: 0.05               # Character Error Rate maximum threshold (5%)
     wer: 0.10               # Word Error Rate maximum threshold (10%)
     flag_recall: 0.90       # Quality gate flag recall threshold
+  verification:
+    comparison_accuracy: 0.95  # Cross-record comparison accuracy
+  risk_rules:
+    min_precision: 0.85     # Minimum precision across R1 to R6
+    min_recall: 0.85        # Minimum recall across R1 to R6

@@ -1,0 +1,6039 @@
+{
+  "total_parcels": 150,
+  "total_conflicts": 60,
+  "conflict_ratio": 0.4,
+  "rule_truth": {
+    "R1_conflicting_sale": {
+      "positives": [
+        "PARCEL-001",
+        "PARCEL-002",
+        "PARCEL-003",
+        "PARCEL-004",
+        "PARCEL-005",
+        "PARCEL-006",
+        "PARCEL-007",
+        "PARCEL-008",
+        "PARCEL-009",
+        "PARCEL-010"
+      ],
+      "negatives": [
+        "PARCEL-011",
+        "PARCEL-012",
+        "PARCEL-013",
+        "PARCEL-014",
+        "PARCEL-015",
+        "PARCEL-016",
+        "PARCEL-017",
+        "PARCEL-018",
+        "PARCEL-019",
+        "PARCEL-020"
+      ]
+    },
+    "R2_duplicate_deed_reference": {
+      "positives": [
+        "PARCEL-021",
+        "PARCEL-022",
+        "PARCEL-023",
+        "PARCEL-024",
+        "PARCEL-025",
+        "PARCEL-026",
+        "PARCEL-027",
+        "PARCEL-028",
+        "PARCEL-029",
+        "PARCEL-030"
+      ],
+      "negatives": [
+        "PARCEL-031",
+        "PARCEL-032",
+        "PARCEL-033",
+        "PARCEL-034",
+        "PARCEL-035",
+        "PARCEL-036",
+        "PARCEL-037",
+        "PARCEL-038",
+        "PARCEL-039",
+        "PARCEL-040"
+      ]
+    },
+    "R3_impossible_dates": {
+      "positives": [
+        "PARCEL-041",
+        "PARCEL-042",
+        "PARCEL-043",
+        "PARCEL-044",
+        "PARCEL-045",
+        "PARCEL-046",
+        "PARCEL-047",
+        "PARCEL-048",
+        "PARCEL-049",
+        "PARCEL-050"
+      ],
+      "negatives": [
+        "PARCEL-051",
+        "PARCEL-052",
+        "PARCEL-053",
+        "PARCEL-054",
+        "PARCEL-055",
+        "PARCEL-056",
+        "PARCEL-057",
+        "PARCEL-058",
+        "PARCEL-059",
+        "PARCEL-060"
+      ]
+    },
+    "R4_area_mismatch": {
+      "positives": [
+        "PARCEL-061",
+        "PARCEL-062",
+        "PARCEL-063",
+        "PARCEL-064",
+        "PARCEL-065",
+        "PARCEL-066",
+        "PARCEL-067",
+        "PARCEL-068",
+        "PARCEL-069",
+        "PARCEL-070"
+      ],
+      "negatives": [
+        "PARCEL-071",
+        "PARCEL-072",
+        "PARCEL-073",
+        "PARCEL-074",
+        "PARCEL-075",
+        "PARCEL-076",
+        "PARCEL-077",
+        "PARCEL-078",
+        "PARCEL-079",
+        "PARCEL-080"
+      ]
+    },
+    "R5_deed_mutation_inconsistency": {
+      "positives": [
+        "PARCEL-081",
+        "PARCEL-082",
+        "PARCEL-083",
+        "PARCEL-084",
+        "PARCEL-085",
+        "PARCEL-086",
+        "PARCEL-087",
+        "PARCEL-088",
+        "PARCEL-089",
+        "PARCEL-090"
+      ],
+      "negatives": [
+        "PARCEL-091",
+        "PARCEL-092",
+        "PARCEL-093",
+        "PARCEL-094",
+        "PARCEL-095",
+        "PARCEL-096",
+        "PARCEL-097",
+        "PARCEL-098",
+        "PARCEL-099",
+        "PARCEL-100"
+      ]
+    },
+    "R6_party_name_mismatch": {
+      "positives": [
+        "PARCEL-101",
+        "PARCEL-102",
+        "PARCEL-103",
+        "PARCEL-104",
+        "PARCEL-105",
+        "PARCEL-106",
+        "PARCEL-107",
+        "PARCEL-108",
+        "PARCEL-109",
+        "PARCEL-110"
+      ],
+      "negatives": [
+        "PARCEL-111",
+        "PARCEL-112",
+        "PARCEL-113",
+        "PARCEL-114",
+        "PARCEL-115",
+        "PARCEL-116",
+        "PARCEL-117",
+        "PARCEL-118",
+        "PARCEL-119",
+        "PARCEL-120"
+      ]
+    }
+  },
+  "parcels": [
+    {
+      "parcel_id": "PARCEL-001",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1001,
+      "sub_no": null,
+      "area_decimal": 11.5,
+      "record": {
+        "id": "REC-0001",
+        "khatian_no": "201",
+        "dag_no": "1001",
+        "owner_names_bn": "মোছাঃ ফাতেমা খাতুন",
+        "area_decimal": 11.5,
+        "area_acres": 0.115,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-001-1",
+          "deed_no": "D-101",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-02-04T00:00:00+00:00",
+          "registered_date": "2020-02-06T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 11.5
+        },
+        {
+          "id": "DEED-PARCEL-001-2",
+          "deed_no": "D-201",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-03-20T00:00:00+00:00",
+          "registered_date": "2020-03-22T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "মোছাঃ ফাতেমা খাতুন",
+          "area": 11.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R1_conflicting_sale"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-002",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1002,
+      "sub_no": null,
+      "area_decimal": 13.0,
+      "record": {
+        "id": "REC-0002",
+        "khatian_no": "202",
+        "dag_no": "1002",
+        "owner_names_bn": "রফিকুল ইসলাম চৌধুরী",
+        "area_decimal": 13.0,
+        "area_acres": 0.13,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-002-1",
+          "deed_no": "D-102",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-02-24T00:00:00+00:00",
+          "registered_date": "2020-02-26T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 13.0
+        },
+        {
+          "id": "DEED-PARCEL-002-2",
+          "deed_no": "D-202",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-04-09T00:00:00+00:00",
+          "registered_date": "2020-04-11T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "মোছাঃ ফাতেমা খাতুন",
+          "area": 13.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R1_conflicting_sale"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-003",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1003,
+      "sub_no": 1,
+      "area_decimal": 14.5,
+      "record": {
+        "id": "REC-0003",
+        "khatian_no": "203",
+        "dag_no": "1003/1",
+        "owner_names_bn": "সুবোধ কুমার দাস",
+        "area_decimal": 14.5,
+        "area_acres": 0.145,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-003-1",
+          "deed_no": "D-103",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-03-15T00:00:00+00:00",
+          "registered_date": "2020-03-17T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 14.5
+        },
+        {
+          "id": "DEED-PARCEL-003-2",
+          "deed_no": "D-203",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-04-29T00:00:00+00:00",
+          "registered_date": "2020-05-01T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "মোছাঃ ফাতেমা খাতুন",
+          "area": 14.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R1_conflicting_sale"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-004",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1004,
+      "sub_no": null,
+      "area_decimal": 16.0,
+      "record": {
+        "id": "REC-0004",
+        "khatian_no": "204",
+        "dag_no": "1004",
+        "owner_names_bn": "আনোয়ার হোসেন খান",
+        "area_decimal": 16.0,
+        "area_acres": 0.16,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-004-1",
+          "deed_no": "D-104",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-04-04T00:00:00+00:00",
+          "registered_date": "2020-04-06T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 16.0
+        },
+        {
+          "id": "DEED-PARCEL-004-2",
+          "deed_no": "D-204",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-05-19T00:00:00+00:00",
+          "registered_date": "2020-05-21T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "মোছাঃ ফাতেমা খাতুন",
+          "area": 16.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R1_conflicting_sale"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-005",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": "RAJSHAHI",
+      "main_no": 1005,
+      "sub_no": null,
+      "area_decimal": 17.5,
+      "record": {
+        "id": "REC-0005",
+        "khatian_no": "205",
+        "dag_no": "1005",
+        "owner_names_bn": "বেগম রহিমা খাতুন",
+        "area_decimal": 17.5,
+        "area_acres": 0.175,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-005-1",
+          "deed_no": "D-105",
+          "deed_type": "sale",
+          "registry_office": "বোয়ালিয়া সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-04-24T00:00:00+00:00",
+          "registered_date": "2020-04-26T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 17.5
+        },
+        {
+          "id": "DEED-PARCEL-005-2",
+          "deed_no": "D-205",
+          "deed_type": "sale",
+          "registry_office": "বোয়ালিয়া সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-06-08T00:00:00+00:00",
+          "registered_date": "2020-06-10T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "মোছাঃ ফাতেমা খাতুন",
+          "area": 17.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R1_conflicting_sale"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-006",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1006,
+      "sub_no": 1,
+      "area_decimal": 19.0,
+      "record": {
+        "id": "REC-0006",
+        "khatian_no": "206",
+        "dag_no": "1006/1",
+        "owner_names_bn": "ড. আমিনুল হক",
+        "area_decimal": 19.0,
+        "area_acres": 0.19,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-006-1",
+          "deed_no": "D-106",
+          "deed_type": "sale",
+          "registry_office": "সিলেট সদর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-05-14T00:00:00+00:00",
+          "registered_date": "2020-05-16T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 19.0
+        },
+        {
+          "id": "DEED-PARCEL-006-2",
+          "deed_no": "D-206",
+          "deed_type": "sale",
+          "registry_office": "সিলেট সদর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-06-28T00:00:00+00:00",
+          "registered_date": "2020-06-30T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "মোছাঃ ফাতেমা খাতুন",
+          "area": 19.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R1_conflicting_sale"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-007",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": "DHAKA",
+      "main_no": 1007,
+      "sub_no": null,
+      "area_decimal": 20.5,
+      "record": {
+        "id": "REC-0007",
+        "khatian_no": "207",
+        "dag_no": "1007",
+        "owner_names_bn": "কামাল উদ্দিন আহমেদ",
+        "area_decimal": 20.5,
+        "area_acres": 0.205,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-007-1",
+          "deed_no": "D-107",
+          "deed_type": "sale",
+          "registry_office": "রূপগঞ্জ সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-06-03T00:00:00+00:00",
+          "registered_date": "2020-06-05T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 20.5
+        },
+        {
+          "id": "DEED-PARCEL-007-2",
+          "deed_no": "D-207",
+          "deed_type": "sale",
+          "registry_office": "রূপগঞ্জ সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-01-09T00:00:00+00:00",
+          "registered_date": "2021-01-11T00:00:00+00:00",
+          "seller": "সুবোধ কুমার দাস",
+          "buyer": "ফাতেমা খাতুন",
+          "area": 20.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R1_conflicting_sale"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-008",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1008,
+      "sub_no": null,
+      "area_decimal": 22.0,
+      "record": {
+        "id": "REC-0008",
+        "khatian_no": "208",
+        "dag_no": "1008",
+        "owner_names_bn": "মুহাম্মদ জসীম উদ্দীন",
+        "area_decimal": 22.0,
+        "area_acres": 0.22,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-008-1",
+          "deed_no": "D-108",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-06-23T00:00:00+00:00",
+          "registered_date": "2020-06-25T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 22.0
+        },
+        {
+          "id": "DEED-PARCEL-008-2",
+          "deed_no": "D-208",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-01-29T00:00:00+00:00",
+          "registered_date": "2021-01-31T00:00:00+00:00",
+          "seller": "সুবোধ কুমার দাস",
+          "buyer": "ফাতেমা খাতুন",
+          "area": 22.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R1_conflicting_sale"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-009",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1009,
+      "sub_no": 1,
+      "area_decimal": 23.5,
+      "record": {
+        "id": "REC-0009",
+        "khatian_no": "209",
+        "dag_no": "1009/1",
+        "owner_names_bn": "মোসাম্মৎ আয়েশা সিদ্দিকা",
+        "area_decimal": 23.5,
+        "area_acres": 0.235,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-009-1",
+          "deed_no": "D-109",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-07-13T00:00:00+00:00",
+          "registered_date": "2020-07-15T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 23.5
+        },
+        {
+          "id": "DEED-PARCEL-009-2",
+          "deed_no": "D-209",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-02-18T00:00:00+00:00",
+          "registered_date": "2021-02-20T00:00:00+00:00",
+          "seller": "সুবোধ কুমার দাস",
+          "buyer": "ফাতেমা খাতুন",
+          "area": 23.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R1_conflicting_sale"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-010",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1010,
+      "sub_no": null,
+      "area_decimal": 25.0,
+      "record": {
+        "id": "REC-0010",
+        "khatian_no": "210",
+        "dag_no": "1010",
+        "owner_names_bn": "শাহ আলম খন্দকার",
+        "area_decimal": 25.0,
+        "area_acres": 0.25,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-010-1",
+          "deed_no": "D-1010",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-08-02T00:00:00+00:00",
+          "registered_date": "2020-08-04T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 25.0
+        },
+        {
+          "id": "DEED-PARCEL-010-2",
+          "deed_no": "D-2010",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-03-10T00:00:00+00:00",
+          "registered_date": "2021-03-12T00:00:00+00:00",
+          "seller": "সুবোধ কুমার দাস",
+          "buyer": "ফাতেমা খাতুন",
+          "area": 25.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R1_conflicting_sale"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-011",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1011,
+      "sub_no": null,
+      "area_decimal": 26.5,
+      "record": {
+        "id": "REC-0011",
+        "khatian_no": "211",
+        "dag_no": "1011",
+        "owner_names_bn": "মোঃ তারেক রহমান",
+        "area_decimal": 26.5,
+        "area_acres": 0.265,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-011-1",
+          "deed_no": "D-LEG-11-1",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-08-22T00:00:00+00:00",
+          "registered_date": "2020-08-25T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 26.5
+        },
+        {
+          "id": "DEED-PARCEL-011-2",
+          "deed_no": "D-LEG-11-2",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-08-22T00:00:00+00:00",
+          "registered_date": "2021-08-25T00:00:00+00:00",
+          "seller": "রফিকুল ইসলাম",
+          "buyer": "ফাতেমা খাতুন",
+          "area": 26.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-012",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1012,
+      "sub_no": 1,
+      "area_decimal": 28.0,
+      "record": {
+        "id": "REC-0012",
+        "khatian_no": "212",
+        "dag_no": "1012/1",
+        "owner_names_bn": "মোঃ আব্দুল করিম",
+        "area_decimal": 28.0,
+        "area_acres": 0.28,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-012-1",
+          "deed_no": "D-LEG-12-1",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-09-11T00:00:00+00:00",
+          "registered_date": "2020-09-14T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 28.0
+        },
+        {
+          "id": "DEED-PARCEL-012-2",
+          "deed_no": "D-LEG-12-2",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-09-11T00:00:00+00:00",
+          "registered_date": "2021-09-14T00:00:00+00:00",
+          "seller": "রফিকুল ইসলাম",
+          "buyer": "ফাতেমা খাতুন",
+          "area": 28.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-013",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": "RAJSHAHI",
+      "main_no": 1013,
+      "sub_no": null,
+      "area_decimal": 29.5,
+      "record": {
+        "id": "REC-0013",
+        "khatian_no": "213",
+        "dag_no": "1013",
+        "owner_names_bn": "মোছাঃ ফাতেমা খাতুন",
+        "area_decimal": 29.5,
+        "area_acres": 0.295,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-013-1",
+          "deed_no": "D-LEG-13-1",
+          "deed_type": "sale",
+          "registry_office": "বোয়ালিয়া সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-10-01T00:00:00+00:00",
+          "registered_date": "2020-10-04T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 29.5
+        },
+        {
+          "id": "DEED-PARCEL-013-2",
+          "deed_no": "D-LEG-13-2",
+          "deed_type": "sale",
+          "registry_office": "বোয়ালিয়া সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-10-01T00:00:00+00:00",
+          "registered_date": "2021-10-04T00:00:00+00:00",
+          "seller": "রফিকুল ইসলাম",
+          "buyer": "ফাতেমা খাতুন",
+          "area": 29.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-014",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1014,
+      "sub_no": null,
+      "area_decimal": 31.0,
+      "record": {
+        "id": "REC-0014",
+        "khatian_no": "214",
+        "dag_no": "1014",
+        "owner_names_bn": "রফিকুল ইসলাম চৌধুরী",
+        "area_decimal": 31.0,
+        "area_acres": 0.31,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-014-1",
+          "deed_no": "D-LEG-14-1",
+          "deed_type": "sale",
+          "registry_office": "সিলেট সদর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-10-21T00:00:00+00:00",
+          "registered_date": "2020-10-24T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 31.0
+        },
+        {
+          "id": "DEED-PARCEL-014-2",
+          "deed_no": "D-LEG-14-2",
+          "deed_type": "sale",
+          "registry_office": "সিলেট সদর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-10-21T00:00:00+00:00",
+          "registered_date": "2021-10-24T00:00:00+00:00",
+          "seller": "রফিকুল ইসলাম",
+          "buyer": "ফাতেমা খাতুন",
+          "area": 31.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-015",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": "DHAKA",
+      "main_no": 1015,
+      "sub_no": 1,
+      "area_decimal": 32.5,
+      "record": {
+        "id": "REC-0015",
+        "khatian_no": "215",
+        "dag_no": "1015/1",
+        "owner_names_bn": "সুবোধ কুমার দাস",
+        "area_decimal": 32.5,
+        "area_acres": 0.325,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-015-1",
+          "deed_no": "D-LEG-15-1",
+          "deed_type": "sale",
+          "registry_office": "রূপগঞ্জ সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-11-10T00:00:00+00:00",
+          "registered_date": "2020-11-13T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 32.5
+        },
+        {
+          "id": "DEED-PARCEL-015-2",
+          "deed_no": "D-LEG-15-2",
+          "deed_type": "sale",
+          "registry_office": "রূপগঞ্জ সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-11-10T00:00:00+00:00",
+          "registered_date": "2021-11-13T00:00:00+00:00",
+          "seller": "রফিকুল ইসলাম",
+          "buyer": "ফাতেমা খাতুন",
+          "area": 32.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-016",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1016,
+      "sub_no": null,
+      "area_decimal": 34.0,
+      "record": {
+        "id": "REC-0016",
+        "khatian_no": "216",
+        "dag_no": "1016",
+        "owner_names_bn": "আনোয়ার হোসেন খান",
+        "area_decimal": 34.0,
+        "area_acres": 0.34,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-016-1",
+          "deed_no": "D-LEG-16-1",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-11-30T00:00:00+00:00",
+          "registered_date": "2020-12-03T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 34.0
+        },
+        {
+          "id": "DEED-PARCEL-016-2",
+          "deed_no": "D-LEG-16-2",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-11-30T00:00:00+00:00",
+          "registered_date": "2021-12-03T00:00:00+00:00",
+          "seller": "রফিকুল ইসলাম",
+          "buyer": "ফাতেমা খাতুন",
+          "area": 34.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-017",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1017,
+      "sub_no": null,
+      "area_decimal": 35.5,
+      "record": {
+        "id": "REC-0017",
+        "khatian_no": "217",
+        "dag_no": "1017",
+        "owner_names_bn": "বেগম রহিমা খাতুন",
+        "area_decimal": 35.5,
+        "area_acres": 0.355,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-017-1",
+          "deed_no": "D-LEG-17-1",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2020-12-20T00:00:00+00:00",
+          "registered_date": "2020-12-23T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 35.5
+        },
+        {
+          "id": "DEED-PARCEL-017-2",
+          "deed_no": "D-LEG-17-2",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-12-20T00:00:00+00:00",
+          "registered_date": "2021-12-23T00:00:00+00:00",
+          "seller": "রফিকুল ইসলাম",
+          "buyer": "ফাতেমা খাতুন",
+          "area": 35.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-018",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1018,
+      "sub_no": 1,
+      "area_decimal": 37.0,
+      "record": {
+        "id": "REC-0018",
+        "khatian_no": "218",
+        "dag_no": "1018/1",
+        "owner_names_bn": "ড. আমিনুল হক",
+        "area_decimal": 37.0,
+        "area_acres": 0.37,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-018-1",
+          "deed_no": "D-LEG-18-1",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-01-09T00:00:00+00:00",
+          "registered_date": "2021-01-12T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 37.0
+        },
+        {
+          "id": "DEED-PARCEL-018-2",
+          "deed_no": "D-LEG-18-2",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-09T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "রফিকুল ইসলাম",
+          "buyer": "ফাতেমা খাতুন",
+          "area": 37.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-019",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1019,
+      "sub_no": null,
+      "area_decimal": 38.5,
+      "record": {
+        "id": "REC-0019",
+        "khatian_no": "219",
+        "dag_no": "1019",
+        "owner_names_bn": "কামাল উদ্দিন আহমেদ",
+        "area_decimal": 38.5,
+        "area_acres": 0.385,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-019-1",
+          "deed_no": "D-LEG-19-1",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-01-29T00:00:00+00:00",
+          "registered_date": "2021-02-01T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 38.5
+        },
+        {
+          "id": "DEED-PARCEL-019-2",
+          "deed_no": "D-LEG-19-2",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-29T00:00:00+00:00",
+          "registered_date": "2022-02-01T00:00:00+00:00",
+          "seller": "রফিকুল ইসলাম",
+          "buyer": "ফাতেমা খাতুন",
+          "area": 38.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-020",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1020,
+      "sub_no": null,
+      "area_decimal": 40.0,
+      "record": {
+        "id": "REC-0020",
+        "khatian_no": "220",
+        "dag_no": "1020",
+        "owner_names_bn": "মুহাম্মদ জসীম উদ্দীন",
+        "area_decimal": 40.0,
+        "area_acres": 0.4,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-020-1",
+          "deed_no": "D-LEG-20-1",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-02-18T00:00:00+00:00",
+          "registered_date": "2021-02-21T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 40.0
+        },
+        {
+          "id": "DEED-PARCEL-020-2",
+          "deed_no": "D-LEG-20-2",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-02-18T00:00:00+00:00",
+          "registered_date": "2022-02-21T00:00:00+00:00",
+          "seller": "রফিকুল ইসলাম",
+          "buyer": "ফাতেমা খাতুন",
+          "area": 40.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-021",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": "RAJSHAHI",
+      "main_no": 1021,
+      "sub_no": 1,
+      "area_decimal": 41.5,
+      "record": {
+        "id": "REC-0021",
+        "khatian_no": "221",
+        "dag_no": "1021/1",
+        "owner_names_bn": "মোসাম্মৎ আয়েশা সিদ্দিকা",
+        "area_decimal": 41.5,
+        "area_acres": 0.415,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-021-A",
+          "deed_no": "DUP-9921",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "parcel_id": "PARCEL-021",
+          "area": 41.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R2_duplicate_deed_reference"
+      ],
+      "is_conflict": true,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-FOREIGN-21",
+          "deed_no": "DUP-9921",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "সুবোধ কুমার দাস",
+          "buyer": "ফাতেমা খাতুন",
+          "parcel_id": "PARCEL-DISPARATE-21",
+          "area": 41.5
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-022",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1022,
+      "sub_no": null,
+      "area_decimal": 43.0,
+      "record": {
+        "id": "REC-0022",
+        "khatian_no": "222",
+        "dag_no": "1022",
+        "owner_names_bn": "শাহ আলম খন্দকার",
+        "area_decimal": 43.0,
+        "area_acres": 0.43,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-022-A",
+          "deed_no": "DUP-9922",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "parcel_id": "PARCEL-022",
+          "area": 43.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R2_duplicate_deed_reference"
+      ],
+      "is_conflict": true,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-FOREIGN-22",
+          "deed_no": "DUP-9922",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "সুবোধ কুমার দাস",
+          "buyer": "ফাতেমা খাতুন",
+          "parcel_id": "PARCEL-DISPARATE-22",
+          "area": 43.0
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-023",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": "DHAKA",
+      "main_no": 1023,
+      "sub_no": null,
+      "area_decimal": 44.5,
+      "record": {
+        "id": "REC-0023",
+        "khatian_no": "223",
+        "dag_no": "1023",
+        "owner_names_bn": "মোঃ তারেক রহমান",
+        "area_decimal": 44.5,
+        "area_acres": 0.445,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-023-A",
+          "deed_no": "DUP-9923",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "parcel_id": "PARCEL-023",
+          "area": 44.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R2_duplicate_deed_reference"
+      ],
+      "is_conflict": true,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-FOREIGN-23",
+          "deed_no": "DUP-9923",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "সুবোধ কুমার দাস",
+          "buyer": "ফাতেমা খাতুন",
+          "parcel_id": "PARCEL-DISPARATE-23",
+          "area": 44.5
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-024",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1024,
+      "sub_no": 1,
+      "area_decimal": 46.0,
+      "record": {
+        "id": "REC-0024",
+        "khatian_no": "224",
+        "dag_no": "1024/1",
+        "owner_names_bn": "মোঃ আব্দুল করিম",
+        "area_decimal": 46.0,
+        "area_acres": 0.46,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-024-A",
+          "deed_no": "DUP-9924",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "parcel_id": "PARCEL-024",
+          "area": 46.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R2_duplicate_deed_reference"
+      ],
+      "is_conflict": true,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-FOREIGN-24",
+          "deed_no": "DUP-9924",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "সুবোধ কুমার দাস",
+          "buyer": "ফাতেমা খাতুন",
+          "parcel_id": "PARCEL-DISPARATE-24",
+          "area": 46.0
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-025",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1025,
+      "sub_no": null,
+      "area_decimal": 47.5,
+      "record": {
+        "id": "REC-0025",
+        "khatian_no": "225",
+        "dag_no": "1025",
+        "owner_names_bn": "মোছাঃ ফাতেমা খাতুন",
+        "area_decimal": 47.5,
+        "area_acres": 0.475,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-025-A",
+          "deed_no": "DUP-9925",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "parcel_id": "PARCEL-025",
+          "area": 47.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R2_duplicate_deed_reference"
+      ],
+      "is_conflict": true,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-FOREIGN-25",
+          "deed_no": "DUP-9925",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "সুবোধ কুমার দাস",
+          "buyer": "ফাতেমা খাতুন",
+          "parcel_id": "PARCEL-DISPARATE-25",
+          "area": 47.5
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-026",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1026,
+      "sub_no": null,
+      "area_decimal": 49.0,
+      "record": {
+        "id": "REC-0026",
+        "khatian_no": "226",
+        "dag_no": "1026",
+        "owner_names_bn": "রফিকুল ইসলাম চৌধুরী",
+        "area_decimal": 49.0,
+        "area_acres": 0.49,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-026-A",
+          "deed_no": "DUP-9926",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "parcel_id": "PARCEL-026",
+          "area": 49.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R2_duplicate_deed_reference"
+      ],
+      "is_conflict": true,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-FOREIGN-26",
+          "deed_no": "DUP-9926",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "সুবোধ কুমার দাস",
+          "buyer": "ফাতেমা খাতুন",
+          "parcel_id": "PARCEL-DISPARATE-26",
+          "area": 49.0
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-027",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1027,
+      "sub_no": 1,
+      "area_decimal": 50.5,
+      "record": {
+        "id": "REC-0027",
+        "khatian_no": "227",
+        "dag_no": "1027/1",
+        "owner_names_bn": "সুবোধ কুমার দাস",
+        "area_decimal": 50.5,
+        "area_acres": 0.505,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-027-A",
+          "deed_no": "DUP-9927",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "parcel_id": "PARCEL-027",
+          "area": 50.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R2_duplicate_deed_reference"
+      ],
+      "is_conflict": true,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-FOREIGN-27",
+          "deed_no": "DUP-9927",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "সুবোধ কুমার দাস",
+          "buyer": "ফাতেমা খাতুন",
+          "parcel_id": "PARCEL-DISPARATE-27",
+          "area": 50.5
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-028",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1028,
+      "sub_no": null,
+      "area_decimal": 52.0,
+      "record": {
+        "id": "REC-0028",
+        "khatian_no": "228",
+        "dag_no": "1028",
+        "owner_names_bn": "আনোয়ার হোসেন খান",
+        "area_decimal": 52.0,
+        "area_acres": 0.52,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-028-A",
+          "deed_no": "DUP-9928",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "parcel_id": "PARCEL-028",
+          "area": 52.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R2_duplicate_deed_reference"
+      ],
+      "is_conflict": true,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-FOREIGN-28",
+          "deed_no": "DUP-9928",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "সুবোধ কুমার দাস",
+          "buyer": "ফাতেমা খাতুন",
+          "parcel_id": "PARCEL-DISPARATE-28",
+          "area": 52.0
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-029",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": "RAJSHAHI",
+      "main_no": 1029,
+      "sub_no": null,
+      "area_decimal": 53.5,
+      "record": {
+        "id": "REC-0029",
+        "khatian_no": "229",
+        "dag_no": "1029",
+        "owner_names_bn": "বেগম রহিমা খাতুন",
+        "area_decimal": 53.5,
+        "area_acres": 0.535,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-029-A",
+          "deed_no": "DUP-9929",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "parcel_id": "PARCEL-029",
+          "area": 53.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R2_duplicate_deed_reference"
+      ],
+      "is_conflict": true,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-FOREIGN-29",
+          "deed_no": "DUP-9929",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "সুবোধ কুমার দাস",
+          "buyer": "ফাতেমা খাতুন",
+          "parcel_id": "PARCEL-DISPARATE-29",
+          "area": 53.5
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-030",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1030,
+      "sub_no": 1,
+      "area_decimal": 55.0,
+      "record": {
+        "id": "REC-0030",
+        "khatian_no": "230",
+        "dag_no": "1030/1",
+        "owner_names_bn": "ড. আমিনুল হক",
+        "area_decimal": 55.0,
+        "area_acres": 0.55,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-030-A",
+          "deed_no": "DUP-9930",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "parcel_id": "PARCEL-030",
+          "area": 55.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R2_duplicate_deed_reference"
+      ],
+      "is_conflict": true,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-FOREIGN-30",
+          "deed_no": "DUP-9930",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-05-10T00:00:00+00:00",
+          "registered_date": "2021-05-10T00:00:00+00:00",
+          "seller": "সুবোধ কুমার দাস",
+          "buyer": "ফাতেমা খাতুন",
+          "parcel_id": "PARCEL-DISPARATE-30",
+          "area": 55.0
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-031",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": "DHAKA",
+      "main_no": 1031,
+      "sub_no": null,
+      "area_decimal": 56.5,
+      "record": {
+        "id": "REC-0031",
+        "khatian_no": "231",
+        "dag_no": "1031",
+        "owner_names_bn": "কামাল উদ্দিন আহমেদ",
+        "area_decimal": 56.5,
+        "area_acres": 0.565,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-031-A",
+          "deed_no": "UNIQ-31",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2019-03-01T00:00:00+00:00",
+          "registered_date": "2019-03-05T00:00:00+00:00",
+          "seller": "কামাল উদ্দিন",
+          "buyer": "আনোয়ার হোসেন",
+          "parcel_id": "PARCEL-031",
+          "area": 56.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-OTHER-31",
+          "deed_no": "UNIQ-31",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-03-01T00:00:00+00:00",
+          "registered_date": "2022-03-05T00:00:00+00:00",
+          "seller": "তারেক রহমান",
+          "buyer": "আমিনুল হক",
+          "parcel_id": "PARCEL-OTHER-31",
+          "area": 56.5
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-032",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1032,
+      "sub_no": null,
+      "area_decimal": 58.0,
+      "record": {
+        "id": "REC-0032",
+        "khatian_no": "232",
+        "dag_no": "1032",
+        "owner_names_bn": "মুহাম্মদ জসীম উদ্দীন",
+        "area_decimal": 58.0,
+        "area_acres": 0.58,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-032-A",
+          "deed_no": "UNIQ-32",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2019-03-01T00:00:00+00:00",
+          "registered_date": "2019-03-05T00:00:00+00:00",
+          "seller": "কামাল উদ্দিন",
+          "buyer": "আনোয়ার হোসেন",
+          "parcel_id": "PARCEL-032",
+          "area": 58.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-OTHER-32",
+          "deed_no": "UNIQ-32",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-03-01T00:00:00+00:00",
+          "registered_date": "2022-03-05T00:00:00+00:00",
+          "seller": "তারেক রহমান",
+          "buyer": "আমিনুল হক",
+          "parcel_id": "PARCEL-OTHER-32",
+          "area": 58.0
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-033",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1033,
+      "sub_no": 1,
+      "area_decimal": 59.5,
+      "record": {
+        "id": "REC-0033",
+        "khatian_no": "233",
+        "dag_no": "1033/1",
+        "owner_names_bn": "মোসাম্মৎ আয়েশা সিদ্দিকা",
+        "area_decimal": 59.5,
+        "area_acres": 0.595,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-033-A",
+          "deed_no": "UNIQ-33",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2019-03-01T00:00:00+00:00",
+          "registered_date": "2019-03-05T00:00:00+00:00",
+          "seller": "কামাল উদ্দিন",
+          "buyer": "আনোয়ার হোসেন",
+          "parcel_id": "PARCEL-033",
+          "area": 59.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-OTHER-33",
+          "deed_no": "UNIQ-33",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-03-01T00:00:00+00:00",
+          "registered_date": "2022-03-05T00:00:00+00:00",
+          "seller": "তারেক রহমান",
+          "buyer": "আমিনুল হক",
+          "parcel_id": "PARCEL-OTHER-33",
+          "area": 59.5
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-034",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1034,
+      "sub_no": null,
+      "area_decimal": 61.0,
+      "record": {
+        "id": "REC-0034",
+        "khatian_no": "234",
+        "dag_no": "1034",
+        "owner_names_bn": "শাহ আলম খন্দকার",
+        "area_decimal": 61.0,
+        "area_acres": 0.61,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-034-A",
+          "deed_no": "UNIQ-34",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2019-03-01T00:00:00+00:00",
+          "registered_date": "2019-03-05T00:00:00+00:00",
+          "seller": "কামাল উদ্দিন",
+          "buyer": "আনোয়ার হোসেন",
+          "parcel_id": "PARCEL-034",
+          "area": 61.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-OTHER-34",
+          "deed_no": "UNIQ-34",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-03-01T00:00:00+00:00",
+          "registered_date": "2022-03-05T00:00:00+00:00",
+          "seller": "তারেক রহমান",
+          "buyer": "আমিনুল হক",
+          "parcel_id": "PARCEL-OTHER-34",
+          "area": 61.0
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-035",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1035,
+      "sub_no": null,
+      "area_decimal": 62.5,
+      "record": {
+        "id": "REC-0035",
+        "khatian_no": "235",
+        "dag_no": "1035",
+        "owner_names_bn": "মোঃ তারেক রহমান",
+        "area_decimal": 62.5,
+        "area_acres": 0.625,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-035-A",
+          "deed_no": "UNIQ-35",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2019-03-01T00:00:00+00:00",
+          "registered_date": "2019-03-05T00:00:00+00:00",
+          "seller": "কামাল উদ্দিন",
+          "buyer": "আনোয়ার হোসেন",
+          "parcel_id": "PARCEL-035",
+          "area": 62.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-OTHER-35",
+          "deed_no": "UNIQ-35",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-03-01T00:00:00+00:00",
+          "registered_date": "2022-03-05T00:00:00+00:00",
+          "seller": "তারেক রহমান",
+          "buyer": "আমিনুল হক",
+          "parcel_id": "PARCEL-OTHER-35",
+          "area": 62.5
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-036",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1036,
+      "sub_no": 1,
+      "area_decimal": 64.0,
+      "record": {
+        "id": "REC-0036",
+        "khatian_no": "236",
+        "dag_no": "1036/1",
+        "owner_names_bn": "মোঃ আব্দুল করিম",
+        "area_decimal": 64.0,
+        "area_acres": 0.64,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-036-A",
+          "deed_no": "UNIQ-36",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2019-03-01T00:00:00+00:00",
+          "registered_date": "2019-03-05T00:00:00+00:00",
+          "seller": "কামাল উদ্দিন",
+          "buyer": "আনোয়ার হোসেন",
+          "parcel_id": "PARCEL-036",
+          "area": 64.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-OTHER-36",
+          "deed_no": "UNIQ-36",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-03-01T00:00:00+00:00",
+          "registered_date": "2022-03-05T00:00:00+00:00",
+          "seller": "তারেক রহমান",
+          "buyer": "আমিনুল হক",
+          "parcel_id": "PARCEL-OTHER-36",
+          "area": 64.0
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-037",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": "RAJSHAHI",
+      "main_no": 1037,
+      "sub_no": null,
+      "area_decimal": 65.5,
+      "record": {
+        "id": "REC-0037",
+        "khatian_no": "237",
+        "dag_no": "1037",
+        "owner_names_bn": "মোছাঃ ফাতেমা খাতুন",
+        "area_decimal": 65.5,
+        "area_acres": 0.655,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-037-A",
+          "deed_no": "UNIQ-37",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2019-03-01T00:00:00+00:00",
+          "registered_date": "2019-03-05T00:00:00+00:00",
+          "seller": "কামাল উদ্দিন",
+          "buyer": "আনোয়ার হোসেন",
+          "parcel_id": "PARCEL-037",
+          "area": 65.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-OTHER-37",
+          "deed_no": "UNIQ-37",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-03-01T00:00:00+00:00",
+          "registered_date": "2022-03-05T00:00:00+00:00",
+          "seller": "তারেক রহমান",
+          "buyer": "আমিনুল হক",
+          "parcel_id": "PARCEL-OTHER-37",
+          "area": 65.5
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-038",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1038,
+      "sub_no": null,
+      "area_decimal": 67.0,
+      "record": {
+        "id": "REC-0038",
+        "khatian_no": "238",
+        "dag_no": "1038",
+        "owner_names_bn": "রফিকুল ইসলাম চৌধুরী",
+        "area_decimal": 67.0,
+        "area_acres": 0.67,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-038-A",
+          "deed_no": "UNIQ-38",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2019-03-01T00:00:00+00:00",
+          "registered_date": "2019-03-05T00:00:00+00:00",
+          "seller": "কামাল উদ্দিন",
+          "buyer": "আনোয়ার হোসেন",
+          "parcel_id": "PARCEL-038",
+          "area": 67.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-OTHER-38",
+          "deed_no": "UNIQ-38",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-03-01T00:00:00+00:00",
+          "registered_date": "2022-03-05T00:00:00+00:00",
+          "seller": "তারেক রহমান",
+          "buyer": "আমিনুল হক",
+          "parcel_id": "PARCEL-OTHER-38",
+          "area": 67.0
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-039",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": "DHAKA",
+      "main_no": 1039,
+      "sub_no": 1,
+      "area_decimal": 68.5,
+      "record": {
+        "id": "REC-0039",
+        "khatian_no": "239",
+        "dag_no": "1039/1",
+        "owner_names_bn": "সুবোধ কুমার দাস",
+        "area_decimal": 68.5,
+        "area_acres": 0.685,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-039-A",
+          "deed_no": "UNIQ-39",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2019-03-01T00:00:00+00:00",
+          "registered_date": "2019-03-05T00:00:00+00:00",
+          "seller": "কামাল উদ্দিন",
+          "buyer": "আনোয়ার হোসেন",
+          "parcel_id": "PARCEL-039",
+          "area": 68.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-OTHER-39",
+          "deed_no": "UNIQ-39",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-03-01T00:00:00+00:00",
+          "registered_date": "2022-03-05T00:00:00+00:00",
+          "seller": "তারেক রহমান",
+          "buyer": "আমিনুল হক",
+          "parcel_id": "PARCEL-OTHER-39",
+          "area": 68.5
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-040",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1040,
+      "sub_no": null,
+      "area_decimal": 10.0,
+      "record": {
+        "id": "REC-0040",
+        "khatian_no": "240",
+        "dag_no": "1040",
+        "owner_names_bn": "আনোয়ার হোসেন খান",
+        "area_decimal": 10.0,
+        "area_acres": 0.1,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-040-A",
+          "deed_no": "UNIQ-40",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2019-03-01T00:00:00+00:00",
+          "registered_date": "2019-03-05T00:00:00+00:00",
+          "seller": "কামাল উদ্দিন",
+          "buyer": "আনোয়ার হোসেন",
+          "parcel_id": "PARCEL-040",
+          "area": 10.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false,
+      "all_registry_deeds": [
+        {
+          "id": "DEED-OTHER-40",
+          "deed_no": "UNIQ-40",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-03-01T00:00:00+00:00",
+          "registered_date": "2022-03-05T00:00:00+00:00",
+          "seller": "তারেক রহমান",
+          "buyer": "আমিনুল হক",
+          "parcel_id": "PARCEL-OTHER-40",
+          "area": 10.0
+        }
+      ]
+    },
+    {
+      "parcel_id": "PARCEL-041",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1041,
+      "sub_no": null,
+      "area_decimal": 11.5,
+      "record": {
+        "id": "REC-0041",
+        "khatian_no": "241",
+        "dag_no": "1041",
+        "owner_names_bn": "বেগম রহিমা খাতুন",
+        "area_decimal": 11.5,
+        "area_acres": 0.115,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-041-ANOM",
+          "deed_no": "ANOM-DATE-41",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "1885-04-10T00:00:00+00:00",
+          "registered_date": "1885-04-15T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 11.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R3_impossible_dates"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-042",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1042,
+      "sub_no": 1,
+      "area_decimal": 13.0,
+      "record": {
+        "id": "REC-0042",
+        "khatian_no": "242",
+        "dag_no": "1042/1",
+        "owner_names_bn": "ড. আমিনুল হক",
+        "area_decimal": 13.0,
+        "area_acres": 0.13,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-042-ANOM",
+          "deed_no": "ANOM-DATE-42",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2035-01-01T00:00:00+00:00",
+          "registered_date": "2035-01-05T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 13.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R3_impossible_dates"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-043",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1043,
+      "sub_no": null,
+      "area_decimal": 14.5,
+      "record": {
+        "id": "REC-0043",
+        "khatian_no": "243",
+        "dag_no": "1043",
+        "owner_names_bn": "কামাল উদ্দিন আহমেদ",
+        "area_decimal": 14.5,
+        "area_acres": 0.145,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-043-ANOM",
+          "deed_no": "ANOM-DATE-43",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-06-15T00:00:00+00:00",
+          "registered_date": "2022-06-01T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 14.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R3_impossible_dates"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-044",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1044,
+      "sub_no": null,
+      "area_decimal": 16.0,
+      "record": {
+        "id": "REC-0044",
+        "khatian_no": "244",
+        "dag_no": "1044",
+        "owner_names_bn": "মুহাম্মদ জসীম উদ্দীন",
+        "area_decimal": 16.0,
+        "area_acres": 0.16,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-044-ANOM",
+          "deed_no": "ANOM-DATE-44",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "1885-04-10T00:00:00+00:00",
+          "registered_date": "1885-04-15T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 16.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R3_impossible_dates"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-045",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": "RAJSHAHI",
+      "main_no": 1045,
+      "sub_no": 1,
+      "area_decimal": 17.5,
+      "record": {
+        "id": "REC-0045",
+        "khatian_no": "245",
+        "dag_no": "1045/1",
+        "owner_names_bn": "মোসাম্মৎ আয়েশা সিদ্দিকা",
+        "area_decimal": 17.5,
+        "area_acres": 0.175,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-045-ANOM",
+          "deed_no": "ANOM-DATE-45",
+          "deed_type": "sale",
+          "registry_office": "বোয়ালিয়া সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2035-01-01T00:00:00+00:00",
+          "registered_date": "2035-01-05T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 17.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R3_impossible_dates"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-046",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1046,
+      "sub_no": null,
+      "area_decimal": 19.0,
+      "record": {
+        "id": "REC-0046",
+        "khatian_no": "246",
+        "dag_no": "1046",
+        "owner_names_bn": "শাহ আলম খন্দকার",
+        "area_decimal": 19.0,
+        "area_acres": 0.19,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-046-ANOM",
+          "deed_no": "ANOM-DATE-46",
+          "deed_type": "sale",
+          "registry_office": "সিলেট সদর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-06-15T00:00:00+00:00",
+          "registered_date": "2022-06-01T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 19.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R3_impossible_dates"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-047",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": "DHAKA",
+      "main_no": 1047,
+      "sub_no": null,
+      "area_decimal": 20.5,
+      "record": {
+        "id": "REC-0047",
+        "khatian_no": "247",
+        "dag_no": "1047",
+        "owner_names_bn": "মোঃ তারেক রহমান",
+        "area_decimal": 20.5,
+        "area_acres": 0.205,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-047-ANOM",
+          "deed_no": "ANOM-DATE-47",
+          "deed_type": "sale",
+          "registry_office": "রূপগঞ্জ সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "1885-04-10T00:00:00+00:00",
+          "registered_date": "1885-04-15T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 20.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R3_impossible_dates"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-048",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1048,
+      "sub_no": 1,
+      "area_decimal": 22.0,
+      "record": {
+        "id": "REC-0048",
+        "khatian_no": "248",
+        "dag_no": "1048/1",
+        "owner_names_bn": "মোঃ আব্দুল করিম",
+        "area_decimal": 22.0,
+        "area_acres": 0.22,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-048-ANOM",
+          "deed_no": "ANOM-DATE-48",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2035-01-01T00:00:00+00:00",
+          "registered_date": "2035-01-05T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 22.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R3_impossible_dates"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-049",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1049,
+      "sub_no": null,
+      "area_decimal": 23.5,
+      "record": {
+        "id": "REC-0049",
+        "khatian_no": "249",
+        "dag_no": "1049",
+        "owner_names_bn": "মোছাঃ ফাতেমা খাতুন",
+        "area_decimal": 23.5,
+        "area_acres": 0.235,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-049-ANOM",
+          "deed_no": "ANOM-DATE-49",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-06-15T00:00:00+00:00",
+          "registered_date": "2022-06-01T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 23.5
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R3_impossible_dates"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-050",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1050,
+      "sub_no": null,
+      "area_decimal": 25.0,
+      "record": {
+        "id": "REC-0050",
+        "khatian_no": "250",
+        "dag_no": "1050",
+        "owner_names_bn": "রফিকুল ইসলাম চৌধুরী",
+        "area_decimal": 25.0,
+        "area_acres": 0.25,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-050-ANOM",
+          "deed_no": "ANOM-DATE-50",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "1885-04-10T00:00:00+00:00",
+          "registered_date": "1885-04-15T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 25.0
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R3_impossible_dates"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-051",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1051,
+      "sub_no": 1,
+      "area_decimal": 26.5,
+      "record": {
+        "id": "REC-0051",
+        "khatian_no": "251",
+        "dag_no": "1051/1",
+        "owner_names_bn": "সুবোধ কুমার দাস",
+        "area_decimal": 26.5,
+        "area_acres": 0.265,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-051-OK",
+          "deed_no": "OK-DATE-51",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-04-10T00:00:00+00:00",
+          "registered_date": "2021-04-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 26.5
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-051-OK",
+          "case_no": "MUT-CASE-51",
+          "mutation_date": "2021-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-051-OK",
+          "from_party": "আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": 26.5
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-052",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1052,
+      "sub_no": null,
+      "area_decimal": 28.0,
+      "record": {
+        "id": "REC-0052",
+        "khatian_no": "252",
+        "dag_no": "1052",
+        "owner_names_bn": "আনোয়ার হোসেন খান",
+        "area_decimal": 28.0,
+        "area_acres": 0.28,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-052-OK",
+          "deed_no": "OK-DATE-52",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-04-10T00:00:00+00:00",
+          "registered_date": "2021-04-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 28.0
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-052-OK",
+          "case_no": "MUT-CASE-52",
+          "mutation_date": "2021-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-052-OK",
+          "from_party": "আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": 28.0
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-053",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": "RAJSHAHI",
+      "main_no": 1053,
+      "sub_no": null,
+      "area_decimal": 29.5,
+      "record": {
+        "id": "REC-0053",
+        "khatian_no": "253",
+        "dag_no": "1053",
+        "owner_names_bn": "বেগম রহিমা খাতুন",
+        "area_decimal": 29.5,
+        "area_acres": 0.295,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-053-OK",
+          "deed_no": "OK-DATE-53",
+          "deed_type": "sale",
+          "registry_office": "বোয়ালিয়া সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-04-10T00:00:00+00:00",
+          "registered_date": "2021-04-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 29.5
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-053-OK",
+          "case_no": "MUT-CASE-53",
+          "mutation_date": "2021-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-053-OK",
+          "from_party": "আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": 29.5
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-054",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1054,
+      "sub_no": 1,
+      "area_decimal": 31.0,
+      "record": {
+        "id": "REC-0054",
+        "khatian_no": "254",
+        "dag_no": "1054/1",
+        "owner_names_bn": "ড. আমিনুল হক",
+        "area_decimal": 31.0,
+        "area_acres": 0.31,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-054-OK",
+          "deed_no": "OK-DATE-54",
+          "deed_type": "sale",
+          "registry_office": "সিলেট সদর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-04-10T00:00:00+00:00",
+          "registered_date": "2021-04-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 31.0
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-054-OK",
+          "case_no": "MUT-CASE-54",
+          "mutation_date": "2021-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-054-OK",
+          "from_party": "আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": 31.0
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-055",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": "DHAKA",
+      "main_no": 1055,
+      "sub_no": null,
+      "area_decimal": 32.5,
+      "record": {
+        "id": "REC-0055",
+        "khatian_no": "255",
+        "dag_no": "1055",
+        "owner_names_bn": "কামাল উদ্দিন আহমেদ",
+        "area_decimal": 32.5,
+        "area_acres": 0.325,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-055-OK",
+          "deed_no": "OK-DATE-55",
+          "deed_type": "sale",
+          "registry_office": "রূপগঞ্জ সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-04-10T00:00:00+00:00",
+          "registered_date": "2021-04-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 32.5
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-055-OK",
+          "case_no": "MUT-CASE-55",
+          "mutation_date": "2021-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-055-OK",
+          "from_party": "আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": 32.5
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-056",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1056,
+      "sub_no": null,
+      "area_decimal": 34.0,
+      "record": {
+        "id": "REC-0056",
+        "khatian_no": "256",
+        "dag_no": "1056",
+        "owner_names_bn": "মুহাম্মদ জসীম উদ্দীন",
+        "area_decimal": 34.0,
+        "area_acres": 0.34,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-056-OK",
+          "deed_no": "OK-DATE-56",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-04-10T00:00:00+00:00",
+          "registered_date": "2021-04-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 34.0
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-056-OK",
+          "case_no": "MUT-CASE-56",
+          "mutation_date": "2021-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-056-OK",
+          "from_party": "আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": 34.0
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-057",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1057,
+      "sub_no": 1,
+      "area_decimal": 35.5,
+      "record": {
+        "id": "REC-0057",
+        "khatian_no": "257",
+        "dag_no": "1057/1",
+        "owner_names_bn": "মোসাম্মৎ আয়েশা সিদ্দিকা",
+        "area_decimal": 35.5,
+        "area_acres": 0.355,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-057-OK",
+          "deed_no": "OK-DATE-57",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-04-10T00:00:00+00:00",
+          "registered_date": "2021-04-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 35.5
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-057-OK",
+          "case_no": "MUT-CASE-57",
+          "mutation_date": "2021-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-057-OK",
+          "from_party": "আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": 35.5
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-058",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1058,
+      "sub_no": null,
+      "area_decimal": 37.0,
+      "record": {
+        "id": "REC-0058",
+        "khatian_no": "258",
+        "dag_no": "1058",
+        "owner_names_bn": "শাহ আলম খন্দকার",
+        "area_decimal": 37.0,
+        "area_acres": 0.37,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-058-OK",
+          "deed_no": "OK-DATE-58",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-04-10T00:00:00+00:00",
+          "registered_date": "2021-04-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 37.0
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-058-OK",
+          "case_no": "MUT-CASE-58",
+          "mutation_date": "2021-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-058-OK",
+          "from_party": "আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": 37.0
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-059",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1059,
+      "sub_no": null,
+      "area_decimal": 38.5,
+      "record": {
+        "id": "REC-0059",
+        "khatian_no": "259",
+        "dag_no": "1059",
+        "owner_names_bn": "মোঃ তারেক রহমান",
+        "area_decimal": 38.5,
+        "area_acres": 0.385,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-059-OK",
+          "deed_no": "OK-DATE-59",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-04-10T00:00:00+00:00",
+          "registered_date": "2021-04-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 38.5
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-059-OK",
+          "case_no": "MUT-CASE-59",
+          "mutation_date": "2021-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-059-OK",
+          "from_party": "আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": 38.5
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-060",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1060,
+      "sub_no": 1,
+      "area_decimal": 40.0,
+      "record": {
+        "id": "REC-0060",
+        "khatian_no": "260",
+        "dag_no": "1060/1",
+        "owner_names_bn": "মোঃ আব্দুল করিম",
+        "area_decimal": 40.0,
+        "area_acres": 0.4,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-060-OK",
+          "deed_no": "OK-DATE-60",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-04-10T00:00:00+00:00",
+          "registered_date": "2021-04-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": 40.0
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-060-OK",
+          "case_no": "MUT-CASE-60",
+          "mutation_date": "2021-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-060-OK",
+          "from_party": "আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": 40.0
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-061",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": null,
+      "main_no": 1061,
+      "sub_no": null,
+      "area_decimal": 41.5,
+      "record": {
+        "id": "REC-0061",
+        "khatian_no": "261",
+        "dag_no": "1061",
+        "owner_names_bn": "মোছাঃ ফাতেমা খাতুন",
+        "area_decimal": 41.5,
+        "area_acres": 0.415,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-061-AR",
+          "deed_no": "D-AR-61",
+          "deed_type": "sale",
+          "registry_office": "বোয়ালিয়া সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "২ বিঘা"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R4_area_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-062",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1062,
+      "sub_no": null,
+      "area_decimal": 43.0,
+      "record": {
+        "id": "REC-0062",
+        "khatian_no": "262",
+        "dag_no": "1062",
+        "owner_names_bn": "রফিকুল ইসলাম চৌধুরী",
+        "area_decimal": 43.0,
+        "area_acres": 0.43,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-062-AR",
+          "deed_no": "D-AR-62",
+          "deed_type": "sale",
+          "registry_office": "সিলেট সদর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "60.2 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R4_area_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-063",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": null,
+      "main_no": 1063,
+      "sub_no": 1,
+      "area_decimal": 44.5,
+      "record": {
+        "id": "REC-0063",
+        "khatian_no": "263",
+        "dag_no": "1063/1",
+        "owner_names_bn": "সুবোধ কুমার দাস",
+        "area_decimal": 44.5,
+        "area_acres": 0.445,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-063-AR",
+          "deed_no": "D-AR-63",
+          "deed_type": "sale",
+          "registry_office": "রূপগঞ্জ সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "২ বিঘা"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R4_area_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-064",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1064,
+      "sub_no": null,
+      "area_decimal": 46.0,
+      "record": {
+        "id": "REC-0064",
+        "khatian_no": "264",
+        "dag_no": "1064",
+        "owner_names_bn": "আনোয়ার হোসেন খান",
+        "area_decimal": 46.0,
+        "area_acres": 0.46,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-064-AR",
+          "deed_no": "D-AR-64",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "64.4 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R4_area_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-065",
+      "mouza_name": "গুলশান",
+      "region_code": null,
+      "main_no": 1065,
+      "sub_no": null,
+      "area_decimal": 47.5,
+      "record": {
+        "id": "REC-0065",
+        "khatian_no": "265",
+        "dag_no": "1065",
+        "owner_names_bn": "বেগম রহিমা খাতুন",
+        "area_decimal": 47.5,
+        "area_acres": 0.475,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-065-AR",
+          "deed_no": "D-AR-65",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "২ বিঘা"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R4_area_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-066",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1066,
+      "sub_no": 1,
+      "area_decimal": 49.0,
+      "record": {
+        "id": "REC-0066",
+        "khatian_no": "266",
+        "dag_no": "1066/1",
+        "owner_names_bn": "ড. আমিনুল হক",
+        "area_decimal": 49.0,
+        "area_acres": 0.49,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-066-AR",
+          "deed_no": "D-AR-66",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "68.6 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R4_area_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-067",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": null,
+      "main_no": 1067,
+      "sub_no": null,
+      "area_decimal": 50.5,
+      "record": {
+        "id": "REC-0067",
+        "khatian_no": "267",
+        "dag_no": "1067",
+        "owner_names_bn": "কামাল উদ্দিন আহমেদ",
+        "area_decimal": 50.5,
+        "area_acres": 0.505,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-067-AR",
+          "deed_no": "D-AR-67",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "২ বিঘা"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R4_area_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-068",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1068,
+      "sub_no": null,
+      "area_decimal": 52.0,
+      "record": {
+        "id": "REC-0068",
+        "khatian_no": "268",
+        "dag_no": "1068",
+        "owner_names_bn": "মুহাম্মদ জসীম উদ্দীন",
+        "area_decimal": 52.0,
+        "area_acres": 0.52,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-068-AR",
+          "deed_no": "D-AR-68",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "72.8 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R4_area_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-069",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": null,
+      "main_no": 1069,
+      "sub_no": 1,
+      "area_decimal": 53.5,
+      "record": {
+        "id": "REC-0069",
+        "khatian_no": "269",
+        "dag_no": "1069/1",
+        "owner_names_bn": "মোসাম্মৎ আয়েশা সিদ্দিকা",
+        "area_decimal": 53.5,
+        "area_acres": 0.535,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-069-AR",
+          "deed_no": "D-AR-69",
+          "deed_type": "sale",
+          "registry_office": "বোয়ালিয়া সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "২ বিঘা"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R4_area_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-070",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1070,
+      "sub_no": null,
+      "area_decimal": 55.0,
+      "record": {
+        "id": "REC-0070",
+        "khatian_no": "270",
+        "dag_no": "1070",
+        "owner_names_bn": "শাহ আলম খন্দকার",
+        "area_decimal": 55.0,
+        "area_acres": 0.55,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-070-AR",
+          "deed_no": "D-AR-70",
+          "deed_type": "sale",
+          "registry_office": "সিলেট সদর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "77.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R4_area_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-071",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": "DHAKA",
+      "main_no": 1071,
+      "sub_no": null,
+      "area_decimal": 56.5,
+      "record": {
+        "id": "REC-0071",
+        "khatian_no": "271",
+        "dag_no": "1071",
+        "owner_names_bn": "মোঃ তারেক রহমান",
+        "area_decimal": 56.5,
+        "area_acres": 0.565,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-071-AROK",
+          "deed_no": "D-AROK-71",
+          "deed_type": "sale",
+          "registry_office": "রূপগঞ্জ সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "56.95 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-072",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1072,
+      "sub_no": 1,
+      "area_decimal": 58.0,
+      "record": {
+        "id": "REC-0072",
+        "khatian_no": "272",
+        "dag_no": "1072/1",
+        "owner_names_bn": "মোঃ আব্দুল করিম",
+        "area_decimal": 58.0,
+        "area_acres": 0.58,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-072-AROK",
+          "deed_no": "D-AROK-72",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "58.46 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-073",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1073,
+      "sub_no": null,
+      "area_decimal": 59.5,
+      "record": {
+        "id": "REC-0073",
+        "khatian_no": "273",
+        "dag_no": "1073",
+        "owner_names_bn": "মোছাঃ ফাতেমা খাতুন",
+        "area_decimal": 59.5,
+        "area_acres": 0.595,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-073-AROK",
+          "deed_no": "D-AROK-73",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "59.98 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-074",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1074,
+      "sub_no": null,
+      "area_decimal": 61.0,
+      "record": {
+        "id": "REC-0074",
+        "khatian_no": "274",
+        "dag_no": "1074",
+        "owner_names_bn": "রফিকুল ইসলাম চৌধুরী",
+        "area_decimal": 61.0,
+        "area_acres": 0.61,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-074-AROK",
+          "deed_no": "D-AROK-74",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "61.49 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-075",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1075,
+      "sub_no": 1,
+      "area_decimal": 62.5,
+      "record": {
+        "id": "REC-0075",
+        "khatian_no": "275",
+        "dag_no": "1075/1",
+        "owner_names_bn": "সুবোধ কুমার দাস",
+        "area_decimal": 62.5,
+        "area_acres": 0.625,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-075-AROK",
+          "deed_no": "D-AROK-75",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "63.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-076",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1076,
+      "sub_no": null,
+      "area_decimal": 64.0,
+      "record": {
+        "id": "REC-0076",
+        "khatian_no": "276",
+        "dag_no": "1076",
+        "owner_names_bn": "আনোয়ার হোসেন খান",
+        "area_decimal": 64.0,
+        "area_acres": 0.64,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-076-AROK",
+          "deed_no": "D-AROK-76",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "64.51 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-077",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": "RAJSHAHI",
+      "main_no": 1077,
+      "sub_no": null,
+      "area_decimal": 65.5,
+      "record": {
+        "id": "REC-0077",
+        "khatian_no": "277",
+        "dag_no": "1077",
+        "owner_names_bn": "বেগম রহিমা খাতুন",
+        "area_decimal": 65.5,
+        "area_acres": 0.655,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-077-AROK",
+          "deed_no": "D-AROK-77",
+          "deed_type": "sale",
+          "registry_office": "বোয়ালিয়া সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "66.02 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-078",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1078,
+      "sub_no": 1,
+      "area_decimal": 67.0,
+      "record": {
+        "id": "REC-0078",
+        "khatian_no": "278",
+        "dag_no": "1078/1",
+        "owner_names_bn": "ড. আমিনুল হক",
+        "area_decimal": 67.0,
+        "area_acres": 0.67,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-078-AROK",
+          "deed_no": "D-AROK-78",
+          "deed_type": "sale",
+          "registry_office": "সিলেট সদর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "67.54 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-079",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": "DHAKA",
+      "main_no": 1079,
+      "sub_no": null,
+      "area_decimal": 68.5,
+      "record": {
+        "id": "REC-0079",
+        "khatian_no": "279",
+        "dag_no": "1079",
+        "owner_names_bn": "কামাল উদ্দিন আহমেদ",
+        "area_decimal": 68.5,
+        "area_acres": 0.685,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-079-AROK",
+          "deed_no": "D-AROK-79",
+          "deed_type": "sale",
+          "registry_office": "রূপগঞ্জ সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "69.05 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-080",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1080,
+      "sub_no": null,
+      "area_decimal": 10.0,
+      "record": {
+        "id": "REC-0080",
+        "khatian_no": "280",
+        "dag_no": "1080",
+        "owner_names_bn": "মুহাম্মদ জসীম উদ্দীন",
+        "area_decimal": 10.0,
+        "area_acres": 0.1,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-080-AROK",
+          "deed_no": "D-AROK-80",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-01-10T00:00:00+00:00",
+          "registered_date": "2022-01-12T00:00:00+00:00",
+          "seller": "আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "10.08 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-081",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1081,
+      "sub_no": 1,
+      "area_decimal": 11.5,
+      "record": {
+        "id": "REC-0081",
+        "khatian_no": "281",
+        "dag_no": "1081/1",
+        "owner_names_bn": "মোসাম্মৎ আয়েশা সিদ্দিকা",
+        "area_decimal": 11.5,
+        "area_acres": 0.115,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-081-MISM",
+          "deed_no": "D-MUTMISM-81",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-02-01T00:00:00+00:00",
+          "registered_date": "2021-02-05T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "11.5 শতাংশ"
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-081-MISM",
+          "case_no": "MC-81",
+          "mutation_date": "2021-06-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-081-MISM",
+          "from_party": "সুবোধ কুমার দাস",
+          "to_party": "মোছাঃ ফাতেমা খাতুন",
+          "area": "11.5 শতাংশ"
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [
+        "R5_deed_mutation_inconsistency"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-082",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1082,
+      "sub_no": null,
+      "area_decimal": 13.0,
+      "record": {
+        "id": "REC-0082",
+        "khatian_no": "282",
+        "dag_no": "1082",
+        "owner_names_bn": "শাহ আলম খন্দকার",
+        "area_decimal": 13.0,
+        "area_acres": 0.13,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-082-MISM",
+          "deed_no": "D-MUTMISM-82",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-02-01T00:00:00+00:00",
+          "registered_date": "2021-02-05T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "13.0 শতাংশ"
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-082-MISM",
+          "case_no": "MC-82",
+          "mutation_date": "2021-06-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-082-MISM",
+          "from_party": "সুবোধ কুমার দাস",
+          "to_party": "মোছাঃ ফাতেমা খাতুন",
+          "area": "13.0 শতাংশ"
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [
+        "R5_deed_mutation_inconsistency"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-083",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1083,
+      "sub_no": null,
+      "area_decimal": 14.5,
+      "record": {
+        "id": "REC-0083",
+        "khatian_no": "283",
+        "dag_no": "1083",
+        "owner_names_bn": "মোঃ তারেক রহমান",
+        "area_decimal": 14.5,
+        "area_acres": 0.145,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-083-MISM",
+          "deed_no": "D-MUTMISM-83",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-02-01T00:00:00+00:00",
+          "registered_date": "2021-02-05T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "14.5 শতাংশ"
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-083-MISM",
+          "case_no": "MC-83",
+          "mutation_date": "2021-06-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-083-MISM",
+          "from_party": "সুবোধ কুমার দাস",
+          "to_party": "মোছাঃ ফাতেমা খাতুন",
+          "area": "14.5 শতাংশ"
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [
+        "R5_deed_mutation_inconsistency"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-084",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1084,
+      "sub_no": 1,
+      "area_decimal": 16.0,
+      "record": {
+        "id": "REC-0084",
+        "khatian_no": "284",
+        "dag_no": "1084/1",
+        "owner_names_bn": "মোঃ আব্দুল করিম",
+        "area_decimal": 16.0,
+        "area_acres": 0.16,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-084-MISM",
+          "deed_no": "D-MUTMISM-84",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2021-02-01T00:00:00+00:00",
+          "registered_date": "2021-02-05T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "16.0 শতাংশ"
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-084-MISM",
+          "case_no": "MC-84",
+          "mutation_date": "2021-06-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-084-MISM",
+          "from_party": "সুবোধ কুমার দাস",
+          "to_party": "মোছাঃ ফাতেমা খাতুন",
+          "area": "16.0 শতাংশ"
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [
+        "R5_deed_mutation_inconsistency"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-085",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": "RAJSHAHI",
+      "main_no": 1085,
+      "sub_no": null,
+      "area_decimal": 17.5,
+      "record": {
+        "id": "REC-0085",
+        "khatian_no": "285",
+        "dag_no": "1085",
+        "owner_names_bn": "মোছাঃ ফাতেমা খাতুন",
+        "area_decimal": 17.5,
+        "area_acres": 0.175,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-085-NOMUT",
+          "deed_no": "D-NOMUT-85",
+          "deed_type": "sale",
+          "registry_office": "বোয়ালিয়া সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2018-01-01T00:00:00+00:00",
+          "registered_date": "2018-01-01T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "17.5 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R5_deed_mutation_inconsistency"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-086",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1086,
+      "sub_no": null,
+      "area_decimal": 19.0,
+      "record": {
+        "id": "REC-0086",
+        "khatian_no": "286",
+        "dag_no": "1086",
+        "owner_names_bn": "রফিকুল ইসলাম চৌধুরী",
+        "area_decimal": 19.0,
+        "area_acres": 0.19,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-086-NOMUT",
+          "deed_no": "D-NOMUT-86",
+          "deed_type": "sale",
+          "registry_office": "সিলেট সদর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2018-01-01T00:00:00+00:00",
+          "registered_date": "2018-01-01T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "19.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R5_deed_mutation_inconsistency"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-087",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": "DHAKA",
+      "main_no": 1087,
+      "sub_no": 1,
+      "area_decimal": 20.5,
+      "record": {
+        "id": "REC-0087",
+        "khatian_no": "287",
+        "dag_no": "1087/1",
+        "owner_names_bn": "সুবোধ কুমার দাস",
+        "area_decimal": 20.5,
+        "area_acres": 0.205,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-087-NOMUT",
+          "deed_no": "D-NOMUT-87",
+          "deed_type": "sale",
+          "registry_office": "রূপগঞ্জ সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2018-01-01T00:00:00+00:00",
+          "registered_date": "2018-01-01T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "20.5 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [
+        "R5_deed_mutation_inconsistency"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-088",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1088,
+      "sub_no": null,
+      "area_decimal": 22.0,
+      "record": {
+        "id": "REC-0088",
+        "khatian_no": "288",
+        "dag_no": "1088",
+        "owner_names_bn": "আনোয়ার হোসেন খান",
+        "area_decimal": 22.0,
+        "area_acres": 0.22,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-088-ORPHAN",
+          "case_no": "MC-ORPHAN-88",
+          "mutation_date": "2022-01-01T00:00:00+00:00",
+          "deed_id": null,
+          "from_party": "আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": "22.0 শতাংশ"
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [
+        "R5_deed_mutation_inconsistency"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-089",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1089,
+      "sub_no": null,
+      "area_decimal": 23.5,
+      "record": {
+        "id": "REC-0089",
+        "khatian_no": "289",
+        "dag_no": "1089",
+        "owner_names_bn": "বেগম রহিমা খাতুন",
+        "area_decimal": 23.5,
+        "area_acres": 0.235,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-089-ORPHAN",
+          "case_no": "MC-ORPHAN-89",
+          "mutation_date": "2022-01-01T00:00:00+00:00",
+          "deed_id": null,
+          "from_party": "আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": "23.5 শতাংশ"
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [
+        "R5_deed_mutation_inconsistency"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-090",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1090,
+      "sub_no": 1,
+      "area_decimal": 25.0,
+      "record": {
+        "id": "REC-0090",
+        "khatian_no": "290",
+        "dag_no": "1090/1",
+        "owner_names_bn": "ড. আমিনুল হক",
+        "area_decimal": 25.0,
+        "area_acres": 0.25,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-090-ORPHAN",
+          "case_no": "MC-ORPHAN-90",
+          "mutation_date": "2022-01-01T00:00:00+00:00",
+          "deed_id": null,
+          "from_party": "আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": "25.0 শতাংশ"
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [
+        "R5_deed_mutation_inconsistency"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-091",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1091,
+      "sub_no": null,
+      "area_decimal": 26.5,
+      "record": {
+        "id": "REC-0091",
+        "khatian_no": "291",
+        "dag_no": "1091",
+        "owner_names_bn": "কামাল উদ্দিন আহমেদ",
+        "area_decimal": 26.5,
+        "area_acres": 0.265,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-091-CONSIST",
+          "deed_no": "D-CONSIST-91",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-05-01T00:00:00+00:00",
+          "registered_date": "2022-05-01T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "26.5 শতাংশ"
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-091-CONSIST",
+          "case_no": "MC-CONSIST-91",
+          "mutation_date": "2022-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-091-CONSIST",
+          "from_party": "মোঃ আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": "26.5 শতাংশ"
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-092",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1092,
+      "sub_no": null,
+      "area_decimal": 28.0,
+      "record": {
+        "id": "REC-0092",
+        "khatian_no": "292",
+        "dag_no": "1092",
+        "owner_names_bn": "মুহাম্মদ জসীম উদ্দীন",
+        "area_decimal": 28.0,
+        "area_acres": 0.28,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-092-CONSIST",
+          "deed_no": "D-CONSIST-92",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-05-01T00:00:00+00:00",
+          "registered_date": "2022-05-01T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "28.0 শতাংশ"
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-092-CONSIST",
+          "case_no": "MC-CONSIST-92",
+          "mutation_date": "2022-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-092-CONSIST",
+          "from_party": "মোঃ আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": "28.0 শতাংশ"
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-093",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": "RAJSHAHI",
+      "main_no": 1093,
+      "sub_no": 1,
+      "area_decimal": 29.5,
+      "record": {
+        "id": "REC-0093",
+        "khatian_no": "293",
+        "dag_no": "1093/1",
+        "owner_names_bn": "মোসাম্মৎ আয়েশা সিদ্দিকা",
+        "area_decimal": 29.5,
+        "area_acres": 0.295,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-093-CONSIST",
+          "deed_no": "D-CONSIST-93",
+          "deed_type": "sale",
+          "registry_office": "বোয়ালিয়া সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-05-01T00:00:00+00:00",
+          "registered_date": "2022-05-01T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "29.5 শতাংশ"
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-093-CONSIST",
+          "case_no": "MC-CONSIST-93",
+          "mutation_date": "2022-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-093-CONSIST",
+          "from_party": "মোঃ আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": "29.5 শতাংশ"
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-094",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1094,
+      "sub_no": null,
+      "area_decimal": 31.0,
+      "record": {
+        "id": "REC-0094",
+        "khatian_no": "294",
+        "dag_no": "1094",
+        "owner_names_bn": "শাহ আলম খন্দকার",
+        "area_decimal": 31.0,
+        "area_acres": 0.31,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-094-CONSIST",
+          "deed_no": "D-CONSIST-94",
+          "deed_type": "sale",
+          "registry_office": "সিলেট সদর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-05-01T00:00:00+00:00",
+          "registered_date": "2022-05-01T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "31.0 শতাংশ"
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-094-CONSIST",
+          "case_no": "MC-CONSIST-94",
+          "mutation_date": "2022-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-094-CONSIST",
+          "from_party": "মোঃ আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": "31.0 শতাংশ"
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-095",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": "DHAKA",
+      "main_no": 1095,
+      "sub_no": null,
+      "area_decimal": 32.5,
+      "record": {
+        "id": "REC-0095",
+        "khatian_no": "295",
+        "dag_no": "1095",
+        "owner_names_bn": "মোঃ তারেক রহমান",
+        "area_decimal": 32.5,
+        "area_acres": 0.325,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-095-CONSIST",
+          "deed_no": "D-CONSIST-95",
+          "deed_type": "sale",
+          "registry_office": "রূপগঞ্জ সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-05-01T00:00:00+00:00",
+          "registered_date": "2022-05-01T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "32.5 শতাংশ"
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-095-CONSIST",
+          "case_no": "MC-CONSIST-95",
+          "mutation_date": "2022-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-095-CONSIST",
+          "from_party": "মোঃ আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": "32.5 শতাংশ"
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-096",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1096,
+      "sub_no": 1,
+      "area_decimal": 34.0,
+      "record": {
+        "id": "REC-0096",
+        "khatian_no": "296",
+        "dag_no": "1096/1",
+        "owner_names_bn": "মোঃ আব্দুল করিম",
+        "area_decimal": 34.0,
+        "area_acres": 0.34,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-096-CONSIST",
+          "deed_no": "D-CONSIST-96",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-05-01T00:00:00+00:00",
+          "registered_date": "2022-05-01T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "34.0 শতাংশ"
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-096-CONSIST",
+          "case_no": "MC-CONSIST-96",
+          "mutation_date": "2022-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-096-CONSIST",
+          "from_party": "মোঃ আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": "34.0 শতাংশ"
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-097",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1097,
+      "sub_no": null,
+      "area_decimal": 35.5,
+      "record": {
+        "id": "REC-0097",
+        "khatian_no": "297",
+        "dag_no": "1097",
+        "owner_names_bn": "মোছাঃ ফাতেমা খাতুন",
+        "area_decimal": 35.5,
+        "area_acres": 0.355,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-097-CONSIST",
+          "deed_no": "D-CONSIST-97",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-05-01T00:00:00+00:00",
+          "registered_date": "2022-05-01T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "35.5 শতাংশ"
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-097-CONSIST",
+          "case_no": "MC-CONSIST-97",
+          "mutation_date": "2022-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-097-CONSIST",
+          "from_party": "মোঃ আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": "35.5 শতাংশ"
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-098",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1098,
+      "sub_no": null,
+      "area_decimal": 37.0,
+      "record": {
+        "id": "REC-0098",
+        "khatian_no": "298",
+        "dag_no": "1098",
+        "owner_names_bn": "রফিকুল ইসলাম চৌধুরী",
+        "area_decimal": 37.0,
+        "area_acres": 0.37,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-098-CONSIST",
+          "deed_no": "D-CONSIST-98",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-05-01T00:00:00+00:00",
+          "registered_date": "2022-05-01T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "37.0 শতাংশ"
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-098-CONSIST",
+          "case_no": "MC-CONSIST-98",
+          "mutation_date": "2022-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-098-CONSIST",
+          "from_party": "মোঃ আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": "37.0 শতাংশ"
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-099",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1099,
+      "sub_no": 1,
+      "area_decimal": 38.5,
+      "record": {
+        "id": "REC-0099",
+        "khatian_no": "299",
+        "dag_no": "1099/1",
+        "owner_names_bn": "সুবোধ কুমার দাস",
+        "area_decimal": 38.5,
+        "area_acres": 0.385,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-099-CONSIST",
+          "deed_no": "D-CONSIST-99",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-05-01T00:00:00+00:00",
+          "registered_date": "2022-05-01T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "38.5 শতাংশ"
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-099-CONSIST",
+          "case_no": "MC-CONSIST-99",
+          "mutation_date": "2022-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-099-CONSIST",
+          "from_party": "মোঃ আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": "38.5 শতাংশ"
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-100",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1100,
+      "sub_no": null,
+      "area_decimal": 40.0,
+      "record": {
+        "id": "REC-0100",
+        "khatian_no": "300",
+        "dag_no": "1100",
+        "owner_names_bn": "আনোয়ার হোসেন খান",
+        "area_decimal": 40.0,
+        "area_acres": 0.4,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-100-CONSIST",
+          "deed_no": "D-CONSIST-100",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2022-05-01T00:00:00+00:00",
+          "registered_date": "2022-05-01T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "40.0 শতাংশ"
+        }
+      ],
+      "mutations": [
+        {
+          "id": "MUT-PARCEL-100-CONSIST",
+          "case_no": "MC-CONSIST-100",
+          "mutation_date": "2022-08-01T00:00:00+00:00",
+          "deed_id": "DEED-PARCEL-100-CONSIST",
+          "from_party": "মোঃ আব্দুল করিম",
+          "to_party": "রফিকুল ইসলাম",
+          "area": "40.0 শতাংশ"
+        }
+      ],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-101",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": "RAJSHAHI",
+      "main_no": 1101,
+      "sub_no": null,
+      "area_decimal": 41.5,
+      "record": {
+        "id": "REC-0101",
+        "khatian_no": "301",
+        "dag_no": "1101",
+        "owner_names_bn": "বেগম রহিমা খাতুন",
+        "area_decimal": 41.5,
+        "area_acres": 0.415,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-101-MISM",
+          "doc_type": "deed",
+          "owner": "শ্রী সুবোধ কুমার দাস",
+          "seller": "শ্রী সুবোধ কুমার দাস",
+          "buyer": "মোছাঃ ফাতেমা খাতুন"
+        }
+      ],
+      "expected_conflicts": [
+        "R6_party_name_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-102",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1102,
+      "sub_no": 1,
+      "area_decimal": 43.0,
+      "record": {
+        "id": "REC-0102",
+        "khatian_no": "302",
+        "dag_no": "1102/1",
+        "owner_names_bn": "ড. আমিনুল হক",
+        "area_decimal": 43.0,
+        "area_acres": 0.43,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-102-MISM",
+          "doc_type": "deed",
+          "owner": "শ্রী সুবোধ কুমার দাস",
+          "seller": "শ্রী সুবোধ কুমার দাস",
+          "buyer": "মোছাঃ ফাতেমা খাতুন"
+        }
+      ],
+      "expected_conflicts": [
+        "R6_party_name_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-103",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": "DHAKA",
+      "main_no": 1103,
+      "sub_no": null,
+      "area_decimal": 44.5,
+      "record": {
+        "id": "REC-0103",
+        "khatian_no": "303",
+        "dag_no": "1103",
+        "owner_names_bn": "কামাল উদ্দিন আহমেদ",
+        "area_decimal": 44.5,
+        "area_acres": 0.445,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-103-MISM",
+          "doc_type": "deed",
+          "owner": "শ্রী সুবোধ কুমার দাস",
+          "seller": "শ্রী সুবোধ কুমার দাস",
+          "buyer": "মোছাঃ ফাতেমা খাতুন"
+        }
+      ],
+      "expected_conflicts": [
+        "R6_party_name_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-104",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1104,
+      "sub_no": null,
+      "area_decimal": 46.0,
+      "record": {
+        "id": "REC-0104",
+        "khatian_no": "304",
+        "dag_no": "1104",
+        "owner_names_bn": "মুহাম্মদ জসীম উদ্দীন",
+        "area_decimal": 46.0,
+        "area_acres": 0.46,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-104-MISM",
+          "doc_type": "deed",
+          "owner": "শ্রী সুবোধ কুমার দাস",
+          "seller": "শ্রী সুবোধ কুমার দাস",
+          "buyer": "মোছাঃ ফাতেমা খাতুন"
+        }
+      ],
+      "expected_conflicts": [
+        "R6_party_name_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-105",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1105,
+      "sub_no": 1,
+      "area_decimal": 47.5,
+      "record": {
+        "id": "REC-0105",
+        "khatian_no": "305",
+        "dag_no": "1105/1",
+        "owner_names_bn": "মোসাম্মৎ আয়েশা সিদ্দিকা",
+        "area_decimal": 47.5,
+        "area_acres": 0.475,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-105-MISM",
+          "doc_type": "deed",
+          "owner": "শ্রী সুবোধ কুমার দাস",
+          "seller": "শ্রী সুবোধ কুমার দাস",
+          "buyer": "মোছাঃ ফাতেমা খাতুন"
+        }
+      ],
+      "expected_conflicts": [
+        "R6_party_name_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-106",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1106,
+      "sub_no": null,
+      "area_decimal": 49.0,
+      "record": {
+        "id": "REC-0106",
+        "khatian_no": "306",
+        "dag_no": "1106",
+        "owner_names_bn": "শাহ আলম খন্দকার",
+        "area_decimal": 49.0,
+        "area_acres": 0.49,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-106-MISM",
+          "doc_type": "deed",
+          "owner": "শ্রী সুবোধ কুমার দাস",
+          "seller": "শ্রী সুবোধ কুমার দাস",
+          "buyer": "মোছাঃ ফাতেমা খাতুন"
+        }
+      ],
+      "expected_conflicts": [
+        "R6_party_name_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-107",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1107,
+      "sub_no": null,
+      "area_decimal": 50.5,
+      "record": {
+        "id": "REC-0107",
+        "khatian_no": "307",
+        "dag_no": "1107",
+        "owner_names_bn": "মোঃ তারেক রহমান",
+        "area_decimal": 50.5,
+        "area_acres": 0.505,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-107-MISM",
+          "doc_type": "deed",
+          "owner": "শ্রী সুবোধ কুমার দাস",
+          "seller": "শ্রী সুবোধ কুমার দাস",
+          "buyer": "মোছাঃ ফাতেমা খাতুন"
+        }
+      ],
+      "expected_conflicts": [
+        "R6_party_name_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-108",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1108,
+      "sub_no": 1,
+      "area_decimal": 52.0,
+      "record": {
+        "id": "REC-0108",
+        "khatian_no": "308",
+        "dag_no": "1108/1",
+        "owner_names_bn": "মোঃ আব্দুল করিম",
+        "area_decimal": 52.0,
+        "area_acres": 0.52,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-108-MISM",
+          "doc_type": "deed",
+          "owner": "শ্রী সুবোধ কুমার দাস",
+          "seller": "শ্রী সুবোধ কুমার দাস",
+          "buyer": "মোছাঃ ফাতেমা খাতুন"
+        }
+      ],
+      "expected_conflicts": [
+        "R6_party_name_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-109",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": "RAJSHAHI",
+      "main_no": 1109,
+      "sub_no": null,
+      "area_decimal": 53.5,
+      "record": {
+        "id": "REC-0109",
+        "khatian_no": "309",
+        "dag_no": "1109",
+        "owner_names_bn": "মোছাঃ ফাতেমা খাতুন",
+        "area_decimal": 53.5,
+        "area_acres": 0.535,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-109-MISM",
+          "doc_type": "deed",
+          "owner": "শ্রী সুবোধ কুমার দাস",
+          "seller": "শ্রী সুবোধ কুমার দাস",
+          "buyer": "মোছাঃ ফাতেমা খাতুন"
+        }
+      ],
+      "expected_conflicts": [
+        "R6_party_name_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-110",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1110,
+      "sub_no": null,
+      "area_decimal": 55.0,
+      "record": {
+        "id": "REC-0110",
+        "khatian_no": "310",
+        "dag_no": "1110",
+        "owner_names_bn": "রফিকুল ইসলাম চৌধুরী",
+        "area_decimal": 55.0,
+        "area_acres": 0.55,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-110-MISM",
+          "doc_type": "deed",
+          "owner": "শ্রী সুবোধ কুমার দাস",
+          "seller": "শ্রী সুবোধ কুমার দাস",
+          "buyer": "মোছাঃ ফাতেমা খাতুন"
+        }
+      ],
+      "expected_conflicts": [
+        "R6_party_name_mismatch"
+      ],
+      "is_conflict": true
+    },
+    {
+      "parcel_id": "PARCEL-111",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": "DHAKA",
+      "main_no": 1111,
+      "sub_no": 1,
+      "area_decimal": 56.5,
+      "record": {
+        "id": "REC-0111",
+        "khatian_no": "311",
+        "dag_no": "1111/1",
+        "owner_names_bn": "সুবোধ কুমার দাস",
+        "area_decimal": 56.5,
+        "area_acres": 0.565,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-111-MATCH",
+          "doc_type": "khatian",
+          "owner": "মোঃ সুবোধ কুমার দাস"
+        }
+      ],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-112",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1112,
+      "sub_no": null,
+      "area_decimal": 58.0,
+      "record": {
+        "id": "REC-0112",
+        "khatian_no": "312",
+        "dag_no": "1112",
+        "owner_names_bn": "আনোয়ার হোসেন খান",
+        "area_decimal": 58.0,
+        "area_acres": 0.58,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-112-MATCH",
+          "doc_type": "khatian",
+          "owner": "মোঃ আনোয়ার হোসেন খান"
+        }
+      ],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-113",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1113,
+      "sub_no": null,
+      "area_decimal": 59.5,
+      "record": {
+        "id": "REC-0113",
+        "khatian_no": "313",
+        "dag_no": "1113",
+        "owner_names_bn": "বেগম রহিমা খাতুন",
+        "area_decimal": 59.5,
+        "area_acres": 0.595,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-113-MATCH",
+          "doc_type": "khatian",
+          "owner": "মোঃ বেগম রহিমা খাতুন"
+        }
+      ],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-114",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1114,
+      "sub_no": 1,
+      "area_decimal": 61.0,
+      "record": {
+        "id": "REC-0114",
+        "khatian_no": "314",
+        "dag_no": "1114/1",
+        "owner_names_bn": "ড. আমিনুল হক",
+        "area_decimal": 61.0,
+        "area_acres": 0.61,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-114-MATCH",
+          "doc_type": "khatian",
+          "owner": "মোঃ ড. আমিনুল হক"
+        }
+      ],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-115",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1115,
+      "sub_no": null,
+      "area_decimal": 62.5,
+      "record": {
+        "id": "REC-0115",
+        "khatian_no": "315",
+        "dag_no": "1115",
+        "owner_names_bn": "কামাল উদ্দিন আহমেদ",
+        "area_decimal": 62.5,
+        "area_acres": 0.625,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-115-MATCH",
+          "doc_type": "khatian",
+          "owner": "মোঃ কামাল উদ্দিন আহমেদ"
+        }
+      ],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-116",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1116,
+      "sub_no": null,
+      "area_decimal": 64.0,
+      "record": {
+        "id": "REC-0116",
+        "khatian_no": "316",
+        "dag_no": "1116",
+        "owner_names_bn": "মুহাম্মদ জসীম উদ্দীন",
+        "area_decimal": 64.0,
+        "area_acres": 0.64,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-116-MATCH",
+          "doc_type": "khatian",
+          "owner": "মোঃ মুহাম্মদ জসীম উদ্দীন"
+        }
+      ],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-117",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": "RAJSHAHI",
+      "main_no": 1117,
+      "sub_no": 1,
+      "area_decimal": 65.5,
+      "record": {
+        "id": "REC-0117",
+        "khatian_no": "317",
+        "dag_no": "1117/1",
+        "owner_names_bn": "মোসাম্মৎ আয়েশা সিদ্দিকা",
+        "area_decimal": 65.5,
+        "area_acres": 0.655,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-117-MATCH",
+          "doc_type": "khatian",
+          "owner": "মোঃ মোসাম্মৎ আয়েশা সিদ্দিকা"
+        }
+      ],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-118",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1118,
+      "sub_no": null,
+      "area_decimal": 67.0,
+      "record": {
+        "id": "REC-0118",
+        "khatian_no": "318",
+        "dag_no": "1118",
+        "owner_names_bn": "শাহ আলম খন্দকার",
+        "area_decimal": 67.0,
+        "area_acres": 0.67,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-118-MATCH",
+          "doc_type": "khatian",
+          "owner": "মোঃ শাহ আলম খন্দকার"
+        }
+      ],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-119",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": "DHAKA",
+      "main_no": 1119,
+      "sub_no": null,
+      "area_decimal": 68.5,
+      "record": {
+        "id": "REC-0119",
+        "khatian_no": "319",
+        "dag_no": "1119",
+        "owner_names_bn": "মোঃ তারেক রহমান",
+        "area_decimal": 68.5,
+        "area_acres": 0.685,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-119-MATCH",
+          "doc_type": "khatian",
+          "owner": "মোঃ মোঃ তারেক রহমান"
+        }
+      ],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-120",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1120,
+      "sub_no": 1,
+      "area_decimal": 10.0,
+      "record": {
+        "id": "REC-0120",
+        "khatian_no": "320",
+        "dag_no": "1120/1",
+        "owner_names_bn": "মোঃ আব্দুল করিম",
+        "area_decimal": 10.0,
+        "area_acres": 0.1,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [],
+      "mutations": [],
+      "documents": [
+        {
+          "id": "DOC-PARCEL-120-MATCH",
+          "doc_type": "khatian",
+          "owner": "মোঃ মোঃ আব্দুল করিম"
+        }
+      ],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-121",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1121,
+      "sub_no": null,
+      "area_decimal": 11.5,
+      "record": {
+        "id": "REC-0121",
+        "khatian_no": "321",
+        "dag_no": "1121",
+        "owner_names_bn": "মোছাঃ ফাতেমা খাতুন",
+        "area_decimal": 11.5,
+        "area_acres": 0.115,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-121",
+          "deed_no": "D-NORM-121",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "11.5 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-122",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1122,
+      "sub_no": null,
+      "area_decimal": 13.0,
+      "record": {
+        "id": "REC-0122",
+        "khatian_no": "322",
+        "dag_no": "1122",
+        "owner_names_bn": "রফিকুল ইসলাম চৌধুরী",
+        "area_decimal": 13.0,
+        "area_acres": 0.13,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-122",
+          "deed_no": "D-NORM-122",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "13.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-123",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1123,
+      "sub_no": 1,
+      "area_decimal": 14.5,
+      "record": {
+        "id": "REC-0123",
+        "khatian_no": "323",
+        "dag_no": "1123/1",
+        "owner_names_bn": "সুবোধ কুমার দাস",
+        "area_decimal": 14.5,
+        "area_acres": 0.145,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-123",
+          "deed_no": "D-NORM-123",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "14.5 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-124",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1124,
+      "sub_no": null,
+      "area_decimal": 16.0,
+      "record": {
+        "id": "REC-0124",
+        "khatian_no": "324",
+        "dag_no": "1124",
+        "owner_names_bn": "আনোয়ার হোসেন খান",
+        "area_decimal": 16.0,
+        "area_acres": 0.16,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-124",
+          "deed_no": "D-NORM-124",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "16.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-125",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": "RAJSHAHI",
+      "main_no": 1125,
+      "sub_no": null,
+      "area_decimal": 17.5,
+      "record": {
+        "id": "REC-0125",
+        "khatian_no": "325",
+        "dag_no": "1125",
+        "owner_names_bn": "বেগম রহিমা খাতুন",
+        "area_decimal": 17.5,
+        "area_acres": 0.175,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-125",
+          "deed_no": "D-NORM-125",
+          "deed_type": "sale",
+          "registry_office": "বোয়ালিয়া সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "17.5 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-126",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1126,
+      "sub_no": 1,
+      "area_decimal": 19.0,
+      "record": {
+        "id": "REC-0126",
+        "khatian_no": "326",
+        "dag_no": "1126/1",
+        "owner_names_bn": "ড. আমিনুল হক",
+        "area_decimal": 19.0,
+        "area_acres": 0.19,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-126",
+          "deed_no": "D-NORM-126",
+          "deed_type": "sale",
+          "registry_office": "সিলেট সদর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "19.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-127",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": "DHAKA",
+      "main_no": 1127,
+      "sub_no": null,
+      "area_decimal": 20.5,
+      "record": {
+        "id": "REC-0127",
+        "khatian_no": "327",
+        "dag_no": "1127",
+        "owner_names_bn": "কামাল উদ্দিন আহমেদ",
+        "area_decimal": 20.5,
+        "area_acres": 0.205,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-127",
+          "deed_no": "D-NORM-127",
+          "deed_type": "sale",
+          "registry_office": "রূপগঞ্জ সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "20.5 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-128",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1128,
+      "sub_no": null,
+      "area_decimal": 22.0,
+      "record": {
+        "id": "REC-0128",
+        "khatian_no": "328",
+        "dag_no": "1128",
+        "owner_names_bn": "মুহাম্মদ জসীম উদ্দীন",
+        "area_decimal": 22.0,
+        "area_acres": 0.22,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-128",
+          "deed_no": "D-NORM-128",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "22.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-129",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1129,
+      "sub_no": 1,
+      "area_decimal": 23.5,
+      "record": {
+        "id": "REC-0129",
+        "khatian_no": "329",
+        "dag_no": "1129/1",
+        "owner_names_bn": "মোসাম্মৎ আয়েশা সিদ্দিকা",
+        "area_decimal": 23.5,
+        "area_acres": 0.235,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-129",
+          "deed_no": "D-NORM-129",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "23.5 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-130",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1130,
+      "sub_no": null,
+      "area_decimal": 25.0,
+      "record": {
+        "id": "REC-0130",
+        "khatian_no": "330",
+        "dag_no": "1130",
+        "owner_names_bn": "শাহ আলম খন্দকার",
+        "area_decimal": 25.0,
+        "area_acres": 0.25,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-130",
+          "deed_no": "D-NORM-130",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "25.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-131",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1131,
+      "sub_no": null,
+      "area_decimal": 26.5,
+      "record": {
+        "id": "REC-0131",
+        "khatian_no": "331",
+        "dag_no": "1131",
+        "owner_names_bn": "মোঃ তারেক রহমান",
+        "area_decimal": 26.5,
+        "area_acres": 0.265,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-131",
+          "deed_no": "D-NORM-131",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "26.5 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-132",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1132,
+      "sub_no": 1,
+      "area_decimal": 28.0,
+      "record": {
+        "id": "REC-0132",
+        "khatian_no": "332",
+        "dag_no": "1132/1",
+        "owner_names_bn": "মোঃ আব্দুল করিম",
+        "area_decimal": 28.0,
+        "area_acres": 0.28,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-132",
+          "deed_no": "D-NORM-132",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "28.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-133",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": "RAJSHAHI",
+      "main_no": 1133,
+      "sub_no": null,
+      "area_decimal": 29.5,
+      "record": {
+        "id": "REC-0133",
+        "khatian_no": "333",
+        "dag_no": "1133",
+        "owner_names_bn": "মোছাঃ ফাতেমা খাতুন",
+        "area_decimal": 29.5,
+        "area_acres": 0.295,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-133",
+          "deed_no": "D-NORM-133",
+          "deed_type": "sale",
+          "registry_office": "বোয়ালিয়া সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "29.5 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-134",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1134,
+      "sub_no": null,
+      "area_decimal": 31.0,
+      "record": {
+        "id": "REC-0134",
+        "khatian_no": "334",
+        "dag_no": "1134",
+        "owner_names_bn": "রফিকুল ইসলাম চৌধুরী",
+        "area_decimal": 31.0,
+        "area_acres": 0.31,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-134",
+          "deed_no": "D-NORM-134",
+          "deed_type": "sale",
+          "registry_office": "সিলেট সদর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "31.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-135",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": "DHAKA",
+      "main_no": 1135,
+      "sub_no": 1,
+      "area_decimal": 32.5,
+      "record": {
+        "id": "REC-0135",
+        "khatian_no": "335",
+        "dag_no": "1135/1",
+        "owner_names_bn": "সুবোধ কুমার দাস",
+        "area_decimal": 32.5,
+        "area_acres": 0.325,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-135",
+          "deed_no": "D-NORM-135",
+          "deed_type": "sale",
+          "registry_office": "রূপগঞ্জ সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "32.5 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-136",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1136,
+      "sub_no": null,
+      "area_decimal": 34.0,
+      "record": {
+        "id": "REC-0136",
+        "khatian_no": "336",
+        "dag_no": "1136",
+        "owner_names_bn": "আনোয়ার হোসেন খান",
+        "area_decimal": 34.0,
+        "area_acres": 0.34,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-136",
+          "deed_no": "D-NORM-136",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "34.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-137",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1137,
+      "sub_no": null,
+      "area_decimal": 35.5,
+      "record": {
+        "id": "REC-0137",
+        "khatian_no": "337",
+        "dag_no": "1137",
+        "owner_names_bn": "বেগম রহিমা খাতুন",
+        "area_decimal": 35.5,
+        "area_acres": 0.355,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-137",
+          "deed_no": "D-NORM-137",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "35.5 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-138",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1138,
+      "sub_no": 1,
+      "area_decimal": 37.0,
+      "record": {
+        "id": "REC-0138",
+        "khatian_no": "338",
+        "dag_no": "1138/1",
+        "owner_names_bn": "ড. আমিনুল হক",
+        "area_decimal": 37.0,
+        "area_acres": 0.37,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-138",
+          "deed_no": "D-NORM-138",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "37.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-139",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1139,
+      "sub_no": null,
+      "area_decimal": 38.5,
+      "record": {
+        "id": "REC-0139",
+        "khatian_no": "339",
+        "dag_no": "1139",
+        "owner_names_bn": "কামাল উদ্দিন আহমেদ",
+        "area_decimal": 38.5,
+        "area_acres": 0.385,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-139",
+          "deed_no": "D-NORM-139",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "38.5 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-140",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1140,
+      "sub_no": null,
+      "area_decimal": 40.0,
+      "record": {
+        "id": "REC-0140",
+        "khatian_no": "340",
+        "dag_no": "1140",
+        "owner_names_bn": "মুহাম্মদ জসীম উদ্দীন",
+        "area_decimal": 40.0,
+        "area_acres": 0.4,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-140",
+          "deed_no": "D-NORM-140",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "40.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-141",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": "RAJSHAHI",
+      "main_no": 1141,
+      "sub_no": 1,
+      "area_decimal": 41.5,
+      "record": {
+        "id": "REC-0141",
+        "khatian_no": "341",
+        "dag_no": "1141/1",
+        "owner_names_bn": "মোসাম্মৎ আয়েশা সিদ্দিকা",
+        "area_decimal": 41.5,
+        "area_acres": 0.415,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-141",
+          "deed_no": "D-NORM-141",
+          "deed_type": "sale",
+          "registry_office": "বোয়ালিয়া সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "41.5 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-142",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1142,
+      "sub_no": null,
+      "area_decimal": 43.0,
+      "record": {
+        "id": "REC-0142",
+        "khatian_no": "342",
+        "dag_no": "1142",
+        "owner_names_bn": "শাহ আলম খন্দকার",
+        "area_decimal": 43.0,
+        "area_acres": 0.43,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-142",
+          "deed_no": "D-NORM-142",
+          "deed_type": "sale",
+          "registry_office": "সিলেট সদর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "43.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-143",
+      "mouza_name": "রূপগঞ্জ",
+      "region_code": "DHAKA",
+      "main_no": 1143,
+      "sub_no": null,
+      "area_decimal": 44.5,
+      "record": {
+        "id": "REC-0143",
+        "khatian_no": "343",
+        "dag_no": "1143",
+        "owner_names_bn": "মোঃ তারেক রহমান",
+        "area_decimal": 44.5,
+        "area_acres": 0.445,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-143",
+          "deed_no": "D-NORM-143",
+          "deed_type": "sale",
+          "registry_office": "রূপগঞ্জ সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "44.5 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-144",
+      "mouza_name": "তেজগাঁও",
+      "region_code": "DHAKA",
+      "main_no": 1144,
+      "sub_no": 1,
+      "area_decimal": 46.0,
+      "record": {
+        "id": "REC-0144",
+        "khatian_no": "344",
+        "dag_no": "1144/1",
+        "owner_names_bn": "মোঃ আব্দুল করিম",
+        "area_decimal": 46.0,
+        "area_acres": 0.46,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-144",
+          "deed_no": "D-NORM-144",
+          "deed_type": "sale",
+          "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "46.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-145",
+      "mouza_name": "গুলশান",
+      "region_code": "DHAKA",
+      "main_no": 1145,
+      "sub_no": null,
+      "area_decimal": 47.5,
+      "record": {
+        "id": "REC-0145",
+        "khatian_no": "345",
+        "dag_no": "1145",
+        "owner_names_bn": "মোছাঃ ফাতেমা খাতুন",
+        "area_decimal": 47.5,
+        "area_acres": 0.475,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-145",
+          "deed_no": "D-NORM-145",
+          "deed_type": "sale",
+          "registry_office": "গুলশান সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "47.5 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-146",
+      "mouza_name": "মিরপুর",
+      "region_code": "DHAKA",
+      "main_no": 1146,
+      "sub_no": null,
+      "area_decimal": 49.0,
+      "record": {
+        "id": "REC-0146",
+        "khatian_no": "346",
+        "dag_no": "1146",
+        "owner_names_bn": "রফিকুল ইসলাম চৌধুরী",
+        "area_decimal": 49.0,
+        "area_acres": 0.49,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-146",
+          "deed_no": "D-NORM-146",
+          "deed_type": "sale",
+          "registry_office": "মিরপুর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "49.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-147",
+      "mouza_name": "কোতোয়ালি",
+      "region_code": "CHITTAGONG",
+      "main_no": 1147,
+      "sub_no": 1,
+      "area_decimal": 50.5,
+      "record": {
+        "id": "REC-0147",
+        "khatian_no": "347",
+        "dag_no": "1147/1",
+        "owner_names_bn": "সুবোধ কুমার দাস",
+        "area_decimal": 50.5,
+        "area_acres": 0.505,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-147",
+          "deed_no": "D-NORM-147",
+          "deed_type": "sale",
+          "registry_office": "কোতোয়ালি সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "50.5 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-148",
+      "mouza_name": "বুড়িচং",
+      "region_code": "CHITTAGONG",
+      "main_no": 1148,
+      "sub_no": null,
+      "area_decimal": 52.0,
+      "record": {
+        "id": "REC-0148",
+        "khatian_no": "348",
+        "dag_no": "1148",
+        "owner_names_bn": "আনোয়ার হোসেন খান",
+        "area_decimal": 52.0,
+        "area_acres": 0.52,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-148",
+          "deed_no": "D-NORM-148",
+          "deed_type": "sale",
+          "registry_office": "বুড়িচং সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "52.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-149",
+      "mouza_name": "বোয়ালিয়া",
+      "region_code": "RAJSHAHI",
+      "main_no": 1149,
+      "sub_no": null,
+      "area_decimal": 53.5,
+      "record": {
+        "id": "REC-0149",
+        "khatian_no": "349",
+        "dag_no": "1149",
+        "owner_names_bn": "বেগম রহিমা খাতুন",
+        "area_decimal": 53.5,
+        "area_acres": 0.535,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-149",
+          "deed_no": "D-NORM-149",
+          "deed_type": "sale",
+          "registry_office": "বোয়ালিয়া সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "53.5 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    },
+    {
+      "parcel_id": "PARCEL-150",
+      "mouza_name": "সিলেট সদর",
+      "region_code": "SYLHET",
+      "main_no": 1150,
+      "sub_no": 1,
+      "area_decimal": 55.0,
+      "record": {
+        "id": "REC-0150",
+        "khatian_no": "350",
+        "dag_no": "1150/1",
+        "owner_names_bn": "ড. আমিনুল হক",
+        "area_decimal": 55.0,
+        "area_acres": 0.55,
+        "land_class_bn": "নাল/কৃষি"
+      },
+      "deeds": [
+        {
+          "id": "DEED-PARCEL-150",
+          "deed_no": "D-NORM-150",
+          "deed_type": "sale",
+          "registry_office": "সিলেট সদর সাব-রেজিস্ট্রি অফিস",
+          "deed_date": "2023-01-10T00:00:00+00:00",
+          "registered_date": "2023-01-10T00:00:00+00:00",
+          "seller": "মোঃ আব্দুল করিম",
+          "buyer": "রফিকুল ইসলাম",
+          "area": "55.0 শতাংশ"
+        }
+      ],
+      "mutations": [],
+      "documents": [],
+      "expected_conflicts": [],
+      "is_conflict": false
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+# config/demo_evidence_checklist.yaml
+# SAMPLE CHECKLIST for Land Purchase Due Diligence (Citizen LandOS)
+# NOT an official legal requirement - provided for demonstration and audit completeness checks only.
+sample_checklist:
+  title: "জমির মালিকানা যাচাইয়ের নমুনা তথ্য তালিকা (ডেমো)"
+  disclaimer: "এটি একটি নমুনা তালিকা (SAMPLE)। সরকারি বা আইনি আবশ্যিক শর্ত নয়।"
+  required_documents:
+    - doc_type: "deed"
+      title_bn: "মূল বা জাবেদা দলিল (বায়া দলিলসহ)"
+      description_bn: "সর্বশেষ ক্রয় বা হস্তান্তরের রেজিস্ট্রিকৃত দলিল"
+      mandatory_for_purchase: true
+    - doc_type: "khatian"
+      title_bn: "হাল খতিয়ান / পরচা (বিএস / আরএস)"
+      description_bn: "বর্তমান রেকর্ডের খতিয়ান কপি"
+      mandatory_for_purchase: true
+    - doc_type: "mutation"
+      title_bn: "খারিজ / নামজারি খতিয়ান ও ডি.সি.আর"
+      description_bn: "সহকারী কমিশনার (ভূমি) অফিস কর্তৃক অনুমোদিত নামজারি ও জমাভাগ"
+      mandatory_for_purchase: true
+    - doc_type: "tax_receipt"
+      title_bn: "হাল সনের ভূমি উন্নয়ন কর (দাখিলা)"
+      description_bn: "হালনাগাদ ভূমি উন্নয়ন কর পরিশোধের প্রমাণপত্র"
+      mandatory_for_purchase: true
+    - doc_type: "nec"
+      title_bn: "তল্লাশ / নির্দায় সনদ (Non-Encumbrance Certificate - NEC)"
+      description_bn: "সাব-রেজিস্ট্রি অফিস থেকে ১২ বছরের তল্লাশ বিবরণী"
+      mandatory_for_purchase: false

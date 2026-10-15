@@ -66,3 +66,16 @@ redis_data/
 
 # Generated types and openapi temporary artifacts
 frontend/src/api/generated.ts.tmp
+
+# Machine Learning Binary Models & Checkpoints (Keep models out of git)
+*.joblib
+*.pt
+*.pth
+*.onnx
+*.bin
+models/*.joblib
+ml/models/*.joblib
+ml/models/*.pt
+!ml/models/*.md
+eval_runs/
+

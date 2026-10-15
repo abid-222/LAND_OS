@@ -1,0 +1,86 @@
+# config/area_units.yaml
+# Regional land area unit conversion rates to standard Decimal (শতাংশ) for Bangladesh LandOS.
+# Well-defined units (decimal, acre, sq ft, sq m) are converted globally in code:
+#   - 100 decimal = 1 acre
+#   - 1 decimal = 435.6 sq ft
+#   - 1 sq m = 10.76391 / 435.6 decimal (~0.0247105 decimal)
+# Regional units (বিঘা, কাঠা, গণ্ডা, কানি) MUST convert ONLY through this configuration per region.
+# If the region is unknown or the unit is unmapped, the normalizer does NOT convert and flags "unit needs region".
+
+regions:
+  DHAKA:
+    name_bn: "ঢাকা"
+    units:
+      bigha: 33.0
+      বিঘা: 33.0
+      katha: 1.65
+      কাঠা: 1.65
+      ganda: 0.0825
+      গণ্ডা: 0.0825
+  CHITTAGONG:
+    name_bn: "চট্টগ্রাম"
+    units:
+      bigha: 33.0
+      বিঘা: 33.0
+      katha: 1.65
+      কাঠা: 1.65
+      ganda: 0.0825
+      গণ্ডা: 0.0825
+      kani: 40.0
+      কানি: 40.0
+  RAJSHAHI:
+    name_bn: "রাজশাহী"
+    units:
+      bigha: 33.0
+      বিঘা: 33.0
+      katha: 1.65
+      কাঠা: 1.65
+      ganda: 0.0825
+      গণ্ডা: 0.0825
+  SYLHET:
+    name_bn: "সিলেট"
+    units:
+      bigha: 33.0
+      বিঘা: 33.0
+      katha: 1.65
+      কাঠা: 1.65
+      ganda: 0.0825
+      গণ্ডা: 0.0825
+      kani: 40.0
+      কানি: 40.0
+  KHULNA:
+    name_bn: "খুলনা"
+    units:
+      bigha: 33.0
+      বিঘা: 33.0
+      katha: 1.65
+      কাঠা: 1.65
+      ganda: 0.0825
+      গণ্ডা: 0.0825
+  BARISAL:
+    name_bn: "বরিশাল"
+    units:
+      bigha: 33.0
+      বিঘা: 33.0
+      katha: 1.65
+      কাঠা: 1.65
+      ganda: 0.0825
+      গণ্ডা: 0.0825
+  RANGPUR:
+    name_bn: "রংপুর"
+    units:
+      bigha: 33.0
+      বিঘা: 33.0
+      katha: 1.65
+      কাঠা: 1.65
+      ganda: 0.0825
+      গণ্ডা: 0.0825
+  MYMENSINGH:
+    name_bn: "ময়মনসিংহ"
+    units:
+      bigha: 33.0
+      বিঘা: 33.0
+      katha: 1.65
+      কাঠা: 1.65
+      ganda: 0.0825
+      গণ্ডা: 0.0825

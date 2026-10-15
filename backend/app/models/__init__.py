@@ -397,3 +397,183 @@ class EvalRun(Base):
     dataset_name: Mapped[str] = mapped_column(String(100), nullable=False)
     metrics: Mapped[dict] = mapped_column(JSONB().with_variant(JSON, "sqlite"), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+
+# ==============================================================================
+# P1 - P5 EXTENSION MODELS: VERIFICATION, RISK & BUYER REPORTS
+# ==============================================================================
+
+class VerificationResult(Base):
+    """
+    Cross-record comparison results between extracted document fields and baseline land record.
+    Stores comparisons list and summary counts without ever declaring 'verified ownership'.
+    """
+    __tablename__ = "verification_results"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    document_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("documents.id"), nullable=False, index=True
+    )
+    record_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("land_records.id"), nullable=False, index=True
+    )
+    comparisons: Mapped[list] = mapped_column(
+        JSONB().with_variant(JSON, "sqlite"), nullable=False, default=list
+    )
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+    rule_version: Mapped[str] = mapped_column(String(50), nullable=False, default="v1.0")
+
+    document = relationship("Document")
+    record = relationship("LandRecord")
+
+
+class QRCheck(Base):
+    """
+    QR code integrity verification check result. Scope is strictly 'integrity_only'.
+    UI Text: 'নথির তথ্য QR-এর সঙ্গে মিলেছে (মালিকানা যাচাই নয়)' or 'মেলেনি'.
+    """
+    __tablename__ = "qr_checks"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    document_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("documents.id"), nullable=False, index=True
+    )
+    payload_type: Mapped[str] = mapped_column(String(50), nullable=False)
+    hash_alg: Mapped[Optional[str]] = mapped_column(String(50), nullable=True, default="sha256")
+    hash_match: Mapped[bool] = mapped_column(Boolean, default=False)
+    scope: Mapped[str] = mapped_column(String(50), nullable=False, default="integrity_only")
+    checked_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+    document = relationship("Document")
+
+
+class Parcel(Base):
+    """
+    Cadastral parcel link connecting land records, deeds, and mutations.
+    """
+    __tablename__ = "parcels"
+
+    parcel_id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    record_id: Mapped[Optional[uuid.UUID]] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("land_records.id"), nullable=True, index=True
+    )
+    mouza_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("mouzas.id"), nullable=False, index=True
+    )
+    main_no: Mapped[int] = mapped_column(Integer, nullable=False)
+    sub_no: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    area_decimal: Mapped[float] = mapped_column(Float, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+    mouza = relationship("Mouza")
+    record = relationship("LandRecord")
+    deeds = relationship("Deed", back_populates="parcel")
+    mutations = relationship("Mutation", back_populates="parcel")
+    alerts = relationship("Alert", back_populates="parcel")
+
+
+class Deed(Base):
+    """
+    Registered deed records (sale, gift, inheritance, other).
+    """
+    __tablename__ = "deeds"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    deed_no: Mapped[str] = mapped_column(String(100), nullable=False, index=True)
+    deed_type: Mapped[str] = mapped_column(String(50), nullable=False, default="sale")
+    registry_office: Mapped[str] = mapped_column(String(150), nullable=False, index=True)
+    deed_date: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    registered_date: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    seller: Mapped[str] = mapped_column(String(255), nullable=False)
+    buyer: Mapped[str] = mapped_column(String(255), nullable=False)
+    parcel_id: Mapped[str] = mapped_column(
+        String(100), ForeignKey("parcels.parcel_id"), nullable=False, index=True
+    )
+    area: Mapped[float] = mapped_column(Float, nullable=False)
+    source_ref: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+    parcel = relationship("Parcel", back_populates="deeds")
+    mutations = relationship("Mutation", back_populates="deed")
+
+
+class Mutation(Base):
+    """
+    Approved land mutation cases (নামজারি ও জমাভাগ).
+    """
+    __tablename__ = "mutations"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    case_no: Mapped[str] = mapped_column(String(100), nullable=False, index=True)
+    mutation_date: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    deed_id: Mapped[Optional[uuid.UUID]] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("deeds.id"), nullable=True, index=True
+    )
+    parcel_id: Mapped[str] = mapped_column(
+        String(100), ForeignKey("parcels.parcel_id"), nullable=False, index=True
+    )
+    from_party: Mapped[str] = mapped_column(String(255), nullable=False)
+    to_party: Mapped[str] = mapped_column(String(255), nullable=False)
+    area: Mapped[float] = mapped_column(Float, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+    parcel = relationship("Parcel", back_populates="mutations")
+    deed = relationship("Deed", back_populates="mutations")
+
+
+class Alert(Base):
+    """
+    Risk & Conflict Alert.
+    Bangla wording: 'সম্ভাব্য অসঙ্গতি, যাচাই প্রয়োজন'. Every alert has reason + evidence.
+    Evidence must be a non-empty list of {source_type, source_id, field, value, document_ref}.
+    """
+    __tablename__ = "alerts"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    parcel_id: Mapped[str] = mapped_column(
+        String(100), ForeignKey("parcels.parcel_id"), nullable=False, index=True
+    )
+    document_id: Mapped[Optional[uuid.UUID]] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("documents.id"), nullable=True, index=True
+    )
+    rule_id: Mapped[str] = mapped_column(String(50), nullable=False, index=True)
+    severity: Mapped[str] = mapped_column(String(20), nullable=False)  # "info" | "warn" | "high"
+    title_bn: Mapped[str] = mapped_column(
+        String(255), nullable=False, default="সম্ভাব্য অসঙ্গতি, যাচাই প্রয়োজন"
+    )
+    reason_bn: Mapped[str] = mapped_column(Text, nullable=False)
+    evidence: Mapped[list] = mapped_column(
+        JSONB().with_variant(JSON, "sqlite"), nullable=False
+    )
+    status: Mapped[str] = mapped_column(String(50), nullable=False, default="open")  # "open" | "reviewed" | "dismissed"
+    rule_version: Mapped[str] = mapped_column(String(50), nullable=False, default="v1.0")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+    parcel = relationship("Parcel", back_populates="alerts")
+    document = relationship("Document")
+
+
+class BuyerReport(Base):
+    """
+    Comprehensive buyer parcel risk summary report.
+    Plain list and counts by severity only. Never outputs or stores composite scores or safe/unsafe verdicts.
+    """
+    __tablename__ = "buyer_reports"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True
+    )
+    parcel_id: Mapped[str] = mapped_column(
+        String(100), ForeignKey("parcels.parcel_id"), nullable=False, index=True
+    )
+    generated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+    sections: Mapped[dict] = mapped_column(
+        JSONB().with_variant(JSON, "sqlite"), nullable=False
+    )
+    rule_version: Mapped[str] = mapped_column(String(50), nullable=False, default="v1.0")
+    disclaimer_version: Mapped[str] = mapped_column(String(50), nullable=False, default="v1.0")
+
+    user = relationship("User")
+    parcel = relationship("Parcel")
+

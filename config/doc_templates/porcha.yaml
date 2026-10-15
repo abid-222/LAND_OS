@@ -1,0 +1,61 @@
+# config/doc_templates/porcha.yaml
+# Template and zone extraction layout for Survey Porcha (পর্চা)
+doc_type: "porcha"
+title_bn: "জরিপ খতিয়ানের অনুলিপি / পর্চা"
+title_en: "Survey Porcha (Certified Khatian Copy)"
+critical_fields:
+  - "khatian_no"
+  - "mouza"
+  - "dag_no"
+zones:
+  top_bar:
+    bbox: [0.0, 0.0, 1.0, 0.22]
+    fields:
+      - name: "document_no"
+        aliases: ["অনুলিপি নং", "স্মারক নং", "Copy No"]
+        type: "identifier"
+        required: false
+      - name: "mouza"
+        aliases: ["মৌজা", "মৌজার নাম", "জে.এল. নং"]
+        type: "mouza"
+        required: true
+      - name: "khatian_no"
+        aliases: ["খতিয়ান নং", "খতিয়ান নং", "পর্চা নং"]
+        type: "identifier"
+        required: true
+      - name: "registry_office"
+        aliases: ["জেলা ও উপজেলা", "রেকর্ড রুম", "Record Room"]
+        type: "text"
+        required: false
+  ownership:
+    bbox: [0.0, 0.20, 1.0, 0.52]
+    fields:
+      - name: "owner"
+        aliases: ["মালিক ও অংশীদারগণের নাম", "মালিকের নাম", "দখলকার"]
+        type: "name"
+        required: true
+  land_schedule:
+    bbox: [0.0, 0.50, 1.0, 0.85]
+    fields:
+      - name: "dag_no"
+        aliases: ["দাগ নং", "দাগ নম্বর", "প্লট নং"]
+        type: "identifier"
+        required: true
+      - name: "area"
+        aliases: ["জমির পরিমাণ", "মোট জমি", "অংশের পরিমাণ"]
+        type: "area"
+        required: true
+      - name: "parcel_reference"
+        aliases: ["জমির রকম", "শ্রেণি", "মন্তব্য"]
+        type: "text"
+        required: false
+  seal_zone:
+    bbox: [0.0, 0.82, 1.0, 1.0]
+    fields:
+      - name: "document_date"
+        aliases: ["সত্যায়িত তারিখ", "তারিখ", "Date"]
+        type: "date"
+        required: false
+      - name: "qr_code"
+        type: "qr"
+        required: false
