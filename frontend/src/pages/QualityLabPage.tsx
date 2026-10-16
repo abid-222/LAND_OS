@@ -194,7 +194,7 @@ export const QualityLabPage: React.FC = () => {
       // Local simulated run
       const updated = {
         ...fallbackRun,
-        id: `eval_run_${new Date().toISOString().replace(/[-:T.]/g, '').slice(0, 15)}`,
+        id: `eval_run_${new Date().toISOString().replace(/\D/g, '').slice(0, 15)}`,
         timestamp: new Date().toISOString(),
       };
       setEvalRun(updated);

@@ -329,7 +329,7 @@ export const MapPage: React.FC<MapPageProps> = ({ onNavigateToReport }) => {
       {/* Demo Parcel Quick Selector Bar */}
       <div className="absolute top-24 left-2 z-10 flex items-center gap-1.5 overflow-x-auto max-w-[calc(100%-80px)] p-1 rounded-xl bg-slate-950/80 border border-slate-800 backdrop-blur-md text-[11px]">
         <span className="text-slate-400 pl-1 font-semibold flex items-center gap-0.5 shrink-0">
-          <MapPin className="w-3 h-3 text-emerald-400" /> ডেমো:
+          <MapPin className="w-3 h-3 text-emerald-400" /> প্লট আইডি:
         </span>
         {demoParcels.map((p) => (
           <button

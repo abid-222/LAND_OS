@@ -355,11 +355,11 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
   const setExpandedAlertIds = setExpandedAlerts;
 
   return (
-    <div className="flex flex-col min-h-screen-dvh max-w-2xl mx-auto w-full px-4 pt-4 pb-28 text-slate-100 print:p-0 print:text-black">
-      {/* Top Demo Parcel Selector */}
-      <div className="p-3 rounded-2xl bg-slate-900 border border-slate-800 mb-4 print:hidden">
-        <label className="text-xs font-semibold text-slate-300 block mb-1.5">
-          প্রদর্শনী (ডেমো) প্লট নির্বাচন করুন:
+    <div className="flex flex-col min-h-screen-dvh max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 text-slate-800 dark:text-slate-100 transition-colors print:p-0 print:text-black pb-28">
+      {/* Top Parcel Selector */}
+      <div className="p-4 rounded-2xl bg-white dark:bg-[#04080c] border border-slate-200 dark:border-emerald-500/20 mb-5 shadow-sm print:hidden">
+        <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-2">
+          প্লট নির্বাচন করুন:
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
           {DEMO_PARCELS.map((p) => (

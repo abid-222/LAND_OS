@@ -2,36 +2,144 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --sat: env(safe-area-inset-top, 0px);
-  --sab: env(safe-area-inset-bottom, 0px);
-  --sal: env(safe-area-inset-left, 0px);
-  --sar: env(safe-area-inset-right, 0px);
+@layer base {
+  :root {
+    --sat: env(safe-area-inset-top, 0px);
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sal: env(safe-area-inset-left, 0px);
+    --sar: env(safe-area-inset-right, 0px);
+
+    /* Light Theme (Pure White & Emerald Green) */
+    --bg-primary: #ffffff;
+    --bg-surface: #ffffff;
+    --bg-card: #f8fafc;
+    --bg-elevated: #f1f5f9;
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --border-glow: rgba(16, 185, 129, 0.25);
+    --brand-green: #059669;
+    --brand-emerald: #10b981;
+    --brand-glow: 0 0 25px rgba(16, 185, 129, 0.2);
+  }
+
+  .dark {
+    /* Dark Theme (Pure Black & Glowing Cyber Green) */
+    --bg-primary: #000000;
+    --bg-surface: #04080c;
+    --bg-card: #080e14;
+    --bg-elevated: #0f1720;
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border-color: #1a2634;
+    --border-glow: rgba(0, 255, 136, 0.3);
+    --brand-green: #00ff88;
+    --brand-emerald: #00ff88;
+    --brand-glow: 0 0 28px rgba(0, 255, 136, 0.35);
+  }
+
+  html, body {
+    min-height: 100dvh;
+    margin: 0;
+    padding: 0;
+    font-family: 'Plus Jakarta Sans', 'Hind Siliguri', 'Inter', system-ui, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
 }
 
-html, body {
-  min-height: 100dvh;
-  margin: 0;
-  padding: 0;
-  overscroll-behavior-y: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Touch targets must be at least 48px for accessible mobile interaction */
-.touch-target {
-  min-height: 48px;
-  min-width: 48px;
-}
-
-/* Numeric keypad utility for Bengali / English numbers */
-input[type="number"], input[inputmode="numeric"] {
-  font-variant-numeric: tabular-nums;
-}
-
-/* Glassmorphism utility */
+/* Glassmorphism panels */
 .glass-panel {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.light .glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+}
+
+/* Cyber card with glowing border on hover */
+.cyber-card {
+  position: relative;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.cyber-card:hover {
+  border-color: var(--brand-emerald);
+  box-shadow: var(--brand-glow);
+  transform: translateY(-2px);
+}
+
+/* Cyber holographic radar animation */
+@keyframes radar-sweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-radar {
+  animation: radar-sweep 8s linear infinite;
+}
+
+/* Subtle holographic pulse */
+@keyframes cyber-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.04); }
+}
+
+.animate-cyber-pulse {
+  animation: cyber-pulse 4s ease-in-out infinite;
+}
+
+/* Grid background pattern */
+.bg-cyber-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(16, 185, 129, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.05) 1px, transparent 1px);
+}
+
+.light .bg-cyber-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(11, 107, 74, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(11, 107, 74, 0.06) 1px, transparent 1px);
+}
+
+/* Numeric keypad & tabular digits */
+input[type="number"], input[inputmode="numeric"], .tabular-digits {
+  font-variant-numeric: tabular-nums;
+  font-family: 'JetBrains Mono', 'Plus Jakarta Sans', monospace;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.3);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.5);
 }

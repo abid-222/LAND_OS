@@ -1,30 +1,78 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Users,
   FileCheck,
   Activity,
   Lock,
   CheckCircle2,
-  AlertTriangle,
+  AlertCircle,
   Link as LinkIcon,
   Server,
 } from 'lucide-react';
 
 export const AdminPage: React.FC = () => {
+  const { i18n } = useTranslation();
+  const isBn = (i18n.language || 'bn').startsWith('bn');
+
   const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'audit'>('overview');
 
   const stats = [
-    { title: 'মোট নিবন্ধিত ব্যবহারকারী', value: '১,২৪৮', icon: Users, color: 'text-emerald-400' },
-    { title: 'প্রক্রিয়াকৃত দলিল ও খতিয়ান', value: '১৫,৮৯২', icon: FileCheck, color: 'text-sky-400' },
-    { title: 'অনিষ্পন্ন রিভিউ কেস', value: '৪৩', icon: AlertTriangle, color: 'text-amber-400' },
-    { title: 'সিস্টেম আপটাইম', value: '৯৯.৯৮%', icon: Activity, color: 'text-emerald-400' },
+    {
+      title: isBn ? 'মোট নিবন্ধিত ব্যবহারকারী' : 'Registered Users',
+      value: isBn ? '১,২৪৮' : '1,248',
+      icon: Users,
+    },
+    {
+      title: isBn ? 'প্রক্রিয়াকৃত দলিল ও খতিয়ান' : 'Processed Deeds & Records',
+      value: isBn ? '১৫,৮৯২' : '15,892',
+      icon: FileCheck,
+    },
+    {
+      title: isBn ? 'পর্যালোচনা কেস' : 'Active Review Cases',
+      value: isBn ? '৪৩' : '43',
+      icon: AlertCircle,
+    },
+    {
+      title: isBn ? 'সিস্টেম আপটাইম' : 'System Availability',
+      value: '99.98%',
+      icon: Activity,
+    },
   ];
 
   const sampleUsers = [
-    { id: 'u1', name: 'মোঃ রফিকুল ইসলাম', email: 'reviewer.tejgaon@land.gov.bd', role: 'Reviewer', office: 'তেজগাঁও এসি ল্যান্ড', active: true },
-    { id: 'u2', name: 'বেগম নাসরিন সুলতানা', email: 'supervisor.dhaka@land.gov.bd', role: 'Supervisor', office: 'ঢাকা জেলা কালেক্টরেট', active: true },
-    { id: 'u3', name: 'আব্দুল্লাহ আল নোমান', email: 'techadmin@land.gov.bd', role: 'Tech Admin', office: 'কেন্দ্রীয় ডাটা সেন্টার', active: true },
-    { id: 'u4', name: 'কামরুল হাসান', email: 'citizen.kamrul@gmail.com', role: 'Citizen', office: '-', active: true },
+    {
+      id: 'u1',
+      name: isBn ? 'মোঃ রফিকুল ইসলাম' : 'Md. Rafiqul Islam',
+      email: 'reviewer.tejgaon@land.gov.bd',
+      role: 'Reviewer',
+      office: isBn ? 'তেজগাঁও সার্কেল' : 'Tejgaon Circle',
+      active: true,
+    },
+    {
+      id: 'u2',
+      name: isBn ? 'বেগম নাসরিন সুলতানা' : 'Begum Nasreen Sultana',
+      email: 'supervisor.dhaka@land.gov.bd',
+      role: 'Supervisor',
+      office: isBn ? 'ঢাকা জেলা রাজস্ব' : 'Dhaka District Revenue',
+      active: true,
+    },
+    {
+      id: 'u3',
+      name: isBn ? 'আব্দুল্লাহ আল নোমান' : 'Abdullah Al Noman',
+      email: 'techadmin@land.gov.bd',
+      role: 'Tech Admin',
+      office: isBn ? 'জাতীয় ডেটা সেন্টার' : 'National Data Center',
+      active: true,
+    },
+    {
+      id: 'u4',
+      name: isBn ? 'কামরুল হাসান' : 'Kamrul Hasan',
+      email: 'citizen.kamrul@gmail.com',
+      role: 'Citizen',
+      office: '-',
+      active: true,
+    },
   ];
 
   const sampleAuditLogs = [
@@ -33,7 +81,7 @@ export const AdminPage: React.FC = () => {
       actor: 'reviewer.tejgaon@land.gov.bd (Reviewer)',
       action: 'case:decision (Approve)',
       resource: 'Document #DOC-2026-081',
-      timestamp: '২০২৬-০৩-১৫ ১২:১০:০৪ UTC',
+      timestamp: '2026-03-15 12:10:04 UTC',
       prev_hash: 'a3f89...b12',
       current_hash: 'c742e...9a4',
       verified: true,
@@ -43,7 +91,7 @@ export const AdminPage: React.FC = () => {
       actor: 'citizen.kamrul@gmail.com (Citizen)',
       action: 'document:verify',
       resource: 'Document #DOC-2026-081',
-      timestamp: '২০২৬-০৩-১৫ ১১:৫৮:১২ UTC',
+      timestamp: '2026-03-15 11:58:12 UTC',
       prev_hash: '8f01b...7cd',
       current_hash: 'a3f89...b12',
       verified: true,
@@ -53,7 +101,7 @@ export const AdminPage: React.FC = () => {
       actor: 'system:cron_worker',
       action: 'parcel:run_risk_engine',
       resource: 'Parcel #P-4520',
-      timestamp: '২০২৬-০৩-১৫ ১১:৩০:০০ UTC',
+      timestamp: '2026-03-15 11:30:00 UTC',
       prev_hash: '2e89d...1aa',
       current_hash: '8f01b...7cd',
       verified: true,
@@ -61,41 +109,53 @@ export const AdminPage: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen-dvh max-w-6xl mx-auto w-full px-4 pt-4 pb-28 text-slate-100">
-      <div className="flex items-center justify-between mb-5">
-        <div className="flex items-center gap-2">
-          <Lock className="w-6 h-6 text-emerald-400" />
+    <div className="flex flex-col min-h-screen-dvh max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 text-slate-800 dark:text-slate-100 transition-colors pb-28">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-800/80">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+            <Lock className="w-5 h-5" />
+          </div>
           <div>
-            <h1 className="text-xl font-bold text-white">প্রশাসনিক প্যানেল ও অডিট ট্রেসার</h1>
-            <p className="text-xs text-slate-400">নিরাপত্তা অখণ্ডতা ও ভূমিকা ব্যবস্থাপনা</p>
+            <h1 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              {isBn ? 'প্রশাসনিক গভর্ন্যান্স ও অডিট ট্রেসার' : 'Administrative Governance & Audit'}
+            </h1>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              {isBn ? 'নিরাপত্তা অখণ্ডতা, আরব্যাক ভূমিকা ও ক্রিপ্টোগ্রাফিক লগ' : 'Security integrity, RBAC controls, and tamper-evident logs'}
+            </p>
           </div>
         </div>
 
         {/* Tab Buttons */}
-        <div className="flex bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs">
+        <div className="flex bg-slate-100 dark:bg-black/60 p-1 rounded-xl border border-slate-200 dark:border-slate-800 text-xs self-start sm:self-auto">
           <button
             onClick={() => setActiveTab('overview')}
-            className={`px-3 py-1.5 rounded-lg font-medium transition-colors ${
-              activeTab === 'overview' ? 'bg-primary text-white font-semibold' : 'text-slate-400 hover:text-white'
+            className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
+              activeTab === 'overview'
+                ? 'bg-emerald-600 text-white shadow-sm'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
-            ওভারভিউ
+            {isBn ? 'ওভারভিউ' : 'Overview'}
           </button>
           <button
             onClick={() => setActiveTab('users')}
-            className={`px-3 py-1.5 rounded-lg font-medium transition-colors ${
-              activeTab === 'users' ? 'bg-primary text-white font-semibold' : 'text-slate-400 hover:text-white'
+            className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
+              activeTab === 'users'
+                ? 'bg-emerald-600 text-white shadow-sm'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
-            ব্যবহারকারী (RBAC)
+            {isBn ? 'ব্যবহারকারী (RBAC)' : 'Users (RBAC)'}
           </button>
           <button
             onClick={() => setActiveTab('audit')}
-            className={`px-3 py-1.5 rounded-lg font-medium transition-colors ${
-              activeTab === 'audit' ? 'bg-primary text-white font-semibold' : 'text-slate-400 hover:text-white'
+            className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
+              activeTab === 'audit'
+                ? 'bg-emerald-600 text-white shadow-sm'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
-            অডিট লগ
+            {isBn ? 'অডিট লগ' : 'Audit Logs'}
           </button>
         </div>
       </div>
@@ -107,40 +167,45 @@ export const AdminPage: React.FC = () => {
             {stats.map((st, idx) => {
               const Icon = st.icon;
               return (
-                <div key={idx} className="p-4 rounded-2xl bg-slate-900 border border-slate-800 shadow-lg">
+                <div
+                  key={idx}
+                  className="p-5 rounded-2xl bg-white dark:bg-[#04080c] border border-slate-200 dark:border-slate-800/90 shadow-sm transition-all"
+                >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs text-slate-400 font-medium">{st.title}</span>
-                    <Icon className={`w-4 h-4 ${st.color}`} />
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{st.title}</span>
+                    <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
+                      <Icon className="w-4 h-4" />
+                    </div>
                   </div>
-                  <span className="text-2xl font-bold text-white font-mono">{st.value}</span>
+                  <span className="text-2xl font-black text-slate-900 dark:text-white font-mono">{st.value}</span>
                 </div>
               );
             })}
           </div>
 
           {/* System Health Card */}
-          <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
-            <h3 className="text-sm font-bold text-white mb-3 flex items-center gap-2">
-              <Server className="w-4 h-4 text-emerald-400" />
-              <span>অবকাঠামো ও সংযোগ স্ট্যাটাস</span>
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#04080c] border border-slate-200 dark:border-emerald-500/20 shadow-xl">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+              <Server className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              <span>{isBn ? 'অবকাঠামো ও ক্লাউড সংযোগ স্ট্যাটাস' : 'Infrastructure & Connectivity Status'}</span>
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-              <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
-                <span className="text-slate-400">PostgreSQL (PostGIS + pgvector)</span>
-                <span className="text-emerald-400 font-semibold flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> সংযুক্ত
+              <div className="p-4 rounded-xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <span className="text-slate-600 dark:text-slate-300 font-medium">PostgreSQL (PostGIS + pgvector)</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> {isBn ? 'সংযুক্ত' : 'Connected'}
                 </span>
               </div>
-              <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
-                <span className="text-slate-400">Redis (সেশন ও রেট লিমিট)</span>
-                <span className="text-emerald-400 font-semibold flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> সংযুক্ত
+              <div className="p-4 rounded-xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <span className="text-slate-600 dark:text-slate-300 font-medium">Redis (Cache & Rate-Limit)</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> {isBn ? 'সংযুক্ত' : 'Connected'}
                 </span>
               </div>
-              <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
-                <span className="text-slate-400">MinIO S3 অবজেক্ট স্টোরেজ</span>
-                <span className="text-emerald-400 font-semibold flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> সংযুক্ত
+              <div className="p-4 rounded-xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <span className="text-slate-600 dark:text-slate-300 font-medium">MinIO S3 Storage</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> {isBn ? 'সংযুক্ত' : 'Connected'}
                 </span>
               </div>
             </div>
@@ -150,31 +215,31 @@ export const AdminPage: React.FC = () => {
 
       {/* Users & RBAC Tab */}
       {activeTab === 'users' && (
-        <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl overflow-x-auto">
-          <table className="w-full text-left text-xs text-slate-300">
+        <div className="p-6 rounded-3xl bg-white dark:bg-[#04080c] border border-slate-200 dark:border-emerald-500/20 shadow-xl overflow-x-auto">
+          <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
             <thead>
-              <tr className="border-b border-slate-800 text-slate-400">
-                <th className="pb-3 font-semibold">নাম</th>
-                <th className="pb-3 font-semibold">ইমেইল</th>
-                <th className="pb-3 font-semibold">ভূমিকা (Role)</th>
-                <th className="pb-3 font-semibold">অফিস / অধিক্ষেত্র</th>
-                <th className="pb-3 font-semibold text-right">স্ট্যাটাস</th>
+              <tr className="border-b border-slate-200 dark:border-slate-800 text-slate-400">
+                <th className="pb-3.5 font-bold uppercase tracking-wider">{isBn ? 'নাম' : 'Name'}</th>
+                <th className="pb-3.5 font-bold uppercase tracking-wider">{isBn ? 'ইমেইল' : 'Email'}</th>
+                <th className="pb-3.5 font-bold uppercase tracking-wider">{isBn ? 'ভূমিকা' : 'Role'}</th>
+                <th className="pb-3.5 font-bold uppercase tracking-wider">{isBn ? 'অফিস / অধিক্ষেত্র' : 'Jurisdiction'}</th>
+                <th className="pb-3.5 font-bold uppercase tracking-wider text-right">{isBn ? 'স্ট্যাটাস' : 'Status'}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
               {sampleUsers.map((u) => (
-                <tr key={u.id} className="hover:bg-slate-850">
-                  <td className="py-3 font-medium text-white">{u.name}</td>
-                  <td className="py-3 font-mono text-slate-400">{u.email}</td>
-                  <td className="py-3">
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary/20 text-emerald-300 border border-primary/30">
+                <tr key={u.id} className="hover:bg-slate-50 dark:hover:bg-black/40 transition-colors">
+                  <td className="py-3.5 font-bold text-slate-900 dark:text-white">{u.name}</td>
+                  <td className="py-3.5 font-mono text-slate-500">{u.email}</td>
+                  <td className="py-3.5">
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
                       {u.role}
                     </span>
                   </td>
-                  <td className="py-3">{u.office}</td>
-                  <td className="py-3 text-right">
-                    <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1" />
-                    সক্রিয়
+                  <td className="py-3.5 text-slate-600 dark:text-slate-300">{u.office}</td>
+                  <td className="py-3.5 text-right">
+                    <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-1.5" />
+                    <span className="font-semibold text-emerald-600 dark:text-emerald-400">{isBn ? 'সক্রিয়' : 'Active'}</span>
                   </td>
                 </tr>
               ))}
@@ -185,28 +250,34 @@ export const AdminPage: React.FC = () => {
 
       {/* Audit Log Tab */}
       {activeTab === 'audit' && (
-        <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <LinkIcon className="w-4 h-4 text-emerald-400" />
-              <span>ক্রিপ্টোগ্রাফিক হ্যাশ চেইন্ড অডিট লগ (SHA-256)</span>
+        <div className="p-6 rounded-3xl bg-white dark:bg-[#04080c] border border-slate-200 dark:border-emerald-500/20 shadow-xl">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-200 dark:border-slate-800">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <LinkIcon className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              <span>{isBn ? 'ক্রিপ্টোগ্রাফিক হ্যাশ চেইন্ড অডিট লগ (SHA-256)' : 'Cryptographic Hash-Chained Audit Trail'}</span>
             </h3>
-            <span className="text-[11px] text-emerald-400 font-medium">হ্যাশ চেইন অক্ষত (Tamper-evident)</span>
+            <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20 self-start sm:self-auto">
+              {isBn ? 'হ্যাশ চেইন অক্ষত ও সুরক্ষিত' : 'Hash Chain Verified & Tamper-Evident'}
+            </span>
           </div>
 
           <div className="flex flex-col gap-3">
             {sampleAuditLogs.map((log) => (
-              <div key={log.id} className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs">
-                <div className="flex items-start justify-between gap-2 mb-1.5">
-                  <span className="font-semibold text-white">{log.action}</span>
-                  <span className="text-slate-500 font-mono text-[10px]">{log.timestamp}</span>
+              <div key={log.id} className="p-4 rounded-xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800 text-xs shadow-sm">
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <span className="font-bold text-slate-900 dark:text-white">{log.action}</span>
+                  <span className="text-slate-400 font-mono text-[10px]">{log.timestamp}</span>
                 </div>
-                <p className="text-slate-300 text-[11px]">কর্তা: {log.actor}</p>
-                <p className="text-slate-400 text-[11px]">রিসোর্স: {log.resource}</p>
+                <p className="text-slate-600 dark:text-slate-300 text-xs">
+                  {isBn ? 'কর্তা: ' : 'Actor: '}{log.actor}
+                </p>
+                <p className="text-slate-500 dark:text-slate-400 text-xs mt-0.5">
+                  {isBn ? 'রিসোর্স: ' : 'Resource: '}{log.resource}
+                </p>
 
-                <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-800/80 font-mono text-[10px] text-slate-400">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mt-2.5 pt-2 border-t border-slate-200 dark:border-slate-800 font-mono text-[10px] text-slate-500">
                   <span>Prev: {log.prev_hash}</span>
-                  <span className="text-emerald-400 font-bold">Curr: {log.current_hash}</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">Curr: {log.current_hash}</span>
                 </div>
               </div>
             ))}

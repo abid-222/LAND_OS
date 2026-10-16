@@ -2,9 +2,13 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
 import './i18n';
 import { Header } from './components/Header';
+import { Sidebar } from './components/Sidebar';
 import { BottomNav } from './components/BottomNav';
 import { Forbidden403 } from './components/Forbidden403';
 import { MaintenanceBanner } from './components/MaintenanceBanner';
+import { DemoTourModal } from './components/DemoTourModal';
+import { RoleSwitchTerminal } from './components/RoleSwitchTerminal';
+import { ChatbotWidget } from './components/ChatbotWidget';
 import { getQueuedUploads } from './lib/offlineQueue';
 import { useNetworkStore } from './lib/networkMonitor';
 import {
@@ -56,6 +60,38 @@ const AppContent: React.FC = () => {
   const [selectedParcelId, setSelectedParcelId] = useState<string>('P-4520');
   const [searchParams, setSearchParams] = useState<{ khatian_no?: string; dag_no?: string; mouza?: string }>({});
   const [pendingCount, setPendingCount] = useState<number>(0);
+
+  // Modern UI states
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [isDemoTourOpen, setIsDemoTourOpen] = useState(false);
+  const [isRoleTerminalOpen, setIsRoleTerminalOpen] = useState(false);
+
+  // Dark / Light Theme
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('landos-theme');
+      if (saved) return saved === 'dark';
+      return true; // default cyber dark
+    }
+    return true;
+  });
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+      localStorage.setItem('landos-theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+      localStorage.setItem('landos-theme', 'light');
+    }
+  }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode((prev) => !prev);
+  };
 
   const { isOnline } = useNetworkStore();
 
@@ -134,7 +170,7 @@ const AppContent: React.FC = () => {
   };
 
   const handleRoleChange = (newRole: UserRole) => {
-    // If selecting a demo role without full login, we switch target tab
+    // If selecting a demo role without full login, switch target tab
     const targetTab = ROLE_DEFAULT_TABS[newRole] || 'home';
     setActiveTab(targetTab);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -144,112 +180,162 @@ const AppContent: React.FC = () => {
   const isTabAllowed = canAccessTab(activeTab, currentRole);
 
   return (
-    <div className="flex flex-col min-h-screen-dvh bg-slate-950 text-slate-100 font-sans selection:bg-primary selection:text-white">
-      <Header
-        isHealthy={Boolean(health)}
-        currentRole={currentRole}
-        onRoleChange={handleRoleChange}
-        onNavigateToTab={handleNavigate}
-      />
-
-      {/* Maintenance & Offline Warning Banner */}
-      <MaintenanceBanner
-        isHealthy={Boolean(health)}
-        isOnline={isOnline}
-        onRetry={() => refetchHealth()}
-      />
-
-      <main className="flex-1 w-full">
-        <Suspense fallback={<PageLoader />}>
-          {/* Direct Route Guard: Show 403 Forbidden Screen if not allowed */}
-          {!isTabAllowed ? (
-            <Forbidden403 onReturnToAllowed={(tab) => handleNavigate(tab)} />
-          ) : (
-            <>
-              {/* Staff Workspace View */}
-              {activeTab === 'staff' && <StaffPage />}
-
-              {/* Admin Panel View */}
-              {activeTab === 'admin' && <AdminPage />}
-
-              {/* Quality Lab View */}
-              {activeTab === 'quality' && <QualityLabPage />}
-
-              {/* Citizen & Shared Portal Views */}
-              {activeTab === 'home' && <HomePage onNavigate={handleNavigate} />}
-
-              {activeTab === 'scan' && (
-                <ScanPage
-                  onNavigateToConfirm={(docId) => handleNavigate('confirm', { documentId: docId })}
-                  onNavigateToPending={() => handleNavigate('pending')}
-                  onNavigateToSearch={() => handleNavigate('search')}
-                />
-              )}
-
-              {activeTab === 'confirm' && (
-                <ConfirmPage
-                  documentId={confirmDocId || 'e1b5c920-3b1a-4d9a-9e12-876a45bc3d21'}
-                  onNavigateToSearch={(params) => handleNavigate('search', params)}
-                  onNavigateToVerify={(docId, recId) =>
-                    handleNavigate('verify', { documentId: docId, recordId: recId || 'REC-TG-001' })
-                  }
-                />
-              )}
-
-              {activeTab === 'verify' && (
-                <VerificationPage
-                  documentId={confirmDocId || 'doc-test-1234'}
-                  recordId={verifyRecordId || 'REC-TG-001'}
-                  onNavigateToReport={(pid) => handleNavigate('report', { parcelId: pid })}
-                  onNavigateToConfirm={(docId) => handleNavigate('confirm', { documentId: docId })}
-                />
-              )}
-
-              {activeTab === 'search' && (
-                <SearchPage
-                  initialKhatian={searchParams.khatian_no}
-                  initialDag={searchParams.dag_no}
-                  initialMouza={searchParams.mouza}
-                  onSelectRecord={(recId) => handleNavigate('verify', { recordId: recId })}
-                />
-              )}
-
-              {activeTab === 'map' && (
-                <MapPage
-                  onNavigateToReport={(pid) => handleNavigate('report', { parcelId: pid })}
-                />
-              )}
-
-              {activeTab === 'report' && (
-                <BuyerReportPage
-                  initialParcelId={selectedParcelId || 'P-4520'}
-                  onNavigateToAlerts={(pid) => handleNavigate('alerts', { parcelId: pid })}
-                  onNavigateToMap={() => handleNavigate('map')}
-                />
-              )}
-
-              {activeTab === 'alerts' && (
-                <ParcelAlertsPage
-                  parcelId={selectedParcelId || 'P-4520'}
-                  userRole={currentRole.toLowerCase() as 'citizen' | 'staff' | 'admin' | 'quality'}
-                  onNavigateBack={() => handleNavigate('report', { parcelId: selectedParcelId })}
-                />
-              )}
-
-              {activeTab === 'guide' && <GuidePage />}
-
-              {activeTab === 'pending' && <PendingUploadsPage />}
-            </>
-          )}
-        </Suspense>
-      </main>
-
-      {/* Mobile Bottom Navigation (Shown for mobile viewports) */}
-      <BottomNav
+    <div className="flex h-screen overflow-hidden bg-slate-100 dark:bg-[#070b0e] text-slate-900 dark:text-slate-100 font-sans selection:bg-emerald-500 selection:text-white transition-colors duration-200">
+      {/* Left Persistent & Responsive Sidebar */}
+      <Sidebar
         activeTab={activeTab}
         onTabChange={handleNavigate}
         pendingCount={pendingCount}
+        currentRole={currentRole}
+        isCollapsed={isSidebarCollapsed}
+        onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+        isMobileOpen={isMobileSidebarOpen}
+        onCloseMobile={() => setIsMobileSidebarOpen(false)}
+        onOpenAuthModal={() => setIsRoleTerminalOpen(true)}
+        onStartTour={() => setIsDemoTourOpen(true)}
+        isDarkMode={isDarkMode}
+        onToggleTheme={toggleTheme}
       />
+
+      {/* Main Right Area: Top Header + Scrollable Content */}
+      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden relative">
+        <Header
+          isHealthy={Boolean(health)}
+          currentRole={currentRole}
+          onRoleChange={handleRoleChange}
+          onNavigateToTab={handleNavigate}
+          onToggleMobileSidebar={() => setIsMobileSidebarOpen(true)}
+          onStartTour={() => setIsDemoTourOpen(true)}
+          isDarkMode={isDarkMode}
+          onToggleTheme={toggleTheme}
+          onOpenLogin={() => setIsRoleTerminalOpen(true)}
+        />
+
+        {/* Maintenance & Offline Warning Banner */}
+        <MaintenanceBanner
+          isHealthy={Boolean(health)}
+          isOnline={isOnline}
+          onRetry={() => refetchHealth()}
+        />
+
+        <main className="flex-1 overflow-y-auto w-full pb-20 md:pb-6">
+          <Suspense fallback={<PageLoader />}>
+            {/* Direct Route Guard: Show 403 Forbidden Screen if not allowed */}
+            {!isTabAllowed ? (
+              <Forbidden403 onReturnToAllowed={(tab) => handleNavigate(tab)} />
+            ) : (
+              <>
+                {/* Staff Workspace View */}
+                {activeTab === 'staff' && <StaffPage />}
+
+                {/* Admin Panel View */}
+                {activeTab === 'admin' && <AdminPage />}
+
+                {/* Quality Lab View */}
+                {activeTab === 'quality' && <QualityLabPage />}
+
+                {/* Citizen & Shared Portal Views */}
+                {activeTab === 'home' && (
+                  <HomePage
+                    onNavigate={handleNavigate}
+                    currentRole={currentRole}
+                    onStartTour={() => setIsDemoTourOpen(true)}
+                    onOpenLogin={() => setIsRoleTerminalOpen(true)}
+                  />
+                )}
+
+                {activeTab === 'scan' && (
+                  <ScanPage
+                    onNavigateToConfirm={(docId) => handleNavigate('confirm', { documentId: docId })}
+                    onNavigateToPending={() => handleNavigate('pending')}
+                    onNavigateToSearch={() => handleNavigate('search')}
+                  />
+                )}
+
+                {activeTab === 'confirm' && (
+                  <ConfirmPage
+                    documentId={confirmDocId || 'e1b5c920-3b1a-4d9a-9e12-876a45bc3d21'}
+                    onNavigateToSearch={(params) => handleNavigate('search', params)}
+                    onNavigateToVerify={(docId, recId) =>
+                      handleNavigate('verify', { documentId: docId, recordId: recId || 'REC-TG-001' })
+                    }
+                  />
+                )}
+
+                {activeTab === 'verify' && (
+                  <VerificationPage
+                    documentId={confirmDocId || 'doc-test-1234'}
+                    recordId={verifyRecordId || 'REC-TG-001'}
+                    onNavigateToReport={(pid) => handleNavigate('report', { parcelId: pid })}
+                    onNavigateToConfirm={(docId) => handleNavigate('confirm', { documentId: docId })}
+                  />
+                )}
+
+                {activeTab === 'search' && (
+                  <SearchPage
+                    initialKhatian={searchParams.khatian_no}
+                    initialDag={searchParams.dag_no}
+                    initialMouza={searchParams.mouza}
+                    onSelectRecord={(recId) => handleNavigate('verify', { recordId: recId })}
+                  />
+                )}
+
+                {activeTab === 'map' && (
+                  <MapPage
+                    onNavigateToReport={(pid) => handleNavigate('report', { parcelId: pid })}
+                  />
+                )}
+
+                {activeTab === 'report' && (
+                  <BuyerReportPage
+                    initialParcelId={selectedParcelId || 'P-4520'}
+                    onNavigateToAlerts={(pid) => handleNavigate('alerts', { parcelId: pid })}
+                    onNavigateToMap={() => handleNavigate('map')}
+                  />
+                )}
+
+                {activeTab === 'alerts' && (
+                  <ParcelAlertsPage
+                    parcelId={selectedParcelId || 'P-4520'}
+                    userRole={currentRole.toLowerCase() as 'citizen' | 'staff' | 'admin' | 'quality'}
+                    onNavigateBack={() => handleNavigate('report', { parcelId: selectedParcelId })}
+                  />
+                )}
+
+                {activeTab === 'guide' && <GuidePage />}
+
+                {activeTab === 'pending' && <PendingUploadsPage />}
+              </>
+            )}
+          </Suspense>
+        </main>
+
+        {/* Mobile-Only Bottom Navigation (Hidden on Tablet & Desktop) */}
+        <div className="md:hidden">
+          <BottomNav
+            activeTab={activeTab}
+            onTabChange={handleNavigate}
+            pendingCount={pendingCount}
+          />
+        </div>
+
+        {/* Floating AI Land Guide Assistant */}
+        <ChatbotWidget />
+
+        {/* Interactive Guided Tour Modal */}
+        <DemoTourModal
+          isOpen={isDemoTourOpen}
+          onClose={() => setIsDemoTourOpen(false)}
+          onNavigateToTab={handleNavigate}
+        />
+
+        {/* Instant RBAC Role Switch Terminal */}
+        <RoleSwitchTerminal
+          isOpen={isRoleTerminalOpen}
+          onClose={() => setIsRoleTerminalOpen(false)}
+          onRoleChanged={handleRoleChange}
+        />
+      </div>
     </div>
   );
 };

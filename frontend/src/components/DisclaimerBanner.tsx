@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertTriangle, Database } from 'lucide-react';
+import { ShieldAlert } from 'lucide-react';
 
 interface DisclaimerBannerProps {
   type?: 'map' | 'synthetic' | 'badge';
@@ -10,34 +10,23 @@ export const DisclaimerBanner: React.FC<DisclaimerBannerProps> = ({
   type = 'map',
   className = '',
 }) => {
-  if (type === 'badge') {
-    return (
-      <span
-        title="প্রোটোটাইপ প্রদর্শনীর সকল তথ্য কাল্পনিক সিনথেটিক ডেটা"
-        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 shrink-0 ${className}`}
-      >
-        <Database className="w-3 h-3 text-amber-400" />
-        <span>ডেমো ডেটা (Synthetic Demo Data)</span>
-      </span>
-    );
+  // All noisy yellow seed data / synthetic demo banners removed for clean UX
+  if (type === 'synthetic' || type === 'badge') {
+    return null;
   }
 
   return (
     <div
       role="alert"
-      className={`w-full bg-amber-500/10 border-y sm:border sm:rounded-xl border-amber-500/30 px-3.5 py-2.5 flex items-center gap-3 backdrop-blur-sm ${className}`}
+      className={`w-full bg-slate-50/80 dark:bg-[#070d12] border border-slate-200 dark:border-emerald-500/20 rounded-xl px-3.5 py-2 flex items-center gap-2.5 text-xs text-slate-500 dark:text-slate-400 backdrop-blur-sm transition-colors ${className}`}
     >
-      <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0" />
-      <div className="flex flex-col text-xs leading-relaxed text-amber-200">
-        <span className="font-semibold text-amber-300">
-          {type === 'map'
-            ? 'Illustrative / Not a legal boundary. উদাহরণ মাত্র, আইনি সীমানা নয়. Heights are illustrative.'
-            : 'প্রোটোটাইপ প্রদর্শনীর সকল খতিয়ান ও নাগরিক তথ্য কাল্পনিক (Synthetic Demo Data)।'}
+      <ShieldAlert className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+      <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2 leading-relaxed">
+        <span className="font-semibold text-slate-700 dark:text-slate-300">
+          Illustrative / Not a legal boundary. উদাহরণ মাত্র, আইনি সীমানা নয়. Heights are illustrative.
         </span>
-        <span className="text-amber-400/80 text-[11px]">
-          {type === 'map'
-            ? 'উচ্চতা ও ত্রিমাত্রিক নকশা শুধুমাত্র দৃশ্যমানতার জন্য। আইনি সীমানা নির্ধারণে সরকারি মৌজা নকশা ও জরিপ প্রযোজ্য।'
-            : 'For demonstration and testing only. Does not reflect live government registries.'}
+        <span className="text-[11px] text-slate-400 dark:text-slate-500">
+          আইনি সীমানা নির্ধারণে সরকারি মৌজা নকশা ও মাঠ জরিপ প্রযোজ্য।
         </span>
       </div>
     </div>

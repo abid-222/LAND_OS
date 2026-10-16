@@ -28,9 +28,12 @@ test.describe('LandOS Mobile-First Smoke Tests', () => {
     const disclaimer = page.getByRole('alert');
     await expect(disclaimer.first()).toBeVisible({ timeout: 15000 });
 
-    // Check sticky bottom nav
-    const bottomNav = page.getByRole('navigation', { name: 'Mobile Bottom Navigation' });
-    await expect(bottomNav).toBeVisible({ timeout: 15000 });
+    // Check sticky bottom nav on mobile viewports
+    const isMobile = (page.viewportSize()?.width ?? 1280) < 768;
+    if (isMobile) {
+      const bottomNav = page.getByRole('navigation', { name: 'Mobile Bottom Navigation' });
+      await expect(bottomNav).toBeVisible({ timeout: 15000 });
+    }
   });
 
   test('verifies language toggle switch between Bengali and English', async ({ page }) => {

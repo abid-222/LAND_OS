@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   X,
   Lock,
@@ -8,7 +9,7 @@ import {
   RefreshCw,
   LogOut,
   Smartphone,
-  ShieldAlert,
+  ShieldCheck,
   FileCheck,
 } from 'lucide-react';
 import { useAuthStore, ROLE_DEFAULT_TABS, type UserRole } from '../lib/authStore';
@@ -25,6 +26,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   onClose,
   onNavigateToTab,
 }) => {
+  const { i18n } = useTranslation();
+  const isBn = (i18n.language || 'bn').startsWith('bn');
+
   const {
     user,
     isAuthenticated,
@@ -65,7 +69,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
     if (res.mfaRequired) {
       setMode('mfa');
-      setErrorMessage('প্রশাসনিক অ্যাকাউন্টের জন্য ৬ ডিজিটের MFA কোড প্রয়োজন।');
+      setErrorMessage(
+        isBn
+          ? 'প্রশাসনিক অ্যাকাউন্টের জন্য ৬ ডিজিটের এমএফএ কোড প্রয়োজন।'
+          : 'Administrative account requires 6-digit MFA authenticator code.'
+      );
       return;
     }
 
@@ -78,7 +86,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       }
       onClose();
     } else {
-      setErrorMessage(res.error || 'লগইন ব্যর্থ হয়েছে। তথ্য যাচাই করুন।');
+      setErrorMessage(
+        res.error ||
+          (isBn ? 'লগইন ব্যর্থ হয়েছে। তথ্য যাচাই করুন।' : 'Login failed. Please check your credentials.')
+      );
     }
   };
 
@@ -100,35 +111,47 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       }
       onClose();
     } else {
-      setErrorMessage(res.error || 'ভুল MFA কোড। আবার চেষ্টা করুন।');
+      setErrorMessage(
+        res.error || (isBn ? 'ভুল এমএফএ কোড। পুনরায় চেষ্টা করুন।' : 'Invalid MFA code. Please try again.')
+      );
     }
   };
 
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      setErrorMessage('নতুন পাসওয়ার্ড ও কনফার্ম পাসওয়ার্ড মিলছে না।');
+      setErrorMessage(isBn ? 'নতুন পাসওয়ার্ড দুটি মেলেনি।' : 'New passwords do not match.');
       return;
     }
     if (newPassword.length < 8) {
-      setErrorMessage('পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে।');
+      setErrorMessage(
+        isBn
+          ? 'নতুন পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে।'
+          : 'New password must be at least 8 characters long.'
+      );
       return;
     }
 
     setIsLoading(true);
     setErrorMessage(null);
+    setSuccessMessage(null);
+
     try {
-      await api.post('/api/v1/auth/password/change', {
+      await api.post('/api/v1/auth/change-password', {
         current_password: currentPassword,
         new_password: newPassword,
       });
-      setSuccessMessage('পাসওয়ার্ড সফলভাবে পরিবর্তন করা হয়েছে।');
+      setSuccessMessage(
+        isBn ? 'পাসওয়ার্ড সফলভাবে পরিবর্তন করা হয়েছে!' : 'Password changed successfully!'
+      );
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
-    } catch (err: unknown) {
+    } catch {
       setErrorMessage(
-        (err as Error)?.message || 'পাসওয়ার্ড পরিবর্তন ব্যর্থ হয়েছে।'
+        isBn
+          ? 'পাসওয়ার্ড পরিবর্তন ব্যর্থ হয়েছে। বর্তমান পাসওয়ার্ড যাচাই করুন।'
+          : 'Failed to update password. Please check your current password.'
       );
     } finally {
       setIsLoading(false);
@@ -138,16 +161,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const handleSaveConsent = async () => {
     setIsLoading(true);
     try {
-      await api.post('/api/v1/consent', {
-        camera_granted: cameraConsent,
-        storage_granted: storageConsent,
+      await api.post('/api/v1/auth/consent', {
+        camera: cameraConsent,
+        offline_storage: storageConsent,
         terms_accepted: termsConsent,
-        terms_version: 'v1.0.0-2026',
       });
       setConsentSaved(true);
       setTimeout(() => setConsentSaved(false), 3000);
     } catch {
-      // Offline fallback saved in localStorage
       localStorage.setItem('landos_camera_consent', String(cameraConsent));
       localStorage.setItem('landos_offline_consent', String(storageConsent));
       setConsentSaved(true);
@@ -160,17 +181,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const demoAccounts: Array<{
     role: UserRole;
     email: string;
-    label: string;
+    labelBn: string;
+    labelEn: string;
     isMfa?: boolean;
   }> = [
-    { role: 'Citizen', email: 'citizen@landos.gov.bd', label: 'নাগরিক (Citizen)' },
-    { role: 'Operator', email: 'operator@landos.gov.bd', label: 'অপারেটর (Operator)' },
-    { role: 'Reviewer', email: 'reviewer@landos.gov.bd', label: 'রিভিউয়ার (Reviewer)' },
-    { role: 'Supervisor', email: 'supervisor@landos.gov.bd', label: 'সুপারভাইজার (Supervisor)' },
-    { role: 'Office Admin', email: 'office_admin@landos.gov.bd', label: 'অফিস অ্যাডমিন' },
-    { role: 'Regional Manager', email: 'regional_manager@landos.gov.bd', label: 'আঞ্চলিক পরিচালক' },
-    { role: 'Security Officer', email: 'security_officer@landos.gov.bd', label: 'নিরাপত্তা কর্মকর্তা (MFA)', isMfa: true },
-    { role: 'Tech Admin', email: 'tech_admin@landos.gov.bd', label: 'টেক অ্যাডমিন (MFA)', isMfa: true },
+    { role: 'Citizen', email: 'citizen@landos.gov.bd', labelBn: 'সাধারণ নাগরিক', labelEn: 'Citizen (Public)' },
+    { role: 'Operator', email: 'operator@landos.gov.bd', labelBn: 'ইউনিয়ন সহকারী কর্মকর্তা', labelEn: 'Land Assistant Officer' },
+    { role: 'Reviewer', email: 'reviewer@landos.gov.bd', labelBn: 'কানুনগো ও সার্ভেয়ার', labelEn: 'Kanungo & Surveyor Reviewer' },
+    { role: 'Supervisor', email: 'supervisor@landos.gov.bd', labelBn: 'সহকারী কমিশনার (ভূমি)', labelEn: 'Assistant Commissioner (Land)' },
+    { role: 'Office Admin', email: 'officeadmin@landos.gov.bd', labelBn: 'রেকর্ড ও প্রশাসন শাখা', labelEn: 'Records & Administration' },
+    { role: 'Regional Manager', email: 'regionalmanager@landos.gov.bd', labelBn: 'অতিরিক্ত জেলা প্রশাসক', labelEn: 'ADC (Revenue)' },
+    { role: 'Security Officer', email: 'securityofficer@landos.gov.bd', labelBn: 'সাইবার ও নিরাপত্তা কর্মকর্তা', labelEn: 'Security Officer (MFA)', isMfa: true },
+    { role: 'Tech Admin', email: 'techadmin@landos.gov.bd', labelBn: 'সিস্টেম অ্যাডমিন', labelEn: 'Technical Admin (MFA)', isMfa: true },
   ];
 
   const handleQuickLogin = (demo: (typeof demoAccounts)[0]) => {
@@ -184,14 +206,22 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in">
-      <div className="relative w-full max-w-lg rounded-2xl bg-slate-900 border border-slate-800 p-5 sm:p-6 shadow-2xl text-slate-100 max-h-[92dvh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
+      <div className="relative w-full max-w-lg rounded-2xl bg-white dark:bg-[#04080c] border border-slate-200 dark:border-emerald-500/30 p-5 sm:p-6 shadow-2xl text-slate-800 dark:text-slate-100 max-h-[92dvh] overflow-y-auto transition-colors">
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-          <div className="flex items-center gap-2">
-            <KeyRound className="w-5 h-5 text-emerald-400" />
-            <h2 className="text-base font-bold text-white">
-              {isAuthenticated ? 'অ্যাকাউন্ট ও নিরাপত্তা সেটিংস' : 'ভূমিকাভিত্তিক লগইন'}
+        <div className="flex items-center justify-between pb-3.5 border-b border-slate-200 dark:border-slate-800/80">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+              <KeyRound className="w-4 h-4" />
+            </div>
+            <h2 className="text-base font-bold text-slate-900 dark:text-white">
+              {isAuthenticated
+                ? isBn
+                  ? 'অ্যাকাউন্ট ও নিরাপত্তা সেটিংস'
+                  : 'Account & Security Settings'
+                : isBn
+                ? 'ভূমিকাভিত্তিক সাইন ইন'
+                : 'Role-Based Authentication'}
             </h2>
           </div>
           <button
@@ -199,7 +229,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               clearSessionMessage();
               onClose();
             }}
-            className="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white"
+            className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -207,10 +237,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
         {/* Session Expired Banner */}
         {sessionExpiredMessage && (
-          <div className="mt-3 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-2.5 text-xs text-amber-200">
-            <AlertCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+          <div className="mt-3.5 p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300">
+            <AlertCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
             <div>
-              <span className="font-semibold text-amber-300 block">সেশন সমাপ্ত:</span>
+              <span className="font-semibold block">{isBn ? 'সেশন সমাপ্ত:' : 'Session Ended:'}</span>
               <span>{sessionExpiredMessage}</span>
             </div>
           </div>
@@ -218,7 +248,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
         {/* Navigation Tabs if Authenticated */}
         {isAuthenticated && (
-          <div className="flex border-b border-slate-800 mt-4 mb-4 text-xs font-medium">
+          <div className="flex border-b border-slate-200 dark:border-slate-800 mt-4 mb-4 text-xs font-semibold">
             <button
               onClick={() => {
                 setMode('login');
@@ -226,11 +256,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               }}
               className={`pb-2 px-3 border-b-2 transition-colors ${
                 mode === 'login'
-                  ? 'border-emerald-400 text-emerald-300 font-semibold'
-                  : 'border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'border-emerald-600 dark:border-emerald-400 text-emerald-600 dark:text-emerald-400'
+                  : 'border-transparent text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
               }`}
             >
-              প্রোফাইল
+              {isBn ? 'প্রোফাইল' : 'Profile'}
             </button>
             <button
               onClick={() => {
@@ -240,11 +270,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               }}
               className={`pb-2 px-3 border-b-2 transition-colors ${
                 mode === 'password'
-                  ? 'border-emerald-400 text-emerald-300 font-semibold'
-                  : 'border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'border-emerald-600 dark:border-emerald-400 text-emerald-600 dark:text-emerald-400'
+                  : 'border-transparent text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
               }`}
             >
-              পাসওয়ার্ড পরিবর্তন
+              {isBn ? 'পাসওয়ার্ড পরিবর্তন' : 'Change Password'}
             </button>
             <button
               onClick={() => {
@@ -253,11 +283,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               }}
               className={`pb-2 px-3 border-b-2 transition-colors ${
                 mode === 'consent'
-                  ? 'border-emerald-400 text-emerald-300 font-semibold'
-                  : 'border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'border-emerald-600 dark:border-emerald-400 text-emerald-600 dark:text-emerald-400'
+                  : 'border-transparent text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
               }`}
             >
-              সম্মতি ও অনুমতি
+              {isBn ? 'সম্মতি ও অনুমতি' : 'Consent & Privileges'}
             </button>
           </div>
         )}
@@ -265,25 +295,27 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         {/* Authenticated Profile View */}
         {isAuthenticated && mode === 'login' && user && (
           <div className="space-y-4 py-2">
-            <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2 text-xs">
-              <div className="flex justify-between items-center py-1 border-b border-slate-800">
-                <span className="text-slate-400">নাম:</span>
-                <span className="font-semibold text-white">{user.full_name_bn}</span>
+            <div className="p-4 rounded-xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800 space-y-2 text-xs">
+              <div className="flex justify-between items-center py-1 border-b border-slate-200 dark:border-slate-800">
+                <span className="text-slate-500">{isBn ? 'নাম:' : 'Full Name:'}</span>
+                <span className="font-semibold text-slate-900 dark:text-white">
+                  {isBn ? user.full_name_bn : user.full_name_en || user.full_name_bn}
+                </span>
               </div>
-              <div className="flex justify-between items-center py-1 border-b border-slate-800">
-                <span className="text-slate-400">ইমেইল:</span>
-                <span className="font-mono text-slate-200">{user.email}</span>
+              <div className="flex justify-between items-center py-1 border-b border-slate-200 dark:border-slate-800">
+                <span className="text-slate-500">{isBn ? 'ইমেইল:' : 'Email:'}</span>
+                <span className="font-mono text-slate-800 dark:text-slate-200">{user.email}</span>
               </div>
-              <div className="flex justify-between items-center py-1 border-b border-slate-800">
-                <span className="text-slate-400">রোল (Role):</span>
-                <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold">
+              <div className="flex justify-between items-center py-1 border-b border-slate-200 dark:border-slate-800">
+                <span className="text-slate-500">{isBn ? 'ভূমিকা:' : 'Role:'}</span>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold border border-emerald-500/20">
                   {user.role}
                 </span>
               </div>
               {user.office_id && (
                 <div className="flex justify-between items-center py-1">
-                  <span className="text-slate-400">অফিস আইডি:</span>
-                  <span className="font-mono text-slate-300">{user.office_id}</span>
+                  <span className="text-slate-500">{isBn ? 'অফিস কোড:' : 'Office ID:'}</span>
+                  <span className="font-mono text-slate-600 dark:text-slate-300">{user.office_id}</span>
                 </div>
               )}
             </div>
@@ -294,10 +326,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   await logout();
                   onClose();
                 }}
-                className="w-full py-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 font-semibold text-xs flex items-center justify-center gap-2 transition-colors"
+                className="w-full py-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-600 dark:text-rose-400 font-bold text-xs flex items-center justify-center gap-2 transition-colors"
               >
                 <LogOut className="w-4 h-4" />
-                <span>লগআউট করুন</span>
+                <span>{isBn ? 'লগআউট করুন' : 'Sign Out'}</span>
               </button>
             </div>
           </div>
@@ -308,8 +340,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           <div className="space-y-4 py-2">
             <form onSubmit={handleLoginSubmit} className="space-y-3">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-300 mb-1">
-                  ইমেইল ঠিকানা (Email)
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  {isBn ? 'ইমেইল ঠিকানা' : 'Email Address'}
                 </label>
                 <input
                   type="email"
@@ -317,25 +349,25 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@landos.gov.bd"
-                  className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-black/80 border border-slate-300 dark:border-slate-800 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-300 mb-1">
-                  পাসওয়ার্ড (Password)
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  {isBn ? 'পাসওয়ার্ড' : 'Password'}
                 </label>
                 <input
                   type="password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-black/80 border border-slate-300 dark:border-slate-800 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors"
                 />
               </div>
 
               {errorMessage && (
-                <div className="p-2.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
+                <div className="p-2.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 text-xs flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 shrink-0" />
                   <span>{errorMessage}</span>
                 </div>
@@ -344,41 +376,43 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-2.5 rounded-xl bg-primary hover:bg-emerald-600 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-colors shadow-lg shadow-emerald-950/50 disabled:opacity-50"
+                className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-md shadow-emerald-600/20 disabled:opacity-50"
               >
                 {isLoading ? (
                   <>
                     <RefreshCw className="w-4 h-4 animate-spin" />
-                    <span>যাচাই হচ্ছে...</span>
+                    <span>{isBn ? 'যাচাই হচ্ছে...' : 'Verifying...'}</span>
                   </>
                 ) : (
                   <>
                     <Lock className="w-4 h-4" />
-                    <span>সাইন ইন করুন</span>
+                    <span>{isBn ? 'সাইন ইন করুন' : 'Sign In'}</span>
                   </>
                 )}
               </button>
             </form>
 
             {/* Quick Demo Switcher */}
-            <div className="pt-3 border-t border-slate-800">
-              <span className="text-[11px] font-bold text-slate-400 block mb-2">
-                ডেমো অ্যাকাউন্ট নির্বাচন করুন (Quick Role Select):
+            <div className="pt-3 border-t border-slate-200 dark:border-slate-800">
+              <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 block mb-2">
+                {isBn ? 'দ্রুত ভূমিকা নির্বাচন:' : 'Quick Role Selection:'}
               </span>
-              <div className="grid grid-cols-2 gap-1.5">
+              <div className="grid grid-cols-2 gap-2">
                 {demoAccounts.map((d) => (
                   <button
                     key={d.email}
                     type="button"
                     onClick={() => handleQuickLogin(d)}
-                    className={`p-2 rounded-lg text-left text-[11px] border transition-colors ${
+                    className={`p-2.5 rounded-xl text-left text-xs border transition-all ${
                       email === d.email
-                        ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-300 font-semibold'
-                        : 'bg-slate-950/80 border-slate-800 text-slate-300 hover:border-slate-700'
+                        ? 'bg-emerald-500/10 border-emerald-500 text-emerald-700 dark:text-emerald-300 font-bold shadow-sm'
+                        : 'bg-slate-50 dark:bg-black/50 border-slate-200 dark:border-slate-800/80 text-slate-700 dark:text-slate-300 hover:border-emerald-500/40'
                     }`}
                   >
-                    <div className="truncate font-medium">{d.label}</div>
-                    <div className="text-[9px] text-slate-500 truncate font-mono">{d.email}</div>
+                    <div className="truncate font-semibold">{isBn ? d.labelBn : d.labelEn}</div>
+                    <div className="text-[10px] text-slate-400 dark:text-slate-500 truncate font-mono mt-0.5">
+                      {d.email}
+                    </div>
                   </button>
                 ))}
               </div>
@@ -386,22 +420,26 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           </div>
         )}
 
-        {/* MFA Screen for Privileged Roles */}
+        {/* MFA Screen */}
         {mode === 'mfa' && (
           <form onSubmit={handleMfaSubmit} className="space-y-4 py-2">
-            <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200 flex items-start gap-2.5">
-              <ShieldAlert className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 flex items-start gap-2.5">
+              <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
               <div>
-                <span className="font-semibold text-amber-300 block">টু-ফ্যাক্টর প্রমাণীকরণ (MFA):</span>
-                <span>
-                  টেক অ্যাডমিন ও সিকিউরিটি অফিসার রোলে প্রবেশের জন্য আপনার প্রমাণীকরণ অ্যাপের ৬-সংখ্যার TOTP কোড লিখুন। ডেমো এনভায়রনমেন্টে কোড হিসেবে যেকোনো ৬ সংখ্যা বা <strong className="font-mono text-white">123456</strong> ব্যবহার করুন।
+                <span className="font-bold text-slate-900 dark:text-white block mb-0.5">
+                  {isBn ? 'দ্বিমুখী প্রমাণীকরণ (MFA):' : 'Two-Factor Authentication (MFA):'}
+                </span>
+                <span className="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed">
+                  {isBn
+                    ? 'আপনার প্রমাণীকরণ অ্যাপের ৬-সংখ্যার TOTP কোড লিখুন। ডেমো পরীক্ষার জন্য 123456 ব্যবহার করুন।'
+                    : 'Enter the 6-digit TOTP code from your authenticator app. For evaluation testing, use 123456.'}
                 </span>
               </div>
             </div>
 
             <div>
-              <label className="block text-[11px] font-semibold text-slate-300 mb-1">
-                ৬-সংখ্যার কোড (TOTP Code)
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                {isBn ? '৬-সংখ্যার কোড' : '6-Digit TOTP Code'}
               </label>
               <input
                 type="text"
@@ -412,12 +450,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 value={totpCode}
                 onChange={(e) => setTotpCode(e.target.value)}
                 placeholder="123456"
-                className="w-full text-center tracking-widest text-lg font-mono px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-emerald-400 focus:outline-none focus:border-emerald-500"
+                className="w-full text-center tracking-widest text-lg font-mono px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-black/80 border border-slate-300 dark:border-slate-800 text-emerald-600 dark:text-emerald-400 focus:outline-none focus:border-emerald-500"
               />
             </div>
 
             {errorMessage && (
-              <div className="p-2.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
+              <div className="p-2.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 text-xs flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{errorMessage}</span>
               </div>
@@ -427,17 +465,17 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               <button
                 type="button"
                 onClick={() => setMode('login')}
-                className="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold"
+                className="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold"
               >
-                বাতিল
+                {isBn ? 'বাতিল' : 'Cancel'}
               </button>
               <button
                 type="submit"
                 disabled={isLoading || totpCode.length < 6}
-                className="flex-1 py-2.5 rounded-xl bg-primary hover:bg-emerald-600 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+                className="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
               >
                 {isLoading ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Smartphone className="w-4 h-4" />}
-                <span>যাচাই ও প্রবেশ</span>
+                <span>{isBn ? 'যাচাই ও প্রবেশ' : 'Verify & Sign In'}</span>
               </button>
             </div>
           </form>
@@ -447,53 +485,53 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         {mode === 'password' && (
           <form onSubmit={handlePasswordChange} className="space-y-3 py-2">
             <div>
-              <label className="block text-[11px] font-semibold text-slate-300 mb-1">
-                বর্তমান পাসওয়ার্ড
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                {isBn ? 'বর্তমান পাসওয়ার্ড' : 'Current Password'}
               </label>
               <input
                 type="password"
                 required
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-emerald-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-black/80 border border-slate-300 dark:border-slate-800 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-semibold text-slate-300 mb-1">
-                নতুন পাসওয়ার্ড (কমপক্ষে ৮ অক্ষর)
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                {isBn ? 'নতুন পাসওয়ার্ড (কমপক্ষে ৮ অক্ষর)' : 'New Password (min 8 characters)'}
               </label>
               <input
                 type="password"
                 required
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-emerald-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-black/80 border border-slate-300 dark:border-slate-800 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-semibold text-slate-300 mb-1">
-                নতুন পাসওয়ার্ড পুনরায় লিখুন
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                {isBn ? 'নতুন পাসওয়ার্ড পুনরায় লিখুন' : 'Confirm New Password'}
               </label>
               <input
                 type="password"
                 required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-emerald-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-black/80 border border-slate-300 dark:border-slate-800 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
               />
             </div>
 
             {errorMessage && (
-              <div className="p-2.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
+              <div className="p-2.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 text-xs flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{errorMessage}</span>
               </div>
             )}
 
             {successMessage && (
-              <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2">
+              <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
                 <span>{successMessage}</span>
               </div>
@@ -502,10 +540,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-2.5 rounded-xl bg-primary hover:bg-emerald-600 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+              className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
             >
               {isLoading ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Lock className="w-4 h-4" />}
-              <span>পাসওয়ার্ড আপডেট করুন</span>
+              <span>{isBn ? 'পাসওয়ার্ড পরিবর্তন করুন' : 'Update Password'}</span>
             </button>
           </form>
         )}
@@ -513,57 +551,73 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         {/* Consent & Privacy Page */}
         {mode === 'consent' && (
           <div className="space-y-4 py-2">
-            <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs space-y-3">
-              <span className="font-bold text-white block">সংস্করণ: v1.0.0-2026</span>
-              <p className="text-slate-300 text-[11px] leading-relaxed">
-                LandOS মোবাইল ও ক্লাউড নিরাপত্তা মানদণ্ড অনুযায়ী আপনার ডিভাইসের সম্পদ ব্যবহারের জন্য সম্মতির বিবরণ:
+            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800 text-xs space-y-3">
+              <span className="font-bold text-slate-900 dark:text-white block">
+                {isBn ? 'নিরাপত্তা ও অ্যাক্সেস অনুমতি' : 'Security & Access Permissions'}
+              </span>
+              <p className="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed">
+                {isBn
+                  ? 'LandOS নিরাপত্তা মানদণ্ড অনুযায়ী আপনার ডিভাইসের সেবা ব্যবহারের সম্মতির বিবরণ:'
+                  : 'LandOS security standards and device permission settings:'}
               </p>
 
-              <label className="flex items-center gap-3 p-2 rounded-lg bg-slate-900 border border-slate-800 cursor-pointer">
+              <label className="flex items-center gap-3 p-2.5 rounded-xl bg-white dark:bg-black/40 border border-slate-200 dark:border-slate-800 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={cameraConsent}
                   onChange={(e) => setCameraConsent(e.target.checked)}
-                  className="rounded border-slate-700 text-emerald-500 focus:ring-0"
+                  className="rounded border-slate-300 dark:border-slate-700 text-emerald-600 focus:ring-0"
                 />
-                <span className="text-xs text-slate-200">ক্যামেরা অ্যাক্সেস (দলিল স্ক্যানিংয়ের উদ্দেশ্যে)</span>
+                <span className="text-xs text-slate-700 dark:text-slate-200">
+                  {isBn
+                    ? 'ক্যামেরা ও স্ক্যানার অ্যাক্সেস (দলিল স্ক্যানিংয়ের জন্য)'
+                    : 'Camera & Scanner Access (for document capture)'}
+                </span>
               </label>
 
-              <label className="flex items-center gap-3 p-2 rounded-lg bg-slate-900 border border-slate-800 cursor-pointer">
+              <label className="flex items-center gap-3 p-2.5 rounded-xl bg-white dark:bg-black/40 border border-slate-200 dark:border-slate-800 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={storageConsent}
                   onChange={(e) => setStorageConsent(e.target.checked)}
-                  className="rounded border-slate-700 text-emerald-500 focus:ring-0"
+                  className="rounded border-slate-300 dark:border-slate-700 text-emerald-600 focus:ring-0"
                 />
-                <span className="text-xs text-slate-200">অফলাইন এনক্রিপ্টেড স্টোরেজ (IndexedDB AES-GCM সংরক্ষণ)</span>
+                <span className="text-xs text-slate-700 dark:text-slate-200">
+                  {isBn
+                    ? 'অফলাইন এনক্রিপ্টেড স্টোরেজ (IndexedDB AES-GCM সংরক্ষণ)'
+                    : 'Offline Encrypted Storage (IndexedDB AES-GCM local queue)'}
+                </span>
               </label>
 
-              <label className="flex items-center gap-3 p-2 rounded-lg bg-slate-900 border border-slate-800 cursor-pointer">
+              <label className="flex items-center gap-3 p-2.5 rounded-xl bg-white dark:bg-black/40 border border-slate-200 dark:border-slate-800 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={termsConsent}
                   onChange={(e) => setTermsConsent(e.target.checked)}
-                  className="rounded border-slate-700 text-emerald-500 focus:ring-0"
+                  className="rounded border-slate-300 dark:border-slate-700 text-emerald-600 focus:ring-0"
                 />
-                <span className="text-xs text-slate-200">গোপনীয়তা নীতিমালা ও সেবা শর্তাবলী মেনে নিচ্ছি</span>
+                <span className="text-xs text-slate-700 dark:text-slate-200">
+                  {isBn
+                    ? 'গোপনীয়তা নীতিমালা ও সেবা শর্তাবলী মেনে নিচ্ছি'
+                    : 'I agree to the Terms of Service & Privacy Policy'}
+                </span>
               </label>
             </div>
 
             {consentSaved && (
-              <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2">
+              <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
-                <span>সম্মতি সফলভাবে হালনাগাদ করা হয়েছে।</span>
+                <span>{isBn ? 'সম্মতি সফলভাবে সংরক্ষিত হয়েছে।' : 'Permissions updated successfully.'}</span>
               </div>
             )}
 
             <button
               onClick={handleSaveConsent}
               disabled={isLoading}
-              className="w-full py-2.5 rounded-xl bg-primary hover:bg-emerald-600 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+              className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
             >
               {isLoading ? <RefreshCw className="w-4 h-4 animate-spin" /> : <FileCheck className="w-4 h-4" />}
-              <span>সম্মতি সংরক্ষণ করুন</span>
+              <span>{isBn ? 'অনুমতি সংরক্ষণ করুন' : 'Save Permissions'}</span>
             </button>
           </div>
         )}

@@ -85,7 +85,7 @@ async def seed():
     ]
 
     async with engine.begin() as conn:
-        await conn.run_sync(lambda sync_conn: Base.metadata.drop_all(sync_conn, tables=reversed(target_tables)))
+        await conn.run_sync(lambda sync_conn: Base.metadata.drop_all(sync_conn, tables=list(reversed(target_tables))))
         await conn.run_sync(lambda sync_conn: Base.metadata.create_all(sync_conn, tables=target_tables))
 
     session_maker = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
