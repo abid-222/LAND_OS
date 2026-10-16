@@ -20,12 +20,15 @@ import { TrustStatus } from '../types/trust';
 import { useNetworkStore } from '../lib/networkMonitor';
 import { AiPipelineVisualizer } from '../components/AiPipelineVisualizer';
 import { type UserRole } from '../lib/authStore';
+import { CadastralScene, defaultDemoParcels } from '../components/landtech/CadastralScene';
+import { LandTechShowcase } from '../components/landtech/LandTechShowcase';
 
 interface HomePageProps {
   onNavigate?: (tab: string, params?: Record<string, string>) => void;
   onStartTour?: () => void;
   currentRole?: UserRole;
   onOpenLogin?: () => void;
+  isDarkMode?: boolean;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
@@ -33,10 +36,14 @@ export const HomePage: React.FC<HomePageProps> = ({
   onStartTour,
   currentRole = 'Citizen',
   onOpenLogin,
+  isDarkMode = true,
 }) => {
   const { i18n } = useTranslation();
   const isBn = (i18n.language || 'bn').startsWith('bn');
   const { isLowNetworkMode } = useNetworkStore();
+
+  const [selectedParcelId, setSelectedParcelId] = React.useState<string>('P-4520');
+  const [isScanning, setIsScanning] = React.useState<boolean>(true);
 
   const isRbacUser = currentRole !== 'Citizen';
 
@@ -181,15 +188,63 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
           </div>
 
-          {/* Official Holographic Logo Graphic */}
-          <div className="relative shrink-0 flex items-center justify-center">
-            <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-2xl overflow-hidden shadow-2xl border-2 border-emerald-500/40 group-hover:border-emerald-400 transition-all duration-300 relative bg-black">
-              <img
-                src="/logo.png"
-                alt="Bangladesh LandOS Logo"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+          {/* LandTech 3D Cadastral Radar Card */}
+          <div className="w-full lg:w-[440px] shrink-0 lt-map-card p-4 rounded-2xl bg-white/90 dark:bg-[#070d12]/90 border border-slate-200 dark:border-emerald-500/30 shadow-2xl backdrop-blur-xl transition-all">
+            <div className="flex items-center justify-between pb-3 mb-1 border-b border-slate-100 dark:border-slate-800/80">
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-100">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>{isBn ? 'ক্যাডাস্ট্রাল থ্রিডি রাডার' : 'Cadastral 3D Radar'}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-bold">
+                  LIVE 3D
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setIsScanning(!isScanning)}
+                  className="text-[10px] font-semibold text-slate-500 hover:text-emerald-500 transition-colors"
+                >
+                  {isScanning ? (isBn ? 'স্ক্যান থামান' : 'Pause') : (isBn ? 'স্ক্যান চালু' : 'Scan')}
+                </button>
+              </div>
+            </div>
+
+            <CadastralScene
+              parcels={defaultDemoParcels}
+              selectedId={selectedParcelId}
+              onSelect={setSelectedParcelId}
+              scanning={isScanning}
+              className="h-[210px] sm:h-[225px]"
+            />
+
+            {/* Selected Parcel Inspector Quick Action */}
+            <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-2">
+              <div className="min-w-0">
+                <div className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+                  {isBn ? 'নির্বাচিত প্লট' : 'Selected Plot'}
+                </div>
+                <div className="text-xs font-extrabold text-emerald-600 dark:text-emerald-400 truncate">
+                  {selectedParcelId} • {defaultDemoParcels.find((p) => p.id === selectedParcelId)?.area || '4.25 decimal'}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1.5 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => onNavigate && onNavigate('map')}
+                  className="py-1.5 px-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px] shadow-sm transition-all flex items-center gap-1"
+                >
+                  <span>{isBn ? '৩ডি ম্যাপ' : '3D GIS'}</span>
+                  <ArrowRight className="w-3 h-3" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onNavigate && onNavigate('report', { parcelId: selectedParcelId })}
+                  className="py-1.5 px-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-[11px] transition-all"
+                >
+                  <span>{isBn ? 'রিপোর্ট' : 'Report'}</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -466,6 +521,9 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
         </div>
       </div>
+
+      {/* LandTech 3D Cadastral Intelligence & Verification Showcase */}
+      <LandTechShowcase onNavigateToTab={onNavigate} isDarkMode={isDarkMode} />
 
       {/* AI Pipeline Architecture Visualizer Component (Only rendered for RBAC Admin/Staff Roles) */}
       {isRbacUser && (

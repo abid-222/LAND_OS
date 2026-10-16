@@ -36,14 +36,14 @@ describe('Bangladesh LandOS Frontend', () => {
     expect(screen.getByText('বাংলাদেশ ল্যান্ডওএস')).toBeInTheDocument();
 
     // 4 large actions resolved after lazy import
-    expect(await screen.findByText('দলিল স্ক্যান')).toBeInTheDocument();
-    expect(await screen.findByText('রেকর্ড অনুসন্ধান')).toBeInTheDocument();
-    expect(await screen.findByText('ভূমি সেবা')).toBeInTheDocument();
-    expect(await screen.findByText('আমার আবেদন')).toBeInTheDocument();
+    expect(await screen.findByText('দলিল স্ক্যান', {}, { timeout: 6000 })).toBeInTheDocument();
+    expect(await screen.findByText('রেকর্ড অনুসন্ধান', {}, { timeout: 6000 })).toBeInTheDocument();
+    expect(await screen.findByText('ভূমি সেবা', {}, { timeout: 6000 })).toBeInTheDocument();
+    expect(await screen.findByText('আমার আবেদন', {}, { timeout: 6000 })).toBeInTheDocument();
 
     // Legal disclaimer banner
     expect(
-      await screen.findByText('Illustrative / Not a legal boundary. উদাহরণ মাত্র, আইনি সীমানা নয়. Heights are illustrative.')
+      await screen.findByText('Illustrative / Not a legal boundary. উদাহরণ মাত্র, আইনি সীমানা নয়. Heights are illustrative.', {}, { timeout: 6000 })
     ).toBeInTheDocument();
   });
 

@@ -241,6 +241,7 @@ const AppContent: React.FC = () => {
                     currentRole={currentRole}
                     onStartTour={() => setIsDemoTourOpen(true)}
                     onOpenLogin={() => setIsRoleTerminalOpen(true)}
+                    isDarkMode={isDarkMode}
                   />
                 )}
 
