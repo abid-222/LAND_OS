@@ -4,6 +4,8 @@ import {
   Check,
   RotateCcw,
   UserCheck,
+  ShieldCheck,
+  MapPin,
 } from 'lucide-react';
 
 interface ReviewCase {
@@ -18,7 +20,11 @@ interface ReviewCase {
   assigned_to: string;
 }
 
-export const StaffPage: React.FC = () => {
+interface StaffPageProps {
+  onNavigateToTab?: (tab: string, params?: Record<string, string>) => void;
+}
+
+export const StaffPage: React.FC<StaffPageProps> = ({ onNavigateToTab }) => {
   const { i18n } = useTranslation();
   const isBn = (i18n.language || 'bn').startsWith('bn');
 
@@ -191,7 +197,28 @@ export const StaffPage: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  {onNavigateToTab && (
+                    <>
+                      <button
+                        onClick={() => onNavigateToTab('verify', { recordId: selectedCase.case_number })}
+                        className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold transition-all border border-slate-200 dark:border-slate-700"
+                        title="Open in Verification Workspace"
+                      >
+                        <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+                        <span>{isBn ? 'ভেরিফিকেশন' : 'Verify'}</span>
+                      </button>
+                      <button
+                        onClick={() => onNavigateToTab('map', { parcelId: 'P-4520' })}
+                        className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold transition-all border border-slate-200 dark:border-slate-700"
+                        title="View Plot on 3D Cadastral Map"
+                      >
+                        <MapPin className="w-3.5 h-3.5 text-blue-500" />
+                        <span>{isBn ? 'ম্যাপ' : 'Map'}</span>
+                      </button>
+                    </>
+                  )}
+
                   <button
                     onClick={() => setActionModal('approve')}
                     className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition-all"

@@ -81,10 +81,14 @@ const AppContent: React.FC = () => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
       document.documentElement.classList.remove('light');
+      document.body.classList.add('dark');
+      document.body.classList.remove('light');
       localStorage.setItem('landos-theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
       document.documentElement.classList.add('light');
+      document.body.classList.remove('dark');
+      document.body.classList.add('light');
       localStorage.setItem('landos-theme', 'light');
     }
   }, [isDarkMode]);
@@ -226,7 +230,7 @@ const AppContent: React.FC = () => {
             ) : (
               <>
                 {/* Staff Workspace View */}
-                {activeTab === 'staff' && <StaffPage />}
+                {activeTab === 'staff' && <StaffPage onNavigateToTab={handleNavigate} />}
 
                 {/* Admin Panel View */}
                 {activeTab === 'admin' && <AdminPage />}

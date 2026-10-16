@@ -70,9 +70,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
   ];
 
   const navAdmin = [
-    { id: 'staff', labelBn: 'রিভিউ কিউ (Staff)', labelEn: 'Review Queue', icon: ClipboardList, reqRole: ['Operator', 'Reviewer', 'Supervisor'] },
-    { id: 'admin', labelBn: 'প্রশাসনিক ও অডিট প্যানেল', labelEn: 'Admin & Audit Panel', icon: ShieldCheck, reqRole: ['Office Admin', 'Regional Manager', 'Security Officer', 'Tech Admin'] },
-    { id: 'quality', labelBn: 'এআই অ্যাকুরেসি ল্যাব', labelEn: 'Accuracy Lab', icon: BarChart3, reqRole: ['Tech Admin', 'Security Officer'] },
+    { id: 'staff', labelBn: 'রিভিউ কিউ (Staff)', labelEn: 'Review Queue', icon: ClipboardList, reqRole: ['Operator', 'Reviewer', 'Supervisor', 'Office Admin', 'Regional Manager', 'Tech Admin'] },
+    { id: 'admin', labelBn: 'প্রশাসনিক ও অডিট প্যানেল', labelEn: 'Admin & Audit Panel', icon: ShieldCheck, reqRole: ['Office Admin', 'Regional Manager', 'Security Officer', 'Tech Admin', 'Supervisor'] },
+    { id: 'quality', labelBn: 'এআই অ্যাকুরেসি ল্যাব', labelEn: 'Accuracy Lab', icon: BarChart3, reqRole: ['Tech Admin'] },
   ];
 
   const handleSelectTab = (id: string) => {
@@ -83,7 +83,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   };
 
   const content = (
-    <div className="flex flex-col h-full bg-slate-900/95 dark:bg-[#070b0e]/95 backdrop-blur-xl border-r border-slate-200 dark:border-slate-800/80 text-slate-800 dark:text-slate-200 select-none transition-all duration-300">
+    <div className="flex flex-col h-full bg-white dark:bg-[#070b0e]/95 backdrop-blur-xl border-r border-slate-200 dark:border-slate-800/80 text-slate-800 dark:text-slate-200 select-none transition-all duration-300">
       {/* Brand Header */}
       <div className="p-4 flex items-center justify-between border-b border-slate-200 dark:border-slate-800/70">
         <div
@@ -117,7 +117,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Mobile Close Button */}
         <button
           onClick={onCloseMobile}
-          className="lg:hidden p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800"
+          className="lg:hidden p-1.5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
           aria-label="Close Sidebar"
         >
           <X className="w-5 h-5" />
@@ -126,7 +126,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Desktop Collapse Button */}
         <button
           onClick={onToggleCollapse}
-          className="hidden lg:flex p-1.5 text-slate-400 hover:text-emerald-400 rounded-lg hover:bg-slate-800/50 transition-colors"
+          className="hidden lg:flex p-1.5 text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors"
           title={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
           aria-label="Toggle Sidebar Collapse"
         >
@@ -213,7 +213,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-700/30 dark:bg-emerald-500/20 dark:text-emerald-300 dark:border dark:border-emerald-500/40'
                       : isAllowed
                       ? 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-emerald-600 dark:hover:text-emerald-400'
-                      : 'text-slate-400/70 dark:text-slate-600 hover:bg-slate-800/30'
+                      : 'text-slate-400 dark:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800/30'
                   }`}
                 >
                   <Icon
@@ -225,7 +225,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     <div className="flex items-center justify-between flex-1 truncate text-left">
                       <span className="truncate">{label}</span>
                       {!isAllowed && (
-                        <span className="text-[9px] px-1 py-0.2 bg-slate-800 text-slate-400 rounded">
+                        <span className="text-[9px] px-1 py-0.2 bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded">
                           Lock
                         </span>
                       )}
@@ -239,9 +239,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
         {/* Guided Demo Tour Trigger Card */}
         {!isCollapsed && (
-          <div className="p-3.5 rounded-xl bg-gradient-to-br from-emerald-500/10 via-emerald-600/5 to-transparent border border-emerald-500/20 text-slate-200 relative overflow-hidden group">
+          <div className="p-3.5 rounded-xl bg-gradient-to-br from-emerald-500/10 via-emerald-600/5 to-transparent border border-emerald-500/20 text-slate-700 dark:text-slate-200 relative overflow-hidden group">
             <div className="flex items-center gap-2 mb-1.5">
-              <Compass className="w-4 h-4 text-emerald-400 group-hover:rotate-45 transition-transform" />
+              <Compass className="w-4 h-4 text-emerald-500 dark:text-emerald-400 group-hover:rotate-45 transition-transform" />
               <span className="text-xs font-bold text-slate-900 dark:text-white">
                 {currentLang === 'bn' ? 'ইন্টারেক্টিভ ডেমো ট্যুর' : 'Interactive Demo Tour'}
               </span>
@@ -263,18 +263,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Bottom Profile & Authentication Portal Shortcut */}
-      <div className="p-3 border-t border-slate-200 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/40 space-y-2">
+      <div className="p-3 border-t border-slate-200 dark:border-slate-800/80 bg-slate-50 dark:bg-slate-950/40 space-y-2">
         {/* Role & Account Identity Card */}
         <div
           onClick={onOpenAuthModal}
-          className={`flex items-center gap-2.5 p-2 rounded-xl cursor-pointer hover:bg-slate-200/60 dark:hover:bg-slate-800/70 border border-slate-200 dark:border-slate-800 transition-all ${
+          className={`flex items-center gap-2.5 p-2 rounded-xl cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/70 border border-slate-200 dark:border-slate-800 transition-all ${
             isCollapsed ? 'justify-center' : ''
           }`}
           title="Sign In / Manage Account"
         >
           <div className="relative">
             <UserCircle2 className="w-8 h-8 text-emerald-500 shrink-0" />
-            <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-slate-950" />
+            <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-white dark:border-slate-950" />
           </div>
           {!isCollapsed && (
             <div className="flex-1 truncate">
@@ -293,7 +293,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className={`flex items-center gap-1.5 ${isCollapsed ? 'flex-col' : 'justify-between'}`}>
           <button
             onClick={toggleLanguage}
-            className="flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg bg-slate-200/50 dark:bg-slate-800/50 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg bg-slate-100 dark:bg-slate-800/50 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 transition-colors"
             title="Toggle English / বাংলা"
           >
             <Globe className="w-3.5 h-3.5 text-emerald-500" />
@@ -302,9 +302,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
           <button
             onClick={onToggleTheme}
-            className="p-1.5 rounded-lg bg-slate-200/50 dark:bg-slate-800/50 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors shrink-0"
-            title={isDarkMode ? 'Switch to White & Green Light Mode' : 'Switch to Cyber Dark Mode'}
-            aria-label="Toggle Theme"
+            className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/50 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors"
+            title={isDarkMode ? 'Light Mode' : 'Dark Mode'}
+            aria-label="Toggle Dark/Light Mode"
           >
             {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-emerald-600" />}
           </button>
