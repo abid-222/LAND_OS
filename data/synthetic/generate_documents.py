@@ -23,9 +23,14 @@ from bangla_data import (
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 # Pillow 10+ compatibility aliases
-RESAMPLING_BILINEAR = getattr(Image, "Resampling", Image).BILINEAR
-RESAMPLING_NEAREST = getattr(Image, "Resampling", Image).NEAREST
-TRANSFORM_PERSPECTIVE = getattr(Image, "Transform", Image).PERSPECTIVE
+try:
+    RESAMPLING_BILINEAR = Image.Resampling.BILINEAR
+    RESAMPLING_NEAREST = Image.Resampling.NEAREST
+    TRANSFORM_PERSPECTIVE = Image.Transform.PERSPECTIVE
+except AttributeError:
+    RESAMPLING_BILINEAR = getattr(Image, "BILINEAR", 2)
+    RESAMPLING_NEAREST = getattr(Image, "NEAREST", 0)
+    TRANSFORM_PERSPECTIVE = getattr(Image, "PERSPECTIVE", 2)
 
 SEED = 42
 
