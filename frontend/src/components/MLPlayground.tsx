@@ -14,8 +14,10 @@ import {
   Database,
   Check,
   Copy,
+  ScanEye,
 } from 'lucide-react';
 import { api, ApiError } from '../api/client';
+import { VisualDeedHeatmapScanner } from './VisualDeedHeatmapScanner';
 
 export interface MLExtractResponse {
   success: boolean;
@@ -95,8 +97,8 @@ export const MLPlayground: React.FC = () => {
   const { i18n } = useTranslation();
   const isBn = (i18n.language || 'bn').startsWith('bn');
 
-  // Active Tab: 'extract' | 'conflict' | 'guide'
-  const [activeTab, setActiveTab] = useState<'extract' | 'conflict' | 'guide'>('extract');
+  // Active Tab: 'extract' | 'conflict' | 'guide' | 'visual_heatmap'
+  const [activeTab, setActiveTab] = useState<'extract' | 'conflict' | 'guide' | 'visual_heatmap'>('visual_heatmap');
 
   // ---------------------------------------------------------------------------
   // Module 1: Entity Extraction States
@@ -319,6 +321,18 @@ export const MLPlayground: React.FC = () => {
           >
             <Scale className="w-4 h-4" />
             <span>{isBn ? '৩. গ্রাউন্ডেড ভূমি আইন ও নির্দেশিকা (Semantic RAG)' : '3. Grounded Legal RAG'}</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('visual_heatmap')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 ${
+              activeTab === 'visual_heatmap'
+                ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/25 font-black'
+                : 'bg-black/40 text-slate-300 hover:bg-black/60 border border-slate-800'
+            }`}
+          >
+            <ScanEye className="w-4 h-4 text-rose-400" />
+            <span>{isBn ? '৪. লাইভ দলিল ভিজ্যুয়াল হিটম্যাপ (Visual OCR & Tamper)' : '4. Visual OCR Forensics'}</span>
           </button>
         </div>
       </div>
@@ -1081,6 +1095,15 @@ export const MLPlayground: React.FC = () => {
               </div>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* -------------------------------------------------------------------- */}
+      {/* Tab 4: Visual Deed Heatmap Scanner & Side-by-Side OCR Forensics     */}
+      {/* -------------------------------------------------------------------- */}
+      {activeTab === 'visual_heatmap' && (
+        <div className="animate-in fade-in duration-300">
+          <VisualDeedHeatmapScanner />
         </div>
       )}
     </div>

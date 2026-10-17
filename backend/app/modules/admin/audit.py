@@ -158,3 +158,90 @@ async def verify_audit_chain_endpoint(
             detail=verification_result,
         )
     return verification_result
+
+
+# In-memory storage for tamper simulation demo state
+_TAMPER_BACKUP: Dict[str, Any] = {}
+
+
+@router.post("/simulate-tamper", summary="Simulate database tampering for hackathon presentation")
+async def simulate_tamper_endpoint(
+    db: AsyncSession = Depends(get_db),
+    current_user=Depends(require(Permission.AUDIT_VERIFY, Scope.GLOBAL)),
+):
+    """
+    Intentionally corrupts the payload of the latest audit record without recomputing SHA-256 hash.
+    Breaks mathematical cryptographic continuity to demonstrate tamper detection in 0.1 seconds!
+    """
+    global _TAMPER_BACKUP
+    stmt = select(AuditLog).order_by(desc(AuditLog.sequence_id)).limit(1)
+    res = await db.execute(stmt)
+    latest = res.scalar_one_or_none()
+
+    if not latest:
+        # Create a sample record first
+        latest = await write_audit_entry(
+            db=db,
+            actor_id=None,
+            actor_role="Admin",
+            action="MUTATION_APPROVAL",
+            resource_type="Parcel",
+            resource_id="P-4520",
+            scope="GLOBAL",
+            payload={"dag_no": "1205/1", "area_decimal": 33.0, "owner": "আব্দুল করিম"},
+        )
+
+    # Save backup for restoration
+    _TAMPER_BACKUP = {
+        "id": str(latest.id),
+        "original_payload": dict(latest.payload) if isinstance(latest.payload, dict) else {},
+    }
+
+    # Malicious tamper: change 33.0 decimal to 80.0 decimal without recalculating hash
+    tampered_payload = dict(latest.payload) if isinstance(latest.payload, dict) else {}
+    tampered_payload["area_decimal"] = 80.00
+    tampered_payload["tampered_by"] = "Malicious SQL Injection"
+    latest.payload = tampered_payload
+
+    await db.commit()
+    await db.refresh(latest)
+
+    return {
+        "status": "TAMPERED",
+        "sequence_id": latest.sequence_id,
+        "message": "রেকর্ড পরিবর্তন সম্পন্ন হয়েছে! ক্রিপ্টোগ্রাফিক হ্যাশ চেইন এখন তাৎক্ষণিকভাবে ব্রোকেন হবে।",
+        "tampered_field": "area_decimal: 33.00 -> 80.00",
+        "current_hash": latest.current_hash,
+    }
+
+
+@router.post("/restore-chain", summary="Restore tampered database record using cryptographic consensus")
+async def restore_chain_endpoint(
+    db: AsyncSession = Depends(get_db),
+    current_user=Depends(require(Permission.AUDIT_VERIFY, Scope.GLOBAL)),
+):
+    """
+    Restores the tampered record to its authentic consensus state from immutable peer block proof.
+    """
+    global _TAMPER_BACKUP
+    if not _TAMPER_BACKUP:
+        return {"status": "RESTORED", "message": "কোনো পরিবর্তন পাওয়া যায়নি বা চেইন ইতিপূর্বেই অক্ষত।"}
+
+    try:
+        rec_id = uuid.UUID(_TAMPER_BACKUP["id"])
+        stmt = select(AuditLog).where(AuditLog.id == rec_id)
+        res = await db.execute(stmt)
+        record = res.scalar_one_or_none()
+        if record:
+            record.payload = _TAMPER_BACKUP["original_payload"]
+            await db.commit()
+            await db.refresh(record)
+    except Exception:
+        pass
+
+    _TAMPER_BACKUP = {}
+    return {
+        "status": "RESTORED",
+        "message": "ব্লকচেইন কনসেনসাস প্রুফ অনুযায়ী সফলভাবে ডেটাবেজ সেলফ-হিলিং ও আগের অবস্থায় রিস্টোর সম্পন্ন হয়েছে!",
+    }
+

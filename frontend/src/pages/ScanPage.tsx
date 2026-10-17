@@ -12,7 +12,9 @@ import {
   Search,
   FlipHorizontal,
   Clock,
+  ScanEye,
 } from 'lucide-react';
+import { VisualDeedHeatmapScanner } from '../components/VisualDeedHeatmapScanner';
 import { analyzeImageQuality } from '../lib/qualityGate';
 import type { QualityAnalysisResult } from '../workers/qualityGate.worker';
 import { scanQRCodeFromImage, type QRScanResult } from '../lib/qrScanner';
@@ -35,8 +37,8 @@ export const ScanPage: React.FC<ScanPageProps> = ({
   const { i18n } = useTranslation();
   const isBn = (i18n.language || 'bn').startsWith('bn');
 
-  // Step 1: 'explainer' -> Step 2: 'camera' -> Step 3: 'preview_quality' -> Step 4: 'uploading'
   const [step, setStep] = useState<'explainer' | 'camera' | 'preview_quality' | 'uploading'>('explainer');
+  const [scannerMode, setScannerMode] = useState<'standard' | 'heatmap'>('standard');
   const [cameraPermissionDenied, setCameraPermissionDenied] = useState(false);
   const [facingMode, setFacingMode] = useState<'environment' | 'user'>('environment');
   const [capturedBlob, setCapturedBlob] = useState<Blob | null>(null);
@@ -292,27 +294,66 @@ export const ScanPage: React.FC<ScanPageProps> = ({
         className="hidden"
       />
 
-      {/* ------------------------------------------------------------- */}
-      {/* STEP 1: EXPLAINER / ONBOARDING */}
-      {/* ------------------------------------------------------------- */}
-      {step === 'explainer' && (
-        <div className="flex flex-col justify-between flex-1 animate-in fade-in duration-300">
-          <div>
-            <div className="flex items-center gap-3 pb-4 border-b border-slate-200 dark:border-slate-800/80">
-              <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
-                <Camera className="w-5 h-5" />
-              </div>
+      {/* Mode Switcher Banner */}
+      <div className="flex flex-wrap items-center justify-between gap-3 p-3 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 mb-4">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setScannerMode('standard')}
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              scannerMode === 'standard'
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 font-black'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+            }`}
+          >
+            <Camera className="w-3.5 h-3.5" />
+            <span>{isBn ? 'স্ট্যান্ডার্ড স্ক্যানার' : 'Standard Scanner'}</span>
+          </button>
+
+          <button
+            onClick={() => setScannerMode('heatmap')}
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              scannerMode === 'heatmap'
+                ? 'bg-rose-600 text-white shadow-md shadow-rose-600/30 font-black'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+            }`}
+          >
+            <ScanEye className="w-3.5 h-3.5 text-rose-300" />
+            <span>{isBn ? 'লাইভ দলিল ভিজ্যুয়াল হিটম্যাপ (Visual OCR Forensics)' : 'Visual Heatmap & Forensics'}</span>
+          </button>
+        </div>
+
+        <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 px-2.5 py-0.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+          LandOS-OCR-Forensics v3.2
+        </span>
+      </div>
+
+      {scannerMode === 'heatmap' ? (
+        <div className="animate-in fade-in duration-300">
+          <VisualDeedHeatmapScanner />
+        </div>
+      ) : (
+        <>
+          {/* ------------------------------------------------------------- */}
+          {/* STEP 1: EXPLAINER / ONBOARDING */}
+          {/* ------------------------------------------------------------- */}
+          {step === 'explainer' && (
+            <div className="flex flex-col justify-between flex-1 animate-in fade-in duration-300">
               <div>
-                <h1 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                  {isBn ? 'দলিল বা খতিয়ান স্ক্যান' : 'Document Scanner & OCR'}
-                </h1>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                  {isBn
-                    ? 'ক্যামেরা চালু করার আগে নির্দেশনা ও স্বয়ংক্রিয় পাঠোদ্ধার'
-                    : 'Instructions before launching camera & AI OCR'}
-                </p>
-              </div>
-            </div>
+                <div className="flex items-center gap-3 pb-4 border-b border-slate-200 dark:border-slate-800/80">
+                  <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                    <Camera className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h1 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                      {isBn ? 'দলিল বা খতিয়ান স্ক্যান' : 'Document Scanner & OCR'}
+                    </h1>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                      {isBn
+                        ? 'ক্যামেরা চালু করার আগে নির্দেশনা ও স্বয়ংক্রিয় পাঠোদ্ধার'
+                        : 'Instructions before launching camera & AI OCR'}
+                    </p>
+                  </div>
+                </div>
 
             {/* Instruction List Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
@@ -619,6 +660,8 @@ export const ScanPage: React.FC<ScanPageProps> = ({
             </div>
           )}
         </div>
+      )}
+        </>
       )}
     </div>
   );

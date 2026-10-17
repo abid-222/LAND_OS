@@ -13,6 +13,7 @@ import {
   HelpCircle,
   Sparkles,
   KeyRound,
+  ScanEye,
 } from 'lucide-react';
 import { TrustBadge } from '../components/TrustBadge';
 import { DisclaimerBanner } from '../components/DisclaimerBanner';
@@ -239,6 +240,24 @@ export const HomePage: React.FC<HomePageProps> = ({
               >
                 <Sparkles className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                 <span>{isBn ? 'এমএল স্টুডিও (তথ্য নিষ্কাশন)' : 'ML Studio'}</span>
+              </button>
+
+              <button
+                onClick={() => onNavigate && onNavigate('ml')}
+                className="px-4 py-2.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-700 dark:text-rose-300 border border-rose-500/40 font-bold text-xs sm:text-sm flex items-center gap-1.5 transition-all shadow-sm group"
+                title="Visual Deed OCR Heatmap with glowing bounding boxes & forgery alert"
+              >
+                <ScanEye className="w-4 h-4 text-rose-500 group-hover:scale-110 transition-transform" />
+                <span>{isBn ? 'দলিল ভিজ্যুয়াল হিটম্যাপ 📑🔍' : 'Visual Deed Heatmap'}</span>
+              </button>
+
+              <button
+                onClick={() => onNavigate && onNavigate('admin')}
+                className="px-4 py-2.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-700 dark:text-cyan-300 border border-cyan-500/40 font-bold text-xs sm:text-sm flex items-center gap-1.5 transition-all shadow-sm group"
+                title="Blockchain Anti-Corruption Engine & Tamper Detection Simulator"
+              >
+                <ShieldCheck className="w-4 h-4 text-cyan-500 group-hover:scale-110 transition-transform" />
+                <span>{isBn ? 'ব্লকচেইন ট্যাম্পার টেস্ট ⛓️🛡️' : 'Blockchain Tamper Test'}</span>
               </button>
 
               {onStartTour && (

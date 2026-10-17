@@ -13,12 +13,13 @@ import {
   RefreshCw,
 } from 'lucide-react';
 import { api } from '../api/client';
+import { BlockchainLedgerSimulator } from '../components/BlockchainLedgerSimulator';
 
 export const AdminPage: React.FC = () => {
   const { i18n } = useTranslation();
   const isBn = (i18n.language || 'bn').startsWith('bn');
 
-  const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'audit'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'audit' | 'blockchain'>('blockchain');
   const [auditLogs, setAuditLogs] = useState<any[]>([]);
   const [isVerifyingChain, setIsVerifyingChain] = useState(false);
   const [chainResult, setChainResult] = useState<{
@@ -204,6 +205,17 @@ export const AdminPage: React.FC = () => {
             }`}
           >
             {isBn ? 'অডিট লগ' : 'Audit Logs'}
+          </button>
+          <button
+            onClick={() => setActiveTab('blockchain')}
+            className={`px-3 py-1.5 rounded-lg font-bold transition-all flex items-center gap-1.5 ${
+              activeTab === 'blockchain'
+                ? 'bg-emerald-600 text-white shadow-sm font-black'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+            }`}
+          >
+            <LinkIcon className="w-3.5 h-3.5" />
+            <span>{isBn ? 'ব্লকচেইন ও ট্যাম্পার টেস্ট' : 'Blockchain & Tamper Test'}</span>
           </button>
         </div>
       </div>
@@ -402,6 +414,9 @@ export const AdminPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Blockchain Ledger & Tamper Detection Simulator Tab */}
+      {activeTab === 'blockchain' && <BlockchainLedgerSimulator />}
     </div>
   );
 };

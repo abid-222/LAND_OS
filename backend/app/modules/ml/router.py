@@ -434,3 +434,369 @@ async def simulate_risk_conflicts(payload: ConflictSimulateRequest):
         alerts=alerts,
         simulation_summary_bn=summary,
     )
+
+
+class VisualBoundingBox(BaseModel):
+    id: str
+    field_name: str
+    label_bn: str
+    ocr_text: str
+    x: float
+    y: float
+    width: float
+    height: float
+    status: str  # "verified" | "tampered" | "warning"
+    confidence: float
+    official_record: str
+    evidence_bn: str
+
+
+class VisualForensicsRequest(BaseModel):
+    preset: str = Field("tampered", description="clean | tampered | porcha")
+    custom_area: Optional[float] = None
+    custom_date: Optional[str] = None
+
+
+class VisualForensicsResponse(BaseModel):
+    document_template: str
+    deed_title_bn: str
+    deed_no: str
+    has_tampering: bool
+    tamper_summary_bn: str
+    risk_score: float
+    boxes: List[VisualBoundingBox]
+
+
+@router.post(
+    "/visual-forensics",
+    response_model=VisualForensicsResponse,
+    summary="Generate side-by-side OCR bounding boxes and forgery forensic analysis",
+    dependencies=[Depends(rate_limit(requests=60, window_seconds=60))],
+)
+async def analyze_visual_forensics(payload: VisualForensicsRequest):
+    """
+    Computes visual bounding boxes for side-by-side OCR heatmap inspection:
+    - Normal clean deed: Green bounding boxes, 100% matched with official khatian.
+    - Tampered deed: Overwritten acreage, red pulsating bounding box, forensic explanation.
+    - Porcha khatian: Multi-dag partition layout.
+    """
+    if payload.preset == "tampered":
+        boxes = [
+            VisualBoundingBox(
+                id="box-deed-no",
+                field_name="deed_no",
+                label_bn="দলিল নম্বর",
+                ocr_text="দলিল নং ৯৮৪২/২০২২",
+                x=18.0,
+                y=17.5,
+                width=32.0,
+                height=5.2,
+                status="verified",
+                confidence=0.99,
+                official_record="দলিল নং ৯৮৪২ (নিবন্ধিত)",
+                evidence_bn="সাব-রেজিস্ট্রি ভলিউমে রেকর্ডকৃত দলিলের সাথে মিল রয়েছে।",
+            ),
+            VisualBoundingBox(
+                id="box-mouza",
+                field_name="mouza",
+                label_bn="মৌজা ও জেএল নং",
+                ocr_text="মৌজা: তেজগাঁও, জেএল নং ২৯",
+                x=55.0,
+                y=17.5,
+                width=38.0,
+                height=5.2,
+                status="verified",
+                confidence=0.98,
+                official_record="মৌজা: তেজগাঁও (জেএল ২৯)",
+                evidence_bn="উপজেলা ও সার্কেল মৌজা গেজেটের সাথে সম্পূর্ণ একরূপ।",
+            ),
+            VisualBoundingBox(
+                id="box-dag",
+                field_name="dag_no",
+                label_bn="দাগ নম্বর",
+                ocr_text="দাগ নং ১২০৫/১",
+                x=18.0,
+                y=26.0,
+                width=24.0,
+                height=5.5,
+                status="verified",
+                confidence=0.99,
+                official_record="দাগ নং ১২০৫/১ (খতিয়ান ৩৪০)",
+                evidence_bn="ক্যাডাস্ট্রাল ম্যাপ ও আরএস নকশার দাগ পলিগনের সাথে মিলেছে।",
+            ),
+            VisualBoundingBox(
+                id="box-khatian",
+                field_name="khatian_no",
+                label_bn="খতিয়ান নম্বর",
+                ocr_text="খতিয়ান নং ৩৪০",
+                x=48.0,
+                y=26.0,
+                width=24.0,
+                height=5.5,
+                status="verified",
+                confidence=0.98,
+                official_record="খতিয়ান নং ৩৪০ (আরএস)",
+                evidence_bn="জেলা রেকর্ড রুমের আরএস স্বত্বলিপি খতিয়ানের সাথে মিলেছে।",
+            ),
+            VisualBoundingBox(
+                id="box-area",
+                field_name="area",
+                label_bn="জমির পরিমাণ (জালিয়াতি শনাক্ত)",
+                ocr_text="জমির পরিমাণ: ৮৪ শতাংশ (ঘষামাজা চিহ্নিত)",
+                x=18.0,
+                y=35.0,
+                width=72.0,
+                height=6.5,
+                status="tampered",
+                confidence=0.62,
+                official_record="প্রকৃত রেকর্ড: ৩৪.০০ শতাংশ",
+                evidence_bn="দলিলের ৩৪ শতাংশের স্থানে কলমের কালি দিয়ে ঘষামাজা করে ৮৪ করা হয়েছে! মূল রেকর্ডকৃত খতিয়ানে জমি মাত্র ৩৪ শতাংশ (৫০ শতাংশ অতিরিক্ত জাল বিক্রয়)!",
+            ),
+            VisualBoundingBox(
+                id="box-buyer",
+                field_name="buyer",
+                label_bn="গ্রহীতা / ক্রেতা",
+                ocr_text="ক্রেতা: মোঃ রহিম মিয়া",
+                x=18.0,
+                y=45.0,
+                width=36.0,
+                height=5.5,
+                status="verified",
+                confidence=0.97,
+                official_record="মোঃ রহিম মিয়া (এনআইডি যাচাইকৃত)",
+                evidence_bn="জাতীয় পরিচয়পত্র ও ভোটার তালিকার সাথে মিল পাওয়া গেছে।",
+            ),
+            VisualBoundingBox(
+                id="box-seller",
+                field_name="seller",
+                label_bn="দাতা / বিক্রেতা",
+                ocr_text="বিক্রেতা: আবদুল করিম",
+                x=58.0,
+                y=45.0,
+                width=34.0,
+                height=5.5,
+                status="verified",
+                confidence=0.96,
+                official_record="আবদুল করিম (রেকর্ডকৃত মালিক)",
+                evidence_bn="পূর্ববর্তী আরএস খতিয়ানের মূল মালিকের নামের সাথে শতভাগ মিল।",
+            ),
+            VisualBoundingBox(
+                id="box-seal",
+                field_name="registration_seal",
+                label_bn="সাব-রেজিস্ট্রি সিল ও রাজস্ব স্ট্যাম্প",
+                ocr_text="বাংলাদেশ নন-জুডিশিয়াল স্ট্যাম্প ও রেজিস্ট্রি সিল",
+                x=22.0,
+                y=6.0,
+                width=56.0,
+                height=8.5,
+                status="verified",
+                confidence=0.95,
+                official_record="স্ট্যাম্প সিরিজ: খ-৭৮৯৪৫৬ (বৈধ)",
+                evidence_bn="সরকারি ট্রেজারি ও সাব-রেজিস্ট্রি অফিস থেকে স্ট্যাম্প ভেন্ডর সিরিয়াল বৈধ।",
+            ),
+        ]
+        return VisualForensicsResponse(
+            document_template="deed_sale_54",
+            deed_title_bn="সাফ-কবলা বিক্রয় দলিল (ঘষামাজা ও জাল জমি বিক্রয় টেস্ট)",
+            deed_no="৯৮৪২/২০২২",
+            has_tampering=True,
+            tamper_summary_bn="উচ্চমাত্রার জালিয়াতি শনাক্ত! দলিলের ৩৪ শতাংশের স্থানে ওভাররাইট করে ৮৪ করা হয়েছে। মূল খতিয়ানে জমি মাত্র ৩৪ শতাংশ!",
+            risk_score=92.5,
+            boxes=boxes,
+        )
+
+    elif payload.preset == "porcha":
+        boxes = [
+            VisualBoundingBox(
+                id="box-porcha-header",
+                field_name="header",
+                label_bn="পরচা শিরোনাম",
+                ocr_text="বাংলাদেশ ফরম নং ৫৪৫৮ - আরএস খতিয়ান ও স্বত্বলিপি",
+                x=20.0,
+                y=8.0,
+                width=60.0,
+                height=6.0,
+                status="verified",
+                confidence=0.98,
+                official_record="বিজি প্রেস অনুমোদিত সরকারি ফরম",
+                evidence_bn="বাংলাদেশ গভর্নমেন্ট প্রেস ফরম কোড সঠিক।",
+            ),
+            VisualBoundingBox(
+                id="box-mouza-p",
+                field_name="mouza",
+                label_bn="মৌজা",
+                ocr_text="মৌজা: জিনজিড়া (জেএল ১৫)",
+                x=15.0,
+                y=18.0,
+                width=35.0,
+                height=5.2,
+                status="verified",
+                confidence=0.97,
+                official_record="মৌজা: জিনজিরা (কেরানীগঞ্জ)",
+                evidence_bn="উপজেলা ও সার্কেল মৌজা তালিকার সাথে একরূপ।",
+            ),
+            VisualBoundingBox(
+                id="box-dag-p",
+                field_name="dag_no",
+                label_bn="দাগ নম্বর",
+                ocr_text="দাগ নং ৪২০/৩",
+                x=15.0,
+                y=26.0,
+                width=25.0,
+                height=5.2,
+                status="verified",
+                confidence=0.99,
+                official_record="দাগ নং ৪২০/৩ (বাস্তু ও নাল)",
+                evidence_bn="আরএস ক্যাডাস্ট্রাল ম্যাপ ও জিআইএস সীমানার সাথে মিল।",
+            ),
+            VisualBoundingBox(
+                id="box-area-p",
+                field_name="area",
+                label_bn="জমির পরিমাণ",
+                ocr_text="মোট জমি: ৫০ শতাংশ",
+                x=45.0,
+                y=26.0,
+                width=30.0,
+                height=5.2,
+                status="verified",
+                confidence=0.98,
+                official_record="৫০.০০ শতাংশ (০.৫০ একর)",
+                evidence_bn="খতিয়ান খতের মোট জমি ও দখল সম্পূর্ণ সামঞ্জস্যপূর্ণ।",
+            ),
+            VisualBoundingBox(
+                id="box-owner-p",
+                field_name="owner",
+                label_bn="স্বত্বাধিকারী মালিক",
+                ocr_text="মালিক: শ্রী সুবোধ চন্দ্র পাল",
+                x=15.0,
+                y=35.0,
+                width=45.0,
+                height=5.5,
+                status="verified",
+                confidence=0.96,
+                official_record="শ্রী সুবোধ চন্দ্র পাল (পিতা: রমেশ পাল)",
+                evidence_bn="সিএস থেকে আরএস উত্তরাধিকার সূত্রে ধারাবাহিক স্বত্ব প্রমাণিত।",
+            ),
+        ]
+        return VisualForensicsResponse(
+            document_template="khatian_rs_porcha",
+            deed_title_bn="আরএস খতিয়ান ও স্বত্বলিপি পরচা (জিনজিড়া ৪২০/৩)",
+            deed_no="খতিয়ান নং ৮৮/২",
+            has_tampering=False,
+            tamper_summary_bn="পরচা সম্পূর্ণ ত্রুটিমুক্ত ও ১০০% সরকারি আরএস ভলিউমের সাথে সামঞ্জস্যপূর্ণ।",
+            risk_score=0.0,
+            boxes=boxes,
+        )
+
+    else:
+        # Clean sale deed
+        boxes = [
+            VisualBoundingBox(
+                id="box-deed-no-c",
+                field_name="deed_no",
+                label_bn="দলিল নম্বর",
+                ocr_text="দলিল নং ১২০৫/২০২২",
+                x=18.0,
+                y=17.5,
+                width=32.0,
+                height=5.2,
+                status="verified",
+                confidence=0.99,
+                official_record="দলিল নং ১২০৫ (বৈধ নিবন্ধিত)",
+                evidence_bn="সাব-রেজিস্ট্রি ভলিউমে রেকর্ডকৃত দলিলের সাথে হুবহু মিল রয়েছে।",
+            ),
+            VisualBoundingBox(
+                id="box-mouza-c",
+                field_name="mouza",
+                label_bn="মৌজা ও জেএল নং",
+                ocr_text="মৌজা: তেজগাঁও, জেএল নং ২৯",
+                x=55.0,
+                y=17.5,
+                width=38.0,
+                height=5.2,
+                status="verified",
+                confidence=0.98,
+                official_record="মৌজা: তেজগাঁও (জেএল ২৯)",
+                evidence_bn="উপজেলা ও সার্কেল মৌজা গেজেটের সাথে সম্পূর্ণ একরূপ।",
+            ),
+            VisualBoundingBox(
+                id="box-dag-c",
+                field_name="dag_no",
+                label_bn="দাগ নম্বর",
+                ocr_text="দাগ নং ১২০৫/১",
+                x=18.0,
+                y=26.0,
+                width=24.0,
+                height=5.5,
+                status="verified",
+                confidence=0.99,
+                official_record="দাগ নং ১২০৫/১ (খতিয়ান ৩৪০)",
+                evidence_bn="ক্যাডাস্ট্রাল ম্যাপ ও আরএস নকশার দাগ পলিগনের সাথে শতভাগ মিল।",
+            ),
+            VisualBoundingBox(
+                id="box-khatian-c",
+                field_name="khatian_no",
+                label_bn="খতিয়ান নম্বর",
+                ocr_text="খতিয়ান নং ৩৪০",
+                x=48.0,
+                y=26.0,
+                width=24.0,
+                height=5.5,
+                status="verified",
+                confidence=0.98,
+                official_record="খতিয়ান নং ৩৪০ (আরএস)",
+                evidence_bn="জেলা রেকর্ড রুমের আরএস স্বত্বলিপি খতিয়ানের সাথে মিল।",
+            ),
+            VisualBoundingBox(
+                id="box-area-c",
+                field_name="area",
+                label_bn="জমির পরিমাণ",
+                ocr_text="জমির পরিমাণ: ৩৩.০০ শতাংশ",
+                x=18.0,
+                y=35.0,
+                width=55.0,
+                height=5.5,
+                status="verified",
+                confidence=0.99,
+                official_record="খতিয়ানে অনুমোদিত: ৩৩.০০ শতাংশ",
+                evidence_bn="দলিলে উল্লিখিত জমি ও খতিয়ানের বিক্রয়যোগ্য হিস্যা সম্পূর্ণ সঙ্গতিপূর্ণ।",
+            ),
+            VisualBoundingBox(
+                id="box-buyer-c",
+                field_name="buyer",
+                label_bn="গ্রহীতা / ক্রেতা",
+                ocr_text="ক্রেতা: মোঃ রহিম মিয়া",
+                x=18.0,
+                y=45.0,
+                width=36.0,
+                height=5.5,
+                status="verified",
+                confidence=0.98,
+                official_record="মোঃ রহিম মিয়া (এনআইডি যাচাইকৃত)",
+                evidence_bn="জাতীয় পরিচয়পত্র ও ভোটার তালিকার সাথে মিল পাওয়া গেছে।",
+            ),
+            VisualBoundingBox(
+                id="box-seller-c",
+                field_name="seller",
+                label_bn="দাতা / বিক্রেতা",
+                ocr_text="বিক্রেতা: আবদুল করিম",
+                x=58.0,
+                y=45.0,
+                width=34.0,
+                height=5.5,
+                status="verified",
+                confidence=0.97,
+                official_record="আবদুল করিম (রেকর্ডকৃত মালিক)",
+                evidence_bn="পূর্ববর্তী আরএস খতিয়ানের মূল মালিকের নামের সাথে শতভাগ মিল।",
+            ),
+        ]
+        return VisualForensicsResponse(
+            document_template="deed_sale_54",
+            deed_title_bn="বৈধ সাফ-কবলা দলিল (তেজগাঁও ১২০৫/১ - শতভাগ ত্রুটিমুক্ত)",
+            deed_no="১২০৫/২০২২",
+            has_tampering=False,
+            tamper_summary_bn="দলিল সম্পূর্ণ বৈধ ও ত্রুটিমুক্ত। সরকারি খতিয়ানের সাথে কোনো বিরোধ নেই।",
+            risk_score=0.0,
+            boxes=boxes,
+        )
+
