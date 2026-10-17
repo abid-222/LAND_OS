@@ -34,7 +34,7 @@ class Settings(BaseSettings):
                 return [str(item) for item in parsed]
             return [str(parsed)]
         elif isinstance(v, list):
-            return [str(item) for item in v]
+            return [item for item in v]
         return []
 
     # Database (Defaults to SQLite for CI/local offline resilience; overridden by env/PostgreSQL in prod)
