@@ -22,16 +22,6 @@ from bangla_data import (
 )
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-# Pillow 10+ compatibility aliases
-try:
-    RESAMPLING_BILINEAR = Image.Resampling.BILINEAR
-    RESAMPLING_NEAREST = Image.Resampling.NEAREST
-    TRANSFORM_PERSPECTIVE = Image.Transform.PERSPECTIVE
-except AttributeError:
-    RESAMPLING_BILINEAR = getattr(Image, "BILINEAR", 2)
-    RESAMPLING_NEAREST = getattr(Image, "NEAREST", 0)
-    TRANSFORM_PERSPECTIVE = getattr(Image, "PERSPECTIVE", 2)
-
 SEED = 42
 
 FONT_PATHS = [
@@ -58,7 +48,7 @@ def apply_perspective_warp(image, max_warp=12):
         [(dx1, dy1), (w + dx2, dy2), (w + dx3, h + dy3), (dx4, h + dy4)],
     )
     return image.transform(
-        (w, h), TRANSFORM_PERSPECTIVE, coeffs, RESAMPLING_BILINEAR, fillcolor=(246, 243, 237)
+        (w, h), Image.Transform.PERSPECTIVE, coeffs, Image.Resampling.BILINEAR, fillcolor=(246, 243, 237)
     )
 
 
@@ -132,8 +122,8 @@ def apply_darkness(image, factor=0.45):
 def apply_low_res(image, scale_down=0.30):
     """Simulates low-resolution camera sensor downsampling."""
     w, h = image.size
-    small = image.resize((int(w * scale_down), int(h * scale_down)), RESAMPLING_BILINEAR)
-    return small.resize((w, h), RESAMPLING_NEAREST)
+    small = image.resize((int(w * scale_down), int(h * scale_down)), Image.Resampling.BILINEAR)
+    return small.resize((w, h), Image.Resampling.NEAREST)
 
 
 def format_digits_variety(num_str: str, variety_mode: str) -> str:
@@ -344,7 +334,7 @@ def generate_documents(output_dir="data/synthetic/documents", count=310):
             degraded = apply_shadow(degraded)
             degradation_list.append("shadow")
             rot_angle = round(random.uniform(-6.0, 6.0), 2)
-            degraded = degraded.rotate(rot_angle, resample=RESAMPLING_BILINEAR, expand=False, fillcolor=paper_bg)
+            degraded = degraded.rotate(rot_angle, resample=Image.Resampling.BILINEAR, expand=False, fillcolor=paper_bg)
             degradation_list.append("rotation")
             jpeg_q = random.randint(18, 32)
             degradation_list.append("jpeg")
@@ -355,7 +345,7 @@ def generate_documents(output_dir="data/synthetic/documents", count=310):
             quality_gate_passed = True
             rot_angle = round(random.uniform(-0.8, 0.8), 2)
             if abs(rot_angle) > 0.1:
-                degraded = degraded.rotate(rot_angle, resample=RESAMPLING_BILINEAR, expand=False, fillcolor=paper_bg)
+                degraded = degraded.rotate(rot_angle, resample=Image.Resampling.BILINEAR, expand=False, fillcolor=paper_bg)
                 degradation_list.append("rotation")
             jpeg_q = random.randint(85, 95)
             # Very subtle light grain
@@ -373,7 +363,7 @@ def generate_documents(output_dir="data/synthetic/documents", count=310):
 
             # Rotation (+- 6 degrees)
             rot_angle = round(random.uniform(-6.0, 6.0), 2)
-            degraded = degraded.rotate(rot_angle, resample=RESAMPLING_BILINEAR, expand=False, fillcolor=paper_bg)
+            degraded = degraded.rotate(rot_angle, resample=Image.Resampling.BILINEAR, expand=False, fillcolor=paper_bg)
             degradation_list.append("rotation")
 
             # Blur
