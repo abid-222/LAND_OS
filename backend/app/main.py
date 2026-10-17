@@ -22,6 +22,7 @@ from app.modules.feedback.router import router as feedback_router
 from app.modules.guide.router import router as guide_router
 from app.modules.health.router import router as health_router
 from app.modules.map.router import router as map_router
+from app.modules.ml.router import router as ml_router
 from app.modules.notifications.router import router as notifications_router
 from app.modules.quality.router import router as quality_router
 from app.modules.records.router import router as records_router
@@ -58,10 +59,11 @@ app.add_middleware(RequestTimeoutMiddleware, timeout_seconds=5.0)
 # Prometheus p95 Latency & Request Monitoring Middleware
 app.add_middleware(PrometheusLatencyMiddleware)
 
-# CORS Middleware (strict allow-list from settings with credentials support)
+# CORS Middleware (strict allow-list from settings with credentials support + Vercel regex)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.BACKEND_CORS_ORIGINS,
+    allow_origin_regex=r"https://.*\.vercel\.app|http://localhost:\d+",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -129,6 +131,7 @@ app.include_router(buyer_reports_router, prefix=settings.API_V1_PREFIX)
 app.include_router(notifications_router, prefix=settings.API_V1_PREFIX)
 app.include_router(feedback_router, prefix=settings.API_V1_PREFIX)
 app.include_router(consent_router, prefix=settings.API_V1_PREFIX)
+app.include_router(ml_router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/metrics", summary="Export Prometheus metrics and latency histograms", tags=["Observability"])

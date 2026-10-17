@@ -78,4 +78,8 @@ ml/models/*.joblib
 ml/models/*.pt
 !ml/models/*.md
 eval_runs/
+*.db
+*.sqlite
+*.sqlite3
+landos_dev.db
 

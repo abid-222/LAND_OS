@@ -147,7 +147,7 @@ async def multi_identifier_search(
             r_dag_ascii = (r.dag_no or "").strip().translate(BANGLA_TO_ASCII)
             input_dag_ascii = (payload.dag_no or "").strip().translate(BANGLA_TO_ASCII)
 
-            if (norm_dag and r_dag_norm == norm_dag) or (input_dag_ascii and (r_dag_ascii == input_dag_ascii or r.dag_no == payload.dag_no.strip())):
+            if (norm_dag and r_dag_norm == norm_dag) or (input_dag_ascii and (r_dag_ascii == input_dag_ascii or (payload.dag_no and r.dag_no == payload.dag_no.strip()))):
                 base_score += 0.25
                 reasons.append("দাগ নম্বর হুবহু মিলেছে")
             elif (norm_dag and r_dag_norm and norm_dag in r_dag_norm) or (input_dag_ascii and input_dag_ascii in r_dag_ascii):
@@ -160,7 +160,7 @@ async def multi_identifier_search(
             r_khat_ascii = (r.khatian_no or "").strip().translate(BANGLA_TO_ASCII)
             input_khat_ascii = (payload.khatian_no or "").strip().translate(BANGLA_TO_ASCII)
 
-            if (norm_khatian and r_khat_norm == norm_khatian) or (input_khat_ascii and (r_khat_ascii == input_khat_ascii or r.khatian_no == payload.khatian_no.strip())):
+            if (norm_khatian and r_khat_norm == norm_khatian) or (input_khat_ascii and (r_khat_ascii == input_khat_ascii or (payload.khatian_no and r.khatian_no == payload.khatian_no.strip()))):
                 base_score += 0.25
                 reasons.append("খতিয়ান নম্বর মিলেছে")
             elif (norm_khatian and r_khat_norm and norm_khatian in r_khat_norm) or (input_khat_ascii and input_khat_ascii in r_khat_ascii):

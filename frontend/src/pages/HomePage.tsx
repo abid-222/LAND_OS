@@ -19,9 +19,17 @@ import { DisclaimerBanner } from '../components/DisclaimerBanner';
 import { TrustStatus } from '../types/trust';
 import { useNetworkStore } from '../lib/networkMonitor';
 import { AiPipelineVisualizer } from '../components/AiPipelineVisualizer';
-import { type UserRole } from '../lib/authStore';
+import { useAuthStore, type UserRole } from '../lib/authStore';
 import { CadastralPlotViewer } from '../components/CadastralPlotViewer';
 import { LandTechShowcase } from '../components/landtech/LandTechShowcase';
+import { api } from '../api/client';
+import {
+  FilePlus,
+  CheckCircle2,
+  FileText,
+  Send,
+  X,
+} from 'lucide-react';
 
 interface HomePageProps {
   onNavigate?: (tab: string, params?: Record<string, string>) => void;
@@ -41,8 +49,69 @@ export const HomePage: React.FC<HomePageProps> = ({
   const { i18n } = useTranslation();
   const isBn = (i18n.language || 'bn').startsWith('bn');
   const { isLowNetworkMode } = useNetworkStore();
+  const { user, isAuthenticated } = useAuthStore();
 
   const [selectedParcelId, setSelectedParcelId] = React.useState<string>('P-4520');
+  const [myCases, setMyCases] = React.useState<any[]>([]);
+  const [isApplyModalOpen, setIsApplyModalOpen] = React.useState(false);
+  const [applyForm, setApplyForm] = React.useState({
+    mouza: 'তেজগাঁও',
+    dag_no: '১২০৫',
+    khatian_no: '৪৫২০',
+    area_decimal: '১৫.৫',
+    applicant_name: user?.full_name_bn || 'মোঃ কামাল হোসেন',
+    notes: 'পৈতৃক সূত্রে প্রাপ্ত জমি নামজারি ও জমাভাগ আবেদন।',
+  });
+  const [isSubmittingCase, setIsSubmittingCase] = React.useState(false);
+  const [caseSubmitSuccess, setCaseSubmitSuccess] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    if (isAuthenticated && currentRole === 'Citizen') {
+      api.get<any[]>('/api/v1/review/cases/my')
+        .then((res) => {
+          if (Array.isArray(res) && res.length > 0) {
+            setMyCases(res);
+          }
+        })
+        .catch((err) => console.warn('Could not fetch citizen cases:', err));
+    }
+  }, [isAuthenticated, currentRole]);
+
+  const handleApplyCase = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmittingCase(true);
+    try {
+      const res = await api.post<any>('/api/v1/review/cases/apply', {
+        case_type: 'MUTATION',
+        mouza: applyForm.mouza,
+        dag_no: applyForm.dag_no,
+        khatian_no: applyForm.khatian_no,
+        area_decimal: parseFloat(applyForm.area_decimal) || undefined,
+        applicant_name: applyForm.applicant_name,
+        notes: applyForm.notes,
+      });
+      setCaseSubmitSuccess(res.case_number);
+      setMyCases((prev) => [
+        {
+          id: res.id,
+          case_number: res.case_number,
+          case_type: res.case_type,
+          status: res.status,
+          notes: res.notes,
+          created_at: res.created_at,
+        },
+        ...prev,
+      ]);
+      setTimeout(() => {
+        setIsApplyModalOpen(false);
+        setCaseSubmitSuccess(null);
+      }, 2000);
+    } catch (err: any) {
+      console.warn('Apply case failed:', err);
+    } finally {
+      setIsSubmittingCase(false);
+    }
+  };
 
   const isRbacUser = currentRole !== 'Citizen';
 
@@ -162,6 +231,14 @@ export const HomePage: React.FC<HomePageProps> = ({
               >
                 <MapIcon className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                 <span>{isBn ? 'মানচিত্র দেখুন' : '3D Cadastral Map'}</span>
+              </button>
+
+              <button
+                onClick={() => onNavigate && onNavigate('ml')}
+                className="px-4 py-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/40 font-bold text-xs sm:text-sm flex items-center gap-1.5 transition-all shadow-sm"
+              >
+                <Sparkles className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <span>{isBn ? 'এমএল স্টুডিও (তথ্য নিষ্কাশন)' : 'ML Studio'}</span>
               </button>
 
               {onStartTour && (
@@ -316,6 +393,315 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Citizen Personal Land Records & Mutation Applications Hub */}
+      {currentRole === 'Citizen' && (
+        <div className="p-6 rounded-3xl bg-white dark:bg-[#04080c] border border-slate-200 dark:border-emerald-500/30 shadow-xl space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+                <FileText className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base font-extrabold text-slate-900 dark:text-white">
+                    {isBn ? 'আমার ভূমি রেকর্ড ও ই-নামজারি ট্র্যাকার' : 'My Land Holdings & E-Namjari Tracker'}
+                  </h3>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                    {isAuthenticated ? (isBn ? 'যাচাইকৃত নাগরিক' : 'Verified Citizen') : (isBn ? 'ডেমো পোর্টাল' : 'Demo Portal')}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  {isBn
+                    ? 'আপনার মালিকানাধীন খতিয়ান, দাগ এবং সহকারী কমিশনার (ভূমি) দপ্তরে দাখিলকৃত নামজারি আবেদনের লাইভ স্ট্যাটাস।'
+                    : 'Track your owned parcels, verified khatians, and live mutation applications submitted to AC Land.'}
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setIsApplyModalOpen(true)}
+              className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md shadow-emerald-700/20 flex items-center gap-2 transition-all self-start sm:self-auto shrink-0"
+            >
+              <FilePlus className="w-4 h-4" />
+              <span>{isBn ? 'নতুন নামজারি আবেদন করুন' : 'Apply for E-Namjari'}</span>
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Left: Registered Holdings */}
+            <div className="space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                <span>{isBn ? 'আমার নিবন্ধিত খতিয়ান ও জোত' : 'Registered Holdings & Records'}</span>
+              </h4>
+
+              <div className="space-y-2.5">
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800 text-xs flex items-center justify-between gap-3">
+                  <div className="space-y-1">
+                    <div className="font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                      <span>মৌজা: তেজগাঁও • দাগ নং ১২০৫</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-bold">
+                        খতিয়ান ৪৫২০
+                      </span>
+                    </div>
+                    <p className="text-slate-500 dark:text-slate-400 text-[11px]">
+                      জমির পরিমাণ: ১৫.৫ শতক | শ্রেণি: বাণিজ্যিক / নাল
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <button
+                      onClick={() => onNavigate && onNavigate('map')}
+                      className="px-2.5 py-1.5 rounded-lg bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-700 dark:text-emerald-400 font-bold text-[11px] border border-emerald-500/30 transition-colors"
+                    >
+                      {isBn ? 'ম্যাপ' : 'Map'}
+                    </button>
+                    <button
+                      onClick={() => onNavigate && onNavigate('report', { parcelId: 'P-4520' })}
+                      className="px-2.5 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-[11px] hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors"
+                    >
+                      {isBn ? 'রিপোর্ট' : 'Report'}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800 text-xs flex items-center justify-between gap-3">
+                  <div className="space-y-1">
+                    <div className="font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                      <span>মৌজা: গুলশান • দাগ নং ৩৪০</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 font-bold">
+                        খতিয়ান ১১০৮
+                      </span>
+                    </div>
+                    <p className="text-slate-500 dark:text-slate-400 text-[11px]">
+                      জমির পরিমাণ: ৮.৫ শতক | শ্রেণি: আবাসিক ভিটি
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <button
+                      onClick={() => onNavigate && onNavigate('map')}
+                      className="px-2.5 py-1.5 rounded-lg bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-700 dark:text-emerald-400 font-bold text-[11px] border border-emerald-500/30 transition-colors"
+                    >
+                      {isBn ? 'ম্যাপ' : 'Map'}
+                    </button>
+                    <button
+                      onClick={() => onNavigate && onNavigate('report', { parcelId: 'P-1108' })}
+                      className="px-2.5 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-[11px] hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors"
+                    >
+                      {isBn ? 'রিপোর্ট' : 'Report'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Mutation & Review Applications */}
+            <div className="space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-cyan-500" />
+                <span>{isBn ? 'নামজারি ও পর্যালোচনা আবেদনের তালিকা' : 'Active Mutation & Review Applications'}</span>
+              </h4>
+
+              <div className="space-y-2.5 max-h-64 overflow-y-auto">
+                {(myCases.length > 0 ? myCases : [
+                  {
+                    case_number: 'MUT-2026-901',
+                    notes: 'মৌজা: তেজগাঁও | দাগ নং: ১২০৫ | খতিয়ান: ৪৫২০ | জমি: ১৫.৫ শতক',
+                    status: 'needs_human_review',
+                    created_at: new Date().toISOString(),
+                  },
+                  {
+                    case_number: 'REV-2026-083',
+                    notes: 'পর্চা নং ৩৪০ (গুলশান সার্কেল) - ই-নামজারি ও ওয়ারিশান খতিয়ান',
+                    status: 'APPROVED',
+                    created_at: new Date().toISOString(),
+                  }
+                ]).map((c: any, idx: number) => {
+                  const isApproved = c.status === 'APPROVED';
+                  const isReturned = c.status === 'REJECTED';
+
+                  return (
+                    <div
+                      key={c.case_number || idx}
+                      className="p-4 rounded-2xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800 text-xs flex flex-col gap-1.5"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-extrabold text-slate-900 dark:text-white font-mono">
+                          #{c.case_number}
+                        </span>
+                        <span
+                          className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${
+                            isApproved
+                              ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
+                              : isReturned
+                              ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30'
+                              : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30'
+                          }`}
+                        >
+                          {isApproved
+                            ? (isBn ? 'অনুমোদিত ও রেকর্ড সৃজিত' : 'Approved')
+                            : isReturned
+                            ? (isBn ? 'সংশোধনের জন্য ফেরত' : 'Returned')
+                            : (isBn ? 'এসিল্যান্ড পর্যালোচনাধীন' : 'Under AC Land Review')}
+                        </span>
+                      </div>
+                      <p className="text-slate-600 dark:text-slate-300 text-[11px] line-clamp-2">
+                        {c.notes}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Interactive E-Namjari Application Modal */}
+      {isApplyModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="relative w-full max-w-lg bg-white dark:bg-[#070d12] rounded-3xl shadow-2xl border border-slate-200 dark:border-emerald-500/30 p-6 text-slate-800 dark:text-slate-100 flex flex-col max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center justify-center">
+                  <FilePlus className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-extrabold text-slate-900 dark:text-white">
+                    {isBn ? 'অনলাইন ই-নামজারি আবেদন' : 'Online E-Namjari Application'}
+                  </h3>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                    {isBn ? 'সহকারী কমিশনার (ভূমি) কার্যালয়' : 'AC Land Circle Office Intake'}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsApplyModalOpen(false)}
+                className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {caseSubmitSuccess ? (
+              <div className="py-8 text-center space-y-3">
+                <div className="w-14 h-14 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 mx-auto flex items-center justify-center">
+                  <CheckCircle2 className="w-8 h-8" />
+                </div>
+                <h4 className="text-base font-bold text-slate-900 dark:text-white">
+                  {isBn ? 'নামজারি আবেদন সফলভাবে দাখিল হয়েছে!' : 'Mutation Application Submitted!'}
+                </h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+                  Case ID: #{caseSubmitSuccess}
+                </p>
+                <p className="text-xs text-emerald-600 dark:text-emerald-400">
+                  {isBn ? 'আবেদনটি সহকারী কমিশনার (ভূমি) পর্যালোচনা তালিকায় যুক্ত হয়েছে।' : 'Assigned to AC Land review queue.'}
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleApplyCase} className="space-y-4 pt-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      {isBn ? 'মৌজা' : 'Mouza'}
+                    </label>
+                    <input
+                      type="text"
+                      value={applyForm.mouza}
+                      onChange={(e) => setApplyForm({ ...applyForm, mouza: e.target.value })}
+                      className="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      {isBn ? 'দাগ নম্বর' : 'Plot / Dag No.'}
+                    </label>
+                    <input
+                      type="text"
+                      value={applyForm.dag_no}
+                      onChange={(e) => setApplyForm({ ...applyForm, dag_no: e.target.value })}
+                      className="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      {isBn ? 'খতিয়ান নম্বর' : 'Khatian No.'}
+                    </label>
+                    <input
+                      type="text"
+                      value={applyForm.khatian_no}
+                      onChange={(e) => setApplyForm({ ...applyForm, khatian_no: e.target.value })}
+                      className="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      {isBn ? 'জমির পরিমাণ (শতক)' : 'Area (Decimal)'}
+                    </label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      value={applyForm.area_decimal}
+                      onChange={(e) => setApplyForm({ ...applyForm, area_decimal: e.target.value })}
+                      className="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    {isBn ? 'আবেদনকারীর নাম' : 'Applicant Full Name'}
+                  </label>
+                  <input
+                    type="text"
+                    value={applyForm.applicant_name}
+                    onChange={(e) => setApplyForm({ ...applyForm, applicant_name: e.target.value })}
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    {isBn ? 'আবেদনের কারণ ও বিবরণ' : 'Details & Reason for Mutation'}
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={applyForm.notes}
+                    onChange={(e) => setApplyForm({ ...applyForm, notes: e.target.value })}
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-black text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                </div>
+
+                <div className="pt-2 flex items-center justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsApplyModalOpen(false)}
+                    className="px-4 py-2 text-xs font-bold rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  >
+                    {isBn ? 'বাতিল' : 'Cancel'}
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmittingCase}
+                    className="px-5 py-2 text-xs font-bold rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-700/20 flex items-center gap-1.5 disabled:opacity-50"
+                  >
+                    <Send className="w-3.5 h-3.5" />
+                    <span>{isSubmittingCase ? (isBn ? 'দাখিল হচ্ছে...' : 'Submitting...') : (isBn ? 'আবেদন দাখিল করুন' : 'Submit Application')}</span>
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* 4 Primary Executive Action Cards (preserves all test buttons) */}
       <div>

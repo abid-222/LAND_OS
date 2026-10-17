@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: landos-backend
+    env: python
+    buildCommand: "pip install -r backend/requirements.txt"
+    startCommand: "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    plan: free
+    healthCheckPath: /api/v1/health/liveness
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: DEBUG
+        value: "false"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: BACKEND_CORS_ORIGINS
+        value: "https://*.vercel.app,http://localhost:5173"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: landos-db
+          property: connectionString
+
+databases:
+  - name: landos-db
+    databaseName: landos_db
+    user: landos_user
+    plan: free

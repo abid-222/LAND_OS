@@ -308,6 +308,6 @@ async def get_parcel_summary(
         epistemic_notice="কোনো সার্বিক স্কোর বা রায় (verdict) প্রদান করা হয় না।",
     )
 
-    await set_cached_public_data(cache_key, resp.dict(), ttl_seconds=300)
+    await set_cached_public_data(cache_key, resp.model_dump(), ttl_seconds=300)
     return resp
 

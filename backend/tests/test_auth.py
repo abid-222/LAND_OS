@@ -1,11 +1,14 @@
 import uuid
 
+from typing import cast
+
 import pyotp
 import pytest
 from httpx import ASGITransport, AsyncClient
+from sqlalchemy import Table
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-from app.core.database import get_db
+from app.core.database import Base, get_db
 from app.core.security import verify_password
 from app.main import app
 from app.models import AuditLog, User
@@ -15,8 +18,10 @@ from app.models import AuditLog, User
 async def test_session():
     engine = create_async_engine("sqlite+aiosqlite:///:memory:", echo=False)
     async with engine.begin() as conn:
-        await conn.run_sync(User.__table__.create)
-        await conn.run_sync(AuditLog.__table__.create)
+        await conn.run_sync(
+            Base.metadata.create_all,
+            tables=[cast(Table, User.__table__), cast(Table, AuditLog.__table__)],
+        )
 
     session_maker = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
     async with session_maker() as session:

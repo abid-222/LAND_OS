@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Users,
@@ -9,13 +9,24 @@ import {
   AlertCircle,
   Link as LinkIcon,
   Server,
+  ShieldCheck,
+  RefreshCw,
 } from 'lucide-react';
+import { api } from '../api/client';
 
 export const AdminPage: React.FC = () => {
   const { i18n } = useTranslation();
   const isBn = (i18n.language || 'bn').startsWith('bn');
 
   const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'audit'>('overview');
+  const [auditLogs, setAuditLogs] = useState<any[]>([]);
+  const [isVerifyingChain, setIsVerifyingChain] = useState(false);
+  const [chainResult, setChainResult] = useState<{
+    valid: boolean;
+    total_records?: number;
+    latest_hash?: string;
+    message?: string;
+  } | null>(null);
 
   const stats = [
     {
@@ -39,6 +50,43 @@ export const AdminPage: React.FC = () => {
       icon: Activity,
     },
   ];
+
+  const fetchLiveAuditLogs = async () => {
+    try {
+      const res = await api.get<{ records: any[] }>('/api/v1/admin/audit?limit=20');
+      if (res && res.records && res.records.length > 0) {
+        setAuditLogs(res.records);
+      }
+    } catch (err) {
+      console.warn('Live audit fetch failed, will use fallback:', err);
+    }
+  };
+
+  const handleVerifyChain = async () => {
+    setIsVerifyingChain(true);
+    try {
+      const res = await api.get<{
+        valid: boolean;
+        total_records: number;
+        latest_hash: string;
+        message: string;
+      }>('/api/v1/admin/audit/verify-chain');
+      setChainResult(res);
+    } catch (err: any) {
+      setChainResult({
+        valid: false,
+        message: err?.message || 'চেইন যাচাইকরণ ব্যর্থ হয়েছে।',
+      });
+    } finally {
+      setIsVerifyingChain(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === 'audit') {
+      fetchLiveAuditLogs();
+    }
+  }, [activeTab]);
 
   const sampleUsers = [
     {
@@ -250,37 +298,107 @@ export const AdminPage: React.FC = () => {
 
       {/* Audit Log Tab */}
       {activeTab === 'audit' && (
-        <div className="p-6 rounded-3xl bg-white dark:bg-[#04080c] border border-slate-200 dark:border-emerald-500/20 shadow-xl">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-200 dark:border-slate-800">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <LinkIcon className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-              <span>{isBn ? 'ক্রিপ্টোগ্রাফিক হ্যাশ চেইন্ড অডিট লগ (SHA-256)' : 'Cryptographic Hash-Chained Audit Trail'}</span>
-            </h3>
-            <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20 self-start sm:self-auto">
-              {isBn ? 'হ্যাশ চেইন অক্ষত ও সুরক্ষিত' : 'Hash Chain Verified & Tamper-Evident'}
-            </span>
+        <div className="p-6 rounded-3xl bg-white dark:bg-[#04080c] border border-slate-200 dark:border-emerald-500/20 shadow-xl space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200 dark:border-slate-800">
+            <div>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <LinkIcon className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <span>{isBn ? 'ক্রিপ্টোগ্রাফিক হ্যাশ চেইন্ড অডিট লগ (SHA-256)' : 'Cryptographic Hash-Chained Audit Trail'}</span>
+              </h3>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                {isBn
+                  ? 'প্রতিটি লেনদেন ও সিদ্ধান্ত ক্রিপ্টোগ্রাফিক হ্যাশ চেইনে অপরিবর্তনীয়ভাবে সংরক্ষিত।'
+                  : 'Every transaction is immutably sealed in a tamper-evident SHA-256 Merkle chain.'}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleVerifyChain}
+                disabled={isVerifyingChain}
+                className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md shadow-emerald-700/20 flex items-center gap-1.5 transition-all disabled:opacity-50"
+              >
+                <ShieldCheck className="w-4 h-4" />
+                <span>{isVerifyingChain ? (isBn ? 'যাচাই হচ্ছে...' : 'Verifying...') : (isBn ? 'চেইন যাচাই করুন' : 'Verify Chain')}</span>
+              </button>
+              <button
+                onClick={fetchLiveAuditLogs}
+                className="p-1.5 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors"
+                title="Refresh logs"
+              >
+                <RefreshCw className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {sampleAuditLogs.map((log) => (
-              <div key={log.id} className="p-4 rounded-xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800 text-xs shadow-sm">
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <span className="font-bold text-slate-900 dark:text-white">{log.action}</span>
-                  <span className="text-slate-400 font-mono text-[10px]">{log.timestamp}</span>
+          {/* Chain Verification Result Banner */}
+          {chainResult && (
+            <div
+              className={`p-4 rounded-2xl border flex items-start gap-3 text-xs ${
+                chainResult.valid
+                  ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-300'
+                  : 'bg-rose-500/10 border-rose-500/30 text-rose-700 dark:text-rose-300'
+              }`}
+            >
+              <CheckCircle2 className="w-5 h-5 shrink-0 text-emerald-600 dark:text-emerald-400 mt-0.5" />
+              <div className="space-y-1">
+                <div className="font-extrabold flex items-center gap-2">
+                  <span>{chainResult.valid ? (isBn ? 'ক্রিপ্টোগ্রাফিক চেইন ১০০% অক্ষত ও নির্ভুল' : 'Audit Chain 100% Cryptographically Verified') : (isBn ? 'চেইনে ত্রুটি শনাক্ত' : 'Chain Conflict Detected')}</span>
+                  {chainResult.total_records !== undefined && (
+                    <span className="font-mono text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-800 dark:text-emerald-200 border border-emerald-500/30 font-bold">
+                      {chainResult.total_records} {isBn ? 'ব্লক পরীক্ষিত' : 'Blocks Sealed'}
+                    </span>
+                  )}
                 </div>
-                <p className="text-slate-600 dark:text-slate-300 text-xs">
-                  {isBn ? 'কর্তা: ' : 'Actor: '}{log.actor}
+                <p className="text-[11px] leading-relaxed">
+                  {chainResult.message}
                 </p>
-                <p className="text-slate-500 dark:text-slate-400 text-xs mt-0.5">
-                  {isBn ? 'রিসোর্স: ' : 'Resource: '}{log.resource}
-                </p>
-
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mt-2.5 pt-2 border-t border-slate-200 dark:border-slate-800 font-mono text-[10px] text-slate-500">
-                  <span>Prev: {log.prev_hash}</span>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">Curr: {log.current_hash}</span>
-                </div>
+                {chainResult.latest_hash && (
+                  <div className="font-mono text-[10px] text-slate-500 dark:text-slate-400 break-all pt-1">
+                    <span className="font-bold text-slate-700 dark:text-slate-300">Latest Root Hash: </span>
+                    {chainResult.latest_hash}
+                  </div>
+                )}
               </div>
-            ))}
+            </div>
+          )}
+
+          <div className="flex flex-col gap-3">
+            {(auditLogs.length > 0 ? auditLogs : sampleAuditLogs).map((log: any, idx: number) => {
+              const actorText = log.actor_role
+                ? `${log.actor_role} (${log.actor_id ? log.actor_id.slice(0, 8) + '...' : 'System'})`
+                : log.actor || 'System Action';
+              const actionText = log.action;
+              const resourceText = log.resource_type
+                ? `${log.resource_type} #${log.resource_id || ''}`
+                : log.resource || 'LandOS Core';
+              const timestampText = log.created_at
+                ? new Date(log.created_at).toLocaleString('bn-BD')
+                : log.timestamp || '2026-03-15';
+
+              return (
+                <div key={log.id || idx} className="p-4 rounded-xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800 text-xs shadow-sm">
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <span className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                      {actionText}
+                    </span>
+                    <span className="text-slate-400 font-mono text-[10px]">{timestampText}</span>
+                  </div>
+                  <p className="text-slate-600 dark:text-slate-300 text-xs">
+                    {isBn ? 'কর্তা: ' : 'Actor: '}{actorText}
+                  </p>
+                  <p className="text-slate-500 dark:text-slate-400 text-xs mt-0.5">
+                    {isBn ? 'রিসোর্স: ' : 'Resource: '}{resourceText}
+                  </p>
+
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mt-2.5 pt-2 border-t border-slate-200 dark:border-slate-800 font-mono text-[10px] text-slate-500">
+                    <span className="truncate max-w-xs">Prev: {log.prev_hash}</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold truncate max-w-xs">Curr: {log.current_hash}</span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

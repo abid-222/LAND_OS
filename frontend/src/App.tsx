@@ -33,6 +33,7 @@ const BuyerReportPage = lazy(() => import('./pages/BuyerReportPage').then((m) =>
 const StaffPage = lazy(() => import('./pages/StaffPage').then((m) => ({ default: m.StaffPage })));
 const AdminPage = lazy(() => import('./pages/AdminPage').then((m) => ({ default: m.AdminPage })));
 const QualityLabPage = lazy(() => import('./pages/QualityLabPage').then((m) => ({ default: m.QualityLabPage })));
+const MLStudioPage = lazy(() => import('./pages/MLStudioPage').then((m) => ({ default: m.MLStudioPage })));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -310,6 +311,8 @@ const AppContent: React.FC = () => {
                 )}
 
                 {activeTab === 'guide' && <GuidePage />}
+
+                {activeTab === 'ml' && <MLStudioPage onNavigateToTab={handleNavigate} />}
 
                 {activeTab === 'pending' && <PendingUploadsPage />}
               </>

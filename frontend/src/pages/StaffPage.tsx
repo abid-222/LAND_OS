@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Check,
@@ -6,7 +6,9 @@ import {
   UserCheck,
   ShieldCheck,
   MapPin,
+  RefreshCw,
 } from 'lucide-react';
+import { api } from '../api/client';
 
 interface ReviewCase {
   id: string;
@@ -37,8 +39,8 @@ export const StaffPage: React.FC<StaffPageProps> = ({ onNavigateToTab }) => {
       created_at: '2026-03-15 10:30',
       priority: 'high',
       status: 'pending',
-      flagged_fields: [isBn ? 'দাগ নং ১২০৫' : 'Plot No. 1205'],
-      assigned_to: isBn ? 'মো: রফিকুল ইসলাম (রিভিউয়ার)' : 'Md. Rafiqul Islam (Reviewer)',
+      flagged_fields: [isBn ? 'দাগ নং ১২০৫ (তেজগাঁও সার্কেল)' : 'Plot No. 1205 (Tejgaon Circle)'],
+      assigned_to: isBn ? 'সহকারী কমিশনার (ভূমি) / রিভিউয়ার' : 'AC Land Reviewer',
     },
     {
       id: 'c-102',
@@ -48,19 +50,19 @@ export const StaffPage: React.FC<StaffPageProps> = ({ onNavigateToTab }) => {
       created_at: '2026-03-15 11:15',
       priority: 'medium',
       status: 'pending',
-      flagged_fields: [isBn ? 'দলিলের তারিখ' : 'Registration Date'],
-      assigned_to: isBn ? 'নাসরিন সুলতানা (রিভিউয়ার)' : 'Nasreen Sultana (Reviewer)',
+      flagged_fields: [isBn ? 'দলিলের তারিখ ও নামজারি' : 'Registration Date & Mutation'],
+      assigned_to: isBn ? 'সহকারী কমিশনার (ভূমি) / রিভিউয়ার' : 'AC Land Reviewer',
     },
     {
       id: 'c-103',
       case_number: 'REV-2026-083',
-      document_name: 'porcha_dhanmondi_11.jpg',
+      document_name: 'porcha_gulshan_340.jpg',
       doc_type: isBn ? 'পর্চা' : 'Porcha Record',
       created_at: '2026-03-15 11:45',
       priority: 'low',
       status: 'approved',
       flagged_fields: [],
-      assigned_to: isBn ? 'মো: রফিকুল ইসলাম (রিভিউয়ার)' : 'Md. Rafiqul Islam (Reviewer)',
+      assigned_to: isBn ? 'সহকারী কমিশনার (ভূমি) / রিভিউয়ার' : 'AC Land Reviewer',
     },
   ]);
 
@@ -68,14 +70,53 @@ export const StaffPage: React.FC<StaffPageProps> = ({ onNavigateToTab }) => {
   const [actionModal, setActionModal] = useState<'approve' | 'return' | null>(null);
   const [actionReason, setActionReason] = useState('');
   const [filterStatus, setFilterStatus] = useState<string>('all');
+  const [isLoadingQueue, setIsLoadingQueue] = useState(false);
+
+  const fetchLiveQueue = async () => {
+    setIsLoadingQueue(true);
+    try {
+      const res = await api.get<{ total_pending: number; cases: any[] }>('/api/v1/review/queue');
+      if (res && res.cases && res.cases.length > 0) {
+        const mapped: ReviewCase[] = res.cases.map((c) => ({
+          id: c.id,
+          case_number: c.case_number,
+          document_name: c.case_type === 'MUTATION' ? 'e_namjari_application.pdf' : 'deed_record_scan.jpg',
+          doc_type: c.case_type === 'MUTATION' ? (isBn ? 'নামজারি আবেদন' : 'Mutation Application') : (isBn ? 'দলিল যাচাই' : 'Deed Review'),
+          created_at: c.created_at ? new Date(c.created_at).toLocaleDateString('bn-BD') : 'সাম্প্রতিক',
+          priority: (c.priority?.toLowerCase() || 'medium') as 'high' | 'medium' | 'low',
+          status: (c.status === 'APPROVED' ? 'approved' : c.status === 'REJECTED' ? 'returned' : 'pending') as 'pending' | 'approved' | 'returned',
+          flagged_fields: c.notes ? [c.notes.split('\n')[0]] : [],
+          assigned_to: isBn ? 'সহকারী কমিশনার (ভূমি)' : 'Assistant Commissioner (Land)',
+        }));
+        setCases(mapped);
+        setSelectedCase(mapped[0]);
+      }
+    } catch (err) {
+      console.warn('Review queue API unavailable, using initialized cases:', err);
+    } finally {
+      setIsLoadingQueue(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchLiveQueue();
+  }, []);
 
   const filteredCases = cases.filter((c) => {
     if (filterStatus === 'all') return true;
     return c.status === filterStatus;
   });
 
-  const handleDecision = (decision: 'approved' | 'returned') => {
+  const handleDecision = async (decision: 'approved' | 'returned') => {
     if (!selectedCase) return;
+    try {
+      await api.post(`/api/v1/review/${selectedCase.case_number}/decision`, {
+        decision: decision === 'approved' ? 'APPROVED' : 'REJECTED',
+        notes: actionReason || (decision === 'approved' ? 'সহকারী কমিশনার (ভূমি) কর্তৃক অনুমোদন প্রদান করা হলো।' : 'পর্যালোচনা শেষে ফেরত পাঠানো হলো।'),
+      });
+    } catch (err) {
+      console.warn('Decision endpoint call logged locally:', err);
+    }
     setCases((prev) =>
       prev.map((c) =>
         c.id === selectedCase.id ? { ...c, status: decision } : c
@@ -103,27 +144,38 @@ export const StaffPage: React.FC<StaffPageProps> = ({ onNavigateToTab }) => {
           </div>
         </div>
 
-        {/* Filter Pills */}
-        <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-black/60 p-1 rounded-xl border border-slate-200 dark:border-slate-800 text-xs self-start sm:self-auto">
-          {['all', 'pending', 'approved', 'returned'].map((status) => (
-            <button
-              key={status}
-              onClick={() => setFilterStatus(status)}
-              className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
-                filterStatus === status
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              {status === 'all'
-                ? (isBn ? 'সকল' : 'All')
-                : status === 'pending'
-                ? (isBn ? 'অপেক্ষমান' : 'Pending')
-                : status === 'approved'
-                ? (isBn ? 'অনুমোদিত' : 'Approved')
-                : (isBn ? 'ফেরত' : 'Returned')}
-            </button>
-          ))}
+        {/* Filter Pills & Refresh */}
+        <div className="flex items-center gap-2 self-start sm:self-auto">
+          <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-black/60 p-1 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
+            {['all', 'pending', 'approved', 'returned'].map((status) => (
+              <button
+                key={status}
+                onClick={() => setFilterStatus(status)}
+                className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
+                  filterStatus === status
+                    ? 'bg-emerald-600 text-white shadow-sm'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                {status === 'all'
+                  ? (isBn ? 'সকল' : 'All')
+                  : status === 'pending'
+                  ? (isBn ? 'অপেক্ষমান' : 'Pending')
+                  : status === 'approved'
+                  ? (isBn ? 'অনুমোদিত' : 'Approved')
+                  : (isBn ? 'ফেরত' : 'Returned')}
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={fetchLiveQueue}
+            disabled={isLoadingQueue}
+            className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c1219] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors disabled:opacity-50"
+            title="Refresh review queue"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${isLoadingQueue ? 'animate-spin' : ''}`} />
+          </button>
         </div>
       </div>
 

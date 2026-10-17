@@ -154,3 +154,30 @@ python scripts/test_restore.py
 - [docs/PERFORMANCE.md](docs/PERFORMANCE.md) — k6 load benchmark percentiles (p50/p95/p99) and SQL `EXPLAIN ANALYZE` query plans.
 - [docs/BACKUP_AND_RESTORE.md](docs/BACKUP_AND_RESTORE.md) — Nightly backup architecture and disaster recovery test runbook.
 - [eval/zap_baseline_report.md](eval/zap_baseline_report.md) — OWASP ZAP Baseline DAST security report.
+
+---
+
+## 🚀 Cloud Deployment (Render & Vercel)
+
+### 1. Backend Deployment on Render
+1. Connect your GitHub repository (`abid-222/LAND_OS`) to [Render](https://render.com).
+2. Create a **New Web Service** (or use Blueprint with `render.yaml`):
+   - **Root Directory**: `backend` (or leave empty if using Blueprint)
+   - **Build Command**: `pip install -r backend/requirements.txt`
+   - **Start Command**: `cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+   - **Environment Variables**:
+     - `ENVIRONMENT` = `production`
+     - `DEBUG` = `false`
+     - `SECRET_KEY` = `(generate strong secret)`
+     - `DATABASE_URL` = `(your PostgreSQL connection string)`
+     - `BACKEND_CORS_ORIGINS` = `https://your-frontend.vercel.app`
+
+### 2. Frontend Deployment on Vercel
+1. Import your GitHub repository (`abid-222/LAND_OS`) in [Vercel](https://vercel.com).
+2. Configure Project Settings:
+   - **Framework Preset**: `Vite`
+   - **Root Directory**: `frontend` (or project root with auto-included `vercel.json`)
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+   - **Environment Variables**:
+     - `VITE_API_URL` = `https://your-backend.onrender.com` (your Render backend URL)

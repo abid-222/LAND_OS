@@ -1,8 +1,12 @@
 import uuid
 
+from typing import cast
+
 import pytest
+from sqlalchemy import Table
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
+from app.core.database import Base
 from app.models import AuditLog
 from app.modules.admin.audit import (
     GENESIS_HASH,
@@ -16,7 +20,7 @@ from app.modules.admin.audit import (
 async def test_db():
     engine = create_async_engine("sqlite+aiosqlite:///:memory:", echo=False)
     async with engine.begin() as conn:
-        await conn.run_sync(AuditLog.__table__.create)
+        await conn.run_sync(Base.metadata.create_all, tables=[cast(Table, AuditLog.__table__)])
 
     session_maker = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
     async with session_maker() as session:

@@ -181,7 +181,7 @@ def evaluate_all():
     refusal_correct = 0
 
     for qitem in labeled_questions:
-        q_res = retriever.retrieve(qitem["query"], mock_kb_articles, threshold=eval_thresh)
+        q_res = retriever.retrieve(str(qitem["query"]), mock_kb_articles, threshold=eval_thresh)
         if qitem["is_groundable"] and q_res.status == "verified_source":
             retrieval_hits += 1
         elif not qitem["is_groundable"] and q_res.status == "needs_verification":

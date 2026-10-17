@@ -11,8 +11,10 @@ import {
   Activity,
   FileSpreadsheet,
   ShieldAlert,
+  Sparkles,
 } from 'lucide-react';
 import { DisclaimerBanner } from '../components/DisclaimerBanner';
+import { MLPlayground } from '../components/MLPlayground';
 
 interface FieldMetric {
   field_name: string;
@@ -153,6 +155,7 @@ export const QualityLabPage: React.FC = () => {
   const [isRunningEval, setIsRunningEval] = useState(false);
   const [evalSuccessMsg, setEvalSuccessMsg] = useState<string | null>(null);
   const [simulateGateFail, setSimulateGateFail] = useState(false);
+  const [labTab, setLabTab] = useState<'playground' | 'benchmarks'>('playground');
 
   const fetchEvalRuns = useCallback(async () => {
     setIsLoading(true);
@@ -288,6 +291,37 @@ export const QualityLabPage: React.FC = () => {
         </div>
       </div>
 
+      {/* Lab Mode Switcher */}
+      <div className="flex items-center gap-2 mb-6 p-1.5 rounded-2xl bg-slate-900/80 border border-slate-800 w-fit">
+        <button
+          onClick={() => setLabTab('playground')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            labTab === 'playground'
+              ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 font-black'
+              : 'text-slate-400 hover:text-white'
+          }`}
+        >
+          <Sparkles className="w-4 h-4 text-emerald-400" />
+          <span>ইন্টারেক্টিভ এমএল প্লেগ্রাউন্ড (ML Studio / Apply & Extract)</span>
+        </button>
+
+        <button
+          onClick={() => setLabTab('benchmarks')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            labTab === 'benchmarks'
+              ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 font-black'
+              : 'text-slate-400 hover:text-white'
+          }`}
+        >
+          <Gauge className="w-4 h-4 text-emerald-400" />
+          <span>বেঞ্চমার্ক ও কোয়ালিটি গেটস (Benchmarks & Release Gates)</span>
+        </button>
+      </div>
+
+      {labTab === 'playground' ? (
+        <MLPlayground />
+      ) : (
+        <>
       {evalSuccessMsg && (
         <div className="p-3.5 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs mb-5 flex items-center gap-2.5 animate-in fade-in">
           <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -613,6 +647,8 @@ export const QualityLabPage: React.FC = () => {
           </div>
         </div>
       </div>
+      </>
+      )}
     </div>
   );
 };

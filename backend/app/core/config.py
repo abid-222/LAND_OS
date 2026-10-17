@@ -42,6 +42,15 @@ class Settings(BaseSettings):
         "postgresql+asyncpg://landos_user:landos_dev_password@localhost:5432/landos_db"
     )
 
+    @field_validator("DATABASE_URL", mode="before")
+    def assemble_db_url(cls, v: str) -> str:
+        if isinstance(v, str):
+            if v.startswith("postgres://"):
+                return v.replace("postgres://", "postgresql+asyncpg://", 1)
+            if v.startswith("postgresql://") and not v.startswith("postgresql+asyncpg://"):
+                return v.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return v
+
     # Redis
     REDIS_URL: str = "redis://localhost:6379/0"
 
