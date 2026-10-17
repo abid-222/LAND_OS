@@ -16,9 +16,13 @@ import {
   Copy,
   ScanEye,
   ArrowLeft,
+  Box,
+  Compass,
+  Zap,
 } from 'lucide-react';
 import { api, ApiError } from '../api/client';
 import { VisualDeedHeatmapScanner } from './VisualDeedHeatmapScanner';
+import { CadastralScene, defaultDemoParcels, type Parcel } from './landtech/CadastralScene';
 
 export interface MLExtractResponse {
   success: boolean;
@@ -96,15 +100,21 @@ export interface GuideAskResponse {
 
 export interface MLPlaygroundProps {
   onBack?: () => void;
-  initialTab?: 'visual_heatmap' | 'extract' | 'conflict' | 'guide';
+  initialTab?: 'cadastral_3d' | 'visual_heatmap' | 'extract' | 'conflict' | 'guide';
 }
 
-export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab = 'visual_heatmap' }) => {
+export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab = 'cadastral_3d' }) => {
   const { i18n } = useTranslation();
   const isBn = (i18n.language || 'bn').startsWith('bn');
 
-  // Active Tab: 'visual_heatmap' | 'extract' | 'conflict' | 'guide'
-  const [activeTab, setActiveTab] = useState<'visual_heatmap' | 'extract' | 'conflict' | 'guide'>(initialTab);
+  // Active Tab: 'cadastral_3d' | 'visual_heatmap' | 'extract' | 'conflict' | 'guide'
+  const [activeTab, setActiveTab] = useState<'cadastral_3d' | 'visual_heatmap' | 'extract' | 'conflict' | 'guide'>(initialTab);
+
+  // ---------------------------------------------------------------------------
+  // Module 0: 3D Cadastral & Spatial Mesh States
+  // ---------------------------------------------------------------------------
+  const [selected3DParcelId, setSelected3DParcelId] = useState<string>('P-4520');
+  const [isCadastralScanning, setIsCadastralScanning] = useState<boolean>(true);
 
   // ---------------------------------------------------------------------------
   // Module 1: Entity Extraction States
@@ -262,6 +272,31 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const current3DParcel: Parcel =
+    defaultDemoParcels.find((p) => p.id === selected3DParcelId) || defaultDemoParcels[0];
+
+  const handleRunNlpOn3DParcel = () => {
+    setRawText(
+      `বাংলাদেশ ফরম নং ৫৪। সাফ-কবলা বিক্রয় দলিল।\n` +
+      `জেলা: ঢাকা, উপজেলা/থানা: তেজগাঁও, মৌজা: ${current3DParcel.mouza || 'তেজগাঁও'}\n` +
+      `খতিয়ান নং ৩৪০, দাগ নং ${current3DParcel.dag || '১২০৫'}/১।\n` +
+      `জমির মোট পরিমাণ: ${current3DParcel.area}।\n` +
+      `ক্রেতা (গ্রহীতা): মোঃ রহিম মিয়া, পিতা: মরহুম আবদুর রহমান।\n` +
+      `বিক্রেতা (দাতা): জনাব আবদুল করিম, পিতা: মরহুম ফজলুল হক।\n` +
+      `চৌহদ্দি: উত্তরে সরকারি রাস্তা, দক্ষিণে খাল, পূর্বে দাগ নং ১২০৪, পশ্চিমে দাগ নং ১২০৬।`
+    );
+    setActiveTab('extract');
+  };
+
+  const handleRunConflictOn3DParcel = () => {
+    if (current3DParcel.status === 'review') {
+      applyConflictPreset('r4');
+    } else {
+      applyConflictPreset('clean');
+    }
+    setActiveTab('conflict');
+  };
+
   return (
     <div className="w-full space-y-6">
       {/* Sleek Top Studio Command Header & Navigation */}
@@ -282,28 +317,40 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
             <div className="space-y-1">
               <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[11px] font-bold uppercase tracking-wider">
                 <Cpu className="w-3.5 h-3.5" />
-                <span>AI & Forensic Machine Learning Studio</span>
+                <span>AI & 3D Forensic Machine Learning Studio</span>
               </div>
               <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-2">
-                <span>{isBn ? 'ল্যান্ডওএস ইন্টেলিজেন্ট এআই ও এমএল স্টুডিও' : 'LandOS Intelligent AI & ML Studio'}</span>
+                <span>{isBn ? 'ল্যান্ডওএস ইন্টেলিজেন্ট এআই ও ৩ডি এমএল স্টুডিও' : 'LandOS Intelligent AI & 3D ML Studio'}</span>
               </h1>
               <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
                 {isBn
-                  ? 'লাইভ দলিল ভিজ্যুয়াল হিটম্যাপ, বাংলা এনএলপি টেক্সট এক্সট্রাকশন এবং ৬-দফা জালিয়াতি যাচাইয়ের একক কমান্ড সেন্টার।'
-                  : 'Live visual deed heatmap, Bangla NLP extraction, and 6-stage anti-fraud conflict simulation engine.'}
+                  ? '৩ডি ক্যাডাস্ট্রাল রাডার, লাইভ দলিল ভিজ্যুয়াল হিটম্যাপ, বাংলা এনএলপি টেক্সট এক্সট্রাকশন এবং ৬-দফা জালিয়াতি সিমুলেশন।'
+                  : 'Interactive 3D cadastral radar, live visual deed heatmap, Bangla NLP extraction, and 6-stage anti-fraud conflict simulation engine.'}
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             <span className="text-[11px] font-mono px-3 py-1.5 rounded-xl bg-black/60 border border-emerald-500/30 text-emerald-400 font-bold">
-              Engine: PaddleOCR-v4 + NLP-v3.2
+              Engine: 3D-Cadastral + PaddleOCR-v4 + NLP-v3.2
             </span>
           </div>
         </div>
 
         {/* Floating Segmented Navigation Tabs */}
         <div className="flex items-center gap-2 mt-5 pt-4 border-t border-slate-800/80 overflow-x-auto no-scrollbar">
+          <button
+            onClick={() => setActiveTab('cadastral_3d')}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
+              activeTab === 'cadastral_3d'
+                ? 'bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/30 font-black ring-1 ring-emerald-300'
+                : 'bg-black/40 text-slate-300 hover:bg-black/60 border border-slate-800'
+            }`}
+          >
+            <Box className="w-4 h-4 text-emerald-400" />
+            <span>{isBn ? '১. ৩ডি ক্যাডাস্ট্রাল ইন্টেলিজেন্স (3D Spatial Radar)' : '1. 3D Cadastral Intelligence'}</span>
+          </button>
+
           <button
             onClick={() => setActiveTab('visual_heatmap')}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
@@ -313,7 +360,7 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
             }`}
           >
             <ScanEye className="w-4 h-4 text-rose-300" />
-            <span>{isBn ? '১. লাইভ দলিল ভিজ্যুয়াল হিটম্যাপ (Visual OCR)' : '1. Visual Deed Heatmap'}</span>
+            <span>{isBn ? '২. দলিল ফরেনসিক্স ও ৩ডি স্ক্যানার (Visual OCR)' : '2. 3D Visual Deed Forensics'}</span>
           </button>
 
           <button
@@ -325,7 +372,7 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
             }`}
           >
             <FileText className="w-4 h-4" />
-            <span>{isBn ? '২. বাংলা দলিল ও পরচা নিষ্কাশন (NLP Extractor)' : '2. Document NLP Extractor'}</span>
+            <span>{isBn ? '৩. বাংলা দলিল ও পরচা নিষ্কাশন (NLP Extractor)' : '3. Document NLP Extractor'}</span>
           </button>
 
           <button
@@ -337,7 +384,7 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
             }`}
           >
             <ShieldAlert className="w-4 h-4" />
-            <span>{isBn ? '৩. R1-R6 কনফ্লিক্ট সিমুলেটর (Fraud Engine)' : '3. R1-R6 Conflict Simulator'}</span>
+            <span>{isBn ? '৪. R1-R6 কনফ্লিক্ট সিমুলেটর (Fraud Engine)' : '4. R1-R6 Conflict Simulator'}</span>
           </button>
 
           <button
@@ -349,10 +396,175 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
             }`}
           >
             <Scale className="w-4 h-4" />
-            <span>{isBn ? '৪. গ্রাউন্ডেড ভূমি আইন ও নির্দেশিকা (Semantic RAG)' : '4. Grounded Legal RAG'}</span>
+            <span>{isBn ? '৫. গ্রাউন্ডেড ভূমি আইন ও নির্দেশিকা (Semantic RAG)' : '5. Grounded Legal RAG'}</span>
           </button>
         </div>
       </div>
+
+      {/* -------------------------------------------------------------------- */}
+      {/* Tab 0: 3D Cadastral Intelligence & Spatial Mesh                      */}
+      {/* -------------------------------------------------------------------- */}
+      {activeTab === 'cadastral_3d' && (
+        <div className="space-y-6 animate-in fade-in duration-300">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* 3D Scene Viewport (7 Cols) */}
+            <div className="lg:col-span-7 flex flex-col space-y-3">
+              <div className="flex items-center justify-between px-1">
+                <div className="flex items-center gap-2">
+                  <Box className="w-4 h-4 text-emerald-500" />
+                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200">
+                    {isBn ? '৩ডি ক্যাডাস্ট্রাল স্পেশিয়াল রাডার ও মেশ' : '3D Cadastral Spatial Radar & Mesh'}
+                  </h3>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setIsCadastralScanning(!isCadastralScanning)}
+                    className="text-[11px] font-mono px-2.5 py-1 rounded-lg border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 transition-colors"
+                  >
+                    {isCadastralScanning ? (isBn ? 'রাডার স্ক্যান চালু' : 'Scan: ON') : (isBn ? 'রাডার স্ক্যান বন্ধ' : 'Scan: OFF')}
+                  </button>
+                  <span className="text-[10px] font-mono px-2 py-1 rounded bg-black/40 border border-slate-800 text-slate-400">
+                    3D-GIS-V4
+                  </span>
+                </div>
+              </div>
+
+              {/* 3D Scene Card */}
+              <div className="p-4 sm:p-5 rounded-3xl bg-slate-900 border border-emerald-500/30 shadow-2xl overflow-hidden relative">
+                <CadastralScene
+                  parcels={defaultDemoParcels}
+                  selectedId={selected3DParcelId}
+                  onSelect={(id) => setSelected3DParcelId(id)}
+                  scanning={isCadastralScanning}
+                  className="w-full h-[360px] sm:h-[420px] rounded-2xl"
+                />
+
+                <div className="mt-4 pt-3 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+                  <div className="flex items-center gap-4">
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500" />
+                      <span>{isBn ? 'যাচাইকৃত (Verified)' : 'Verified'}</span>
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500 shadow-sm shadow-amber-500" />
+                      <span>{isBn ? 'পর্যালোচনা প্রয়োজন (Review)' : 'Review'}</span>
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-slate-500" />
+                      <span>{isBn ? 'অপেক্ষমাণ (Pending)' : 'Pending'}</span>
+                    </span>
+                  </div>
+                  <span className="text-[11px] font-mono text-emerald-400 font-bold">
+                    {isBn ? 'প্লটে ক্লিক করে প্যারামিটার পরীক্ষা করুন' : 'Click any parcel to inspect telemetry'}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side: Selected 3D Parcel Telemetry & 1-Click ML Action Panel (5 Cols) */}
+            <div className="lg:col-span-5 flex flex-col space-y-4">
+              <div className="flex items-center justify-between px-1">
+                <div className="flex items-center gap-2">
+                  <Compass className="w-4 h-4 text-emerald-500" />
+                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200">
+                    {isBn ? 'নির্বাচিত প্লটের এআই অডিট ও টেলিমেট্রি' : 'Selected Plot AI Telemetry'}
+                  </h3>
+                </div>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">
+                  AUTONOMOUS AUDIT
+                </span>
+              </div>
+
+              {/* Inspector Card */}
+              <div className="p-5 rounded-2xl bg-white dark:bg-[#070c12] border border-slate-200 dark:border-slate-800 space-y-4 shadow-xl">
+                <div className="flex items-start justify-between border-b border-slate-200 dark:border-slate-800/80 pb-3">
+                  <div>
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">
+                      {isBn ? 'ক্যাডাস্ট্রাল আইডি' : 'Cadastral Parcel ID'}
+                    </span>
+                    <h4 className="text-lg font-black text-slate-900 dark:text-white font-mono flex items-center gap-2">
+                      <span>{current3DParcel.id}</span>
+                      <span className="text-xs font-normal text-slate-400">({current3DParcel.label})</span>
+                    </h4>
+                  </div>
+                  <span
+                    className={`text-xs font-extrabold px-3 py-1 rounded-full border ${
+                      current3DParcel.status === 'verified'
+                        ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
+                        : current3DParcel.status === 'review'
+                        ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30'
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-500 border-slate-300 dark:border-slate-700'
+                    }`}
+                  >
+                    {current3DParcel.status === 'verified' ? 'VERIFIED' : current3DParcel.status === 'review' ? 'CONFLICT REVIEW' : 'PENDING'}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3 text-xs">
+                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-slate-800">
+                    <span className="text-[10px] text-slate-400 block font-bold">{isBn ? 'মৌজা ও সার্কেল' : 'Mouza & Circle'}</span>
+                    <strong className="text-slate-800 dark:text-slate-200">{current3DParcel.mouza || 'তেজগাঁও সার্কেল'}</strong>
+                  </div>
+                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-slate-800">
+                    <span className="text-[10px] text-slate-400 block font-bold">{isBn ? 'দাগ নম্বর (Dag No.)' : 'Dag / Plot No.'}</span>
+                    <strong className="text-slate-800 dark:text-slate-200 font-mono">{current3DParcel.dag || '১২০৫'}</strong>
+                  </div>
+                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-slate-800">
+                    <span className="text-[10px] text-slate-400 block font-bold">{isBn ? 'রেকর্ডকৃত জমির পরিমাণ' : 'Recorded Area'}</span>
+                    <strong className="text-emerald-600 dark:text-emerald-400 font-mono font-black">{current3DParcel.area}</strong>
+                  </div>
+                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-slate-800">
+                    <span className="text-[10px] text-slate-400 block font-bold">{isBn ? 'ব্লকচেইন হ্যাশ অ্যাঙ্কর' : 'Ledger Hash Anchor'}</span>
+                    <strong className="text-slate-800 dark:text-slate-200 font-mono text-[10px] truncate block">
+                      0x7f2a...c9e1
+                    </strong>
+                  </div>
+                </div>
+
+                {/* 1-Click Direct ML Execution Buttons */}
+                <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                    {isBn ? '১-ক্লিকে এমএল অ্যাকশন চালান' : 'Instant 1-Click ML Pipeline'}
+                  </span>
+
+                  <button
+                    onClick={handleRunNlpOn3DParcel}
+                    className="w-full flex items-center justify-between p-3 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold text-xs transition-colors group"
+                  >
+                    <span className="flex items-center gap-2">
+                      <Zap className="w-4 h-4 text-emerald-500 group-hover:scale-110 transition-transform" />
+                      <span>{isBn ? 'এই প্লটে এনএলপি এক্সট্র্যাকশন চালান' : 'Run NLP Entity Extractor on Plot'}</span>
+                    </span>
+                    <ArrowRight className="w-4 h-4 text-emerald-500" />
+                  </button>
+
+                  <button
+                    onClick={handleRunConflictOn3DParcel}
+                    className="w-full flex items-center justify-between p-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-600 dark:text-amber-400 font-bold text-xs transition-colors group"
+                  >
+                    <span className="flex items-center gap-2">
+                      <ShieldAlert className="w-4 h-4 text-amber-500 group-hover:scale-110 transition-transform" />
+                      <span>{isBn ? 'এই প্লটে R1-R6 কনফ্লিক্ট সিমুলেশন চালান' : 'Simulate R1-R6 Conflicts on Plot'}</span>
+                    </span>
+                    <ArrowRight className="w-4 h-4 text-amber-500" />
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab('visual_heatmap')}
+                    className="w-full flex items-center justify-between p-3 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-600 dark:text-rose-400 font-bold text-xs transition-colors group"
+                  >
+                    <span className="flex items-center gap-2">
+                      <ScanEye className="w-4 h-4 text-rose-500 group-hover:scale-110 transition-transform" />
+                      <span>{isBn ? '৩ডি দলিল ফরেনসিক্স ও ঘষামাজা স্ক্যানার' : 'Inspect in 3D Visual Deed Scanner'}</span>
+                    </span>
+                    <ArrowRight className="w-4 h-4 text-rose-500" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* -------------------------------------------------------------------- */}
       {/* Tab 1: NLP Entity Extraction */}

@@ -13,6 +13,8 @@ import {
   ZoomOut,
   Layers,
   Info,
+  Box,
+  Sparkles,
 } from 'lucide-react';
 import { api } from '../api/client';
 
@@ -51,6 +53,9 @@ export const VisualDeedHeatmapScanner: React.FC = () => {
   const [forensicsData, setForensicsData] = useState<ForensicsData | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(1);
   const [showHeatmapOverlay, setShowHeatmapOverlay] = useState<boolean>(true);
+  const [is3DMode, setIs3DMode] = useState<boolean>(true);
+  const [tiltPreset, setTiltPreset] = useState<'3d' | 'flat' | 'cyber'>('3d');
+  const [isLaserScanning, setIsLaserScanning] = useState<boolean>(true);
 
   const fetchForensics = async (preset: 'tampered' | 'clean' | 'porcha') => {
     setIsLoading(true);
@@ -245,7 +250,62 @@ export const VisualDeedHeatmapScanner: React.FC = () => {
               )}
             </div>
 
-            <div className="flex items-center gap-1.5">
+            <div className="flex flex-wrap items-center gap-1.5">
+              {/* 3D Holo-View Toggle */}
+              <button
+                type="button"
+                onClick={() => setIs3DMode(!is3DMode)}
+                className={`text-[11px] font-bold px-2.5 py-1 rounded-lg border transition-all flex items-center gap-1.5 shadow-sm ${
+                  is3DMode
+                    ? 'bg-emerald-500 text-slate-950 font-black border-emerald-400 shadow-emerald-500/30'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-500 border-slate-300 dark:border-slate-700'
+                }`}
+                title="Toggle 3D Holographic Perspective View"
+              >
+                <Box className="w-3.5 h-3.5" />
+                <span>{is3DMode ? (isBn ? '৩ডি হলো-ভিউ' : '3D Holo') : (isBn ? '৩ডি অফ' : '3D Off')}</span>
+              </button>
+
+              {is3DMode && (
+                <div className="hidden sm:flex items-center rounded-lg border border-emerald-500/30 bg-black/40 p-0.5 text-[10px] font-mono">
+                  <button
+                    type="button"
+                    onClick={() => setTiltPreset('3d')}
+                    className={`px-2 py-0.5 rounded ${tiltPreset === '3d' ? 'bg-emerald-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'}`}
+                  >
+                    15°
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setTiltPreset('cyber')}
+                    className={`px-2 py-0.5 rounded ${tiltPreset === 'cyber' ? 'bg-emerald-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'}`}
+                  >
+                    24° Cyber
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setTiltPreset('flat')}
+                    className={`px-2 py-0.5 rounded ${tiltPreset === 'flat' ? 'bg-emerald-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'}`}
+                  >
+                    0°
+                  </button>
+                </div>
+              )}
+
+              <button
+                type="button"
+                onClick={() => setIsLaserScanning(!isLaserScanning)}
+                className={`text-[11px] font-bold px-2 py-1 rounded-lg border transition-all flex items-center gap-1 ${
+                  isLaserScanning
+                    ? 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/30'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-500 border-slate-300 dark:border-slate-700'
+                }`}
+                title="Toggle Laser Scan Beam"
+              >
+                <Sparkles className="w-3 h-3" />
+                <span>{isLaserScanning ? 'Laser ON' : 'Laser OFF'}</span>
+              </button>
+
               <button
                 type="button"
                 onClick={() => setShowHeatmapOverlay(!showHeatmapOverlay)}
@@ -278,15 +338,51 @@ export const VisualDeedHeatmapScanner: React.FC = () => {
             </div>
           </div>
 
-          {/* Realistic Deed Canvas Container */}
-          <div className="relative w-full rounded-3xl bg-[#f5ede0] dark:bg-[#0c1015] border-2 border-slate-300 dark:border-slate-800 shadow-xl overflow-hidden p-6 select-none transition-all">
+          {/* Realistic Deed Canvas Container with 3D Depth Perspective */}
+          <div
+            style={{ perspective: is3DMode ? '1200px' : 'none' }}
+            className="relative w-full rounded-3xl bg-[#f5ede0] dark:bg-[#080d12] border-2 border-slate-300 dark:border-slate-800 shadow-2xl overflow-hidden p-4 sm:p-6 select-none transition-all"
+          >
             {/* Vintage Archival Background Pattern */}
-            <div className="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(#b89758_1px,transparent_1px)] [background-size:16px_16px]" />
+            <div className="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:20px_20px]" />
+
+            {/* 3D Telemetry HUD Badge */}
+            {is3DMode && (
+              <div className="absolute top-3 right-3 z-30 flex items-center gap-2 px-3 py-1 rounded-full bg-black/80 border border-emerald-500/40 text-[10px] font-mono text-emerald-400 backdrop-blur-md shadow-lg pointer-events-none">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                <span>3D HOLO FORENSICS · {tiltPreset === 'cyber' ? 'CYBER 22°' : tiltPreset === 'flat' ? 'FLAT 0°' : 'TILT 15°'}</span>
+              </div>
+            )}
 
             <div
-              style={{ transform: `scale(${zoomLevel})`, transformOrigin: 'top center' }}
-              className="relative w-full aspect-[1/1.3] bg-[#fbf7f0] dark:bg-[#060a0f] rounded-2xl border border-amber-900/20 dark:border-slate-800 shadow-inner p-6 flex flex-col justify-between overflow-hidden transition-transform duration-200"
+              style={{
+                transform: is3DMode
+                  ? tiltPreset === 'cyber'
+                    ? `scale(${zoomLevel}) rotateX(22deg) rotateY(-12deg) rotateZ(2deg)`
+                    : tiltPreset === 'flat'
+                    ? `scale(${zoomLevel}) rotateX(0deg) rotateY(0deg)`
+                    : `scale(${zoomLevel}) rotateX(15deg) rotateY(-7deg) rotateZ(1deg)`
+                  : `scale(${zoomLevel})`,
+                transformStyle: 'preserve-3d',
+                transformOrigin: 'top center',
+                boxShadow: is3DMode
+                  ? '0 30px 60px -15px rgba(0, 0, 0, 0.7), 0 0 30px rgba(16, 185, 129, 0.15)'
+                  : 'none',
+              }}
+              className="relative w-full aspect-[1/1.3] bg-[#fbf7f0] dark:bg-[#060a0f] rounded-2xl border border-amber-900/20 dark:border-emerald-500/30 shadow-inner p-6 flex flex-col justify-between overflow-hidden transition-all duration-300"
             >
+              {/* Animated 3D Laser Scanning Sweep Plane */}
+              {isLaserScanning && (
+                <div
+                  className="absolute left-0 right-0 h-1.5 pointer-events-none z-30 opacity-80"
+                  style={{
+                    background: 'linear-gradient(90deg, transparent, #10b981, #34d399, #10b981, transparent)',
+                    boxShadow: '0 0 16px #10b981, 0 0 32px #34d399',
+                    animation: 'lt-scan 4s ease-in-out infinite alternate',
+                    transform: is3DMode ? 'translateZ(28px)' : 'none',
+                  }}
+                />
+              )}
               {/* Official Bangladesh Government Stamp & Crest Banner */}
               <div className="border-b-2 border-double border-amber-900/40 dark:border-slate-800 pb-3 flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -390,8 +486,20 @@ export const VisualDeedHeatmapScanner: React.FC = () => {
                       top: `${b.y}%`,
                       width: `${b.width}%`,
                       height: `${b.height}%`,
+                      transform: is3DMode
+                        ? isSelected
+                          ? 'translateZ(36px) scale(1.02)'
+                          : isTampered
+                          ? 'translateZ(30px)'
+                          : 'translateZ(18px)'
+                        : 'none',
+                      boxShadow: is3DMode
+                        ? isTampered
+                          ? '0 14px 28px rgba(239, 68, 68, 0.45), 0 0 16px rgba(239, 68, 68, 0.4)'
+                          : '0 12px 24px rgba(16, 185, 129, 0.35), 0 0 14px rgba(16, 185, 129, 0.3)'
+                        : 'none',
                     }}
-                    className={`absolute rounded-lg cursor-pointer transition-all duration-200 z-20 flex items-center justify-between px-2 ${
+                    className={`absolute rounded-lg cursor-pointer transition-all duration-300 z-20 flex items-center justify-between px-2 ${
                       isTampered
                         ? 'border-2 border-rose-500 bg-rose-500/20 shadow-lg shadow-rose-500/40 animate-pulse'
                         : isSelected
