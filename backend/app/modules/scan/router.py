@@ -8,12 +8,20 @@ and enforces scope='integrity_only'.
 import io
 from typing import Any, Optional
 
-import cv2
+try:
+    import cv2
+except ImportError:
+    cv2 = None  # type: ignore
+
 import numpy as np
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
-from ml.src.qr import detect_qr
 from PIL import Image
 from pydantic import BaseModel
+
+try:
+    from ml.src.qr import detect_qr
+except Exception:
+    detect_qr = None  # type: ignore
 
 from app.core.rate_limit import rate_limit
 from app.modules.documents.verification import compute_canonical_fields_hash
@@ -58,11 +66,26 @@ async def scan_qr_endpoint(
     # Decode image using OpenCV / Pillow
     try:
         pil_img = Image.open(io.BytesIO(content)).convert("RGB")
-        cv_img = cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR)
+        if cv2 is not None:
+            cv_img = cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR)
+        else:
+            cv_img = np.array(pil_img)
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Failed to decode image data: {str(e)}",
+        )
+
+    if detect_qr is None:
+        return QRScanResponse(
+            success=False,
+            payload_type="unknown",
+            raw_payload=None,
+            parsed_payload=None,
+            hash_match=False,
+            scope="integrity_only",
+            ui_text_bn="মেলেনি",
+            engine_used=None,
         )
 
     qr_res = detect_qr(cv_img)

@@ -11,7 +11,10 @@ import json
 import os
 import re
 from typing import Any, List, Literal, Optional, Tuple, Union
-import cv2
+try:
+    import cv2
+except ImportError:
+    cv2 = None  # type: ignore
 import numpy as np
 
 PayloadType = Literal["url", "reference_id", "json", "unknown"]
@@ -81,7 +84,14 @@ def detect_qr(
                 engine_used=None,
                 success=False,
             )
-        img = cv2.imread(image_input)
+        if cv2 is not None:
+            img = cv2.imread(image_input)
+        else:
+            try:
+                from PIL import Image
+                img = np.array(Image.open(image_input))
+            except Exception:
+                img = None
     elif isinstance(image_input, np.ndarray):
         img = image_input
     else:
@@ -105,53 +115,57 @@ def detect_qr(
         )
 
     # Convert to gray
-    if len(img.shape) == 3:
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    if cv2 is not None:
+        if len(img.shape) == 3:
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        else:
+            gray = img.copy()
     else:
-        gray = img.copy()
+        gray = img
 
-    # 1. Try OpenCV QRCodeDetector
-    try:
-        detector = cv2.QRCodeDetector()
-        retval, decoded_info, points, _ = detector.detectAndDecodeMulti(gray)
-        if retval and decoded_info and any(decoded_info):
-            for i, info in enumerate(decoded_info):
-                if info:
-                    bbox = None
-                    if points is not None and len(points) > i:
-                        pts = points[i].astype(int)
-                        x1, y1 = np.min(pts, axis=0)
-                        x2, y2 = np.max(pts, axis=0)
-                        bbox = [int(x1), int(y1), int(x2), int(y2)]
-                    ptype, parsed = parse_qr_payload(info)
-                    return QrResult(
-                        text=info,
-                        payload_type=ptype,
-                        parsed_payload=parsed,
-                        bbox=bbox,
-                        engine_used="cv2",
-                        success=True,
-                    )
-        # Single decode fallback
-        text, pts, _ = detector.detectAndDecode(gray)
-        if text:
-            bbox = None
-            if pts is not None:
-                pts_int = pts[0].astype(int)
-                x1, y1 = np.min(pts_int, axis=0)
-                x2, y2 = np.max(pts_int, axis=0)
-                bbox = [int(x1), int(y1), int(x2), int(y2)]
-            ptype, parsed = parse_qr_payload(text)
-            return QrResult(
-                text=text,
-                payload_type=ptype,
-                parsed_payload=parsed,
-                bbox=bbox,
-                engine_used="cv2",
-                success=True,
-            )
-    except Exception:
-        pass
+    # 1. Try OpenCV QRCodeDetector if available
+    if cv2 is not None:
+        try:
+            detector = cv2.QRCodeDetector()
+            retval, decoded_info, points, _ = detector.detectAndDecodeMulti(gray)
+            if retval and decoded_info and any(decoded_info):
+                for i, info in enumerate(decoded_info):
+                    if info:
+                        bbox = None
+                        if points is not None and len(points) > i:
+                            pts = points[i].astype(int)
+                            x1, y1 = np.min(pts, axis=0)
+                            x2, y2 = np.max(pts, axis=0)
+                            bbox = [int(x1), int(y1), int(x2), int(y2)]
+                        ptype, parsed = parse_qr_payload(info)
+                        return QrResult(
+                            text=info,
+                            payload_type=ptype,
+                            parsed_payload=parsed,
+                            bbox=bbox,
+                            engine_used="cv2",
+                            success=True,
+                        )
+            # Single decode fallback
+            text, pts, _ = detector.detectAndDecode(gray)
+            if text:
+                bbox = None
+                if pts is not None:
+                    pts_int = pts[0].astype(int)
+                    x1, y1 = np.min(pts_int, axis=0)
+                    x2, y2 = np.max(pts_int, axis=0)
+                    bbox = [int(x1), int(y1), int(x2), int(y2)]
+                ptype, parsed = parse_qr_payload(text)
+                return QrResult(
+                    text=text,
+                    payload_type=ptype,
+                    parsed_payload=parsed,
+                    bbox=bbox,
+                    engine_used="cv2",
+                    success=True,
+                )
+        except Exception:
+            pass
 
     # 2. Fallback to pyzbar
     try:
@@ -159,12 +173,16 @@ def detect_qr(
 
         # Try on gray, then on CLAHE enhanced
         candidates = [gray]
-        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8)).apply(gray)
-        candidates.append(clahe)
-        thresh = cv2.adaptiveThreshold(
-            clahe, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 25, 10
-        )
-        candidates.append(thresh)
+        if cv2 is not None:
+            try:
+                clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8)).apply(gray)
+                candidates.append(clahe)
+                thresh = cv2.adaptiveThreshold(
+                    clahe, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 25, 10
+                )
+                candidates.append(thresh)
+            except Exception:
+                pass
 
         for cand in candidates:
             barcodes = zbar_decode(cand, symbols=[ZBarSymbol.QRCODE])
