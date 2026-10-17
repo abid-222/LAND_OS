@@ -201,8 +201,8 @@ async def _run_inline_ocr(document_id: str, file_name: str):
             logger.info(
                 f"Inline OCR fallback successfully extracted fields for document {document_id}"
             )
-    except Exception as e:
-        logger.warning(f"Inline OCR fallback notice for {document_id}: {e}")
+    except (Exception, asyncio.CancelledError, GeneratorExit) as e:
+        logger.debug(f"Inline OCR fallback notice for {document_id}: {e}")
 
 
 async def _enqueue_ocr_task(document_id: str, file_name: str):

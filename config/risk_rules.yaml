@@ -47,3 +47,27 @@ rules:
     name_similarity_threshold: 80.0
     severity: "warn"
     title_bn: "সম্ভাব্য অসঙ্গতি, যাচাই প্রয়োজন"
+
+  R7_khas_or_government_land:
+    id: "R7_khas_or_government_land"
+    description: "Detects government khas land, vested/enemy property, railway buffer corridors, or waqf/debottor property clashes."
+    severity: "high"
+    title_bn: "সম্ভাব্য অসঙ্গতি, যাচাই প্রয়োজন"
+    reason_template_bn: "জমির শ্রেণিবিভাগ অনুযায়ী এটি সরকারি খাস/অর্পিত সম্পত্তি বা ওয়াকফ হিসেবে রেকর্ডভুক্ত ({land_class})। ব্যক্তিগত হস্তান্তর বা নামজারি আইনত সীমাবদ্ধ।"
+    reason_template_en: "Parcel is designated as government khas, vested property, or waqf land ({land_class}). Private transfer or mutation is legally restricted."
+
+  R8_active_litigation:
+    id: "R8_active_litigation"
+    description: "Identifies parcels with active court disputes, civil suits, injunctions, or stayed proceedings."
+    severity: "high"
+    title_bn: "সম্ভাব্য অসঙ্গতি, যাচাই প্রয়োজন"
+    reason_template_bn: "দাগ/পার্সেলটির বিরুদ্ধে বিজ্ঞ আদালতে দেওয়ানি মামলা চলমান রয়েছে (মামলা নং: {case_no}, আদালত: {court}, স্ট্যাটাস: {status})।"
+    reason_template_en: "Active civil litigation recorded for this parcel (Case: {case_no}, Court: {court}, Status: {status})."
+
+  R9_acquisition_notice:
+    id: "R9_acquisition_notice"
+    description: "Flags land acquisition and requisition proceedings under Acquisition Act 2017 or ongoing government gazette notices."
+    severity: "high"
+    title_bn: "সম্ভাব্য অসঙ্গতি, যাচাই প্রয়োজন"
+    reason_template_bn: "স্থাবর সম্পত্তি অধিগ্রহণ ও হুকুমদখল আইন ২০১৭ অনুযায়ী এই দাগে সরকারি অধিগ্রহণ প্রক্রিয়াধীন বা সম্পন্ন (স্ট্যাটাস: {status}, নোটিশ নং: {notice_no})।"
+    reason_template_en: "Government acquisition or requisition proceeding active for this parcel (Status: {status}, Notice: {notice_no})."

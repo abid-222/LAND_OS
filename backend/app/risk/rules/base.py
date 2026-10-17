@@ -72,8 +72,8 @@ class ParcelContext:
     mouza_id: str
     mouza_name: str
     main_no: int
-    sub_no: Optional[int]
-    area_decimal: float
+    sub_no: Optional[int] = None
+    area_decimal: float = 0.0
     record: Optional[Dict[str, Any]] = None
     deeds: List[Dict[str, Any]] = field(default_factory=list)
     mutations: List[Dict[str, Any]] = field(default_factory=list)
@@ -82,6 +82,12 @@ class ParcelContext:
     all_registry_deeds: List[Dict[str, Any]] = field(
         default_factory=list
     )  # For global duplicate check (R2)
+    land_class: str = "private"
+    acquisition_status: str = "none"
+    acquisition_notice_no: Optional[str] = None
+    acquisition_notice_date: Optional[str] = None
+    acquisition_authority: Optional[str] = None
+    legal_cases: List[Dict[str, Any]] = field(default_factory=list)
 
 
 class BaseRiskRule(ABC):

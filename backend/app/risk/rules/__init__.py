@@ -9,6 +9,9 @@ from app.risk.rules.r3_impossible_dates import ImpossibleDatesRule
 from app.risk.rules.r4_area_mismatch import AreaMismatchRule
 from app.risk.rules.r5_deed_mutation import DeedMutationInconsistencyRule
 from app.risk.rules.r6_party_name_mismatch import PartyNameMismatchRule
+from app.risk.rules.r7_khas_government_land import KhasOrGovernmentLandRule
+from app.risk.rules.r8_active_litigation import ActiveLitigationRule
+from app.risk.rules.r9_acquisition_notice import AcquisitionNoticeRule
 
 ALL_RULES = [
     ConflictingSaleRule(),
@@ -17,6 +20,9 @@ ALL_RULES = [
     AreaMismatchRule(),
     DeedMutationInconsistencyRule(),
     PartyNameMismatchRule(),
+    KhasOrGovernmentLandRule(),
+    ActiveLitigationRule(),
+    AcquisitionNoticeRule(),
 ]
 
 __all__ = [
@@ -30,5 +36,8 @@ __all__ = [
     "AreaMismatchRule",
     "DeedMutationInconsistencyRule",
     "PartyNameMismatchRule",
+    "KhasOrGovernmentLandRule",
+    "ActiveLitigationRule",
+    "AcquisitionNoticeRule",
     "ALL_RULES",
 ]

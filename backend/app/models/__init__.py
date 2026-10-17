@@ -466,6 +466,13 @@ class Parcel(Base):
     main_no: Mapped[int] = mapped_column(Integer, nullable=False)
     sub_no: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
     area_decimal: Mapped[float] = mapped_column(Float, nullable=False)
+    land_class: Mapped[str] = mapped_column(String(50), default="private", nullable=False)
+    acquisition_status: Mapped[str] = mapped_column(String(50), default="none", nullable=False)
+    acquisition_notice_no: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    acquisition_notice_date: Mapped[Optional[datetime]] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    acquisition_authority: Mapped[Optional[str]] = mapped_column(String(150), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
 
     mouza = relationship("Mouza")
@@ -473,6 +480,10 @@ class Parcel(Base):
     deeds = relationship("Deed", back_populates="parcel")
     mutations = relationship("Mutation", back_populates="parcel")
     alerts = relationship("Alert", back_populates="parcel")
+    legal_cases = relationship("LegalCase", back_populates="parcel", cascade="all, delete-orphan")
+    namjari_applications = relationship(
+        "NamjariApplication", back_populates="parcel", cascade="all, delete-orphan"
+    )
 
 
 class Deed(Base):
@@ -657,3 +668,153 @@ class FeedbackCorrection(Base):
     comments: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     status: Mapped[str] = mapped_column(String(50), default="evaluation_candidate")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+
+# ==============================================================================
+# P5 PRE-PURCHASE LITIGATION & LEGAL CASE MODEL
+# ==============================================================================
+
+
+class LegalCase(Base):
+    """
+    Synthetic legal disputes and court proceedings linked to parcels (R8 risk rule).
+    Statuses: 'open' | 'disposed' | 'stayed' (stayed/injunction triggers high severity).
+    """
+
+    __tablename__ = "legal_cases"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    parcel_id: Mapped[str] = mapped_column(
+        String(100), ForeignKey("parcels.parcel_id"), nullable=False, index=True
+    )
+    case_no: Mapped[str] = mapped_column(String(100), nullable=False, index=True)
+    court: Mapped[str] = mapped_column(String(150), nullable=False)
+    case_type: Mapped[str] = mapped_column(String(100), nullable=False, default="title_suit")
+    status: Mapped[str] = mapped_column(String(50), nullable=False, default="open")
+    filed_date: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    parties: Mapped[str] = mapped_column(Text, nullable=False)
+    summary: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+    parcel = relationship("Parcel", back_populates="legal_cases")
+
+
+# ==============================================================================
+# P4 SMART E-NAMJARI APPLICATION & EVENT TIMELINE MODELS
+# ==============================================================================
+
+
+class NamjariApplication(Base):
+    """
+    Simulated e-namjari mutation workflow linked to deed registration.
+    Tracks deed verification, risk engine auto-verification, SLAs, and multi-role approvals.
+    """
+
+    __tablename__ = "namjari_applications"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    tracking_code: Mapped[str] = mapped_column(
+        String(50), unique=True, nullable=False, index=True
+    )  # e.g. "NJ-2026-8812"
+    parcel_id: Mapped[str] = mapped_column(
+        String(100), ForeignKey("parcels.parcel_id"), nullable=False, index=True
+    )
+    deed_document_id: Mapped[Optional[uuid.UUID]] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("documents.id"), nullable=True, index=True
+    )
+    applicant_user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True
+    )
+    registry_office: Mapped[Optional[str]] = mapped_column(String(150), nullable=True)
+    deed_no: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    deed_date: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+    registration_verified: Mapped[bool] = mapped_column(Boolean, default=False)
+    status: Mapped[str] = mapped_column(
+        String(50), nullable=False, default="submitted"
+    )  # submitted, auto_verification, documents_review, field_verification, hearing_notice, approved, rejected, needs_correction, khatian_updated
+    auto_verification_status: Mapped[str] = mapped_column(
+        String(50), nullable=False, default="pending"
+    )  # passed, warn, failed
+    verification_checklist: Mapped[Optional[dict]] = mapped_column(
+        JSONB().with_variant(JSON, "sqlite"), nullable=True
+    )
+    decision_reason: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    sla_due_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utc_now, onupdate=utc_now
+    )
+
+    parcel = relationship("Parcel", back_populates="namjari_applications")
+    applicant = relationship("User")
+    deed_document = relationship("Document")
+    events = relationship(
+        "NamjariEvent",
+        back_populates="application",
+        cascade="all, delete-orphan",
+        order_by="NamjariEvent.at.asc()",
+    )
+
+
+class NamjariEvent(Base):
+    """
+    Audit log / timeline milestone for an e-namjari application.
+    """
+
+    __tablename__ = "namjari_events"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    application_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("namjari_applications.id"), nullable=False, index=True
+    )
+    status: Mapped[str] = mapped_column(String(50), nullable=False)
+    actor_id: Mapped[Optional[uuid.UUID]] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id"), nullable=True
+    )
+    actor_role: Mapped[str] = mapped_column(String(50), nullable=False)
+    note: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+    application = relationship("NamjariApplication", back_populates="events")
+    actor = relationship("User")
+
+
+# ==============================================================================
+# P6 PARCEL GUARDIAN & SIMULATED NOTIFICATION OUTBOX MODELS
+# ==============================================================================
+
+
+class ParcelWatch(Base):
+    """
+    Citizen subscription to watch a parcel for mutation filings, disputes, or alerts.
+    """
+
+    __tablename__ = "parcel_watches"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True
+    )
+    parcel_id: Mapped[str] = mapped_column(
+        String(100), ForeignKey("parcels.parcel_id"), nullable=False, index=True
+    )
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+    user = relationship("User")
+    parcel = relationship("Parcel")
+
+
+class SimulatedSMSOutbox(Base):
+    """
+    Simulated SMS notifications for citizens (Bangla previews, clearly labeled simulated).
+    """
+
+    __tablename__ = "simulated_sms_outbox"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    recipient_phone: Mapped[str] = mapped_column(String(50), nullable=False)
+    parcel_id: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    message_bn: Mapped[str] = mapped_column(Text, nullable=False)
+    tag: Mapped[str] = mapped_column(String(50), default="simulated", nullable=False)
+    sent_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)

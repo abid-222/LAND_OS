@@ -35,6 +35,7 @@ class RequestTimeoutMiddleware:
             "/api/v1/buyer-reports",
             "/api/v1/parcels",
             "/api/v1/namjari",
+            "/api/v1/quality",
         )
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:

@@ -124,8 +124,8 @@ def test_all_6_rules_precision_recall_and_evidence_from_conflict_truth():
     parcels_map = {p["parcel_id"]: p for p in data.get("parcels", [])}
     rule_truth = data.get("rule_truth", {})
 
-    # 1. All 6 rules are loaded
-    assert len(ALL_RULES) == 6
+    # 1. All 9 rules are loaded
+    assert len(ALL_RULES) == 9
 
     for rule in ALL_RULES:
         r_id = rule.id
@@ -152,6 +152,12 @@ def test_all_6_rules_precision_recall_and_evidence_from_conflict_truth():
                 documents=p_dict.get("documents", []),
                 region_code=p_dict.get("region_code"),
                 all_registry_deeds=p_dict.get("all_registry_deeds", []),
+                land_class=p_dict.get("land_class", "private"),
+                acquisition_status=p_dict.get("acquisition_status", "none"),
+                acquisition_notice_no=p_dict.get("acquisition_notice_no"),
+                acquisition_notice_date=p_dict.get("acquisition_notice_date"),
+                acquisition_authority=p_dict.get("acquisition_authority"),
+                legal_cases=p_dict.get("legal_cases", []),
             )
 
             alerts = rule.run(ctx)

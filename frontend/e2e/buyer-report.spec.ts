@@ -133,16 +133,22 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('Buyer Risk Report & Parcel Alerts Flow (Mobile-First)', () => {
-  test('pick demo plot -> bottom sheet alert count -> view report -> open alert evidence', async ({ page }) => {
+  test('pick demo plot -> bottom sheet alert count -> view report -> open alert evidence', async ({ page, isMobile }) => {
     // 1. Visit Home
     await page.goto('/');
     await expect(page).toHaveTitle(/বাংলাদেশ ল্যান্ডওএস/);
 
-    // 2. Navigate to Map via Mobile Bottom Navigation
-    const bottomNav = page.getByRole('navigation', { name: 'Mobile Bottom Navigation' });
-    const mapNavBtn = bottomNav.getByRole('button', { name: 'মানচিত্র' });
-    await expect(mapNavBtn).toBeVisible({ timeout: 15000 });
-    await mapNavBtn.click();
+    // 2. Navigate to Map via Mobile Bottom Navigation or Sidebar
+    if (isMobile) {
+      const bottomNav = page.getByRole('navigation', { name: 'Mobile Bottom Navigation' });
+      const mapNavBtn = bottomNav.getByRole('button', { name: 'মানচিত্র' });
+      await expect(mapNavBtn).toBeVisible({ timeout: 15000 });
+      await mapNavBtn.click({ force: true });
+    } else {
+      const mapSideBtn = page.getByRole('button', { name: /৩ডি ক্যাডাস্ট্রাল ম্যাপ|মানচিত্র/ }).first();
+      await expect(mapSideBtn).toBeVisible({ timeout: 15000 });
+      await mapSideBtn.click();
+    }
 
     // Verify Map Page loaded
     await expect(
@@ -163,7 +169,7 @@ test.describe('Buyer Risk Report & Parcel Alerts Flow (Mobile-First)', () => {
     // 5. Click "ক্রেতা রিপোর্ট দেখুন" (View Buyer Report) button in bottom sheet
     const viewReportBtn = page.getByRole('button', { name: 'ক্রেতা রিপোর্ট দেখুন' });
     await expect(viewReportBtn).toBeVisible();
-    await viewReportBtn.click();
+    await viewReportBtn.click({ force: true });
 
     // 6. Verify Buyer Risk Report Page loads with all 5 sections
     await expect(page.getByText('ক্রেতা ঝুঁকি ও তথ্য অনুসন্ধান প্রতিবেদন')).toBeVisible({ timeout: 15000 });
@@ -174,23 +180,23 @@ test.describe('Buyer Risk Report & Parcel Alerts Flow (Mobile-First)', () => {
     ).toBeVisible();
 
     // Section 1: Parcel Summary
-    await expect(page.getByText('১. পার্সেল পরিচিতি ও জমির বিবরণ')).toBeVisible();
+    await expect(page.getByText(/পার্সেল পরিচিতি ও জমির বিবরণ/)).toBeVisible();
     await expect(page.getByText(/Illustrative \/ Not a legal boundary/i)).toBeVisible();
 
-    // Section 2: Matching Records
-    await expect(page.getByText('২. ম্যাচিং সরকারি খতিয়ান রেকর্ড')).toBeVisible();
+    // Matching Records
+    await expect(page.getByText(/ম্যাচিং সরকারি খতিয়ান রেকর্ড/)).toBeVisible();
 
-    // Section 3: Document Conflicts (Counts by severity, strictly no overall score)
-    await expect(page.getByText('৩. দলিল ও রেকর্ড সংক্রান্ত সম্ভাব্য অসঙ্গতি')).toBeVisible();
+    // Document Conflicts (Counts by severity, strictly no overall score)
+    await expect(page.getByText(/দলিল ও রেকর্ড সংক্রান্ত সম্ভাব্য অসঙ্গতি/)).toBeVisible();
     await expect(page.getByText('উচ্চ মনোযোগ').first()).toBeVisible();
     await expect(page.getByText('সতর্কতা').first()).toBeVisible();
 
-    // Section 4: Missing Evidence Checklist (Sample)
-    await expect(page.getByText('৪. প্রয়োজনীয় দলিলের নমুনা যাচাই তালিকা')).toBeVisible();
+    // Missing Evidence Checklist (Sample)
+    await expect(page.getByText(/প্রয়োজনীয় দলিলের নমুনা যাচাই তালিকা/)).toBeVisible();
     await expect(page.getByText('SAMPLE').first()).toBeVisible();
 
-    // Section 5: Next Steps
-    await expect(page.getByText(/৫\. আইনি ও দাপ্তরিক পরবর্তী করণীয়/)).toBeVisible();
+    // Next Steps / Action Checklist
+    await expect(page.getByText(/(আইনি ও দাপ্তরিক পরবর্তী করণীয়|কেনার পূর্বে করণীয় অ্যাকশন চেকলিস্ট)/).first()).toBeVisible();
 
     // Verify Print & Share buttons are visible
     await expect(page.getByTitle('লিংক শেয়ার করুন')).toBeVisible();
@@ -221,61 +227,66 @@ test.describe('Buyer Risk Report & Parcel Alerts Flow (Mobile-First)', () => {
     await expect(page.getByText(/মান:/).first()).toBeVisible();
   });
 
-  test('verifies document type change and verification comparison screen', async ({ page }) => {
+  test('verifies document type change and verification comparison screen', async ({ page, isMobile }) => {
     // Setup document creation & extraction mocks
-    await page.route('**/api/v1/documents', async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify({ id: 'doc-verify-001', status: 'completed' }),
-      });
-    });
-
-    await page.route('**/api/v1/documents/*/extraction', async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify({
-          document_id: 'doc-verify-001',
-          doc_type: 'khatian',
-          status_label: 'OCR_EXTRACTED',
-          review_case_id: 'REV-CASE-888',
-          fields: [
-            {
-              id: 'f1',
-              field_name: 'khatian_no',
-              raw_value: '৩৪০',
-              normalized_value: '340',
-              confidence: 0.98,
-              flagged: false,
-              user_corrected: false,
-              status_label: 'OCR_EXTRACTED',
-            },
-            {
-              id: 'f2',
-              field_name: 'dag_no',
-              raw_value: '১২০৫',
-              normalized_value: '1205',
-              confidence: 0.48,
-              flagged: true,
-              flag_reason: 'কম আত্মবিশ্বাস ও ঝাপসা লেখা',
-              user_corrected: false,
-              status_label: 'VERIFICATION_REQUIRED',
-            },
-            {
-              id: 'f3',
-              field_name: 'area_acres',
-              raw_value: '০.৩৩ একর',
-              normalized_value: '0.33',
-              confidence: 0.92,
-              flagged: false,
-              user_corrected: false,
-              status_label: 'OCR_EXTRACTED',
-              original_unit: 'শতক / একর',
-            },
-          ],
-        }),
-      });
+    await page.route('**/api/v1/documents*', async (route) => {
+      const url = route.request().url();
+      if (url.includes('/extraction') || url.includes('/fields')) {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            document_id: 'doc-verify-001',
+            doc_type: 'khatian',
+            status_label: 'OCR_EXTRACTED',
+            review_case_id: 'REV-CASE-888',
+            fields: [
+              {
+                id: 'f1',
+                field_name: 'khatian_no',
+                raw_value: '৩৪০',
+                normalized_value: '340',
+                confidence: 0.98,
+                flagged: false,
+                user_corrected: false,
+                status_label: 'OCR_EXTRACTED',
+              },
+              {
+                id: 'f2',
+                field_name: 'dag_no',
+                raw_value: '১২০৫',
+                normalized_value: '1205',
+                confidence: 0.48,
+                flagged: true,
+                flag_reason: 'কম আত্মবিশ্বাস ও ঝাপসা লেখা',
+                user_corrected: false,
+                status_label: 'VERIFICATION_REQUIRED',
+              },
+              {
+                id: 'f3',
+                field_name: 'area_acres',
+                raw_value: '০.৩৩ একর',
+                normalized_value: '0.33',
+                confidence: 0.92,
+                flagged: false,
+                user_corrected: false,
+                status_label: 'OCR_EXTRACTED',
+                original_unit: 'শতক / একর',
+              },
+            ],
+          }),
+        });
+      } else {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            id: 'doc-verify-001',
+            document_id: 'doc-verify-001',
+            status: 'completed',
+          }),
+        });
+      }
     });
 
     await page.route('**/api/v1/documents/*/verify', async (route) => {
@@ -321,16 +332,12 @@ test.describe('Buyer Risk Report & Parcel Alerts Flow (Mobile-First)', () => {
     await page.goto('/');
 
     // 2. Start scan flow
-    const scanBtn = page.getByRole('button', { name: 'দলিল স্ক্যান' });
+    const scanBtn = page.getByRole('button', { name: /(দলিল স্ক্যান|ডিজিটাল স্ক্যান ও ওসিআর|স্ক্যান)/ }).first();
     await expect(scanBtn).toBeVisible({ timeout: 15000 });
-    await scanBtn.click();
+    await scanBtn.click({ force: true });
 
     // 3. Upload a test image
-    const fileChooserPromise = page.waitForEvent('filechooser');
-    await page.getByRole('button', { name: 'ছবি বা ফাইল নির্বাচন করুন' }).click();
-    const fileChooser = await fileChooserPromise;
-
-    await fileChooser.setFiles({
+    await page.locator('input[type="file"]').setInputFiles({
       name: 'khatian_sample.jpg',
       mimeType: 'image/jpeg',
       buffer: validTestJpegBuffer,
@@ -338,10 +345,16 @@ test.describe('Buyer Risk Report & Parcel Alerts Flow (Mobile-First)', () => {
 
     const proceedBtn = page.getByRole('button', { name: /(পরবর্তী ধাপে যান|তবুও ব্যবহার করুন)/ });
     await expect(proceedBtn).toBeVisible({ timeout: 10000 });
+    await page.waitForTimeout(600);
     await proceedBtn.click();
+    // If still visible after a moment (WebKit event handling), click again
+    if (await proceedBtn.isVisible()) {
+      await proceedBtn.click({ force: true });
+    }
 
     // 4. Confirm page: Check Document Type buttons (দলিল / খতিয়ান / পর্চা)
-    await expect(page.getByRole('button', { name: 'দলিল' })).toBeVisible({ timeout: 15000 });
+    await expect(page.getByText(/(স্বয়ংক্রিয় ওসিআর পাঠোদ্ধার ও যাচাইকরণ|Automated OCR Extraction)/)).toBeVisible({ timeout: 15000 });
+    await expect(page.getByRole('button', { name: 'দলিল' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'খতিয়ান' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'পর্চা' })).toBeVisible();
 

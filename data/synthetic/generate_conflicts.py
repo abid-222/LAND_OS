@@ -50,13 +50,16 @@ def generate_scenarios(output_path: str = "data/synthetic/conflict_truth.json") 
         "R4_area_mismatch": {"positives": [], "negatives": []},
         "R5_deed_mutation_inconsistency": {"positives": [], "negatives": []},
         "R6_party_name_mismatch": {"positives": [], "negatives": []},
+        "R7_khas_or_government_land": {"positives": [], "negatives": []},
+        "R8_active_litigation": {"positives": [], "negatives": []},
+        "R9_acquisition_notice": {"positives": [], "negatives": []},
     }
 
     base_date = datetime(2020, 1, 15, tzinfo=timezone.utc)
     all_global_deeds: List[Dict[str, Any]] = []
 
-    # Prepare 150 parcel templates
-    for idx in range(1, 151):
+    # Prepare 200 parcel templates
+    for idx in range(1, 201):
         pid = f"PARCEL-{idx:03d}"
         mouza = MOUZAS_SAMPLE[idx % len(MOUZAS_SAMPLE)]
         main_no = 1000 + idx
@@ -83,6 +86,12 @@ def generate_scenarios(output_path: str = "data/synthetic/conflict_truth.json") 
             "main_no": main_no,
             "sub_no": sub_no,
             "area_decimal": base_area,
+            "land_class": "private",
+            "acquisition_status": "none",
+            "acquisition_notice_no": None,
+            "acquisition_notice_date": None,
+            "acquisition_authority": None,
+            "legal_cases": [],
             "record": record_data,
             "deeds": [],
             "mutations": [],
@@ -475,8 +484,127 @@ def generate_scenarios(output_path: str = "data/synthetic/conflict_truth.json") 
             "owner": f"মোঃ {rec_own}",  # Normalized matches!
         })
 
-    # Remaining PARCEL-121 to PARCEL-150 are clean normal parcels
-    for idx in range(121, 151):
+    # --------------------------------------------------------------------------
+    # R7: Khas or Government Land (10 positives, 10 negatives)
+    # Positives: PARCEL-121 to PARCEL-130
+    # Negatives: PARCEL-131 to PARCEL-140
+    # --------------------------------------------------------------------------
+    khas_classes = [
+        ("khas", "সরকারি খাস জমি"),
+        ("vested_property", "অর্পিত সম্পত্তি ('ক' তালিকাভুক্ত)"),
+        ("government", "সরকারি খাস জমি (মন্ত্রণালয়ের আওতাধীন)"),
+        ("waqf", "ওয়াকফ এস্টেট সম্পত্তি"),
+        ("abandoned_property", "পরিত্যক্ত সম্পত্তি"),
+        ("khas", "সরকারি খাস বিল/জলাশয়"),
+        ("vested_property", "অর্পিত সম্পত্তি ('খ' তালিকাভুক্ত)"),
+        ("government", "সরকারি রাস্তা ও রেলওয়ে ভূমি"),
+        ("waqf", "দেবোত্তর সম্পত্তি"),
+        ("khas", "১ নং খাস খতিয়ানভুক্ত ভূমি"),
+    ]
+    for i, idx in enumerate(range(121, 131)):
+        p = parcels[idx - 1]
+        p["is_conflict"] = True
+        p["expected_conflicts"].append("R7_khas_or_government_land")
+        rule_truth["R7_khas_or_government_land"]["positives"].append(p["parcel_id"])
+        c_type, c_bn = khas_classes[i]
+        p["land_class"] = c_type
+        p["record"]["land_class_bn"] = c_bn
+
+    for idx in range(131, 141):
+        p = parcels[idx - 1]
+        rule_truth["R7_khas_or_government_land"]["negatives"].append(p["parcel_id"])
+        p["land_class"] = "private"
+        p["record"]["land_class_bn"] = "নাল/কৃষি (ব্যক্তিগত মালিকানা)"
+
+    # --------------------------------------------------------------------------
+    # R8: Active Litigation & Injunction (10 positives, 10 negatives)
+    # Positives: PARCEL-141 to PARCEL-150
+    # Negatives: PARCEL-151 to PARCEL-160
+    # --------------------------------------------------------------------------
+    lit_templates = [
+        ("TS-101/2023", "১ম সহকারী জজ আদালত, ঢাকা", "open", "title_suit", "করিম বনাম রহিম", "মালিকানা দাবি ও স্বত্ব ঘোষণার দেওয়ানি মোকদ্দমা"),
+        ("MS-45/2024", "যুগ্ম জেলা জজ ২য় আদালত, ঢাকা", "stayed", "partition_suit", "রহিমা খাতুন গং বনাম জালাল উদ্দিন", "বাটোয়ারা মোকদ্দমায় অন্তর্বর্তীকালীন স্থগিতাদেশ কার্যকর"),
+        ("INJ-12/2024", "যুগ্ম জেলা জজ ১ম আদালত, ঢাকা", "injunction", "injunction", "আমিনুল হক বনাম আনোয়ার হোসেন", "জমি হস্তান্তর ও নামজারির উপর অস্থায়ী নিষেধাজ্ঞা"),
+        ("TS-88/2023", "সহকারী জজ আদালত, চট্টগ্রাম", "open", "title_suit", "কামাল আহমেদ বনাম রফিকুল ইসলাম", "জাল দলিল বাতিলের স্বত্ব মোকদ্দমা"),
+        ("MS-19/2025", "যুগ্ম জেলা জজ আদালত, রাজশাহী", "stayed", "money_suit", "সোনালী ব্যাংক বনাম তারেক রহমান", "বন্ধকি সম্পত্তি নিলামে স্থগিতাদেশ"),
+        ("TS-304/2022", "১ম অতিরিক্ত জেলা জজ আদালত, ঢাকা", "open", "title_suit", "বেগম ফাতেমা বনাম সরকারি প্রশাসক", "স্বত্ব বহালের দেওয়ানি রিভিশন মামলা"),
+        ("INJ-05/2025", "সহকারী জজ আদালত, রূপগঞ্জ", "injunction", "injunction", "বোরহান উদ্দিন বনাম বিল্লাল মিয়া", "জমিতে অনুপ্রবেশ ও রূপান্তরে নিষেধাজ্ঞা"),
+        ("TS-15/2024", "২য় সহকারী জজ আদালত, সিলেট", "open", "title_suit", "সুলতান মাহমুদ বনাম জহিরুল হক", "দলিল সংশোধনের নালিশি মামলা"),
+        ("MS-92/2023", "যুগ্ম জেলা জজ আদালত, কুমিল্লা", "stayed", "partition_suit", "আক্তার হোসেন বনাম খোরশেদ আলম", "বণ্টন ডিক্রি জারিতে স্থগিতাদেশ"),
+        ("TS-67/2024", "১ম সহকারী জজ আদালত, ঢাকা", "open", "title_suit", "নাসরীন জাহান বনাম কবির উদ্দিন", "পৈত্রিক সম্পত্তির স্বত্ব বণ্টন মোকদ্দমা"),
+    ]
+    for i, idx in enumerate(range(141, 151)):
+        p = parcels[idx - 1]
+        p["is_conflict"] = True
+        p["expected_conflicts"].append("R8_active_litigation")
+        rule_truth["R8_active_litigation"]["positives"].append(p["parcel_id"])
+        c_no, court, status, c_type, parties, summary = lit_templates[i]
+        p["legal_cases"].append({
+            "id": f"CASE-{p['parcel_id']}",
+            "case_no": c_no,
+            "court": court,
+            "status": status,
+            "type": c_type,
+            "filed_date": "2023-05-10T00:00:00Z",
+            "parties": parties,
+            "summary": summary,
+        })
+
+    for idx in range(151, 161):
+        p = parcels[idx - 1]
+        rule_truth["R8_active_litigation"]["negatives"].append(p["parcel_id"])
+        if idx <= 155:
+            # Disposed cases are NOT active conflicts
+            p["legal_cases"].append({
+                "id": f"CASE-{p['parcel_id']}",
+                "case_no": f"DISP-{idx}/2020",
+                "court": "সহকারী জজ আদালত, ঢাকা",
+                "status": "disposed",
+                "type": "title_suit",
+                "filed_date": "2020-01-10T00:00:00Z",
+                "parties": "পূর্ববর্তী বাদি বনাম বিবাদি",
+                "summary": "মামলাটি চূড়ান্ত রায়ে নিষ্পত্তি হয়েছে",
+            })
+        else:
+            p["legal_cases"] = []
+
+    # --------------------------------------------------------------------------
+    # R9: Land Acquisition Notice (10 positives, 10 negatives)
+    # Positives: PARCEL-161 to PARCEL-170
+    # Negatives: PARCEL-171 to PARCEL-180
+    # --------------------------------------------------------------------------
+    acq_templates = [
+        ("notice_issued", "LA-DHAKA-2024/09", "2024-03-15", "জেলা প্রশাসকের কার্যালয়, ঢাকা (এল.এ শাখা)"),
+        ("notice_issued", "LA-CTG-2024/14", "2024-04-10", "জেলা প্রশাসকের কার্যালয়, চট্টগ্রাম"),
+        ("notice_issued", "LA-DHAKA-2025/02", "2025-01-20", "জেলা প্রশাসকের কার্যালয়, ঢাকা"),
+        ("notice_issued", "LA-RUP-2024/77", "2024-06-12", "উপজেলা ভূমি অধিগ্রহণ সেল, নারায়ণগঞ্জ"),
+        ("under_acquisition", "LA-DHAKA-2023/18", "2023-08-20", "অতিরিক্ত জেলা প্রশাসক (এল.এ), ঢাকা"),
+        ("under_acquisition", "LA-METRO-2023/55", "2023-10-05", "ঢাকা ম্যাস ট্রানজিট কোম্পানি লিমিটেড / ডিসি ঢাকা"),
+        ("under_acquisition", "LA-RAJ-2024/03", "2024-02-14", "জেলা প্রশাসক কার্যালয়, রাজশাহী"),
+        ("acquired", "GAZETTE-2023-ACQ-99", "2023-11-01", "ভূমি মন্ত্রণালয় (সরকারি গেজেট বিজ্ঞপ্তি নং ৯৯)"),
+        ("acquired", "GAZETTE-2024-ACQ-12", "2024-05-18", "বাংলাদেশ সরকার ভূমি রেকর্ড ও জরিপ অধিদপ্তর"),
+        ("acquired", "GAZETTE-2024-ACQ-44", "2024-08-30", "সড়ক ও জনপথ অধিদপ্তর / ডিসি ঢাকা"),
+    ]
+    for i, idx in enumerate(range(161, 171)):
+        p = parcels[idx - 1]
+        p["is_conflict"] = True
+        p["expected_conflicts"].append("R9_acquisition_notice")
+        rule_truth["R9_acquisition_notice"]["positives"].append(p["parcel_id"])
+        status, n_no, n_date, auth = acq_templates[i]
+        p["acquisition_status"] = status
+        p["acquisition_notice_no"] = n_no
+        p["acquisition_notice_date"] = n_date
+        p["acquisition_authority"] = auth
+
+    for idx in range(171, 181):
+        p = parcels[idx - 1]
+        rule_truth["R9_acquisition_notice"]["negatives"].append(p["parcel_id"])
+        p["acquisition_status"] = "none"
+        p["acquisition_notice_no"] = None
+        p["acquisition_authority"] = None
+
+    # Remaining PARCEL-181 to PARCEL-200 are clean normal parcels
+    for idx in range(181, 201):
         p = parcels[idx - 1]
         d_date = datetime(2023, 1, 10, tzinfo=timezone.utc).isoformat()
         p["deeds"].append({
@@ -490,6 +618,251 @@ def generate_scenarios(output_path: str = "data/synthetic/conflict_truth.json") 
             "buyer": "রফিকুল ইসলাম",
             "area": f"{p['area_decimal']} শতাংশ",
         })
+
+    # Add specific demo parcels for P5 and P4 scenarios
+    demo_parcels = [
+        {
+            "parcel_id": "P-KHAS-01",
+            "mouza_name": "তেজগাঁও",
+            "region_code": "DHAKA",
+            "main_no": 1206,
+            "sub_no": None,
+            "area_decimal": 20.0,
+            "land_class": "khas",
+            "acquisition_status": "none",
+            "acquisition_notice_no": None,
+            "acquisition_notice_date": None,
+            "acquisition_authority": None,
+            "legal_cases": [],
+            "record": {
+                "id": "REC-KHAS-01",
+                "khatian_no": "1",
+                "dag_no": "1206",
+                "owner_names_bn": "বাংলাদেশ সরকার (১নং খাস খতিয়ান)",
+                "area_decimal": 20.0,
+                "area_acres": 0.20,
+                "land_class_bn": "সরকারি খাস জমি",
+            },
+            "deeds": [],
+            "mutations": [],
+            "documents": [],
+            "expected_conflicts": ["R7_khas_or_government_land"],
+            "is_conflict": True,
+        },
+        {
+            "parcel_id": "P-VESTED-02",
+            "mouza_name": "তেজগাঁও",
+            "region_code": "DHAKA",
+            "main_no": 1207,
+            "sub_no": None,
+            "area_decimal": 15.5,
+            "land_class": "vested_property",
+            "acquisition_status": "none",
+            "acquisition_notice_no": None,
+            "acquisition_notice_date": None,
+            "acquisition_authority": None,
+            "legal_cases": [],
+            "record": {
+                "id": "REC-VESTED-02",
+                "khatian_no": "45",
+                "dag_no": "1207",
+                "owner_names_bn": "অর্পিত সম্পত্তি প্রশাসন (ক-তফসিল)",
+                "area_decimal": 15.5,
+                "area_acres": 0.155,
+                "land_class_bn": "অর্পিত সম্পত্তি",
+            },
+            "deeds": [],
+            "mutations": [],
+            "documents": [],
+            "expected_conflicts": ["R7_khas_or_government_land"],
+            "is_conflict": True,
+        },
+        {
+            "parcel_id": "P-ACQ-01",
+            "mouza_name": "মিরপুর",
+            "region_code": "DHAKA",
+            "main_no": 3201,
+            "sub_no": None,
+            "area_decimal": 25.0,
+            "land_class": "private",
+            "acquisition_status": "notice_issued",
+            "acquisition_notice_no": "LA-DHAKA-2025/44",
+            "acquisition_notice_date": "2025-02-10",
+            "acquisition_authority": "জেলা প্রশাসকের কার্যালয়, ঢাকা",
+            "legal_cases": [],
+            "record": {
+                "id": "REC-ACQ-01",
+                "khatian_no": "890",
+                "dag_no": "3201",
+                "owner_names_bn": "মোঃ কামরুল হাসান",
+                "area_decimal": 25.0,
+                "area_acres": 0.25,
+                "land_class_bn": "নাল/বাড়ি",
+            },
+            "deeds": [],
+            "mutations": [],
+            "documents": [],
+            "expected_conflicts": ["R9_acquisition_notice"],
+            "is_conflict": True,
+        },
+        {
+            "parcel_id": "P-ACQ-02",
+            "mouza_name": "মিরপুর",
+            "region_code": "DHAKA",
+            "main_no": 3202,
+            "sub_no": None,
+            "area_decimal": 30.0,
+            "land_class": "private",
+            "acquisition_status": "acquired",
+            "acquisition_notice_no": "GAZETTE-2024-ACQ",
+            "acquisition_notice_date": "2024-06-01",
+            "acquisition_authority": "ভূমি মন্ত্রণালয় (সরকারি গেজেট বিজ্ঞপ্তি)",
+            "legal_cases": [],
+            "record": {
+                "id": "REC-ACQ-02",
+                "khatian_no": "891",
+                "dag_no": "3202",
+                "owner_names_bn": "অধিগ্রহণ শাখা, ঢাকা",
+                "area_decimal": 30.0,
+                "area_acres": 0.30,
+                "land_class_bn": "অধিগ্রহণকৃত জমি",
+            },
+            "deeds": [],
+            "mutations": [],
+            "documents": [],
+            "expected_conflicts": ["R9_acquisition_notice"],
+            "is_conflict": True,
+        },
+        {
+            "parcel_id": "P-LIT-01",
+            "mouza_name": "ধানমন্ডি",
+            "region_code": "DHAKA",
+            "main_no": 890,
+            "sub_no": None,
+            "area_decimal": 12.0,
+            "land_class": "private",
+            "acquisition_status": "none",
+            "acquisition_notice_no": None,
+            "acquisition_notice_date": None,
+            "acquisition_authority": None,
+            "legal_cases": [
+                {
+                    "id": "CASE-LIT-01",
+                    "case_no": "TS-42/2024",
+                    "court": "১ম সহকারী জজ আদালত, ঢাকা",
+                    "status": "open",
+                    "type": "title_suit",
+                    "filed_date": "2024-02-15T00:00:00Z",
+                    "parties": "মোস্তাফিজুর রহমান বনাম আনিসুর রহমান",
+                    "summary": "মালিকানা সংক্রান্ত স্বত্ব ঘোষণা ও বণ্টন মোকদ্দমা",
+                }
+            ],
+            "record": {
+                "id": "REC-LIT-01",
+                "khatian_no": "345",
+                "dag_no": "890",
+                "owner_names_bn": "মোস্তাফিজুর রহমান",
+                "area_decimal": 12.0,
+                "area_acres": 0.12,
+                "land_class_bn": "বাস্তু/পাকা ভবন",
+            },
+            "deeds": [],
+            "mutations": [],
+            "documents": [],
+            "expected_conflicts": ["R8_active_litigation"],
+            "is_conflict": True,
+        },
+        {
+            "parcel_id": "P-LIT-INJ",
+            "mouza_name": "ধানমন্ডি",
+            "region_code": "DHAKA",
+            "main_no": 891,
+            "sub_no": None,
+            "area_decimal": 14.0,
+            "land_class": "private",
+            "acquisition_status": "none",
+            "acquisition_notice_no": None,
+            "acquisition_notice_date": None,
+            "acquisition_authority": None,
+            "legal_cases": [
+                {
+                    "id": "CASE-LIT-INJ",
+                    "case_no": "MS-12/2025",
+                    "court": "যুগ্ম জেলা জজ ২য় আদালত, ঢাকা",
+                    "status": "stayed",
+                    "type": "injunction",
+                    "filed_date": "2025-01-10T00:00:00Z",
+                    "parties": "আনোয়ারুল কবির বনাম জহিরুল ইসলাম",
+                    "summary": "জমি ক্রয়-বিক্রয় ও হস্তান্তরে বিজ্ঞ আদালতের স্থগিতাদেশ",
+                }
+            ],
+            "record": {
+                "id": "REC-LIT-INJ",
+                "khatian_no": "346",
+                "dag_no": "891",
+                "owner_names_bn": "আনোয়ারুল কবির",
+                "area_decimal": 14.0,
+                "area_acres": 0.14,
+                "land_class_bn": "বাস্তু",
+            },
+            "deeds": [],
+            "mutations": [],
+            "documents": [],
+            "expected_conflicts": ["R8_active_litigation"],
+            "is_conflict": True,
+        },
+        {
+            "parcel_id": "P-CLEAN-01",
+            "mouza_name": "তেজগাঁও",
+            "region_code": "DHAKA",
+            "main_no": 1210,
+            "sub_no": None,
+            "area_decimal": 18.0,
+            "land_class": "private",
+            "acquisition_status": "none",
+            "acquisition_notice_no": None,
+            "acquisition_notice_date": None,
+            "acquisition_authority": None,
+            "legal_cases": [],
+            "record": {
+                "id": "REC-CLEAN-01",
+                "khatian_no": "512",
+                "dag_no": "1210",
+                "owner_names_bn": "মোহাম্মদ রফিকুল ইসলাম",
+                "area_decimal": 18.0,
+                "area_acres": 0.18,
+                "land_class_bn": "নাল/বাড়ি",
+            },
+            "deeds": [
+                {
+                    "id": "DEED-CLEAN-01",
+                    "deed_no": "D-CLEAN-2022",
+                    "deed_type": "sale",
+                    "registry_office": "তেজগাঁও সাব-রেজিস্ট্রি অফিস",
+                    "deed_date": "2022-04-10T00:00:00Z",
+                    "registered_date": "2022-04-11T00:00:00Z",
+                    "seller": "আব্দুল করিম",
+                    "buyer": "মোহাম্মদ রফিকুল ইসলাম",
+                    "area": "18.0 শতাংশ",
+                }
+            ],
+            "mutations": [
+                {
+                    "id": "MUT-CLEAN-01",
+                    "case_no": "MUT-2022/411",
+                    "mutation_date": "2022-06-15T00:00:00Z",
+                    "from_party": "আব্দুল করিম",
+                    "to_party": "মোহাম্মদ রফিকুল ইসলাম",
+                    "area": 18.0,
+                }
+            ],
+            "documents": [],
+            "expected_conflicts": [],
+            "is_conflict": False,
+        },
+    ]
+
+    parcels.extend(demo_parcels)
 
     truth_payload = {
         "total_parcels": len(parcels),
@@ -510,3 +883,4 @@ def generate_scenarios(output_path: str = "data/synthetic/conflict_truth.json") 
 
 if __name__ == "__main__":
     generate_scenarios()
+

@@ -32,7 +32,8 @@ from app.core.security import hash_password
 from app.models import (
     Region, Office, User, Mouza, LandRecord, Document, ExtractedField,
     Case, Alert, AuditLog, BuyerReport, KBArticle, Deed, Mutation,
-    QRCheck, VerificationResult, ConsentRecord, FeedbackCorrection, Notification, Parcel
+    QRCheck, VerificationResult, ConsentRecord, FeedbackCorrection, Notification, Parcel,
+    LegalCase, NamjariApplication, NamjariEvent, ParcelWatch, SimulatedSMSOutbox
 )
 from app.modules.rbac.permissions import Role
 
@@ -76,7 +77,8 @@ async def seed():
         "audit_logs", "buyer_reports", "kb_articles", "deeds",
         "mutations", "qr_checks", "verification_results",
         "consent_records", "feedback_corrections", "notifications",
-        "parcels",
+        "parcels", "legal_cases", "namjari_applications", "namjari_events",
+        "parcel_watches", "simulated_sms_outbox",
     ]
     target_tables = [
         Base.metadata.tables[name]
@@ -210,41 +212,148 @@ async def seed():
                 await session.commit()
             print(f"Seeded {len(records)} land records.")
 
-        # 6. Seed Demo Parcels & Conflict Deeds
-        conflict_parcel_id = "P-4520"
-        p_obj = Parcel(
-            parcel_id=conflict_parcel_id,
-            mouza_id=list(mouza_db_map.values())[0],
+        # 6. Seed Demo Parcels, Conflict Deeds, Mutations, and Legal Cases
+        conflict_file = os.path.join(repo_root, "data", "synthetic", "conflict_truth.json")
+        default_m_id = list(mouza_db_map.values())[0]
+
+        if os.path.exists(conflict_file):
+            with open(conflict_file, "r", encoding="utf-8") as f:
+                c_data = json.load(f)
+            c_parcels = c_data.get("parcels", [])
+            for p_item in c_parcels:
+                acq_date = None
+                if p_item.get("acquisition_notice_date"):
+                    try:
+                        acq_date = datetime.fromisoformat(p_item["acquisition_notice_date"].replace("Z", "+00:00"))
+                    except Exception:
+                        pass
+
+                p_obj = Parcel(
+                    parcel_id=p_item["parcel_id"],
+                    record_id=None,
+                    mouza_id=default_m_id,
+                    main_no=p_item["main_no"],
+                    sub_no=p_item.get("sub_no"),
+                    area_decimal=p_item["area_decimal"],
+                    land_class=p_item.get("land_class", "private"),
+                    acquisition_status=p_item.get("acquisition_status", "none"),
+                    acquisition_notice_no=p_item.get("acquisition_notice_no"),
+                    acquisition_notice_date=acq_date,
+                    acquisition_authority=p_item.get("acquisition_authority"),
+                )
+                session.add(p_obj)
+                await session.flush()
+
+                for d_item in p_item.get("deeds", []):
+                    try:
+                        d_date = datetime.fromisoformat(d_item["deed_date"].replace("Z", "+00:00"))
+                    except Exception:
+                        d_date = utc_now()
+                    try:
+                        r_date = datetime.fromisoformat(d_item["registered_date"].replace("Z", "+00:00"))
+                    except Exception:
+                        r_date = d_date
+                    ar_val = d_item.get("area", p_item["area_decimal"])
+                    if isinstance(ar_val, str):
+                        import re
+                        m_re = re.search(r"(\d+(?:\.\d+)?)", ar_val)
+                        ar_val = float(m_re.group(1)) if m_re else p_item["area_decimal"]
+
+                    session.add(Deed(
+                        id=uuid.uuid4(),
+                        deed_no=d_item.get("deed_no", "D-0"),
+                        deed_type=d_item.get("deed_type", "sale"),
+                        registry_office=d_item.get("registry_office", "তেজগাঁও সাব-রেজিস্ট্রি অফিস"),
+                        deed_date=d_date,
+                        registered_date=r_date,
+                        seller=d_item.get("seller", "বিক্রেতা"),
+                        buyer=d_item.get("buyer", "ক্রেতা"),
+                        parcel_id=p_item["parcel_id"],
+                        area=float(ar_val),
+                    ))
+
+                for m_item in p_item.get("mutations", []):
+                    try:
+                        m_date = datetime.fromisoformat(m_item["mutation_date"].replace("Z", "+00:00"))
+                    except Exception:
+                        m_date = utc_now()
+                    m_ar = m_item.get("area", p_item["area_decimal"])
+                    if isinstance(m_ar, str):
+                        import re
+                        m_re = re.search(r"(\d+(?:\.\d+)?)", m_ar)
+                        m_ar = float(m_re.group(1)) if m_re else p_item["area_decimal"]
+
+                    session.add(Mutation(
+                        id=uuid.uuid4(),
+                        case_no=m_item.get("case_no", "MC-0"),
+                        mutation_date=m_date,
+                        deed_id=None,
+                        parcel_id=p_item["parcel_id"],
+                        from_party=m_item.get("from_party", "পক্ষ"),
+                        to_party=m_item.get("to_party", "পক্ষ"),
+                        area=float(m_ar),
+                    ))
+
+                for lc_item in p_item.get("legal_cases", []):
+                    f_date = None
+                    if lc_item.get("filed_date"):
+                        try:
+                            f_date = datetime.fromisoformat(lc_item["filed_date"].replace("Z", "+00:00"))
+                        except Exception:
+                            f_date = utc_now()
+
+                    session.add(LegalCase(
+                        id=uuid.uuid4(),
+                        parcel_id=p_item["parcel_id"],
+                        case_no=lc_item["case_no"],
+                        court=lc_item["court"],
+                        case_type=lc_item.get("type", "title_suit"),
+                        status=lc_item.get("status", "open"),
+                        filed_date=f_date,
+                        parties=lc_item.get("parties", ""),
+                        summary=lc_item.get("summary", ""),
+                    ))
+
+            await session.commit()
+            print(f"Seeded {len(c_parcels)} cadastral parcels with deeds, mutations, and legal cases.")
+
+        # Also ensure P-4520 exists
+        p_4520 = Parcel(
+            parcel_id="P-4520",
+            mouza_id=default_m_id,
             main_no=1205,
             sub_no=None,
             area_decimal=33.0,
+            land_class="private",
+            acquisition_status="none",
         )
-        session.add(p_obj)
-        deed1 = Deed(
-            id=uuid.uuid4(),
-            parcel_id=conflict_parcel_id,
-            deed_no="DEED-2023-01",
-            deed_type="sale",
-            registry_office="Tejgaon",
-            seller="আব্দুর রহিম",
-            buyer="মোহাম্মদ রফিকুল ইসলাম",
-            area=25.0,
-            deed_date=datetime(2023, 1, 15, tzinfo=timezone.utc),
-            registered_date=datetime(2023, 1, 16, tzinfo=timezone.utc),
-        )
-        deed2 = Deed(
-            id=uuid.uuid4(),
-            parcel_id=conflict_parcel_id,
-            deed_no="DEED-2023-02",
-            deed_type="sale",
-            registry_office="Tejgaon",
-            seller="আব্দুর রহিম",
-            buyer="করিম উল্লাহ",
-            area=25.0,
-            deed_date=datetime(2023, 2, 20, tzinfo=timezone.utc),
-            registered_date=datetime(2023, 2, 21, tzinfo=timezone.utc),
-        )
-        session.add_all([deed1, deed2])
+        session.add(p_4520)
+        session.add_all([
+            Deed(
+                id=uuid.uuid4(),
+                parcel_id="P-4520",
+                deed_no="DEED-2023-01",
+                deed_type="sale",
+                registry_office="Tejgaon",
+                seller="আব্দুর রহিম",
+                buyer="মোহাম্মদ রফিকুল ইসলাম",
+                area=25.0,
+                deed_date=datetime(2023, 1, 15, tzinfo=timezone.utc),
+                registered_date=datetime(2023, 1, 16, tzinfo=timezone.utc),
+            ),
+            Deed(
+                id=uuid.uuid4(),
+                parcel_id="P-4520",
+                deed_no="DEED-2023-02",
+                deed_type="sale",
+                registry_office="Tejgaon",
+                seller="আব্দুর রহিম",
+                buyer="করিম উল্লাহ",
+                area=25.0,
+                deed_date=datetime(2023, 2, 20, tzinfo=timezone.utc),
+                registered_date=datetime(2023, 2, 21, tzinfo=timezone.utc),
+            )
+        ])
         await session.commit()
 
         # 7. KB Articles

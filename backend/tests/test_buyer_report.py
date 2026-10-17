@@ -192,3 +192,152 @@ def test_buyer_report_no_score_or_safe_unsafe_automated_grep():
         assert not re.search(
             r"নিরাপদ|ঝুঁকিমুক্ত", content
         ), f"Found subjective safety verdict in {rel_path}"
+
+
+@pytest.mark.asyncio
+async def test_p5_buyer_report_scenarios_and_traffic_lights():
+    """
+    Phase 2 (P5) Verification:
+    - Tests clean, khas, acquired, litigated, and combined scenarios.
+    - Confirms traffic_light_summary has clear/caution/stop status.
+    - Confirms sections: ownership_chain, namjari_history, litigation, khas_status, acquisition_status, action_checklist.
+    """
+    user_id = uuid.uuid4()
+
+    # 1. Clean Scenario
+    clean_ctx = ParcelContext(
+        parcel_id="P-CLEAN-TEST",
+        mouza_id="m1",
+        mouza_name="তেজগাঁও",
+        main_no=1210,
+        area_decimal=18.0,
+        land_class="private",
+        acquisition_status="none",
+        record={
+            "id": "R1",
+            "khatian_no": "512",
+            "dag_no": "1210",
+            "owner_names_bn": "রফিকুল ইসলাম",
+            "land_class_bn": "নাল",
+        },
+        deeds=[
+            {
+                "id": "D1",
+                "deed_no": "1001",
+                "deed_type": "sale",
+                "seller": "করিম",
+                "buyer": "রফিকুল ইসলাম",
+                "area": "18.0",
+            }
+        ],
+        mutations=[
+            {
+                "id": "M1",
+                "case_no": "MC-101",
+                "from_party": "করিম",
+                "to_party": "রফিকুল ইসলাম",
+                "area": 18.0,
+            }
+        ],
+    )
+    clean_rep = await build_report(parcel_id="P-CLEAN-TEST", user_id=user_id, parcel_ctx=clean_ctx)
+    sec_clean = clean_rep["sections"]
+    assert sec_clean["traffic_light_summary"]["overall_status"] == "clear"
+    assert sec_clean["khas_status"]["status"].lower() == "clear"
+    assert sec_clean["acquisition_status"]["status"].lower() == "clear"
+    assert sec_clean["litigation"]["status"].lower() == "clear"
+    assert len(sec_clean["ownership_chain"]["transfers"]) >= 1
+    assert len(sec_clean["namjari_history"]["mutations"]) >= 1
+
+    # 2. Khas Scenario
+    khas_ctx = ParcelContext(
+        parcel_id="P-KHAS-TEST",
+        mouza_id="m1",
+        mouza_name="তেজগাঁও",
+        main_no=1206,
+        area_decimal=20.0,
+        land_class="khas",
+        record={
+            "id": "RK1",
+            "khatian_no": "1",
+            "dag_no": "1206",
+            "owner_names_bn": "বাংলাদেশ সরকার",
+            "land_class_bn": "সরকারি খাস জমি",
+        },
+    )
+    khas_rep = await build_report(parcel_id="P-KHAS-TEST", user_id=user_id, parcel_ctx=khas_ctx)
+    sec_khas = khas_rep["sections"]
+    assert sec_khas["khas_status"]["status"].lower() in ("caution", "stop")
+    assert sec_khas["traffic_light_summary"]["khas"] in ("caution", "stop")
+    assert sec_khas["traffic_light_summary"]["overall_status"] == "stop"
+
+    # 3. Acquired Scenario
+    acq_ctx = ParcelContext(
+        parcel_id="P-ACQ-TEST",
+        mouza_id="m1",
+        mouza_name="মিরপুর",
+        main_no=3201,
+        area_decimal=25.0,
+        acquisition_status="notice_issued",
+        acquisition_notice_no="LA-DHAKA-2025/44",
+        acquisition_authority="জেলা প্রশাসকের কার্যালয়, ঢাকা",
+    )
+    acq_rep = await build_report(parcel_id="P-ACQ-TEST", user_id=user_id, parcel_ctx=acq_ctx)
+    sec_acq = acq_rep["sections"]
+    assert sec_acq["acquisition_status"]["status"].lower() in ("caution", "stop")
+    assert sec_acq["acquisition_status"]["notice_no"] == "LA-DHAKA-2025/44"
+    assert sec_acq["traffic_light_summary"]["acquisition"] in ("caution", "stop")
+
+    # 4. Litigated Scenario
+    lit_ctx = ParcelContext(
+        parcel_id="P-LIT-TEST",
+        mouza_id="m1",
+        mouza_name="ধানমন্ডি",
+        main_no=890,
+        area_decimal=12.0,
+        legal_cases=[
+            {
+                "id": "C1",
+                "case_no": "TS-42/2024",
+                "court": "১ম সহকারী জজ আদালত, ঢাকা",
+                "status": "stayed",
+                "type": "title_suit",
+                "summary": "স্থগিতাদেশ কার্যকর",
+            }
+        ],
+    )
+    lit_rep = await build_report(parcel_id="P-LIT-TEST", user_id=user_id, parcel_ctx=lit_ctx)
+    sec_lit = lit_rep["sections"]
+    assert sec_lit["litigation"]["status"].lower() in ("caution", "stop")
+    assert len(sec_lit["litigation"]["cases"]) == 1
+    assert sec_lit["traffic_light_summary"]["litigation"] in ("caution", "stop")
+
+    # 5. Combined Scenario
+    comb_ctx = ParcelContext(
+        parcel_id="P-COMB-TEST",
+        mouza_id="m1",
+        mouza_name="তেজগাঁও",
+        main_no=999,
+        area_decimal=50.0,
+        land_class="vested_property",
+        acquisition_status="under_acquisition",
+        acquisition_notice_no="LA-99",
+        acquisition_authority="ডিসি ঢাকা",
+        legal_cases=[{"id": "C2", "case_no": "INJ-1", "court": "আদালত", "status": "injunction"}],
+    )
+    comb_rep = await build_report(parcel_id="P-COMB-TEST", user_id=user_id, parcel_ctx=comb_ctx)
+    sec_comb = comb_rep["sections"]
+    assert sec_comb["traffic_light_summary"]["overall_status"] == "stop"
+    assert sec_comb["traffic_light_summary"]["khas"] == "stop"
+    assert sec_comb["traffic_light_summary"]["acquisition"] == "stop"
+    assert sec_comb["traffic_light_summary"]["litigation"] == "stop"
+    assert len(sec_comb["action_checklist"]) >= 3
+
+    # HTML rendering includes traffic lights and new sections
+    html = render_report_html(comb_rep)
+    assert "ট্রাফিক লাইট নিরীক্ষা সারসংক্ষেপ" in html
+    assert "মালিকানা পরম্পরা" in html
+    assert "নামজারি ইতিহাস" in html
+    assert "আদালতের মামলা ও স্থগিতাদেশ" in html
+    assert "সরকারি খাস ও অর্পিত সম্পত্তির তথ্য" in html
+    assert "ভূমি অধিগ্রহণ নোটিশের অবস্থা" in html

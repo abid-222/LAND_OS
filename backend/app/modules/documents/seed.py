@@ -30,6 +30,7 @@ from app.models import (  # noqa: E402
     Deed,
     KBArticle,
     LandRecord,
+    LegalCase,
     Mouza,
     Mutation,
     Office,
@@ -584,6 +585,15 @@ async def run_seed():
                         list(mouza_db_map.values())[0] if mouza_db_map else uuid.uuid4()
                     )
                     for p_item in c_parcels:
+                        acq_date = None
+                        if p_item.get("acquisition_notice_date"):
+                            try:
+                                acq_date = datetime.fromisoformat(
+                                    p_item["acquisition_notice_date"].replace("Z", "+00:00")
+                                )
+                            except Exception:
+                                pass
+
                         p_obj = Parcel(
                             parcel_id=p_item["parcel_id"],
                             record_id=None,
@@ -591,9 +601,38 @@ async def run_seed():
                             main_no=p_item["main_no"],
                             sub_no=p_item.get("sub_no"),
                             area_decimal=p_item["area_decimal"],
+                            land_class=p_item.get("land_class", "private"),
+                            acquisition_status=p_item.get("acquisition_status", "none"),
+                            acquisition_notice_no=p_item.get("acquisition_notice_no"),
+                            acquisition_notice_date=acq_date,
+                            acquisition_authority=p_item.get("acquisition_authority"),
                         )
                         session.add(p_obj)
                         await session.flush()
+
+                        for lc_item in p_item.get("legal_cases", []):
+                            f_date = None
+                            if lc_item.get("filed_date"):
+                                try:
+                                    f_date = datetime.fromisoformat(
+                                        lc_item["filed_date"].replace("Z", "+00:00")
+                                    )
+                                except Exception:
+                                    f_date = utc_now()
+
+                            session.add(
+                                LegalCase(
+                                    id=uuid.uuid4(),
+                                    parcel_id=p_item["parcel_id"],
+                                    case_no=lc_item["case_no"],
+                                    court=lc_item["court"],
+                                    case_type=lc_item.get("type", "title_suit"),
+                                    status=lc_item.get("status", "open"),
+                                    filed_date=f_date,
+                                    parties=lc_item.get("parties", ""),
+                                    summary=lc_item.get("summary", ""),
+                                )
+                            )
 
                         for d_item in p_item.get("deeds", []):
                             try:

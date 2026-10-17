@@ -547,10 +547,10 @@ export const SearchPage: React.FC<SearchPageProps> = ({
                         <button
                           type="button"
                           onClick={() => onNavigateToBuyerReport(cand.record_no || 'P-4520')}
-                          className="px-3 py-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 font-bold flex items-center gap-1.5 transition-all"
+                          className="px-3 py-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 font-bold flex items-center gap-1.5 transition-all shadow-sm"
                         >
                           <FileCheck2 className="w-3.5 h-3.5" />
-                          <span>{isBn ? 'বায়ার রিপোর্ট তৈরি' : 'Buyer Report'}</span>
+                          <span>{isBn ? 'কেনার আগে যাচাই করুন' : 'Check before you buy'}</span>
                         </button>
                       )}
 

@@ -234,6 +234,12 @@ def evaluate_all():
                     documents=p_dict.get("documents", []),
                     region_code=p_dict.get("region_code"),
                     all_registry_deeds=p_dict.get("all_registry_deeds", []),
+                    land_class=p_dict.get("land_class", "private"),
+                    acquisition_status=p_dict.get("acquisition_status", "none"),
+                    acquisition_notice_no=p_dict.get("acquisition_notice_no"),
+                    acquisition_notice_date=p_dict.get("acquisition_notice_date"),
+                    acquisition_authority=p_dict.get("acquisition_authority"),
+                    legal_cases=p_dict.get("legal_cases", []),
                 )
 
                 predicted_alerts = rule.run(ctx)

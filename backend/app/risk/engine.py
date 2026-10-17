@@ -13,7 +13,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from app.models import Alert, Deed, LandRecord, Mutation, Parcel
+from app.models import Alert, Deed, LandRecord, LegalCase, Mutation, Parcel
 from app.risk.rules import ALL_RULES, BaseRiskRule, ParcelContext, RuleAlert
 
 logger = logging.getLogger("landos.risk.engine")
@@ -149,10 +149,29 @@ class RiskEngine:
                 "deed_date": d.deed_date,
                 "registered_date": d.registered_date,
                 "seller": d.seller,
-                "buyer": d.buyer,
                 "parcel_id": d.parcel_id,
             }
             for d in gd_res.scalars().all()
+        ]
+        # 6. Load Legal Cases on this parcel
+        lc_stmt = (
+            select(LegalCase)
+            .where(LegalCase.parcel_id == parcel_id)
+            .order_by(LegalCase.filed_date.desc())
+        )
+        lc_res = await db.execute(lc_stmt)
+        legal_cases = [
+            {
+                "id": str(c.id),
+                "case_no": c.case_no,
+                "court": c.court,
+                "case_type": c.case_type,
+                "status": c.status,
+                "filed_date": c.filed_date,
+                "parties": c.parties,
+                "summary": c.summary,
+            }
+            for c in lc_res.scalars().all()
         ]
 
         mouza_name = parcel.mouza.name_bn if parcel.mouza else "অজ্ঞাত মৌজা"
@@ -169,6 +188,14 @@ class RiskEngine:
             mutations=mutations,
             documents=[],
             all_registry_deeds=all_registry_deeds,
+            land_class=getattr(parcel, "land_class", "private") or "private",
+            acquisition_status=getattr(parcel, "acquisition_status", "none") or "none",
+            acquisition_notice_no=getattr(parcel, "acquisition_notice_no", None),
+            acquisition_notice_date=str(parcel.acquisition_notice_date)
+            if getattr(parcel, "acquisition_notice_date", None)
+            else None,
+            acquisition_authority=getattr(parcel, "acquisition_authority", None),
+            legal_cases=legal_cases,
         )
 
     async def run_all(
