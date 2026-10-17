@@ -158,8 +158,9 @@ const AppContent: React.FC = () => {
       if (params?.documentId) setConfirmDocId(params.documentId);
       if (params?.recordId) setVerifyRecordId(params.recordId);
     }
-    if (tab === 'report') {
+    if (tab === 'report' || tab === 'buyer-report') {
       if (params?.parcelId) setSelectedParcelId(params.parcelId);
+      tab = 'report';
     }
     if (tab === 'alerts') {
       if (params?.parcelId) setSelectedParcelId(params.parcelId);
@@ -339,8 +340,8 @@ const AppContent: React.FC = () => {
           </div>
         )}
 
-        {/* Floating AI Land Guide Assistant */}
-        <ChatbotWidget />
+        {/* Floating AI Land Guide & Voice Assistant */}
+        <ChatbotWidget onNavigate={handleNavigate} />
 
         {/* Interactive Guided Tour Modal */}
         <DemoTourModal

@@ -19,8 +19,11 @@ import {
   Landmark,
   CheckSquare,
   ShieldAlert,
+  Shield,
+  Bell,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { api } from '../api/client';
 import { TrustBadge } from '../components/TrustBadge';
 import { DisclaimerBanner } from '../components/DisclaimerBanner';
 import type { TrustStatus } from '../types/trust';
@@ -283,6 +286,48 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
   const [copiedLink, setCopiedLink] = useState(false);
   const [expandedAlerts, setExpandedAlerts] = useState<Set<number>>(new Set());
   const isDark = typeof document !== 'undefined' ? document.documentElement.classList.contains('dark') : true;
+
+  // Parcel Guardian Watch state (P6)
+  const [isWatched, setIsWatched] = useState(false);
+  const [isWatchLoading, setIsWatchLoading] = useState(false);
+  const [watchMessage, setWatchMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const checkWatch = async () => {
+      try {
+        const res = await api.get<{ is_watched: boolean }>(`/api/v1/parcels/${selectedParcelId}/watch`);
+        setIsWatched(!!res.is_watched);
+      } catch {
+        setIsWatched(false);
+      }
+    };
+    checkWatch();
+  }, [selectedParcelId]);
+
+  const handleToggleWatch = async () => {
+    setIsWatchLoading(true);
+    try {
+      if (isWatched) {
+        await api.delete(`/api/v1/parcels/${selectedParcelId}/watch`);
+        setIsWatched(false);
+        setWatchMessage(isBn ? 'পার্সেল গার্ডিয়ান ওয়াচ নিষ্ক্রিয় করা হয়েছে।' : 'Parcel Guardian watch deactivated.');
+      } else {
+        const res = await api.post<{ confirmation_sms_bn?: string }>(`/api/v1/parcels/${selectedParcelId}/watch`);
+        setIsWatched(true);
+        setWatchMessage(
+          res.confirmation_sms_bn ||
+            (isBn
+              ? `[সিমুলেটেড এসএমএস] পার্সেল ${selectedParcelId}-এর জন্য গার্ডিয়ান ওয়াচ সক্রিয় হয়েছে!`
+              : `[Simulated SMS] Guardian watch active for ${selectedParcelId}!`)
+        );
+      }
+      setTimeout(() => setWatchMessage(null), 6000);
+    } catch (err) {
+      console.warn('Watch toggle failed:', err);
+    } finally {
+      setIsWatchLoading(false);
+    }
+  };
 
   const fetchOrCreateReport = async (parcelId: string) => {
     setIsLoading(true);
@@ -723,8 +768,27 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
           </p>
         </div>
 
-        {/* Action Buttons (Print / Share / 3D Map) */}
-        <div className="flex items-center gap-2 print:hidden self-end sm:self-auto">
+        {/* Action Buttons (Guardian Watch / Print / Share / 3D Map) */}
+        <div className="flex flex-wrap items-center gap-2 print:hidden self-end sm:self-auto">
+          {/* Parcel Guardian Watch Button */}
+          <button
+            onClick={handleToggleWatch}
+            disabled={isWatchLoading}
+            className={`touch-target px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 active:scale-95 transition-all border ${
+              isWatched
+                ? 'bg-purple-600 hover:bg-purple-500 text-white border-purple-500 shadow-sm shadow-purple-600/30'
+                : 'bg-purple-500/10 hover:bg-purple-500/20 text-purple-700 dark:text-purple-300 border-purple-500/30'
+            }`}
+            title={isWatched ? 'গার্ডিয়ান ওয়াচ বন্ধ করুন' : 'গার্ডিয়ান ওয়াচ চালু করুন'}
+          >
+            <Shield className={`w-3.5 h-3.5 ${isWatched ? 'fill-current' : ''}`} />
+            <span>
+              {isWatched
+                ? (isBn ? 'ওয়াচ সক্রিয় [সিমুলেটেড]' : 'Watching [Simulated]')
+                : (isBn ? 'গার্ডিয়ান ওয়াচ' : 'Guardian Watch')}
+            </span>
+          </button>
+
           {onNavigateToMap && (
             <button
               onClick={onNavigateToMap}
@@ -758,6 +822,22 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
           </button>
         </div>
       </div>
+
+      {/* Simulated Watch SMS Toast Alert */}
+      {watchMessage && (
+        <div className="p-3 mb-4 rounded-xl bg-purple-500/10 border border-purple-500/40 text-purple-700 dark:text-purple-300 text-xs flex items-center justify-between gap-3 animate-in fade-in slide-in-from-top-2">
+          <div className="flex items-center gap-2">
+            <Bell className="w-4 h-4 text-purple-500 shrink-0 animate-bounce" />
+            <span className="font-semibold">{watchMessage}</span>
+          </div>
+          <button
+            onClick={() => setWatchMessage(null)}
+            className="text-[10px] uppercase font-bold text-purple-400 hover:text-purple-200"
+          >
+            {isBn ? 'ঠিক আছে' : 'OK'}
+          </button>
+        </div>
+      )}
 
       {/* Fixed Legal Disclaimer */}
       <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border-2 border-amber-500/80 text-amber-900 dark:text-amber-200 text-xs mb-5 shadow-lg leading-relaxed">

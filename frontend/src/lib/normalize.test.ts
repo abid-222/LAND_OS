@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { normalizeIdentifier } from './normalize';
+import { normalizeIdentifier, normalizeSpokenBengali, parseVoiceCommand } from './normalize';
 import testCases from '../../../data/normalize_cases.json';
 
 describe('normalizeIdentifier Shared Contract', () => {
@@ -43,5 +43,32 @@ describe('normalizeIdentifier Shared Contract', () => {
     expect(res.normalizedValue).toBe('12345');
     expect(res.flagged).toBe(true);
     expect(res.flagReason).toBe('implausible');
+  });
+
+  it('normalizes spoken Bengali numerals and words', () => {
+    expect(normalizeSpokenBengali('চার পাঁচ দুই শূন্য')).toBe('4 5 2 0');
+    expect(normalizeSpokenBengali('দাগ নং ৪১২')).toBe('দাগ নং 412');
+    expect(normalizeSpokenBengali('খতিয়ান ১২০')).toBe('খতিয়ান 120');
+
+    // Voice command: buyer report
+    const cmd1 = parseVoiceCommand('জমি কেনার আগে যাচাই করুন পার্সেল P-4520');
+    expect(cmd1.intent).toBe('buyer_report');
+    expect(cmd1.parcelId).toBe('P-4520');
+
+    // Voice command: namjari track
+    const cmd2 = parseVoiceCommand('আমার নামজারি আবেদন NJ-2026-1001 কোথায়');
+    expect(cmd2.intent).toBe('namjari_track');
+    expect(cmd2.trackingCode).toBe('NJ-2026-1001');
+
+    // Voice command: parcel watch
+    const cmd3 = parseVoiceCommand('পার্সেল P-CLEAN-01 এর গার্ডিয়ান ওয়াচ চালু করুন');
+    expect(cmd3.intent).toBe('parcel_watch');
+    expect(cmd3.parcelId).toBe('P-CLEAN-01');
+
+    // Voice command: record search
+    const cmd4 = parseVoiceCommand('দাগ নম্বর ৪১২ এবং খতিয়ান ১২০ অনুসন্ধান');
+    expect(cmd4.intent).toBe('search_record');
+    expect(cmd4.dagNo).toBe('412');
+    expect(cmd4.khatianNo).toBe('120');
   });
 });

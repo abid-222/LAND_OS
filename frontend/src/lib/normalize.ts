@@ -241,3 +241,145 @@ export function normalizeIdentifier(
     flagReason,
   };
 }
+
+// -----------------------------------------------------------------------------
+// Voice Assistant & Spoken Numerals Parser (P6 "Parcel Guardian")
+// -----------------------------------------------------------------------------
+
+const SPOKEN_NUMERALS: Record<string, string> = {
+  'শূন্য': '0',
+  'এক': '1',
+  'দুই': '2',
+  'তিন': '3',
+  'চার': '4',
+  'পাঁচ': '5',
+  'ছয়': '6',
+  'ছয়': '6',
+  'সাত': '7',
+  'আট': '8',
+  'নয়': '9',
+  'নয়': '9',
+  'দশ': '10',
+};
+
+export function normalizeSpokenBengali(text: string): string {
+  if (!text) return '';
+  let result = text.normalize('NFC').replace(ZERO_WIDTH_REGEX, '').trim();
+
+  // Replace spoken number words when isolated or spaced
+  for (const [word, digit] of Object.entries(SPOKEN_NUMERALS)) {
+    const wordRegex = new RegExp(`(?:^|\\s)${word}(?=\\s|$)`, 'gi');
+    result = result.replace(wordRegex, (match) => match.replace(word, digit));
+  }
+
+  // Replace Bengali digits with ASCII digits
+  for (const [bDigit, aDigit] of Object.entries(BANGLA_DIGIT_MAP)) {
+    result = result.replace(new RegExp(bDigit, 'g'), aDigit);
+  }
+
+  return result;
+}
+
+export interface VoiceCommandIntent {
+  intent: 'search_record' | 'buyer_report' | 'namjari_track' | 'parcel_watch' | 'general_query';
+  parcelId?: string;
+  trackingCode?: string;
+  khatianNo?: string;
+  dagNo?: string;
+  mouza?: string;
+  normalizedQuery: string;
+}
+
+export function parseVoiceCommand(transcript: string): VoiceCommandIntent {
+  const normalized = normalizeSpokenBengali(transcript);
+  const lower = normalized.toLowerCase();
+
+  // 1. Check for Parcel Watch (checked before generic parcel terms)
+  if (
+    lower.includes('গার্ডিয়ান') ||
+    lower.includes('গার্ডিয়ান') ||
+    lower.includes('ওয়াচ') ||
+    lower.includes('ওয়াচ') ||
+    lower.includes('watch') ||
+    lower.includes('guardian')
+  ) {
+    const pMatch = normalized.match(/(?:p[-\s]?)?(\d{3,5}|clean[-\s]?\d+|khas[-\s]?\d+|lit[-\s]?\d+)/i);
+    const parcelId = pMatch ? (pMatch[1].toUpperCase().startsWith('P-') ? pMatch[1].toUpperCase() : `P-${pMatch[1].toUpperCase()}`) : 'P-4520';
+    return {
+      intent: 'parcel_watch',
+      parcelId,
+      normalizedQuery: normalized,
+    };
+  }
+
+  // 2. Check for Buyer Report / Pre-purchase check
+  if (
+    lower.includes('কেনার আগে') ||
+    lower.includes('ক্রেতা রিপোর্ট') ||
+    lower.includes('পূর্ব-যাচাই') ||
+    lower.includes('পূর্ব যাচাই') ||
+    lower.includes('buyer report') ||
+    lower.includes('check parcel') ||
+    lower.includes('যাচাই কর')
+  ) {
+    const pMatch = normalized.match(/(?:p[-\s]?)?(\d{3,5}|clean[-\s]?\d+|khas[-\s]?\d+|lit[-\s]?\d+)/i);
+    let parcelId: string | undefined;
+    if (pMatch) {
+      const rawId = pMatch[1].toUpperCase().replace(/\s+/g, '-');
+      parcelId = rawId.startsWith('P-') ? rawId : `P-${rawId}`;
+    } else {
+      parcelId = 'P-4520';
+    }
+    return {
+      intent: 'buyer_report',
+      parcelId,
+      normalizedQuery: normalized,
+    };
+  }
+
+  // 2. Check for Namjari Tracking
+  if (
+    lower.includes('নামজারি') ||
+    lower.includes('ট্র্যাকিং') ||
+    lower.includes('ট্র্যাক') ||
+    lower.includes('namjari') ||
+    lower.includes('tracking') ||
+    lower.includes('nj-')
+  ) {
+    const njMatch = normalized.match(/nj[-\s]?(\d{4}[-\s]?\d{3,4})|\b(\d{4})\b/i);
+    let trackingCode = 'NJ-2026-1001';
+    if (njMatch) {
+      if (njMatch[1]) {
+        trackingCode = `NJ-${njMatch[1].replace(/\s+/g, '-')}`;
+      } else if (njMatch[2]) {
+        trackingCode = `NJ-2026-${njMatch[2]}`;
+      }
+    }
+    return {
+      intent: 'namjari_track',
+      trackingCode,
+      normalizedQuery: normalized,
+    };
+  }
+
+  // 4. Check for Record Search (dag, khatian)
+  const dagMatch = normalized.match(/(?:দাগ|dag)\s*(?:নম্বর|নং|no\.?)?\s*[:\-.]*\s*(\d+)/i);
+  const khatianMatch = normalized.match(/(?:খতিয়ান|খতিয়ান|khatian)\s*(?:নম্বর|নং|no\.?)?\s*[:\-.]*\s*(\d+)/i);
+
+  if (dagMatch || khatianMatch) {
+    const dagNo = dagMatch ? dagMatch[1] : undefined;
+    const khatianNo = khatianMatch ? khatianMatch[1] : undefined;
+    return {
+      intent: 'search_record',
+      dagNo,
+      khatianNo,
+      normalizedQuery: normalized,
+    };
+  }
+
+  // 5. Default: General inquiry
+  return {
+    intent: 'general_query',
+    normalizedQuery: normalized,
+  };
+}

@@ -11,6 +11,8 @@ import asyncio
 import io
 import json
 import logging
+import os
+import sys
 import uuid
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
@@ -224,7 +226,7 @@ async def _enqueue_ocr_task(document_id: str, file_name: str):
     except Exception as e:
         logger.debug(f"Task enqueue notice (offline redis fallback): {e}")
 
-    if not enqueued:
+    if not enqueued and "pytest" not in sys.modules and os.environ.get("TESTING") != "true":
         asyncio.create_task(_run_inline_ocr(document_id, file_name))
 
 

@@ -544,7 +544,66 @@ async def seed():
         await session.commit()
         print(f"Seeded {len(demo_apps)} demo e-namjari applications with full timelines.")
 
-        # 8. KB Articles
+        # 8. Seed Parcel Guardian Watches & Simulated SMS Outbox (P6)
+        citizen_user_id = demo_user_map.get("Citizen")
+        if citizen_user_id:
+            watches = [
+                ParcelWatch(
+                    id=uuid.uuid4(),
+                    user_id=citizen_user_id,
+                    parcel_id="P-4520",
+                    is_active=True,
+                    created_at=now - timedelta(days=3),
+                ),
+                ParcelWatch(
+                    id=uuid.uuid4(),
+                    user_id=citizen_user_id,
+                    parcel_id="P-CLEAN-01",
+                    is_active=True,
+                    created_at=now - timedelta(days=2),
+                ),
+            ]
+            session.add_all(watches)
+
+            sms_notifications = [
+                SimulatedSMSOutbox(
+                    id=uuid.uuid4(),
+                    recipient_phone="01711-223344",
+                    parcel_id="P-4520",
+                    message_bn="[সিমুলেটেড এসএমএস] বাংলাদেশ ল্যান্ডওএস: পার্সেল P-4520-এর জন্য গার্ডিয়ান ওয়াচ সক্রিয় হয়েছে। নতুন কোনো নামজারি আবেদন বা বিরোধ আসলে অবহিত করা হবে।",
+                    tag="simulated",
+                    sent_at=now - timedelta(days=3),
+                ),
+                SimulatedSMSOutbox(
+                    id=uuid.uuid4(),
+                    recipient_phone="01711-223344",
+                    parcel_id="P-4520",
+                    message_bn="[সিমুলেটেড এসএমএস] ল্যান্ডওএস গার্ডিয়ান সতর্কতা: আপনার পর্যবেক্ষণকৃত পার্সেল P-4520-এ সম্ভাব্য দ্বৈত বিক্রয় অসঙ্গতি (R1) শনাক্ত হয়েছে। যাচাই করুন: landos.gov.bd",
+                    tag="simulated",
+                    sent_at=now - timedelta(days=1),
+                ),
+                SimulatedSMSOutbox(
+                    id=uuid.uuid4(),
+                    recipient_phone="01711-223344",
+                    parcel_id="P-CLEAN-01",
+                    message_bn="[সিমুলেটেড এসএমএস] বাংলাদেশ ল্যান্ডওএস: পার্সেল P-CLEAN-01-এর জন্য গার্ডিয়ান ওয়াচ সক্রিয় হয়েছে। নতুন কোনো পরিবর্তন হলে তাৎক্ষণিক জানানো হবে।",
+                    tag="simulated",
+                    sent_at=now - timedelta(days=2),
+                ),
+                SimulatedSMSOutbox(
+                    id=uuid.uuid4(),
+                    recipient_phone="01711-223344",
+                    parcel_id="P-CLEAN-01",
+                    message_bn="[সিমুলেটেড এসএমএস] বাংলাদেশ ল্যান্ডওএস: নামজারি আবেদন NJ-2026-1001 অনুমোদিত হয়েছে এবং খতিয়ান হালনাগাদ সম্পন্ন হয়েছে।",
+                    tag="simulated",
+                    sent_at=now - timedelta(hours=4),
+                ),
+            ]
+            session.add_all(sms_notifications)
+            await session.commit()
+            print(f"Seeded {len(watches)} parcel watches and {len(sms_notifications)} simulated SMS notifications.")
+
+        # 9. KB Articles
         kb_files = glob.glob(os.path.join(repo_root, "data", "kb", "*.md"))
         for f_path in kb_files:
             slug = os.path.splitext(os.path.basename(f_path))[0]

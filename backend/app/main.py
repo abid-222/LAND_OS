@@ -114,7 +114,7 @@ async def security_and_csrf_middleware(request: Request, call_next):
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-    response.headers["Permissions-Policy"] = "camera=(self), geolocation=(), microphone=()"
+    response.headers["Permissions-Policy"] = "camera=(self), geolocation=(), microphone=(self)"
     response.headers["Content-Security-Policy"] = (
         "default-src 'self'; frame-ancestors 'none'; img-src 'self' data: blob: https:;"
     )

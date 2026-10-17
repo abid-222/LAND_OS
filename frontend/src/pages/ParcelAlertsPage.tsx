@@ -12,6 +12,9 @@ import {
   Filter,
   ArrowLeft,
   ShieldAlert,
+  Bell,
+  MessageSquare,
+  Send,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -47,6 +50,15 @@ interface ParcelAlertsPageProps {
   onViewDocument?: (docId: string) => void;
 }
 
+export interface SimulatedSMSItem {
+  id: string;
+  recipient_phone: string;
+  parcel_id?: string;
+  message_bn: string;
+  tag: string;
+  sent_at: string;
+}
+
 const ITEMS_PER_PAGE = 5;
 
 export const ParcelAlertsPage: React.FC<ParcelAlertsPageProps> = ({
@@ -58,12 +70,18 @@ export const ParcelAlertsPage: React.FC<ParcelAlertsPageProps> = ({
   const { i18n } = useTranslation();
   const isBn = (i18n.language || 'bn').startsWith('bn');
 
+  const [activeTab, setActiveTab] = useState<'alerts' | 'outbox'>('alerts');
   const [alerts, setAlerts] = useState<ParcelAlertItem[]>([]);
   const [severityFilter, setSeverityFilter] = useState<'all' | AlertSeverity>('all');
   const [expandedAlertIds, setExpandedAlertIds] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Simulated SMS Outbox state (P6)
+  const [outboxItems, setOutboxItems] = useState<SimulatedSMSItem[]>([]);
+  const [isOutboxLoading, setIsOutboxLoading] = useState(false);
+  const [testSmsStatus, setTestSmsStatus] = useState<string | null>(null);
 
   // Staff review modal state
   const [actionAlert, setActionAlert] = useState<{ id: string; action: 'reviewed' | 'dismissed' } | null>(null);
@@ -173,6 +191,40 @@ export const ParcelAlertsPage: React.FC<ParcelAlertsPageProps> = ({
   useEffect(() => {
     fetchAlerts();
   }, [fetchAlerts]);
+
+  const fetchOutbox = useCallback(async () => {
+    setIsOutboxLoading(true);
+    try {
+      const res = await fetch(`/api/v1/alerts/outbox?parcel_id=${parcelId}`);
+      if (res.ok) {
+        const data: SimulatedSMSItem[] = await res.json();
+        setOutboxItems(data);
+      }
+    } catch (err) {
+      console.warn('Failed to fetch outbox:', err);
+    } finally {
+      setIsOutboxLoading(false);
+    }
+  }, [parcelId]);
+
+  useEffect(() => {
+    if (activeTab === 'outbox') {
+      fetchOutbox();
+    }
+  }, [activeTab, fetchOutbox]);
+
+  const handleSendTestSms = async () => {
+    try {
+      const res = await fetch(`/api/v1/parcels/${parcelId}/watch`, { method: 'POST' });
+      if (res.ok) {
+        setTestSmsStatus(isBn ? '[সিমুলেটেড এসএমএস] সতর্কবার্তা সফলভাবে প্রেরিত হয়েছে!' : '[Simulated SMS] Dispatched successfully!');
+        fetchOutbox();
+        setTimeout(() => setTestSmsStatus(null), 5000);
+      }
+    } catch {
+      setTestSmsStatus(isBn ? 'এসএমএস প্রেরণ ব্যর্থ' : 'SMS dispatch failed');
+    }
+  };
 
   const toggleExpand = (id: string) => {
     setExpandedAlertIds((prev) => {
@@ -289,6 +341,32 @@ export const ParcelAlertsPage: React.FC<ParcelAlertsPageProps> = ({
         </div>
       </div>
 
+      {/* View Switcher: Alerts vs Simulated SMS Outbox */}
+      <div className="flex items-center gap-2 mb-4 p-1 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs">
+        <button
+          onClick={() => setActiveTab('alerts')}
+          className={`flex-1 py-2 px-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all ${
+            activeTab === 'alerts'
+              ? 'bg-white dark:bg-slate-800 text-emerald-600 dark:text-emerald-400 shadow-sm'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+          }`}
+        >
+          <AlertTriangle className="w-4 h-4" />
+          <span>{isBn ? 'সতর্কতা তালিকা' : 'Risk Alerts'} ({alerts.length})</span>
+        </button>
+        <button
+          onClick={() => setActiveTab('outbox')}
+          className={`flex-1 py-2 px-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all ${
+            activeTab === 'outbox'
+              ? 'bg-white dark:bg-slate-800 text-purple-600 dark:text-purple-400 shadow-sm'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+          }`}
+        >
+          <Bell className="w-4 h-4" />
+          <span>{isBn ? 'সিমুলেটেড এসএমএস আউটবক্স' : 'Simulated SMS Outbox'} ({outboxItems.length})</span>
+        </button>
+      </div>
+
       {/* Epistemic Rule Notice */}
       <div className="p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-amber-300 dark:border-amber-500/30 text-xs text-slate-700 dark:text-slate-300 mb-4 leading-relaxed shadow-sm">
         <div className="flex items-start gap-2.5">
@@ -304,18 +382,20 @@ export const ParcelAlertsPage: React.FC<ParcelAlertsPageProps> = ({
         </div>
       </div>
 
-      {/* Filter Tabs by Severity */}
-      <div className="flex items-center gap-2 mb-4 overflow-x-auto pb-1 text-xs">
-        <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1 font-semibold pl-1 shrink-0">
-          <Filter className="w-3.5 h-3.5" /> {isBn ? 'ফিল্টার:' : 'Filter:'}
-        </span>
-        <button
-          onClick={() => {
-            setSeverityFilter('all');
-            setCurrentPage(1);
-          }}
-          className={`px-3 py-1.5 rounded-xl font-bold transition-colors shrink-0 ${
-            severityFilter === 'all'
+      {activeTab === 'alerts' && (
+        <>
+          {/* Filter Tabs by Severity */}
+          <div className="flex items-center gap-2 mb-4 overflow-x-auto pb-1 text-xs">
+            <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1 font-semibold pl-1 shrink-0">
+              <Filter className="w-3.5 h-3.5" /> {isBn ? 'ফিল্টার:' : 'Filter:'}
+            </span>
+            <button
+              onClick={() => {
+                setSeverityFilter('all');
+                setCurrentPage(1);
+              }}
+              className={`px-3 py-1.5 rounded-xl font-bold transition-colors shrink-0 ${
+                severityFilter === 'all'
               ? 'bg-emerald-600 text-white shadow-sm'
               : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:text-emerald-600'
           }`}
@@ -528,6 +608,82 @@ export const ParcelAlertsPage: React.FC<ParcelAlertsPageProps> = ({
           >
             {isBn ? 'পরবর্তী' : 'Next'}
           </button>
+        </div>
+      )}
+        </>
+      )}
+
+      {/* Simulated SMS Outbox View (P6) */}
+      {activeTab === 'outbox' && (
+        <div className="space-y-4">
+          <div className="p-4 rounded-2xl bg-purple-50 dark:bg-purple-950/30 border border-purple-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div>
+              <h3 className="text-xs font-bold text-purple-900 dark:text-purple-300 flex items-center gap-1.5">
+                <Bell className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                <span>{isBn ? 'পার্সেল গার্ডিয়ান এসএমএস বিজ্ঞপ্তি লগ' : 'Parcel Guardian SMS Notification Log'}</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30 font-mono">
+                  [সিমুলেটেড / Simulated]
+                </span>
+              </h3>
+              <p className="text-[11px] text-purple-700 dark:text-purple-300/80 mt-1">
+                {isBn
+                  ? 'এই পার্সেলটির জন্য প্রেরিত সকল স্বয়ংক্রিয় সতর্কবার্তা ও ই-নামজারি ট্র্যাকিং বিজ্ঞপ্তি।'
+                  : 'Automated mutation updates and discrepancy alerts dispatched for this parcel.'}
+              </p>
+            </div>
+
+            <button
+              onClick={handleSendTestSms}
+              className="px-3 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm active:scale-95 transition-all shrink-0"
+            >
+              <Send className="w-3.5 h-3.5" />
+              <span>{isBn ? 'টেস্ট এসএমএস পাঠান' : 'Dispatch Test Alert'}</span>
+            </button>
+          </div>
+
+          {testSmsStatus && (
+            <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-semibold animate-in fade-in">
+              {testSmsStatus}
+            </div>
+          )}
+
+          {isOutboxLoading ? (
+            <div className="p-8 text-center text-xs text-slate-400">
+              {isBn ? 'বিজ্ঞপ্তি লোড হচ্ছে...' : 'Loading notifications...'}
+            </div>
+          ) : outboxItems.length === 0 ? (
+            <div className="p-8 text-center rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-500 space-y-2">
+              <MessageSquare className="w-8 h-8 text-slate-400 mx-auto" />
+              <p>{isBn ? 'এখনও কোনো সিমুলেটেড এসএমএস প্রেরিত হয়নি।' : 'No simulated SMS notifications dispatched yet.'}</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {outboxItems.map((sms) => (
+                <div
+                  key={sms.id}
+                  className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-2"
+                >
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-mono font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+                      {sms.recipient_phone}
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 uppercase font-bold">
+                        {sms.tag}
+                      </span>
+                      <span className="text-[11px] text-slate-400 font-mono">
+                        {new Date(sms.sent_at).toLocaleTimeString(isBn ? 'bn-BD' : 'en-US', { hour: '2-digit', minute: '2-digit' })}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-slate-800 dark:text-slate-200 font-sans leading-relaxed">
+                    {sms.message_bn}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
