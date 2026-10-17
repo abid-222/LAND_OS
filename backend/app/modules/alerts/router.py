@@ -364,9 +364,7 @@ async def watch_parcel(
         watch.is_active = True
 
     recipient_phone = (
-        (payload and payload.phone)
-        or getattr(current_user, "phone", None)
-        or "01700-123456"
+        (payload and payload.phone) or getattr(current_user, "phone", None) or "01700-123456"
     )
     confirmation_msg = (
         f"[সিমুলেটেড এসএমএস] বাংলাদেশ ল্যান্ডওএস: পার্সেল {parcel_id}-এর জন্য গার্ডিয়ান ওয়াচ সক্রিয় হয়েছে। "
