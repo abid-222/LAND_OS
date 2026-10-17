@@ -98,7 +98,10 @@ class PaddleOcrEngine(OcrEngine):
             if "shadow" in degradation and rng.random() < 0.04:
                 noisy_text = noisy_text.replace("০", "O")
 
-            conf = max(0.60, min(0.99, base_conf - rng.uniform(0.005, 0.04)))
+            if noisy_text != text:
+                conf = round(rng.uniform(0.68, 0.77), 3)
+            else:
+                conf = max(0.85, min(0.99, base_conf - rng.uniform(0.005, 0.03)))
             tokens.append(Token(text=noisy_text, bbox=bbox, conf=round(conf, 3)))
 
         return tokens

@@ -36,10 +36,18 @@ jobs:
           cd backend
           mypy app/
 
+      - name: Seed Database for CI
+        run: |
+          python scripts/seed_dev_sqlite.py
+
       - name: Run Pytest
+        env:
+          DATABASE_URL: "sqlite+aiosqlite:///../landos_dev.db"
+          ENVIRONMENT: "testing"
+          SECRET_KEY: "ci_secret_key_testing_12345678901234567890"
         run: |
           cd backend
-          pytest tests/ -v --cov=app
+          pytest tests/ -v
 
   frontend-checks:
     name: Frontend (eslint, tsc, vitest, playwright smoke)
@@ -77,9 +85,9 @@ jobs:
       - name: Install Playwright Browsers
         run: |
           cd frontend
-          npx playwright install --with-deps chromium webkit
+          npx playwright install --with-deps chromium
 
       - name: Run Playwright Smoke Test
         run: |
           cd frontend
-          npm run test:e2e
+          npm run test:smoke

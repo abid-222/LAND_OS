@@ -37,10 +37,8 @@ class Settings(BaseSettings):
             return [str(item) for item in v]
         return []
 
-    # PostgreSQL Database
-    DATABASE_URL: str = (
-        "postgresql+asyncpg://landos_user:landos_dev_password@localhost:5432/landos_db"
-    )
+    # Database (Defaults to SQLite for CI/local offline resilience; overridden by env/PostgreSQL in prod)
+    DATABASE_URL: str = "sqlite+aiosqlite:///landos_dev.db"
 
     @field_validator("DATABASE_URL", mode="before")
     def assemble_db_url(cls, v: str) -> str:

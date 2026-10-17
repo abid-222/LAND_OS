@@ -293,8 +293,9 @@ def evaluate_all():
         if res_ar.area_decimal is not None and abs(res_ar.area_decimal - exp_val) < 1e-2:
             area_hits += 1
     area_fea = round(area_hits / len(sample_areas), 4)
-
-    verification_accuracy = 0.985
+    v_total = len(sample_names) + len(sample_areas)
+    v_correct = name_hits + area_hits
+    verification_accuracy = round(v_correct / max(1, v_total), 4)
     logger.info(f"Party Names Normalization FEA: {party_names_fea*100:.1f}%")
     logger.info(f"Area Extraction & Conversion FEA: {area_fea*100:.1f}%")
     logger.info(f"Verification Comparison Accuracy: {verification_accuracy*100:.1f}%")
