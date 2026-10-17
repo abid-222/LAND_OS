@@ -22,9 +22,9 @@ class PIIScrubFilter(logging.Filter):
         if isinstance(record.msg, str):
             record.msg = self.scrub(record.msg)
         if record.args and isinstance(record.args, dict):
-            record.args = {k: self.scrub(str(v)) for k, v in record.args.items()}
+            record.args = {k: (self.scrub(v) if isinstance(v, str) else v) for k, v in record.args.items()}
         elif record.args and isinstance(record.args, tuple):
-            record.args = tuple(self.scrub(str(a)) for a in record.args)
+            record.args = tuple(self.scrub(a) if isinstance(a, str) else a for a in record.args)
         return True
 
     @staticmethod

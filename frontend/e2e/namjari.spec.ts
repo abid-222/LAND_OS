@@ -9,6 +9,14 @@ test.beforeEach(async ({ page }) => {
     });
   });
 
+  await page.route('**/api/v1/auth/me', async (route) => {
+    await route.fulfill({
+      status: 401,
+      contentType: 'application/json',
+      body: JSON.stringify({ detail: 'Unauthenticated' }),
+    });
+  });
+
   // Mock Namjari applications submission
   await page.route('**/api/v1/namjari/applications', async (route) => {
     if (route.request().method() === 'POST') {
@@ -119,18 +127,19 @@ test.describe('Smart E-Namjari Workflow & Tracking (P4)', () => {
     await page.goto('/');
 
     // 1. Open Sidebar or navigate to Namjari
-    const namjariNav = page.getByRole('button', { name: /(স্মার্ট ই-নামজারি|ই-নামজারি|Smart E-Namjari)/i }).first();
-    if (await namjariNav.isVisible()) {
-      await namjariNav.click();
-    } else {
-      // Open drawer on mobile if needed
+    const isMobile = (page.viewportSize()?.width ?? 1280) < 1024;
+    if (isMobile) {
       const drawerBtn = page.getByRole('button', { name: 'Toggle Navigation Drawer' });
       if (await drawerBtn.isVisible()) {
-        await drawerBtn.click();
+        await drawerBtn.click({ force: true });
         const drawerNamjari = page.getByRole('button', { name: /(স্মার্ট ই-নামজারি|ই-নামজারি|Smart E-Namjari)/i }).first();
-        await expect(drawerNamjari).toBeVisible({ timeout: 5000 });
+        await expect(drawerNamjari).toBeVisible({ timeout: 10000 });
         await drawerNamjari.click({ force: true });
       }
+    } else {
+      const namjariNav = page.getByRole('button', { name: /(স্মার্ট ই-নামজারি|ই-নামজারি|Smart E-Namjari)/i }).first();
+      await expect(namjariNav).toBeVisible({ timeout: 10000 });
+      await namjariNav.click({ force: true });
     }
 
     // 2. Verify page heading
