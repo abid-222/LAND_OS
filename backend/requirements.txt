@@ -36,6 +36,8 @@ httpx>=0.27.0,<0.28.0
 ruff>=0.3.3,<0.4.0
 mypy>=1.9.0,<2.0.0
 aiosqlite>=0.20.0
+PyYAML>=6.0.1
+types-PyYAML>=6.0.12.20240311
 
 # Synthetic Generation & Image Processing
 faker>=24.0.0
