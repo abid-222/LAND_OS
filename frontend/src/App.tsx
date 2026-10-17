@@ -320,13 +320,15 @@ const AppContent: React.FC = () => {
           </Suspense>
         </main>
 
-        {/* Mobile & Tablet Quick Bottom Navigation */}
+        {/* Mobile & Tablet Quick Bottom Navigation (Strictly hidden on web/desktop) */}
         {!['confirm', 'verify'].includes(activeTab) && (
-          <BottomNav
-            activeTab={activeTab}
-            onTabChange={handleNavigate}
-            pendingCount={pendingCount}
-          />
+          <div className="md:hidden">
+            <BottomNav
+              activeTab={activeTab}
+              onTabChange={handleNavigate}
+              pendingCount={pendingCount}
+            />
+          </div>
         )}
 
         {/* Floating AI Land Guide Assistant */}

@@ -15,6 +15,7 @@ import {
   Check,
   Copy,
   ScanEye,
+  ArrowLeft,
 } from 'lucide-react';
 import { api, ApiError } from '../api/client';
 import { VisualDeedHeatmapScanner } from './VisualDeedHeatmapScanner';
@@ -93,12 +94,17 @@ export interface GuideAskResponse {
   last_verified_at?: string | null;
 }
 
-export const MLPlayground: React.FC = () => {
+export interface MLPlaygroundProps {
+  onBack?: () => void;
+  initialTab?: 'visual_heatmap' | 'extract' | 'conflict' | 'guide';
+}
+
+export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab = 'visual_heatmap' }) => {
   const { i18n } = useTranslation();
   const isBn = (i18n.language || 'bn').startsWith('bn');
 
-  // Active Tab: 'extract' | 'conflict' | 'guide' | 'visual_heatmap'
-  const [activeTab, setActiveTab] = useState<'extract' | 'conflict' | 'guide' | 'visual_heatmap'>('visual_heatmap');
+  // Active Tab: 'visual_heatmap' | 'extract' | 'conflict' | 'guide'
+  const [activeTab, setActiveTab] = useState<'visual_heatmap' | 'extract' | 'conflict' | 'guide'>(initialTab);
 
   // ---------------------------------------------------------------------------
   // Module 1: Entity Extraction States
@@ -258,81 +264,92 @@ export const MLPlayground: React.FC = () => {
 
   return (
     <div className="w-full space-y-6">
-      {/* Top Header Card */}
-      <div className="p-6 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950 border border-emerald-500/30 text-white shadow-xl relative overflow-hidden">
-        <div className="absolute right-0 top-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Sleek Top Studio Command Header & Navigation */}
+      <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-950 to-emerald-950 border border-emerald-500/30 text-white shadow-xl relative overflow-hidden">
+        <div className="absolute right-0 top-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold uppercase tracking-wider">
-              <Cpu className="w-3.5 h-3.5" />
-              <span>Interactive Machine Learning Studio</span>
+          <div className="flex items-start gap-3">
+            {onBack && (
+              <button
+                onClick={onBack}
+                className="mt-1 p-2 rounded-xl text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
+                title="Return to Home"
+              >
+                <ArrowLeft className="w-4 h-4" />
+              </button>
+            )}
+            <div className="space-y-1">
+              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[11px] font-bold uppercase tracking-wider">
+                <Cpu className="w-3.5 h-3.5" />
+                <span>AI & Forensic Machine Learning Studio</span>
+              </div>
+              <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-2">
+                <span>{isBn ? 'ল্যান্ডওএস ইন্টেলিজেন্ট এআই ও এমএল স্টুডিও' : 'LandOS Intelligent AI & ML Studio'}</span>
+              </h1>
+              <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
+                {isBn
+                  ? 'লাইভ দলিল ভিজ্যুয়াল হিটম্যাপ, বাংলা এনএলপি টেক্সট এক্সট্রাকশন এবং ৬-দফা জালিয়াতি যাচাইয়ের একক কমান্ড সেন্টার।'
+                  : 'Live visual deed heatmap, Bangla NLP extraction, and 6-stage anti-fraud conflict simulation engine.'}
+              </p>
             </div>
-            <h2 className="text-xl sm:text-2xl font-black tracking-tight">
-              {isBn ? 'ল্যান্ডওএস ইন্টেলিজেন্ট এমএল প্লেগ্রাউন্ড' : 'LandOS Intelligent ML Playground'}
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-              {isBn
-                ? 'এখানে আপনি নিজের বাংলা দলিল, পরচা বা নামজারির তথ্য প্রদান করে রিয়েল-টাইম এআই এক্সট্রাকশন ও ৬-দফা জালিয়াতি সিমুলেশন পরীক্ষা করতে পারবেন।'
-                : 'Apply your own custom land text, transaction dates, and acreage to extract structured entities and simulate fraud conflict rules.'}
-            </p>
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-[11px] font-mono px-3 py-1.5 rounded-xl bg-black/40 border border-emerald-500/30 text-emerald-400">
-              Pipeline: LandOS-NLP-v3.2
+            <span className="text-[11px] font-mono px-3 py-1.5 rounded-xl bg-black/60 border border-emerald-500/30 text-emerald-400 font-bold">
+              Engine: PaddleOCR-v4 + NLP-v3.2
             </span>
           </div>
         </div>
 
-        {/* Feature Navigation Tabs */}
-        <div className="flex items-center gap-2 mt-6 pt-4 border-t border-slate-800/80 overflow-x-auto no-scrollbar">
+        {/* Floating Segmented Navigation Tabs */}
+        <div className="flex items-center gap-2 mt-5 pt-4 border-t border-slate-800/80 overflow-x-auto no-scrollbar">
+          <button
+            onClick={() => setActiveTab('visual_heatmap')}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
+              activeTab === 'visual_heatmap'
+                ? 'bg-rose-600 text-white shadow-lg shadow-rose-600/30 font-black ring-1 ring-rose-400'
+                : 'bg-black/40 text-slate-300 hover:bg-black/60 border border-slate-800'
+            }`}
+          >
+            <ScanEye className="w-4 h-4 text-rose-300" />
+            <span>{isBn ? '১. লাইভ দলিল ভিজ্যুয়াল হিটম্যাপ (Visual OCR)' : '1. Visual Deed Heatmap'}</span>
+          </button>
+
           <button
             onClick={() => setActiveTab('extract')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 ${
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
               activeTab === 'extract'
                 ? 'bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/25 font-black'
                 : 'bg-black/40 text-slate-300 hover:bg-black/60 border border-slate-800'
             }`}
           >
             <FileText className="w-4 h-4" />
-            <span>{isBn ? '১. বাংলা দলিল ও পরচা নিষ্কাশন (NLP Extractor)' : '1. Document NLP Extractor'}</span>
+            <span>{isBn ? '২. বাংলা দলিল ও পরচা নিষ্কাশন (NLP Extractor)' : '2. Document NLP Extractor'}</span>
           </button>
 
           <button
             onClick={() => setActiveTab('conflict')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 ${
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
               activeTab === 'conflict'
                 ? 'bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/25 font-black'
                 : 'bg-black/40 text-slate-300 hover:bg-black/60 border border-slate-800'
             }`}
           >
             <ShieldAlert className="w-4 h-4" />
-            <span>{isBn ? '২. R1-R6 কনফ্লিক্ট সিমুলেটর (Fraud Engine)' : '2. R1-R6 Conflict Simulator'}</span>
+            <span>{isBn ? '৩. R1-R6 কনফ্লিক্ট সিমুলেটর (Fraud Engine)' : '3. R1-R6 Conflict Simulator'}</span>
           </button>
 
           <button
             onClick={() => setActiveTab('guide')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 ${
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
               activeTab === 'guide'
                 ? 'bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/25 font-black'
                 : 'bg-black/40 text-slate-300 hover:bg-black/60 border border-slate-800'
             }`}
           >
             <Scale className="w-4 h-4" />
-            <span>{isBn ? '৩. গ্রাউন্ডেড ভূমি আইন ও নির্দেশিকা (Semantic RAG)' : '3. Grounded Legal RAG'}</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('visual_heatmap')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 ${
-              activeTab === 'visual_heatmap'
-                ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/25 font-black'
-                : 'bg-black/40 text-slate-300 hover:bg-black/60 border border-slate-800'
-            }`}
-          >
-            <ScanEye className="w-4 h-4 text-rose-400" />
-            <span>{isBn ? '৪. লাইভ দলিল ভিজ্যুয়াল হিটম্যাপ (Visual OCR & Tamper)' : '4. Visual OCR Forensics'}</span>
+            <span>{isBn ? '৪. গ্রাউন্ডেড ভূমি আইন ও নির্দেশিকা (Semantic RAG)' : '4. Grounded Legal RAG'}</span>
           </button>
         </div>
       </div>

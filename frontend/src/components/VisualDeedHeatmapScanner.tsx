@@ -6,7 +6,6 @@ import {
   AlertTriangle,
   CheckCircle2,
   XCircle,
-  Scan,
   Scale,
   ShieldAlert,
   Flame,
@@ -163,37 +162,11 @@ export const VisualDeedHeatmapScanner: React.FC = () => {
 
   return (
     <div className="w-full space-y-6">
-      {/* Top Banner & Preset Controls */}
-      <div className="p-6 rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 border border-emerald-500/30 text-white shadow-2xl relative overflow-hidden">
-        <div className="absolute right-0 top-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold uppercase tracking-wider">
-              <Scan className="w-3.5 h-3.5" />
-              <span>Side-by-Side Visual Heatmap & Forgery Forensics</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl font-black tracking-tight">
-              {isBn ? 'লাইভ দলিল ভিজ্যুয়াল হিটম্যাপ স্ক্যানার' : 'Visual Deed OCR Heatmap & Tamper Scanner'}
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-              {isBn
-                ? 'মূল দলিলের ছবির উপর বাউন্ডিং বক্স বিশ্লেষণ করে স্বয়ংক্রিয়ভাবে ঘষামাজা, ওভাররাইট ও অবৈধ জমি বিক্রয়ের জালিয়াতি লাল সতর্কবার্তায় শনাক্ত করুন।'
-                : 'Interactive visual bounding boxes inspect scanned deeds side-by-side with official government land databases in real-time.'}
-            </p>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-mono px-3 py-1.5 rounded-xl bg-black/50 border border-emerald-500/30 text-emerald-400">
-              OCR Engine: CRNN + PaddleOCR-v4
-            </span>
-          </div>
-        </div>
-
-        {/* Demo Presets Bar */}
-        <div className="flex flex-wrap items-center gap-2.5 mt-5 pt-4 border-t border-slate-800/80">
-          <span className="text-xs font-bold text-slate-400">
-            {isBn ? 'ডেমো পরীক্ষা মোড:' : 'Inspection Preset:'}
+      {/* Precision Forensic Presets & Real-Time Engine Toolbar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-900/90 dark:bg-[#070c14]/90 border border-slate-200 dark:border-emerald-500/20 text-slate-800 dark:text-white shadow-md backdrop-blur-xl">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-xs font-bold text-slate-500 dark:text-slate-400 pl-1">
+            {isBn ? 'ফরেনসিক মোড:' : 'Preset:'}
           </span>
 
           <button
@@ -202,11 +175,11 @@ export const VisualDeedHeatmapScanner: React.FC = () => {
             className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 ${
               activePreset === 'tampered'
                 ? 'bg-rose-600 text-white shadow-lg shadow-rose-600/30 ring-2 ring-rose-400 animate-pulse'
-                : 'bg-black/50 text-rose-300 hover:bg-black/70 border border-rose-500/40'
+                : 'bg-black/30 dark:bg-black/60 text-rose-400 hover:bg-black/50 border border-rose-500/30'
             }`}
           >
-            <Flame className="w-3.5 h-3.5 fill-current" />
-            <span>{isBn ? '🔥 কিলার ডেমো: ঘষামাজা ও জাল জমি বিক্রয়' : '🔥 Tampered Deed Forgery Demo'}</span>
+            <Flame className="w-3.5 h-3.5 fill-current text-rose-200" />
+            <span>{isBn ? '🔥 জাল দলিল (ঘষামাজা টেস্ট)' : '🔥 Tampered Deed Demo'}</span>
           </button>
 
           <button
@@ -215,11 +188,11 @@ export const VisualDeedHeatmapScanner: React.FC = () => {
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
               activePreset === 'clean'
                 ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/30 ring-2 ring-emerald-400'
-                : 'bg-black/50 text-slate-300 hover:bg-black/70 border border-slate-800'
+                : 'bg-black/30 dark:bg-black/60 text-slate-300 hover:bg-black/50 border border-slate-700'
             }`}
           >
             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-            <span>{isBn ? 'বৈধ সাফ-কবলা দলিল (তেজগাঁও ১২০৫/১ - Clean)' : 'Clean Deed (100% Match)'}</span>
+            <span>{isBn ? 'বৈধ সাফ-কবলা দলিল (তেজগাঁও ১২০৫/১)' : 'Clean Deed (100% Match)'}</span>
           </button>
 
           <button
@@ -228,12 +201,28 @@ export const VisualDeedHeatmapScanner: React.FC = () => {
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
               activePreset === 'porcha'
                 ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-600/30 ring-2 ring-cyan-400'
-                : 'bg-black/50 text-slate-300 hover:bg-black/70 border border-slate-800'
+                : 'bg-black/30 dark:bg-black/60 text-slate-300 hover:bg-black/50 border border-slate-700'
             }`}
           >
             <FileText className="w-3.5 h-3.5 text-cyan-400" />
-            <span>{isBn ? 'আরএস পরচা ও খতিয়ান (জিনজিরা ৪২০/৩)' : 'RS Porcha Record'}</span>
+            <span>{isBn ? 'আরএস পরচা ও খতিয়ান (জিনজিরা)' : 'RS Porcha Record'}</span>
           </button>
+        </div>
+
+        <div className="flex items-center gap-2 text-xs font-mono">
+          <span className="hidden sm:inline-block px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[11px] font-bold">
+            OCR: CRNN + PaddleOCR-v4
+          </span>
+          <span
+            className={`px-2.5 py-1 rounded-lg border text-[11px] font-bold flex items-center gap-1.5 ${
+              forensicsData?.has_tampering
+                ? 'bg-rose-500/20 border-rose-500/40 text-rose-700 dark:text-rose-300'
+                : 'bg-emerald-500/20 border-emerald-500/40 text-emerald-700 dark:text-emerald-300'
+            }`}
+          >
+            <span className={`w-2 h-2 rounded-full ${forensicsData?.has_tampering ? 'bg-rose-500 animate-ping' : 'bg-emerald-500'}`} />
+            <span>{forensicsData?.has_tampering ? (isBn ? 'টেম্পারিং শনাক্ত' : 'Tamper Detected') : (isBn ? '১০০% ভেরিফাইড' : 'Verified')}</span>
+          </span>
         </div>
       </div>
 
