@@ -60,13 +60,21 @@ const resources = {
   },
 };
 
+const initialLng = (typeof window !== 'undefined' && localStorage.getItem('landos-lng')) || 'bn';
+
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'bn', // Bangla first by default
+  lng: initialLng,
   fallbackLng: 'en',
   interpolation: {
     escapeValue: false,
   },
 });
+
+if (typeof window !== 'undefined') {
+  i18n.on('languageChanged', (lng) => {
+    localStorage.setItem('landos-lng', lng);
+  });
+}
 
 export default i18n;

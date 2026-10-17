@@ -16,6 +16,7 @@ import {
   ArrowRight,
   Compass,
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { DisclaimerBanner } from '../components/DisclaimerBanner';
 
 interface CitationSource {
@@ -38,11 +39,15 @@ interface LegalArticle {
   id: string;
   category: 'mutation' | 'khatian' | 'tax' | 'deed' | 'dispute';
   titleBn: string;
+  titleEn: string;
   actBn: string;
+  actEn: string;
   sourceUrl: string;
   verifiedAt: string;
   summaryBn: string;
-  keySteps: string[];
+  summaryEn: string;
+  keyStepsBn: string[];
+  keyStepsEn: string[];
 }
 
 const LEGAL_ARTICLES: LegalArticle[] = [
@@ -50,90 +55,144 @@ const LEGAL_ARTICLES: LegalArticle[] = [
     id: 'kb-001',
     category: 'mutation',
     titleBn: 'ই-নামজারি ও জমাভাগ আবেদন প্রক্রিয়া',
+    titleEn: 'E-Mutation and Separation of Holding Process',
     actBn: 'রাষ্ট্রীয় অধিগ্রহণ ও প্রজাস্বত্ব আইন ১৯৫০ (ধারা ১১৬, ১১৭) ও ই-নামজারি সার্কুলার ২০২৩',
+    actEn: 'State Acquisition and Tenancy Act 1950 (Sec 116, 117) & E-Mutation Circular 2023',
     sourceUrl: 'https://mutation.land.gov.bd',
     verifiedAt: '২০২৬-০৩-০১',
     summaryBn: 'জমি ক্রয়ের পর সহকারী কমিশনার (ভূমি) কার্যালয় থেকে রেকর্ড সংশোধন করে নিজ নামে খতিয়ান খোলার সরকারি পদ্ধতি।',
-    keySteps: [
+    summaryEn: 'Official process to update records and issue a new Khatian under the buyer name via AC (Land) office.',
+    keyStepsBn: [
       'অনলাইনে mutation.land.gov.bd পোর্টালে জাতীয় পরিচয়পত্র ও মূল দলিল দিয়ে আবেদন',
       'ইউনিয়ন ভূমি সহকারী কর্মকর্তা (তহশিলদার) কর্তৃক প্রস্তাবনা প্রতিবেদন প্রস্তুত',
       'এসিল্যান্ড কর্তৃক শুনানির নোটিশ ও পক্ষগণের উপস্থিতি',
       'চূড়ান্ত খতিয়ান অনুমোদন ও ডিসিআর (DCR) ফি পরিশোধ',
+    ],
+    keyStepsEn: [
+      'Apply online at mutation.land.gov.bd with NID and registered deed',
+      'Field verification & proposal report by Union Land Assistant Officer (Tahshildar)',
+      'Hearing notice issued by AC (Land) and presence of relevant parties',
+      'Final Khatian approval and payment of DCR fees',
     ],
   },
   {
     id: 'kb-004',
     category: 'khatian',
     titleBn: 'ঐতিহাসিক জরিপ খতিয়ানের পরিচয়: সিএস, এসএ, আরএস ও বিএস',
+    titleEn: 'Survey Types Overview: CS, SA, RS, and BS',
     actBn: 'বেঙ্গল টেন্যান্সি অ্যাক্ট ১৮৮৫ এবং ভূমি রেকর্ড ও জরিপ অধিদপ্তর ম্যানুয়াল',
+    actEn: 'Bengal Tenancy Act 1885 and DLRS Survey Manual',
     sourceUrl: 'https://dlrs.gov.bd/site/page/survey-types',
     verifiedAt: '২০২৬-০২-১৫',
     summaryBn: 'সিএস জরিপ থেকে বর্তমান বিএস/সিটি জরিপ পর্যন্ত চার স্তরের জরিপ খতিয়ানের আইনি কার্যকারিতা ও গুরুত্ব।',
-    keySteps: [
+    summaryEn: 'Legal validity and significance across the four tiers of land surveys from CS to modern BS/City surveys.',
+    keyStepsBn: [
       'সিএস (CS): ১৮৮৮-১৯৪০ ব্রিটিশ আমলের প্রথম বৈজ্ঞানিক সীমানা ও মৌজা নকশা',
       'এসএ (SA): ১৯৫০ সালের জমিদারী অধিগ্রহণ পরবর্তী প্রজাস্বত্ব খতিয়ান',
       'আরএস (RS): এসএ-র ভুল সংশোধনমূলক রিভিশনাল সার্ভে বালাম',
       'বিএস/সিটি জরিপ (BS): স্বাধীন বাংলাদেশে প্রস্তুতকৃত আধুনিক ডিজিটাল জরিপ',
+    ],
+    keyStepsEn: [
+      'CS: 1888-1940 First cadastral survey with scientific mouza mapping',
+      'SA: 1950 State acquisition following abolition of zamindari system',
+      'RS: Revisional survey rectifying discrepancies of SA records',
+      'BS / City Survey: Modern cadastral survey implemented in Bangladesh',
     ],
   },
   {
     id: 'kb-007',
     category: 'deed',
     titleBn: 'সাব-রেজিস্ট্রি অফিসে বায়া দলিল ও রেকর্ড তল্লাশি',
+    titleEn: 'Chain of Title (Baya Deed) & Record Inspection at Sub-Registry',
     actBn: 'রেজিস্ট্রেশন আইন ১৯০৮ (ধারা ৫৭) ও সম্পত্তি হস্তান্তর আইন ১৮৮২',
+    actEn: 'Registration Act 1908 (Sec 57) & Transfer of Property Act 1882',
     sourceUrl: 'https://minland.gov.bd',
     verifiedAt: '২০২৬-০৩-১০',
     summaryBn: 'জমি ক্রয়ের পূর্বে বিগত ২৫ বছরের মালিকানা হস্তান্তরের ধারাবাহিকতা ও বালাম বই যাচাইয়ের নিয়মাবলী।',
-    keySteps: [
+    summaryEn: 'Guidelines for inspecting Balam registers and verifying 25-year unbroken ownership chain prior to deed execution.',
+    keyStepsBn: [
       'দলিল গ্রহীতা ও দাতার নামের সঠিক বানান ও তফসিল বিবরণী মেলানো',
       'সাব-রেজিস্ট্রি অফিসের ইনডেক্স ও বালাম বহিতে দলিল নম্বরের রেকর্ড যাচাই',
       'বালামে কোনো প্রকার কাটাকাটি বা অস্পষ্টতা থাকলে সার্টিফাইড কপির আবেদন',
       'দাতা অন্য কারও কাছে পূর্বে বায়না বা বন্ধক রেখেছেন কিনা এনকামব্রেন্স সার্টিফিকেট নেওয়া',
+    ],
+    keyStepsEn: [
+      'Cross-check exact spelling of buyer/seller names and schedule of land',
+      'Inspect deed numbers against Sub-Registry indices and Balam volumes',
+      'Apply for certified copies if any alteration or ambiguity is found',
+      'Obtain non-encumbrance certificate verifying absence of prior mortgage or sale agreement',
     ],
   },
   {
     id: 'kb-005',
     category: 'tax',
     titleBn: 'ভূমি উন্নয়ন কর (খাজনা) পরিশোধ ও দাখিলা সংগ্রহ',
+    titleEn: 'Land Development Tax Payment & Digital Dakhila Collection',
     actBn: 'ভূমি উন্নয়ন কর আইন ২০২৩',
+    actEn: 'Land Development Tax Act 2023',
     sourceUrl: 'https://ldtax.gov.bd',
     verifiedAt: '২০২৬-০২-২৮',
     summaryBn: 'অনলাইনে হোল্ডিং এন্ট্রি এবং প্রতি অর্থবছর হালনাগাদ খাজনা পরিশোধের ডিজিটাল দাখিলা যাচাই।',
-    keySteps: [
+    summaryEn: 'Digital holding registration and electronic payment verification of annual land revenue on ldtax.gov.bd.',
+    keyStepsBn: [
       'ldtax.gov.bd তে নাগরিক অ্যাকাউন্ট তৈরি ও জাতীয় পরিচয়পত্র ভেরিফিকেশন',
       'খতিয়ান ও দাগ নম্বর দিয়ে হোল্ডিং সংযোজন',
       'বকেয়া কর হিসাব ও বিকাশ/নগদ/কার্ডের মাধ্যমে ই-পেমেন্ট',
       'কিউআর কোড সম্বলিত ডিজিটাল দাখিলা (Dakhila) প্রিন্ট ও সংরক্ষণ',
+    ],
+    keyStepsEn: [
+      'Register citizen account on ldtax.gov.bd and complete NID verification',
+      'Link holding using Khatian and Dag plot numbers',
+      'Calculate dues and complete e-payment via bKash/Nagad/Card',
+      'Download and retain the QR-verifiable digital tax receipt (Dakhila)',
     ],
   },
   {
     id: 'kb-012',
     category: 'dispute',
     titleBn: 'ভূমি বিরোধ, স্বত্ব মামলা ও দেওয়ানি প্রতিকার',
+    titleEn: 'Land Disputes, Title Suits, and Civil Remedies',
     actBn: 'সুনির্দিষ্ট প্রতিকার আইন ১৮৭৭ (ধারা ৮, ৯, ৪২) ও দেওয়ানি কার্যবিধি ১৯০৮',
+    actEn: 'Specific Relief Act 1877 (Sec 8, 9, 42) & Code of Civil Procedure 1908',
     sourceUrl: 'https://lawjusticediv.gov.bd',
     verifiedAt: '২০২৬-০১-২০',
     summaryBn: 'সীমানা দখল বেদখল, জাল দলিল বাতিল ও স্বত্ব ঘোষণার মোকদ্দমা পরিচালনার প্রাথমিক আইনি তথ্য।',
-    keySteps: [
+    summaryEn: 'Essential legal roadmap for dispossession remedies, fraudulent deed cancellation, and declaration of title.',
+    keyStepsBn: [
       'শান্তিশৃঙ্খলা ভঙ্গের আশঙ্কায় ফৌজদারি কার্যবিধির ১৪৪/১৪৫ ধারায় আবেদন',
       'সহকারী জজ আদালতে স্বত্ব ঘোষণা ও চিরস্থায়ী নিষেধাজ্ঞার মোকদ্দমা',
       'দলিল বাতিলের জন্য সুনির্দিষ্ট প্রতিকার আইনের ৩৯ ধারায় মামলা দায়ের',
       'মাঠপর্যায়ে দেওয়ানি আদালতের মাধ্যমে সরকারি সার্ভেয়ার নিয়োগ',
+    ],
+    keyStepsEn: [
+      'File application under CrPC Sec 144/145 if apprehension of breach of peace',
+      'Initiate Title Suit and Permanent Injunction before Assistant Judge Court',
+      'File suit for deed cancellation under Specific Relief Act Sec 39',
+      'Seek court-appointed government cadastral surveyor for physical demarcation',
     ],
   },
   {
     id: 'kb-009',
     category: 'mutation',
     titleBn: 'ওয়ারিশান সূত্রে প্রাপ্ত সম্পত্তির নামজারি প্রক্রিয়া',
+    titleEn: 'Inheritance-Based Mutation & Separation of Holding',
     actBn: 'মুসলিম পারিবারিক আইন ১৯৬১ / হিন্দু দায়ভাগ আইন ও ভূমি মন্ত্রণালয় বিধিমালা',
+    actEn: 'Muslim Family Laws 1961 / Hindu Law of Inheritance & Land Ministry Rules',
     sourceUrl: 'https://land.gov.bd',
     verifiedAt: '২০২৬-০৩-১২',
     summaryBn: 'মৃত ব্যক্তির ওয়ারিশদের নামে জমি বণ্টনের পর বণ্টননামা বা ফারায়েজ অনুযায়ী আলাদা খতিয়ান তৈরি।',
-    keySteps: [
+    summaryEn: 'Creating separate Khatians following succession distribution based on Faraez or partition deed.',
+    keyStepsBn: [
       'ইউনিয়ন পরিষদ / সিটি কর্পোরেশন থেকে ওয়ারিশান সনদপত্র সংগ্রহ',
       'সকল বৈধ ওয়ারিশের সম্মতিক্রমে রেজিস্ট্রিকৃত বণ্টননামা দলিল তৈরি',
       'ফারায়েজ ক্যালকুলেশন অনুযায়ী প্রত্যেক ওয়ারিশের অংশের হিসাব নির্ধারণ',
       'এসিল্যান্ড অফিসে জমাভাগ ও নতুন হোল্ডিং তৈরির আবেদন',
+    ],
+    keyStepsEn: [
+      'Obtain legal heir certificate from Union Parishad or City Corporation',
+      'Execute registered partition deed (Bontonnama) among all legitimate heirs',
+      'Calculate precise shares in accordance with religious inheritance laws',
+      'Apply at AC (Land) office for separate holding and mutation Khatian',
     ],
   },
 ];
@@ -142,41 +201,59 @@ const SAFETY_WIZARD_STEPS = [
   {
     step: 1,
     titleBn: 'খতিয়ান ও দাগ যাচাই',
+    titleEn: 'Khatian & Plot Verification',
     subtitleBn: 'বালাম বইয়ের সাথে মূল খতিয়ান মেলান',
+    subtitleEn: 'Match original Khatian with Balam book',
     actionBn: 'উপজেলা ভূমি অফিসে মূল বালাম বহির সাথে দাগ, খতিয়ান ও মালিকের নাম ১০০% মিলিয়ে নিন।',
+    actionEn: 'Verify plot, Khatian, and owner name 100% against the original Upazila Balam register.',
     icon: FileText,
   },
   {
     step: 2,
     titleBn: '২৫ বছরের বায়া দলিল',
+    titleEn: '25-Year Title Chain',
     subtitleBn: 'মালিকানা হস্তান্তরের ধারাবাহিকতা',
+    subtitleEn: 'Continuity of ownership transfer',
     actionBn: 'বিক্রেতা যার কাছ থেকে জমি পেয়েছেন সেই বায়া দলিলের সত্যতা সাব-রেজিস্ট্রি অফিসে যাচাই করুন।',
+    actionEn: 'Confirm authenticity of parent deeds (Baya) at the Sub-Registry office.',
     icon: Scale,
   },
   {
     step: 3,
     titleBn: 'হালনাগাদ ই-নামজারি',
+    titleEn: 'Up-to-Date E-Mutation',
     subtitleBn: 'এসিল্যান্ড অনুমোদিত মিউটেশন ও ডিসিআর',
+    subtitleEn: 'AC Land approved mutation & DCR',
     actionBn: 'বিক্রেতার নিজের নামে নামজারি পরচা ও ১,১৭০ টাকার সরকারি ডিসিআর রসিদ আছে কিনা নিশ্চিত হোন।',
+    actionEn: 'Ensure seller possesses a Mutation Porcha in their name with the official BDT 1,170 DCR receipt.',
     icon: ShieldCheck,
   },
   {
     step: 4,
     titleBn: '১৪৩১ সনের দাখিলা',
+    titleEn: 'Current Year Tax Receipt',
     subtitleBn: 'চলতি বছরের খাজনা পরিশোধ',
+    subtitleEn: 'Payment of current land revenue',
     actionBn: 'ldtax.gov.bd পোর্টালে বিক্রেতার হোল্ডিং চেক করে চলতি ১৪৩১ বঙ্গাব্দের দাখিলা যাচাই করুন।',
+    actionEn: 'Verify current tax receipt on ldtax.gov.bd confirming zero outstanding dues.',
     icon: CheckCircle2,
   },
   {
     step: 5,
     titleBn: 'সরেজমিন দখল ও নকশা',
+    titleEn: 'Field Possession & Map',
     subtitleBn: 'সরকারি আমিন দ্বারা পরিমাপ',
+    subtitleEn: 'Physical demarcation by surveyor',
     actionBn: 'ডিজিটাল মৌজা ম্যাপ অনুযায়ী বাস্তব সীমানা ও দখলের সাথে দলিলের চৌহদ্দি মেপে বায়না করুন।',
+    actionEn: 'Demarcate physical boundaries against digital mouza maps before executing earnest money agreement.',
     icon: Compass,
   },
 ];
 
 export const GuidePage: React.FC = () => {
+  const { i18n } = useTranslation();
+  const isBn = (i18n.language || 'bn').startsWith('bn');
+
   const [activeTab, setActiveTab] = useState<'assistant' | 'kb'>('assistant');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchKbQuery, setSearchKbQuery] = useState('');
@@ -187,29 +264,39 @@ export const GuidePage: React.FC = () => {
     {
       id: 'welcome-1',
       sender: 'assistant',
-      text: 'আসসালামু আলাইকুম! আমি বাংলাদেশ ল্যান্ডওএস আইনি সহায়ক। জমি জমা, নামজারি, পর্চা যাচাই, রেজিস্ট্রি বা ভূমি উন্নয়ন কর সংক্রান্ত যেকোনো বিষয়ে প্রশ্ন করতে পারেন।',
+      text: isBn
+        ? 'আসসালামু আলাইকুম! আমি বাংলাদেশ ল্যান্ডওএস আইনি সহায়ক। জমি জমা, নামজারি, পর্চা যাচাই, রেজিস্ট্রি বা ভূমি উন্নয়ন কর সংক্রান্ত যেকোনো বিষয়ে প্রশ্ন করতে পারেন।'
+        : 'Welcome! I am the LandOS Legal Assistant. Ask any question regarding deed verification, mutation, survey records, or land taxes in Bangladesh.',
       citations: [
         {
-          title: 'সিটিজেন চার্টার - ভূমি মন্ত্রণালয়',
-          act_or_rule: 'ভূমি সংস্কার আইন ও নামজারি নীতিমালা ২০২৩',
+          title: isBn ? 'সিটিজেন চার্টার - ভূমি মন্ত্রণালয়' : 'Citizen Charter - Ministry of Land',
+          act_or_rule: isBn ? 'ভূমি সংস্কার আইন ও নামজারি নীতিমালা ২০২৩' : 'Land Reform Act & Mutation Policy 2023',
           url: 'https://land.gov.bd',
-          last_verified: '২০২৬-০৩-০১',
+          last_verified: '2026-03-01',
         },
       ],
-      timestamp: '১০:০০ AM',
+      timestamp: '10:00 AM',
     },
   ]);
 
   const [inputQuery, setInputQuery] = useState('');
   const [isSending, setIsSending] = useState(false);
 
-  const samplePrompts = [
-    'নামজারি বা মিউটেশন করার নিয়ম কী?',
-    'ই-পর্চা অনলাইনে কীভাবে যাচাই করব?',
-    'জমির ভুয়া দলিল চেনার উপায় কী?',
-    'ভূমি উন্নয়ন কর পরিশোধ না করলে কী হয়?',
-    'বায়া দলিল না থাকলে কি জমি কেনা যাবে?',
-  ];
+  const samplePrompts = isBn
+    ? [
+        'নামজারি বা মিউটেশন করার নিয়ম কী?',
+        'ই-পর্চা অনলাইনে কীভাবে যাচাই করব?',
+        'জমির ভুয়া দলিল চেনার উপায় কী?',
+        'ভূমি উন্নয়ন কর পরিশোধ না করলে কী হয়?',
+        'বায়া দলিল না থাকলে কি জমি কেনা যাবে?',
+      ]
+    : [
+        'What is the legal process for land mutation?',
+        'How to verify an e-Porcha online?',
+        'How to identify a fake land deed?',
+        'Consequences of unpaid land development taxes?',
+        'Can I buy land without parent deeds (Baya)?',
+      ];
 
   const handleSend = async (queryText = inputQuery) => {
     if (!queryText.trim() || isSending) return;
@@ -272,11 +359,15 @@ export const GuidePage: React.FC = () => {
 
   const filteredArticles = LEGAL_ARTICLES.filter((art) => {
     const matchesCat = selectedCategory === 'all' || art.category === selectedCategory;
+    const q = searchKbQuery.toLowerCase().trim();
     const matchesSearch =
-      !searchKbQuery.trim() ||
-      art.titleBn.includes(searchKbQuery) ||
-      art.actBn.includes(searchKbQuery) ||
-      art.summaryBn.includes(searchKbQuery);
+      !q ||
+      art.titleBn.toLowerCase().includes(q) ||
+      art.titleEn.toLowerCase().includes(q) ||
+      art.actBn.toLowerCase().includes(q) ||
+      art.actEn.toLowerCase().includes(q) ||
+      art.summaryBn.toLowerCase().includes(q) ||
+      art.summaryEn.toLowerCase().includes(q);
     return matchesCat && matchesSearch;
   });
 
@@ -290,13 +381,15 @@ export const GuidePage: React.FC = () => {
           </div>
           <div>
             <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-              <span>ভূমি সহায়ক ও আইনি নির্দেশিকা</span>
+              <span>{isBn ? 'ভূমি সহায়ক ও আইনি নির্দেশিকা' : 'Land Guide & Legal Assistance'}</span>
               <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                 v3.0
               </span>
             </h1>
             <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
-              বাংলাদেশ ভূমি আইন, নামজারি নীতিমালা ও নিরাপদ জমি ক্রয়ের প্রামাণ্য নলেজ বেস
+              {isBn
+                ? 'বাংলাদেশ ভূমি আইন, নামজারি নীতিমালা ও নিরাপদ জমি ক্রয়ের প্রামাণ্য নলেজ বেস'
+                : 'Bangladesh Land Laws, Mutation Policies & Safe Property Acquisition Knowledge Base'}
             </p>
           </div>
         </div>
@@ -311,7 +404,7 @@ export const GuidePage: React.FC = () => {
                 : 'text-slate-600 dark:text-slate-400'
             }`}
           >
-            এআই সহকারী
+            {isBn ? 'এআই সহকারী' : 'AI Assistant'}
           </button>
           <button
             onClick={() => setActiveTab('kb')}
@@ -321,7 +414,7 @@ export const GuidePage: React.FC = () => {
                 : 'text-slate-600 dark:text-slate-400'
             }`}
           >
-            আইন ও নির্দেশিকা ({LEGAL_ARTICLES.length})
+            {isBn ? `আইন ও নির্দেশিকা (${LEGAL_ARTICLES.length})` : `Legal Acts & Articles (${LEGAL_ARTICLES.length})`}
           </button>
         </div>
       </div>
@@ -334,15 +427,17 @@ export const GuidePage: React.FC = () => {
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-5 h-5 text-emerald-500" />
             <h2 className="text-base font-extrabold text-slate-900 dark:text-white">
-              নিরাপদ জমি ক্রয়ের ৫-ধাপের গোল্ডেন রুলস (Buyer Safety Protocol)
+              {isBn ? 'নিরাপদ জমি ক্রয়ের ৫-ধাপের গোল্ডেন রুলস' : '5-Step Golden Rules for Safe Land Purchase'}
             </h2>
           </div>
           <span className="text-[11px] font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
-            ধাপ {activeWizardStep}/৫
+            {isBn ? `ধাপ ${activeWizardStep}/৫` : `Step ${activeWizardStep}/5`}
           </span>
         </div>
         <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">
-          জমি কেনার পূর্বে প্রতিটি ধাপ যাচাই করে নেওয়া আইনগতভাবে আবশ্যক। যেকোনো ধাপে অসঙ্গতি থাকলে সংশ্লিষ্ট ভূমি অফিসে যোগাযোগ করুন।
+          {isBn
+            ? 'জমি কেনার পূর্বে প্রতিটি ধাপ যাচাই করে নেওয়া আইনগতভাবে আবশ্যক। যেকোনো ধাপে অসঙ্গতি থাকলে সংশ্লিষ্ট ভূমি অফিসে যোগাযোগ করুন।'
+            : 'Legally essential checks before executing an agreement or deed. In case of discrepancies, consult the respective AC (Land) office.'}
         </p>
 
         {/* Wizard Step Selector Pills */}
@@ -362,14 +457,14 @@ export const GuidePage: React.FC = () => {
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className={`text-[10px] font-mono font-extrabold px-1.5 py-0.5 rounded ${isCurrent ? 'bg-white/20 text-white' : 'bg-emerald-500/10 text-emerald-500'}`}>
-                    ধাপ 0{step.step}
+                    {isBn ? `ধাপ ০${step.step}` : `Step 0${step.step}`}
                   </span>
                   <Icon className="w-4 h-4 opacity-80" />
                 </div>
                 <div>
-                  <h4 className="font-extrabold text-xs leading-tight mb-0.5">{step.titleBn}</h4>
+                  <h4 className="font-extrabold text-xs leading-tight mb-0.5">{isBn ? step.titleBn : step.titleEn}</h4>
                   <p className={`text-[10px] truncate ${isCurrent ? 'text-emerald-100' : 'text-slate-400'}`}>
-                    {step.subtitleBn}
+                    {isBn ? step.subtitleBn : step.subtitleEn}
                   </p>
                 </div>
               </button>
@@ -384,20 +479,26 @@ export const GuidePage: React.FC = () => {
           </div>
           <div className="flex-1">
             <h4 className="font-extrabold text-slate-900 dark:text-white text-xs mb-1">
-              করণীয় নির্দেশনা: {SAFETY_WIZARD_STEPS[activeWizardStep - 1].titleBn}
+              {isBn
+                ? `করণীয় নির্দেশনা: ${SAFETY_WIZARD_STEPS[activeWizardStep - 1].titleBn}`
+                : `Action Protocol: ${SAFETY_WIZARD_STEPS[activeWizardStep - 1].titleEn}`}
             </h4>
             <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-              {SAFETY_WIZARD_STEPS[activeWizardStep - 1].actionBn}
+              {isBn
+                ? SAFETY_WIZARD_STEPS[activeWizardStep - 1].actionBn
+                : SAFETY_WIZARD_STEPS[activeWizardStep - 1].actionEn}
             </p>
           </div>
           <button
             onClick={() => {
-              const query = `${SAFETY_WIZARD_STEPS[activeWizardStep - 1].titleBn} করার নিয়ম কী?`;
+              const query = isBn
+                ? `${SAFETY_WIZARD_STEPS[activeWizardStep - 1].titleBn} করার নিয়ম কী?`
+                : `What are the rules for ${SAFETY_WIZARD_STEPS[activeWizardStep - 1].titleEn}?`;
               handleSend(query);
             }}
             className="hidden sm:flex items-center gap-1 px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shrink-0 transition-all shadow-sm"
           >
-            <span>এআই থেকে জানুন</span>
+            <span>{isBn ? 'এআই থেকে জানুন' : 'Ask AI'}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -414,11 +515,11 @@ export const GuidePage: React.FC = () => {
               <div className="flex items-center gap-2">
                 <Scale className="w-4 h-4 text-emerald-500" />
                 <h3 className="text-sm font-extrabold text-slate-900 dark:text-white">
-                  আইনি বিধিমালা ও পরিপত্র সংগ্রহ
+                  {isBn ? 'আইনি বিধিমালা ও পরিপত্র সংগ্রহ' : 'Legal Acts, Rules & Circulars'}
                 </h3>
               </div>
               <span className="text-[10px] text-slate-400 font-mono font-bold">
-                {filteredArticles.length} টি নিবন্ধ
+                {isBn ? `${filteredArticles.length} টি নিবন্ধ` : `${filteredArticles.length} Articles`}
               </span>
             </div>
 
@@ -429,7 +530,7 @@ export const GuidePage: React.FC = () => {
                 type="text"
                 value={searchKbQuery}
                 onChange={(e) => setSearchKbQuery(e.target.value)}
-                placeholder="আইন, পরিপত্র বা ধারা খুঁজুন..."
+                placeholder={isBn ? 'আইন, পরিপত্র বা ধারা খুঁজুন...' : 'Search acts, circulars, or sections...'}
                 className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-black/70 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 focus:outline-none focus:border-emerald-500"
               />
             </div>
@@ -437,12 +538,12 @@ export const GuidePage: React.FC = () => {
             {/* Category Filter Pills */}
             <div className="flex gap-1.5 overflow-x-auto pb-2 scrollbar-none mb-3">
               {[
-                { id: 'all', label: 'সব' },
-                { id: 'mutation', label: 'নামজারি' },
-                { id: 'khatian', label: 'খতিয়ান' },
-                { id: 'tax', label: 'দাখিলা' },
-                { id: 'deed', label: 'দলিল' },
-                { id: 'dispute', label: 'বিরোধ' },
+                { id: 'all', labelBn: 'সব', labelEn: 'All' },
+                { id: 'mutation', labelBn: 'নামজারি', labelEn: 'Mutation' },
+                { id: 'khatian', labelBn: 'খতিয়ান', labelEn: 'Khatian' },
+                { id: 'tax', labelBn: 'দাখিলা', labelEn: 'Tax' },
+                { id: 'deed', labelBn: 'দলিল', labelEn: 'Deed' },
+                { id: 'dispute', labelBn: 'বিরোধ', labelEn: 'Disputes' },
               ].map((c) => (
                 <button
                   key={c.id}
@@ -453,7 +554,7 @@ export const GuidePage: React.FC = () => {
                       : 'bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
-                  {c.label}
+                  {isBn ? c.labelBn : c.labelEn}
                 </button>
               ))}
             </div>
@@ -469,7 +570,7 @@ export const GuidePage: React.FC = () => {
                   >
                     <div className="flex items-start justify-between gap-2 mb-1">
                       <h4 className="font-extrabold text-slate-900 dark:text-white text-xs leading-snug">
-                        {art.titleBn}
+                        {isBn ? art.titleBn : art.titleEn}
                       </h4>
                       <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold shrink-0">
                         {art.id}
@@ -477,11 +578,11 @@ export const GuidePage: React.FC = () => {
                     </div>
 
                     <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed mb-2">
-                      {art.summaryBn}
+                      {isBn ? art.summaryBn : art.summaryEn}
                     </p>
 
                     <div className="text-[10px] text-slate-500 dark:text-slate-400 font-medium mb-2 bg-white dark:bg-slate-900 p-2 rounded-xl border border-slate-100 dark:border-slate-800">
-                      আইনি ভিত্তি: <strong className="text-slate-700 dark:text-slate-200">{art.actBn}</strong>
+                      {isBn ? 'আইনি ভিত্তি:' : 'Legal Basis:'} <strong className="text-slate-700 dark:text-slate-200">{isBn ? art.actBn : art.actEn}</strong>
                     </div>
 
                     {/* Expandable Steps */}
@@ -490,7 +591,11 @@ export const GuidePage: React.FC = () => {
                         onClick={() => setExpandedArticleId(isExpanded ? null : art.id)}
                         className="text-emerald-600 dark:text-emerald-400 font-bold text-[11px] flex items-center gap-1"
                       >
-                        <span>{isExpanded ? 'সংক্ষিপ্ত করুন' : 'বিস্তারিত ধাপসমূহ'}</span>
+                        <span>
+                          {isExpanded
+                            ? (isBn ? 'সংক্ষিপ্ত করুন' : 'Collapse')
+                            : (isBn ? 'বিস্তারিত ধাপসমূহ' : 'Detailed Steps')}
+                        </span>
                         {isExpanded ? <ChevronDown className="w-3.5 h-3.5 rotate-180" /> : <ChevronDown className="w-3.5 h-3.5" />}
                       </button>
 
@@ -500,7 +605,7 @@ export const GuidePage: React.FC = () => {
                         rel="noreferrer"
                         className="text-[10px] text-slate-400 hover:text-emerald-500 flex items-center gap-1"
                       >
-                        <span>সরকারি পোর্টাল</span>
+                        <span>{isBn ? 'সরকারি পোর্টাল' : 'Govt Portal'}</span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     </div>
@@ -508,9 +613,9 @@ export const GuidePage: React.FC = () => {
                     {isExpanded && (
                       <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800 space-y-1.5 text-[11px]">
                         <span className="font-bold text-slate-800 dark:text-slate-200 block mb-1">
-                          আইনসঙ্গত কার্যপদ্ধতি:
+                          {isBn ? 'আইনসঙ্গত কার্যপদ্ধতি:' : 'Standard Legal Procedure:'}
                         </span>
-                        {art.keySteps.map((step, sIdx) => (
+                        {(isBn ? art.keyStepsBn : art.keyStepsEn).map((step, sIdx) => (
                           <div key={sIdx} className="flex items-start gap-2 text-slate-600 dark:text-slate-300">
                             <span className="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center shrink-0 text-[10px] font-bold mt-0.5">
                               {sIdx + 1}
@@ -538,11 +643,11 @@ export const GuidePage: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-sm font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
-                    <span>এআই ভূমি আইনি পরামর্শক</span>
+                    <span>{isBn ? 'এআই ভূমি আইনি পরামর্শক' : 'AI Land Legal Advisor'}</span>
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                   </h3>
                   <span className="text-[10px] text-slate-500 dark:text-slate-400">
-                    রিয়েল-টাইম সার্কুলার ও আইন দ্বারা সমর্থিত
+                    {isBn ? 'রিয়েল-টাইম সার্কুলার ও আইন দ্বারা সমর্থিত' : 'Supported by real-time acts and circulars'}
                   </span>
                 </div>
               </div>
@@ -588,9 +693,13 @@ export const GuidePage: React.FC = () => {
                       <div className="mb-2.5 p-3 rounded-xl bg-amber-50 dark:bg-amber-950/70 border border-amber-300 dark:border-amber-600/60 text-amber-900 dark:text-amber-200 text-xs flex items-start gap-2.5">
                         <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                         <div>
-                          <strong className="block font-bold">তথ্য যাচাই প্রয়োজন</strong>
+                          <strong className="block font-bold">
+                            {isBn ? 'তথ্য যাচাই প্রয়োজন' : 'Verification Required'}
+                          </strong>
                           <p className="text-[11px] leading-relaxed mt-0.5 opacity-90">
-                            প্রদত্ত উত্তরের পূর্ণ আইনি প্রামাণ্যতা নিশ্চিত করতে এসিল্যান্ড অফিস বা রেজিস্ট্রি কার্যালয়ে যোগাযোগ করুন।
+                            {isBn
+                              ? 'প্রদত্ত উত্তরের পূর্ণ আইনি প্রামাণ্যতা নিশ্চিত করতে এসিল্যান্ড অফিস বা রেজিস্ট্রি কার্যালয়ে যোগাযোগ করুন।'
+                              : 'Please verify with the AC (Land) or Sub-Registry office for official legal validity.'}
                           </p>
                         </div>
                       </div>
@@ -602,7 +711,7 @@ export const GuidePage: React.FC = () => {
                     {m.citations && m.citations.length > 0 && (
                       <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800/80 space-y-1.5">
                         <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
-                          আইনি সূত্র ও সরকারি পরিপত্র:
+                          {isBn ? 'আইনি সূত্র ও সরকারি পরিপত্র:' : 'Legal Citations & Circulars:'}
                         </span>
                         {m.citations.map((c, cIdx) => (
                           <div
@@ -620,7 +729,7 @@ export const GuidePage: React.FC = () => {
                                 rel="noreferrer"
                                 className="text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1 text-[10px] font-bold shrink-0 ml-2"
                               >
-                                <span>দেখুন</span>
+                                <span>{isBn ? 'দেখুন' : 'View'}</span>
                                 <ExternalLink className="w-3 h-3" />
                               </a>
                             )}
@@ -649,7 +758,7 @@ export const GuidePage: React.FC = () => {
                   </div>
                   <div className="p-4 rounded-2xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800 text-xs text-slate-500 flex items-center gap-2">
                     <RefreshCw className="w-3.5 h-3.5 animate-spin text-emerald-500" />
-                    <span>আইনি পরিপত্র ও বালাম ডাটাবেজ যাচাই করা হচ্ছে...</span>
+                    <span>{isBn ? 'আইনি পরিপত্র ও বালাম ডাটাবেজ যাচাই করা হচ্ছে...' : 'Verifying legal circulars and Balam databases...'}</span>
                   </div>
                 </div>
               )}
@@ -668,7 +777,7 @@ export const GuidePage: React.FC = () => {
                   type="text"
                   value={inputQuery}
                   onChange={(e) => setInputQuery(e.target.value)}
-                  placeholder="জমি, খতিয়ান বা নামজারি সংক্রান্ত প্রশ্ন লিখুন..."
+                  placeholder={isBn ? 'জমি, খতিয়ান বা নামজারি সংক্রান্ত প্রশ্ন লিখুন...' : 'Ask question regarding deed, mutation, or Khatian...'}
                   className="flex-1 px-4 py-3 rounded-2xl bg-slate-50 dark:bg-black/70 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 focus:outline-none focus:border-emerald-500 text-xs sm:text-sm transition-colors"
                 />
                 <button

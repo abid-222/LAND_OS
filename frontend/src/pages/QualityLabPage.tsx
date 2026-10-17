@@ -13,6 +13,7 @@ import {
   ShieldAlert,
   Sparkles,
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { DisclaimerBanner } from '../components/DisclaimerBanner';
 import { MLPlayground } from '../components/MLPlayground';
 
@@ -150,6 +151,8 @@ const fallbackRun: EvalRunDetail = {
 };
 
 export const QualityLabPage: React.FC = () => {
+  const { i18n } = useTranslation();
+  const isBn = (i18n.language || 'bn').startsWith('bn');
   const [evalRun, setEvalRun] = useState<EvalRunDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isRunningEval, setIsRunningEval] = useState(false);
@@ -189,7 +192,11 @@ export const QualityLabPage: React.FC = () => {
       if (res.ok) {
         const newRun = await res.json();
         setEvalRun(newRun);
-        setEvalSuccessMsg(`নতুন মূল্যায়ন সম্পন্ন হয়েছে (${newRun.id})। সকল কোয়ালিটি গেট মূল্যায়ন সম্পন্ন।`);
+        setEvalSuccessMsg(
+          isBn
+            ? `নতুন মূল্যায়ন সম্পন্ন হয়েছে (${newRun.id})। সকল কোয়ালিটি গেট মূল্যায়ন সম্পন্ন।`
+            : `Evaluation completed (${newRun.id}). All quality gates evaluated.`
+        );
       } else {
         throw new Error('Evaluation trigger failed');
       }
@@ -201,7 +208,11 @@ export const QualityLabPage: React.FC = () => {
         timestamp: new Date().toISOString(),
       };
       setEvalRun(updated);
-      setEvalSuccessMsg('মূল্যায়ন রান সম্পন্ন হয়েছে! সর্বশেষ মেকানিকাল রিপোর্ট রিলোড হয়েছে।');
+      setEvalSuccessMsg(
+        isBn
+          ? 'মূল্যায়ন রান সম্পন্ন হয়েছে! সর্বশেষ মেকানিকাল রিপোর্ট রিলোড হয়েছে।'
+          : 'Evaluation run complete! Reloaded latest benchmark report.'
+      );
     } finally {
       setIsRunningEval(false);
     }
@@ -234,18 +245,24 @@ export const QualityLabPage: React.FC = () => {
   const anyGateFailed = displayedGates.some((g) => !g.passed);
 
   return (
-    <div className="flex flex-col min-h-screen-dvh max-w-6xl mx-auto w-full px-4 pt-4 pb-28 text-slate-100">
+    <div className="flex flex-col min-h-screen-dvh max-w-6xl mx-auto w-full px-4 pt-4 pb-28 text-slate-900 dark:text-slate-100">
       {/* Header & Run Evaluation Button */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
           <div className="flex items-center gap-2">
-            <Gauge className="w-6 h-6 text-emerald-400" />
-            <h1 className="text-xl font-bold text-white">নির্ভুলতা ও নির্ভরযোগ্যতা ল্যাব (Accuracy & Reliability Lab)</h1>
+            <Gauge className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+            <h1 className="text-xl font-bold text-slate-900 dark:text-white">
+              {isBn ? 'নির্ভুলতা ও নির্ভরযোগ্যতা ল্যাব' : 'Accuracy & Reliability Lab'}
+            </h1>
             <DisclaimerBanner type="badge" />
           </div>
-          <p className="text-xs text-slate-400 mt-1 flex items-center gap-1.5">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 flex items-center gap-1.5">
             {isLoading && <RefreshCw className="w-3 h-3 animate-spin text-primary" />}
-            <span>eval_runs থেকে রিয়েল-টাইম বেঞ্চমার্ক: ফিল্ড-ভিত্তিক CER/FEA, সাইলেন্ট এরর রেট ও কোয়ালিটি গেটস</span>
+            <span>
+              {isBn
+                ? 'eval_runs থেকে রিয়েল-টাইম বেঞ্চমার্ক: ফিল্ড-ভিত্তিক CER/FEA, সাইলেন্ট এরর রেট ও কোয়ালিটি গেটস'
+                : 'Real-time benchmark from eval_runs: field-level CER/FEA, silent error rates, and quality gates'}
+            </span>
           </p>
         </div>
 
@@ -255,18 +272,18 @@ export const QualityLabPage: React.FC = () => {
             onClick={() => setSimulateGateFail(!simulateGateFail)}
             className={`px-3 py-2 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 ${
               simulateGateFail
-                ? 'bg-red-950/80 border-red-500 text-red-300'
-                : 'bg-slate-900 border-slate-700 text-slate-400 hover:text-white'
+                ? 'bg-red-50 dark:bg-red-950/80 border-red-500 text-red-700 dark:text-red-300'
+                : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
-            title="সিমুলেট করুন dag_no FEA গেট ফেইল্ড লাল সতর্কবার্তা দেখানোর জন্য"
+            title={isBn ? 'সিমুলেট করুন dag_no FEA গেট ফেইল্ড লাল সতর্কবার্তা দেখানোর জন্য' : 'Simulate dag_no FEA gate failure'}
           >
             {simulateGateFail ? (
               <>
-                <AlertTriangle className="w-3.5 h-3.5 text-red-400 shrink-0" />
-                <span>সিমুলেশন: গেট ফেইল্ড সক্রিয়</span>
+                <AlertTriangle className="w-3.5 h-3.5 text-red-500 shrink-0" />
+                <span>{isBn ? 'সিমুলেশন: গেট ফেইল্ড সক্রিয়' : 'Simulation: Gate Failed'}</span>
               </>
             ) : (
-              <span>গেট ফেইল্ড টেস্ট</span>
+              <span>{isBn ? 'গেট ফেইল্ড টেস্ট' : 'Test Gate Fail'}</span>
             )}
           </button>
 
@@ -279,12 +296,12 @@ export const QualityLabPage: React.FC = () => {
             {isRunningEval ? (
               <>
                 <RefreshCw className="w-4 h-4 animate-spin text-emerald-300" />
-                <span>মূল্যায়ন চলছে...</span>
+                <span>{isBn ? 'মূল্যায়ন চলছে...' : 'Evaluating...'}</span>
               </>
             ) : (
               <>
                 <Play className="w-4 h-4 fill-white" />
-                <span>মূল্যায়ন চালান (Run Evaluation)</span>
+                <span>{isBn ? 'মূল্যায়ন চালান (Run Evaluation)' : 'Run Evaluation'}</span>
               </>
             )}
           </button>
@@ -292,17 +309,17 @@ export const QualityLabPage: React.FC = () => {
       </div>
 
       {/* Lab Mode Switcher */}
-      <div className="flex items-center gap-2 mb-6 p-1.5 rounded-2xl bg-slate-900/80 border border-slate-800 w-fit">
+      <div className="flex items-center gap-2 mb-6 p-1.5 rounded-2xl bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 w-fit">
         <button
           onClick={() => setLabTab('playground')}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
             labTab === 'playground'
               ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 font-black'
-              : 'text-slate-400 hover:text-white'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
           }`}
         >
-          <Sparkles className="w-4 h-4 text-emerald-400" />
-          <span>ইন্টারেক্টিভ এমএল প্লেগ্রাউন্ড (ML Studio / Apply & Extract)</span>
+          <Sparkles className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+          <span>{isBn ? 'ইন্টারেক্টিভ এমএল প্লেগ্রাউন্ড (ML Studio)' : 'Interactive ML Studio'}</span>
         </button>
 
         <button
@@ -310,11 +327,11 @@ export const QualityLabPage: React.FC = () => {
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
             labTab === 'benchmarks'
               ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 font-black'
-              : 'text-slate-400 hover:text-white'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
           }`}
         >
-          <Gauge className="w-4 h-4 text-emerald-400" />
-          <span>বেঞ্চমার্ক ও কোয়ালিটি গেটস (Benchmarks & Release Gates)</span>
+          <Gauge className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+          <span>{isBn ? 'বেঞ্চমার্ক ও কোয়ালিটি গেটস' : 'Benchmarks & Quality Gates'}</span>
         </button>
       </div>
 
@@ -323,8 +340,8 @@ export const QualityLabPage: React.FC = () => {
       ) : (
         <>
       {evalSuccessMsg && (
-        <div className="p-3.5 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs mb-5 flex items-center gap-2.5 animate-in fade-in">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+        <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-500/40 text-emerald-800 dark:text-emerald-300 text-xs mb-5 flex items-center gap-2.5 animate-in fade-in">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
           <span>{evalSuccessMsg}</span>
         </div>
       )}
@@ -333,101 +350,119 @@ export const QualityLabPage: React.FC = () => {
       <div
         className={`p-4 rounded-2xl border mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xl transition-colors ${
           anyGateFailed
-            ? 'bg-red-950/80 border-red-500 text-red-200'
-            : 'bg-emerald-950/40 border-emerald-500/40 text-emerald-200'
+            ? 'bg-red-50 dark:bg-red-950/80 border-red-300 dark:border-red-500 text-red-900 dark:text-red-200'
+            : 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-500/40 text-emerald-900 dark:text-emerald-200'
         }`}
       >
         <div className="flex items-center gap-3">
           {anyGateFailed ? (
-            <XCircle className="w-6 h-6 text-red-400 shrink-0" />
+            <XCircle className="w-6 h-6 text-red-500 dark:text-red-400 shrink-0" />
           ) : (
-            <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0" />
+            <CheckCircle2 className="w-6 h-6 text-emerald-600 dark:text-emerald-400 shrink-0" />
           )}
           <div>
-            <h3 className="text-sm font-bold text-white">
-              {anyGateFailed ? 'কোয়ালিটি গেট অনুত্তীর্ণ (GATE FAILED)!' : 'সকল কোয়ালিটি গেট উত্তীর্ণ (RELEASE GATES PASSED)'}
-            </h3>
-            <p className="text-xs mt-0.5 opacity-90">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
               {anyGateFailed
-                ? 'সতর্কতা: দাগ নম্বর FEA বা সাইলেন্ট এরর রেট থ্রেশহোল্ড অতিক্রম করেছে। প্রোডাকশন ডিপ্লয়মেন্ট স্থগিত রাখা উচিত।'
-                : 'সকল ফিল্ডের নির্ভুলতা ও সাইলেন্ট এরর রেট eval/gates.yaml এর নীতিমালার সাথে সামঞ্জস্যপূর্ণ।'}
+                ? (isBn ? 'কোয়ালিটি গেট অনুত্তীর্ণ (GATE FAILED)!' : 'QUALITY GATES FAILED!')
+                : (isBn ? 'সকল কোয়ালিটি গেট উত্তীর্ণ (RELEASE GATES PASSED)' : 'ALL RELEASE GATES PASSED')}
+            </h3>
+            <p className="text-xs mt-0.5 opacity-90 text-slate-700 dark:text-slate-300">
+              {anyGateFailed
+                ? (isBn
+                    ? 'সতর্কতা: দাগ নম্বর FEA বা সাইলেন্ট এরর রেট থ্রেশহোল্ড অতিক্রম করেছে। প্রোডাকশন ডিপ্লয়মেন্ট স্থগিত রাখা উচিত।'
+                    : 'Warning: dag_no FEA or Silent Error Rate breached thresholds. Production deployment on hold.')
+                : (isBn
+                    ? 'সকল ফিল্ডের নির্ভুলতা ও সাইলেন্ট এরর রেট eval/gates.yaml এর নীতিমালার সাথে সামঞ্জস্যপূর্ণ।'
+                    : 'All field accuracies and silent error rates meet eval/gates.yaml requirements.')}
             </p>
           </div>
         </div>
-        <span className="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-black/40 border border-current">
-          রান আইডি: {activeRun.id}
+        <span className="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-black/5 dark:bg-black/40 border border-current">
+          {isBn ? 'রান আইডি' : 'Run ID'}: {activeRun.id}
         </span>
       </div>
 
       {/* Top 5 Critical Health KPI Badges */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
-        <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
-          <span className="text-[11px] text-slate-400 block mb-1">গুরুত্বপূর্ণ ফিল্ড FEA</span>
-          <span className="text-xl font-bold text-emerald-400 font-mono">
+        <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <span className="text-[11px] text-slate-500 dark:text-slate-400 block mb-1">
+            {isBn ? 'গুরুত্বপূর্ণ ফিল্ড FEA' : 'Critical Field FEA'}
+          </span>
+          <span className="text-xl font-bold text-emerald-600 dark:text-emerald-400 font-mono">
             {(activeRun.critical_field_fea * 100).toFixed(1)}%
           </span>
-          <span className="text-[10px] text-slate-500 block mt-0.5">Critical Field FEA</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-500 block mt-0.5">Critical Field FEA</span>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
-          <span className="text-[11px] text-slate-400 block mb-1">সাইলেন্ট এরর রেট</span>
-          <span className="text-xl font-bold text-amber-400 font-mono">
+        <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <span className="text-[11px] text-slate-500 dark:text-slate-400 block mb-1">
+            {isBn ? 'সাইলেন্ট এরর রেট' : 'Silent Error Rate'}
+          </span>
+          <span className="text-xl font-bold text-amber-600 dark:text-amber-400 font-mono">
             {(activeRun.silent_error_rate * 100).toFixed(2)}%
           </span>
-          <span className="text-[10px] text-slate-500 block mt-0.5">Silent Error Rate</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-500 block mt-0.5">Silent Error Rate</span>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
-          <span className="text-[11px] text-slate-400 block mb-1">ফ্ল্যাগ রিকল হার</span>
-          <span className="text-xl font-bold text-sky-400 font-mono">
+        <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <span className="text-[11px] text-slate-500 dark:text-slate-400 block mb-1">
+            {isBn ? 'ফ্ল্যাগ রিকল হার' : 'Flag Recall Rate'}
+          </span>
+          <span className="text-xl font-bold text-sky-600 dark:text-sky-400 font-mono">
             {(activeRun.flag_recall * 100).toFixed(1)}%
           </span>
-          <span className="text-[10px] text-slate-500 block mt-0.5">Flag Recall (&ge;90%)</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-500 block mt-0.5">Flag Recall (&ge;90%)</span>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
-          <span className="text-[11px] text-slate-400 block mb-1">সমগ্র ক্যারেক্টার এরর (CER)</span>
-          <span className="text-xl font-bold text-indigo-400 font-mono">
+        <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <span className="text-[11px] text-slate-500 dark:text-slate-400 block mb-1">
+            {isBn ? 'সমগ্র ক্যারেক্টার এরর (CER)' : 'Overall CER'}
+          </span>
+          <span className="text-xl font-bold text-indigo-600 dark:text-indigo-400 font-mono">
             {(activeRun.overall_cer * 100).toFixed(2)}%
           </span>
-          <span className="text-[10px] text-slate-500 block mt-0.5">Character Error Rate</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-500 block mt-0.5">Character Error Rate</span>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 col-span-2 md:col-span-1">
-          <span className="text-[11px] text-slate-400 block mb-1">শব্দ এরর রেট (WER)</span>
-          <span className="text-xl font-bold text-emerald-400 font-mono">
+        <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm col-span-2 md:col-span-1">
+          <span className="text-[11px] text-slate-500 dark:text-slate-400 block mb-1">
+            {isBn ? 'শব্দ এরর রেট (WER)' : 'Word Error Rate'}
+          </span>
+          <span className="text-xl font-bold text-emerald-600 dark:text-emerald-400 font-mono">
             {(activeRun.overall_wer * 100).toFixed(2)}%
           </span>
-          <span className="text-[10px] text-slate-500 block mt-0.5">Word Error Rate</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-500 block mt-0.5">Word Error Rate</span>
         </div>
       </div>
 
       {/* FEATURE 4 REQUIREMENT: Shows CER and FEA SEPARATELY per field (dag_no, khatian_no, mouza) */}
-      <div className="mb-6 rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden shadow-xl">
-        <div className="p-4 border-b border-slate-800 flex items-center justify-between">
+      <div className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-sm">
+        <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <FileSpreadsheet className="w-5 h-5 text-emerald-400" />
-            <h2 className="text-sm font-bold text-white">
-              ফিল্ড-ভিত্তিক CER ও FEA পৃথক মূল্যায়ন (Per-Field CER & FEA)
+            <FileSpreadsheet className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+            <h2 className="text-sm font-bold text-slate-900 dark:text-white">
+              {isBn ? 'ফিল্ড-ভিত্তিক CER ও FEA পৃথক মূল্যায়ন' : 'Per-Field CER & FEA Separate Evaluation'}
             </h2>
           </div>
-          <span className="text-xs text-slate-400">eval/gates.yaml থ্রেশহোল্ড ভিত্তিক</span>
+          <span className="text-xs text-slate-500 dark:text-slate-400">
+            {isBn ? 'eval/gates.yaml থ্রেশহোল্ড ভিত্তিক' : 'Based on eval/gates.yaml thresholds'}
+          </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+            <thead className="bg-slate-50 dark:bg-slate-950/80 text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
               <tr>
-                <th className="p-3.5 font-semibold">ফিল্ডের নাম</th>
-                <th className="p-3.5 font-semibold text-center">FEA (নর্মালাইজড)</th>
-                <th className="p-3.5 font-semibold text-center">র (Raw) FEA</th>
-                <th className="p-3.5 font-semibold text-center">ফিল্ড CER</th>
-                <th className="p-3.5 font-semibold text-center">সাইলেন্ট এরর রেট</th>
-                <th className="p-3.5 font-semibold text-center">গেট লক্ষ্যমাত্রা</th>
-                <th className="p-3.5 font-semibold text-center">গেট স্ট্যাটাস</th>
+                <th className="p-3.5 font-semibold">{isBn ? 'ফিল্ডের নাম' : 'Field Name'}</th>
+                <th className="p-3.5 font-semibold text-center">{isBn ? 'FEA (নর্মালাইজড)' : 'FEA (Normalized)'}</th>
+                <th className="p-3.5 font-semibold text-center">{isBn ? 'র (Raw) FEA' : 'Raw FEA'}</th>
+                <th className="p-3.5 font-semibold text-center">{isBn ? 'ফিল্ড CER' : 'Field CER'}</th>
+                <th className="p-3.5 font-semibold text-center">{isBn ? 'সাইলেন্ট এরর রেট' : 'Silent Error Rate'}</th>
+                <th className="p-3.5 font-semibold text-center">{isBn ? 'গেট লক্ষ্যমাত্রা' : 'Gate Target'}</th>
+                <th className="p-3.5 font-semibold text-center">{isBn ? 'গেট স্ট্যাটাস' : 'Gate Status'}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/70 text-slate-200">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/70 text-slate-800 dark:text-slate-200">
               {Object.entries(displayedFields).map(([key, f]) => {
                 const isFieldFailed = !f.gate_passed;
                 return (
@@ -435,16 +470,16 @@ export const QualityLabPage: React.FC = () => {
                     key={key}
                     className={`transition-colors ${
                       isFieldFailed
-                        ? 'bg-red-950/40 text-red-100 font-medium'
-                        : 'hover:bg-slate-800/40'
+                        ? 'bg-red-50/50 dark:bg-red-950/40 text-red-900 dark:text-red-100 font-medium'
+                        : 'hover:bg-slate-50 dark:hover:bg-slate-800/40'
                     }`}
                   >
                     <td className="p-3.5 font-bold">
                       <div className="flex items-center gap-1.5">
                         {isFieldFailed ? (
-                          <XCircle className="w-4 h-4 text-red-400" />
+                          <XCircle className="w-4 h-4 text-red-500" />
                         ) : (
-                          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                         )}
                         <span>{f.field_name}</span>
                       </div>
@@ -453,35 +488,35 @@ export const QualityLabPage: React.FC = () => {
                       <span
                         className={
                           isFieldFailed
-                            ? 'text-red-400 px-2 py-0.5 rounded bg-red-950 border border-red-500/60'
-                            : 'text-emerald-400'
+                            ? 'text-red-600 dark:text-red-400 px-2 py-0.5 rounded bg-red-100 dark:bg-red-950 border border-red-300 dark:border-red-500/60'
+                            : 'text-emerald-600 dark:text-emerald-400'
                         }
                       >
                         {(f.fea * 100).toFixed(1)}%
                       </span>
                     </td>
-                    <td className="p-3.5 text-center font-mono text-slate-400">
+                    <td className="p-3.5 text-center font-mono text-slate-500 dark:text-slate-400">
                       {(f.raw_fea * 100).toFixed(1)}%
                     </td>
-                    <td className="p-3.5 text-center font-mono text-sky-300">
+                    <td className="p-3.5 text-center font-mono text-sky-600 dark:text-sky-300">
                       {(f.cer * 100).toFixed(2)}%
                     </td>
-                    <td className="p-3.5 text-center font-mono text-amber-300">
+                    <td className="p-3.5 text-center font-mono text-amber-600 dark:text-amber-300">
                       {(f.silent_error_rate * 100).toFixed(2)}%
                     </td>
-                    <td className="p-3.5 text-center font-mono text-slate-400">
+                    <td className="p-3.5 text-center font-mono text-slate-500 dark:text-slate-400">
                       &ge; {(f.gate_threshold_fea * 100).toFixed(0)}%
                     </td>
                     <td className="p-3.5 text-center">
                       {isFieldFailed ? (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-red-950 border border-red-500 text-red-300 animate-pulse">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-red-100 dark:bg-red-950 border border-red-300 dark:border-red-500 text-red-700 dark:text-red-300">
                           <XCircle className="w-3 h-3" />
-                          ব্যর্থ (Failed)
+                          {isBn ? 'ব্যর্থ (Failed)' : 'Failed'}
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 border border-emerald-500/40 text-emerald-300">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 dark:bg-emerald-500/20 border border-emerald-300 dark:border-emerald-500/40 text-emerald-700 dark:text-emerald-300">
                           <CheckCircle2 className="w-3 h-3" />
-                          উত্তীর্ণ (Passed)
+                          {isBn ? 'উত্তীর্ণ (Passed)' : 'Passed'}
                         </span>
                       )}
                     </td>
@@ -496,13 +531,13 @@ export const QualityLabPage: React.FC = () => {
       {/* Grid: Quality Gate Thresholds & Digit Confusion Matrix */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Card 1: Gates Evaluation Table */}
-        <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
+        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <Activity className="w-4 h-4 text-emerald-400" />
-              কোয়ালিটি গেট ফলাফল (Quality Gates)
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Activity className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              {isBn ? 'কোয়ালিটি গেট ফলাফল (Quality Gates)' : 'Quality Gates Results'}
             </h3>
-            <span className="text-[11px] text-slate-400">eval/gates.yaml</span>
+            <span className="text-[11px] text-slate-500 dark:text-slate-400">eval/gates.yaml</span>
           </div>
 
           <div className="space-y-2.5">
@@ -511,21 +546,21 @@ export const QualityLabPage: React.FC = () => {
                 key={gIdx}
                 className={`p-3 rounded-xl border flex items-center justify-between gap-3 text-xs ${
                   gate.passed
-                    ? 'bg-slate-950/60 border-slate-800 text-slate-300'
-                    : 'bg-red-950/70 border-red-500 text-red-200 shadow-md shadow-red-950/50'
+                    ? 'bg-slate-50 dark:bg-slate-950/60 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300'
+                    : 'bg-red-50 dark:bg-red-950/70 border-red-300 dark:border-red-500 text-red-900 dark:text-red-200'
                 }`}
               >
                 <div>
-                  <div className="font-semibold text-white flex items-center gap-1.5">
+                  <div className="font-semibold text-slate-900 dark:text-white flex items-center gap-1.5">
                     {gate.passed ? (
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     ) : (
-                      <XCircle className="w-4 h-4 text-red-400 shrink-0" />
+                      <XCircle className="w-4 h-4 text-red-500 shrink-0" />
                     )}
                     <span>{gate.gate_name}</span>
                   </div>
-                  <span className="text-[10px] text-slate-400 ml-5 block mt-0.5">
-                    লক্ষ্যমাত্রা: {gate.metric} {gate.metric === 'CER' || gate.metric === 'SER' ? '<=' : '>='}{' '}
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 ml-5 block mt-0.5">
+                    {isBn ? 'লক্ষ্যমাত্রা' : 'Target'}: {gate.metric} {gate.metric === 'CER' || gate.metric === 'SER' ? '<=' : '>='}{' '}
                     {(gate.threshold * 100).toFixed(1)}%
                   </span>
                 </div>
@@ -533,14 +568,14 @@ export const QualityLabPage: React.FC = () => {
                 <div className="text-right">
                   <span
                     className={`font-mono font-bold text-sm block ${
-                      gate.passed ? 'text-emerald-400' : 'text-red-400'
+                      gate.passed ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500 dark:text-red-400'
                     }`}
                   >
                     {(gate.actual_value * 100).toFixed(2)}%
                   </span>
                   <span
                     className={`text-[10px] font-bold uppercase ${
-                      gate.passed ? 'text-emerald-500' : 'text-red-400 font-extrabold'
+                      gate.passed ? 'text-emerald-600 dark:text-emerald-500' : 'text-red-500 font-extrabold'
                     }`}
                   >
                     {gate.passed ? 'PASSED' : 'FAILED'}
@@ -552,33 +587,37 @@ export const QualityLabPage: React.FC = () => {
         </div>
 
         {/* Card 2: Digit Confusion Matrix */}
-        <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl flex flex-col justify-between">
+        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <Cpu className="w-4 h-4 text-emerald-400" />
-                ডিজিট কনফিউশন ম্যাট্রিক্স (Digit Confusion Matrix)
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <Cpu className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                {isBn ? 'ডিজিট কনফিউশন ম্যাট্রিক্স (Digit Confusion)' : 'Digit Confusion Matrix'}
               </h3>
-              <span className="text-[11px] text-slate-400">OCR বিভ্রান্তি বিশ্লেষণ</span>
+              <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                {isBn ? 'OCR বিভ্রান্তি বিশ্লেষণ' : 'OCR Confusion Analysis'}
+              </span>
             </div>
 
-            <p className="text-xs text-slate-300 mb-3 leading-relaxed">
-              বাংলা সংখ্যা ও অনুরূপ ইংরেজি/বাংলা হরফের মধ্যে সাধারণ বিভ্রান্তি শনাক্তকরণ ও স্বয়ংক্রিয় রিপেয়ার পরিসংখ্যান:
+            <p className="text-xs text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
+              {isBn
+                ? 'বাংলা সংখ্যা ও অনুরূপ ইংরেজি/বাংলা হরফের মধ্যে সাধারণ বিভ্রান্তি শনাক্তকরণ ও স্বয়ংক্রিয় রিপেয়ার পরিসংখ্যান:'
+                : 'Identification and automated repair statistics of confusing Bengali/English digits:'}
             </p>
 
             <div className="grid grid-cols-2 gap-3 mb-4">
               {Object.entries(activeRun.digit_confusion).map(([pair, count], cIdx) => (
                 <div
                   key={cIdx}
-                  className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between"
+                  className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center justify-between"
                 >
                   <div>
-                    <span className="text-xs font-mono text-amber-300 font-bold block">{pair}</span>
-                    <span className="text-[10px] text-slate-400">নমুনা বিভ্রান্তি</span>
+                    <span className="text-xs font-mono text-amber-600 dark:text-amber-300 font-bold block">{pair}</span>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400">{isBn ? 'নমুনা বিভ্রান্তি' : 'Sample pair'}</span>
                   </div>
                   <div className="text-right">
-                    <span className="text-base font-bold font-mono text-white">{count}</span>
-                    <span className="text-[10px] text-slate-500 block">বার শনাক্ত</span>
+                    <span className="text-base font-bold font-mono text-slate-900 dark:text-white">{count}</span>
+                    <span className="text-[10px] text-slate-400 dark:text-slate-500 block">{isBn ? 'বার শনাক্ত' : 'Detected'}</span>
                   </div>
                 </div>
               ))}
@@ -586,16 +625,16 @@ export const QualityLabPage: React.FC = () => {
 
             {/* Slices Performance Summary */}
             {activeRun.degradation_slices && (
-              <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 mb-3">
-                <span className="text-[11px] font-semibold text-slate-400 flex items-center gap-1 mb-2">
-                  <Layers className="w-3.5 h-3.5 text-emerald-400" />
-                  ডকুমেন্ট ডিগ্রেডেশন ও স্ট্রেস স্লাইস (Degradation Slices):
+              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800/80 mb-3">
+                <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-400 flex items-center gap-1 mb-2">
+                  <Layers className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                  {isBn ? 'ডকুমেন্ট ডিগ্রেডেশন ও স্ট্রেস স্লাইস:' : 'Document Degradation & Stress Slices:'}
                 </span>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px]">
                   {Object.entries(activeRun.degradation_slices).map(([slice, val], sIdx) => (
-                    <div key={sIdx} className="flex justify-between p-1.5 rounded bg-slate-900">
-                      <span className="text-slate-400">{slice}:</span>
-                      <span className="font-mono font-bold text-emerald-300">
+                    <div key={sIdx} className="flex justify-between p-1.5 rounded bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
+                      <span className="text-slate-600 dark:text-slate-400">{slice}:</span>
+                      <span className="font-mono font-bold text-emerald-600 dark:text-emerald-300">
                         {(val * 100).toFixed(1)}%
                       </span>
                     </div>
@@ -604,35 +643,35 @@ export const QualityLabPage: React.FC = () => {
               </div>
             )}
 
-            {/* Per-Rule Risk Precision/Recall (Section 5.5 Requirement) */}
-            <div className="p-3.5 rounded-xl bg-slate-950/90 border border-slate-800">
-              <span className="text-xs font-bold text-white flex items-center gap-1.5 mb-2.5">
-                <ShieldAlert className="w-4 h-4 text-emerald-400" />
-                রিস্ক ইঞ্জিন নিয়মভিত্তিক নির্ভুলতা ও রিকল (Per-Rule Precision/Recall):
+            {/* Per-Rule Risk Precision/Recall */}
+            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800">
+              <span className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5 mb-2.5">
+                <ShieldAlert className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                {isBn ? 'রিস্ক ইঞ্জিন নিয়মভিত্তিক নির্ভুলতা ও রিকল:' : 'Risk Engine Rule Precision & Recall:'}
               </span>
               <div className="space-y-1.5 text-[11px]">
                 {[
-                  { id: 'R1', name: 'জমির পরিমাণের তারতম্য (R_AREA_MISMATCH)', p: '100%', r: '100%' },
-                  { id: 'R2', name: 'মালিকানা ধারাবাহিকতায় ব্যবধান (R_CHAIN_BREAK)', p: '100%', r: '100%' },
-                  { id: 'R3', name: 'হালনাগাদ কর দাখিলা অনুপস্থিত (R_TAX_RECEIPT_STALE)', p: '100%', r: '100%' },
-                  { id: 'R4', name: 'সরকারি ভূমির সাথে ওভারল্যাপ (R_GOVT_LAND_OVERLAP)', p: '100%', r: '100%' },
-                  { id: 'R5', name: 'স্বল্প সময়ে একাধিক হস্তান্তর (R_MULTIPLE_TRANSFERS)', p: '100%', r: '100%' },
-                  { id: 'R6', name: 'নামের বানান বা পরিচয়ে অসঙ্গতি (R_NAME_VARIANT)', p: '100%', r: '100%' },
+                  { id: 'R1', nameBn: 'জমির পরিমাণের তারতম্য (R_AREA_MISMATCH)', nameEn: 'Area Mismatch (R_AREA_MISMATCH)', p: '100%', r: '100%' },
+                  { id: 'R2', nameBn: 'মালিকানা ধারাবাহিকতায় ব্যবধান (R_CHAIN_BREAK)', nameEn: 'Chain Break (R_CHAIN_BREAK)', p: '100%', r: '100%' },
+                  { id: 'R3', nameBn: 'হালনাগাদ কর দাখিলা অনুপস্থিত (R_TAX_RECEIPT_STALE)', nameEn: 'Stale Tax Receipt (R_TAX_RECEIPT_STALE)', p: '100%', r: '100%' },
+                  { id: 'R4', nameBn: 'সরকারি ভূমির সাথে ওভারল্যাপ (R_GOVT_LAND_OVERLAP)', nameEn: 'Govt Land Overlap (R_GOVT_LAND_OVERLAP)', p: '100%', r: '100%' },
+                  { id: 'R5', nameBn: 'স্বল্প সময়ে একাধিক হস্তান্তর (R_MULTIPLE_TRANSFERS)', nameEn: 'Multiple Transfers (R_MULTIPLE_TRANSFERS)', p: '100%', r: '100%' },
+                  { id: 'R6', nameBn: 'নামের বানান বা পরিচয়ে অসঙ্গতি (R_NAME_VARIANT)', nameEn: 'Name Variant (R_NAME_VARIANT)', p: '100%', r: '100%' },
                 ].map((rule) => (
                   <div
                     key={rule.id}
-                    className="flex items-center justify-between p-2 rounded-lg bg-slate-900 border border-slate-800"
+                    className="flex items-center justify-between p-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800"
                   >
                     <div className="flex items-center gap-2">
-                      <span className="font-mono font-bold text-emerald-400">{rule.id}</span>
-                      <span className="text-slate-300">{rule.name}</span>
+                      <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">{rule.id}</span>
+                      <span className="text-slate-700 dark:text-slate-300">{isBn ? rule.nameBn : rule.nameEn}</span>
                     </div>
                     <div className="flex gap-3 font-mono text-[10px]">
-                      <span className="text-slate-400">
-                        P: <strong className="text-emerald-400">{rule.p}</strong>
+                      <span className="text-slate-500 dark:text-slate-400">
+                        P: <strong className="text-emerald-600 dark:text-emerald-400">{rule.p}</strong>
                       </span>
-                      <span className="text-slate-400">
-                        R: <strong className="text-emerald-400">{rule.r}</strong>
+                      <span className="text-slate-500 dark:text-slate-400">
+                        R: <strong className="text-emerald-600 dark:text-emerald-400">{rule.r}</strong>
                       </span>
                     </div>
                   </div>
@@ -641,9 +680,9 @@ export const QualityLabPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
-            <span>মডেল: PaddleOCR-v4 + CRNN Ensemble</span>
-            <span className="text-emerald-400">স্বয়ংক্রিয় রিপেয়ার সক্রিয়</span>
+          <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
+            <span>{isBn ? 'মডেল: PaddleOCR-v4 + CRNN Ensemble' : 'Model: PaddleOCR-v4 + CRNN Ensemble'}</span>
+            <span className="text-emerald-600 dark:text-emerald-400">{isBn ? 'স্বয়ংক্রিয় রিপেয়ার সক্রিয়' : 'Auto-repair Active'}</span>
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Home, Camera, Search, Map, BookOpen, UploadCloud } from 'lucide-react';
 
 interface BottomNavProps {
@@ -12,13 +13,16 @@ export const BottomNav: React.FC<BottomNavProps> = ({
   onTabChange,
   pendingCount = 0,
 }) => {
+  const { i18n } = useTranslation();
+  const isBn = (i18n.language || 'bn').startsWith('bn');
+
   const tabs = [
-    { id: 'home', label: 'হোম', icon: Home },
-    { id: 'search', label: 'অনুসন্ধান', icon: Search },
-    { id: 'scan', label: 'স্ক্যান', icon: Camera, highlight: true },
-    { id: 'map', label: 'মানচিত্র', icon: Map },
-    { id: 'guide', label: 'সহায়ক', icon: BookOpen },
-    { id: 'pending', label: 'সংরক্ষিত', icon: UploadCloud, badge: pendingCount },
+    { id: 'home', label: isBn ? 'হোম' : 'Home', icon: Home },
+    { id: 'search', label: isBn ? 'অনুসন্ধান' : 'Search', icon: Search },
+    { id: 'scan', label: isBn ? 'স্ক্যান' : 'Scan', icon: Camera, highlight: true },
+    { id: 'map', label: isBn ? 'মানচিত্র' : 'Map', icon: Map },
+    { id: 'guide', label: isBn ? 'সহায়ক' : 'Guide', icon: BookOpen },
+    { id: 'pending', label: isBn ? 'সংরক্ষিত' : 'Offline', icon: UploadCloud, badge: pendingCount },
   ];
 
   return (

@@ -13,6 +13,7 @@ import {
   ArrowLeft,
   ShieldAlert,
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export type AlertSeverity = 'info' | 'warn' | 'high';
 
@@ -54,6 +55,9 @@ export const ParcelAlertsPage: React.FC<ParcelAlertsPageProps> = ({
   onNavigateBack,
   onViewDocument,
 }) => {
+  const { i18n } = useTranslation();
+  const isBn = (i18n.language || 'bn').startsWith('bn');
+
   const [alerts, setAlerts] = useState<ParcelAlertItem[]>([]);
   const [severityFilter, setSeverityFilter] = useState<'all' | AlertSeverity>('all');
   const [expandedAlertIds, setExpandedAlertIds] = useState<Set<string>>(new Set());
@@ -224,24 +228,24 @@ export const ParcelAlertsPage: React.FC<ParcelAlertsPageProps> = ({
     switch (severity) {
       case 'high':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-danger/20 text-danger-light border border-danger/40">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-danger/20 text-danger border border-danger/40">
             <AlertOctagon className="w-3 h-3" />
-            উচ্চ মনোযোগ
+            {isBn ? 'উচ্চ মনোযোগ' : 'High Priority'}
           </span>
         );
       case 'warn':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/40">
             <AlertTriangle className="w-3 h-3" />
-            সতর্কতা
+            {isBn ? 'সতর্কতা' : 'Warning'}
           </span>
         );
       case 'info':
       default:
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-sky-500/20 text-sky-300 border border-sky-500/40">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-sky-500/20 text-sky-700 dark:text-sky-300 border border-sky-500/40">
             <Info className="w-3 h-3" />
-            তথ্য
+            {isBn ? 'তথ্যগত' : 'Info'}
           </span>
         );
     }
@@ -260,122 +264,131 @@ export const ParcelAlertsPage: React.FC<ParcelAlertsPageProps> = ({
   const isStaff = userRole === 'staff' || userRole === 'admin' || userRole === 'reviewer';
 
   return (
-    <div className="flex flex-col min-h-screen-dvh max-w-2xl mx-auto w-full px-4 pt-4 pb-28 text-slate-100">
+    <div className="flex flex-col min-h-screen-dvh max-w-2xl mx-auto w-full px-4 pt-4 pb-28 text-slate-800 dark:text-slate-100 transition-colors">
       {/* Top Header & Back */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           {onNavigateBack && (
             <button
               onClick={onNavigateBack}
-              className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white"
-              aria-label="ফিরে যান"
+              className="p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-white transition-colors"
+              aria-label={isBn ? 'ফিরে যান' : 'Go back'}
             >
               <ArrowLeft className="w-4 h-4" />
             </button>
           )}
           <div>
-            <h1 className="text-base font-bold text-white flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5 text-amber-400" />
-              পার্সেল সতর্কতা ও অসঙ্গতি তালিকা
+            <h1 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-amber-500" />
+              {isBn ? 'পার্সেল সতর্কতা ও অসঙ্গতি তালিকা' : 'Parcel Discrepancies & Alert Log'}
             </h1>
-            <p className="text-xs text-slate-400 font-mono">পার্সেল আইডি: {parcelId}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+              {isBn ? 'পার্সেল আইডি:' : 'Parcel ID:'} {parcelId}
+            </p>
           </div>
         </div>
       </div>
 
       {/* Epistemic Rule Notice */}
-      <div className="p-3.5 rounded-xl bg-slate-900 border border-amber-500/30 text-xs text-slate-300 mb-4 leading-relaxed">
+      <div className="p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-amber-300 dark:border-amber-500/30 text-xs text-slate-700 dark:text-slate-300 mb-4 leading-relaxed shadow-sm">
         <div className="flex items-start gap-2.5">
-          <ShieldAlert className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+          <ShieldAlert className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
           <div>
-            <span className="font-semibold text-white">অসঙ্গতি মূল্যায়ন নীতি:</span>{' '}
-            সিস্টেমে কোনো একক মালিকানা রেটিং বা চূড়ান্ত সত্যতার রায় প্রকাশ করা হয় না। শুধুমাত্র সরকারি রেকর্ডের সাথে তুলনামূলক যেসব ক্ষেত্রে অসঙ্গতি রয়েছে তা প্রমাণের তালিকাসহ উপস্থাপন করা হলো।
+            <span className="font-semibold text-slate-900 dark:text-white">
+              {isBn ? 'অসঙ্গতি মূল্যায়ন নীতি:' : 'Audit Protocol & Transparency Notice:'}
+            </span>{' '}
+            {isBn
+              ? 'সিস্টেমে কোনো একক মালিকানা রেটিং বা চূড়ান্ত সত্যতার রায় প্রকাশ করা হয় না। শুধুমাত্র সরকারি রেকর্ডের সাথে তুলনামূলক যেসব ক্ষেত্রে অসঙ্গতি রয়েছে তা প্রমাণের তালিকাসহ উপস্থাপন করা হলো।'
+              : 'The system does not issue definitive title verdicts or composite scores. It presents itemized evidentiary indicators that require verification against original registry books.'}
           </div>
         </div>
       </div>
 
       {/* Filter Tabs by Severity */}
       <div className="flex items-center gap-2 mb-4 overflow-x-auto pb-1 text-xs">
-        <span className="text-slate-400 flex items-center gap-1 font-semibold pl-1">
-          <Filter className="w-3.5 h-3.5" /> ফিল্টার:
+        <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1 font-semibold pl-1 shrink-0">
+          <Filter className="w-3.5 h-3.5" /> {isBn ? 'ফিল্টার:' : 'Filter:'}
         </span>
         <button
           onClick={() => {
             setSeverityFilter('all');
             setCurrentPage(1);
           }}
-          className={`px-3 py-1.5 rounded-xl font-bold transition-colors ${
+          className={`px-3 py-1.5 rounded-xl font-bold transition-colors shrink-0 ${
             severityFilter === 'all'
-              ? 'bg-primary text-white'
-              : 'bg-slate-900 text-slate-400 border border-slate-800 hover:text-slate-200'
+              ? 'bg-emerald-600 text-white shadow-sm'
+              : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:text-emerald-600'
           }`}
         >
-          সকল ({alerts.length})
+          {isBn ? `সকল (${alerts.length})` : `All (${alerts.length})`}
         </button>
         <button
           onClick={() => {
             setSeverityFilter('high');
             setCurrentPage(1);
           }}
-          className={`px-3 py-1.5 rounded-xl font-bold transition-colors ${
+          className={`px-3 py-1.5 rounded-xl font-bold transition-colors shrink-0 ${
             severityFilter === 'high'
-              ? 'bg-danger text-white'
-              : 'bg-slate-900 text-slate-400 border border-slate-800 hover:text-slate-200'
+              ? 'bg-danger text-white shadow-sm'
+              : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:text-rose-600'
           }`}
         >
-          উচ্চ মনোযোগ ({alerts.filter((a) => a.severity === 'high').length})
+          {isBn ? `উচ্চ মনোযোগ (${alerts.filter((a) => a.severity === 'high').length})` : `High Risk (${alerts.filter((a) => a.severity === 'high').length})`}
         </button>
         <button
           onClick={() => {
             setSeverityFilter('warn');
             setCurrentPage(1);
           }}
-          className={`px-3 py-1.5 rounded-xl font-bold transition-colors ${
+          className={`px-3 py-1.5 rounded-xl font-bold transition-colors shrink-0 ${
             severityFilter === 'warn'
-              ? 'bg-amber-600 text-white'
-              : 'bg-slate-900 text-slate-400 border border-slate-800 hover:text-slate-200'
+              ? 'bg-amber-600 text-white shadow-sm'
+              : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:text-amber-600'
           }`}
         >
-          সতর্কতা ({alerts.filter((a) => a.severity === 'warn').length})
+          {isBn ? `সতর্কতা (${alerts.filter((a) => a.severity === 'warn').length})` : `Warnings (${alerts.filter((a) => a.severity === 'warn').length})`}
         </button>
         <button
           onClick={() => {
             setSeverityFilter('info');
             setCurrentPage(1);
           }}
-          className={`px-3 py-1.5 rounded-xl font-bold transition-colors ${
+          className={`px-3 py-1.5 rounded-xl font-bold transition-colors shrink-0 ${
             severityFilter === 'info'
-              ? 'bg-sky-600 text-white'
-              : 'bg-slate-900 text-slate-400 border border-slate-800 hover:text-slate-200'
+              ? 'bg-sky-600 text-white shadow-sm'
+              : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:text-sky-600'
           }`}
         >
-          তথ্য ({alerts.filter((a) => a.severity === 'info').length})
+          {isBn ? `তথ্যগত (${alerts.filter((a) => a.severity === 'info').length})` : `Info (${alerts.filter((a) => a.severity === 'info').length})`}
         </button>
       </div>
 
       {/* Alert Cards Container */}
       {isLoading ? (
-        /* Loading Skeleton */
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="p-4 rounded-2xl bg-slate-900 border border-slate-800 animate-pulse space-y-3">
+            <div key={i} className="p-4 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 animate-pulse space-y-3">
               <div className="flex justify-between">
-                <div className="h-4 w-40 bg-slate-800 rounded" />
-                <div className="h-4 w-16 bg-slate-800 rounded-full" />
+                <div className="h-4 w-40 bg-slate-200 dark:bg-slate-800 rounded" />
+                <div className="h-4 w-16 bg-slate-200 dark:bg-slate-800 rounded-full" />
               </div>
-              <div className="h-10 bg-slate-950 rounded-lg" />
+              <div className="h-10 bg-slate-100 dark:bg-slate-950 rounded-lg" />
             </div>
           ))}
         </div>
       ) : error ? (
-        <div className="p-4 rounded-xl bg-danger/20 border border-danger/40 text-danger-light text-xs">
+        <div className="p-4 rounded-2xl bg-danger/10 border border-danger/30 text-danger text-xs">
           {error}
         </div>
       ) : paginatedAlerts.length === 0 ? (
-        <div className="p-8 text-center rounded-2xl bg-slate-900/60 border border-slate-800 text-slate-400 my-4">
-          <CheckCircle className="w-10 h-10 mx-auto text-emerald-400 mb-2" />
-          <p className="text-sm font-semibold text-white">কোনো অসঙ্গতি পাওয়া যায়নি</p>
-          <p className="text-xs text-slate-400 mt-1">নির্বাচিত ফিল্টারে এই পার্সেলের জন্য কোনো সতর্কতা নেই।</p>
+        <div className="p-8 text-center rounded-3xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 my-4 shadow-sm">
+          <CheckCircle className="w-10 h-10 mx-auto text-emerald-500 mb-2" />
+          <p className="text-sm font-semibold text-slate-900 dark:text-white">
+            {isBn ? 'কোনো অসঙ্গতি পাওয়া যায়নি' : 'No Discrepancies Found'}
+          </p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            {isBn ? 'নির্বাচিত ফিল্টারে এই পার্সেলের জন্য কোনো সতর্কতা নেই।' : 'No alerts match the selected severity filter for this parcel.'}
+          </p>
         </div>
       ) : (
         <div className="flex flex-col gap-3.5">
@@ -384,50 +397,52 @@ export const ParcelAlertsPage: React.FC<ParcelAlertsPageProps> = ({
             return (
               <div
                 key={alert.id}
-                className="p-4 rounded-2xl bg-slate-900 border border-slate-800 shadow-md transition-all"
+                className="p-4 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md transition-all"
               >
                 {/* Title & Severity Chip */}
                 <div className="flex items-start justify-between gap-2 mb-2">
-                  <h3 className="text-sm font-bold text-white flex-1 leading-snug">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white flex-1 leading-snug">
                     {alert.title_bn}
                   </h3>
                   {renderSeverityChip(alert.severity)}
                 </div>
 
-                {/* "কেন?" Reason Box */}
-                <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs mb-3">
-                  <span className="font-bold text-amber-300 block mb-0.5">কেন?</span>
-                  <p className="text-slate-300 leading-relaxed">{alert.reason_bn}</p>
+                {/* Reason Box */}
+                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800/80 text-xs mb-3">
+                  <span className="font-bold text-amber-600 dark:text-amber-300 block mb-0.5">
+                    {isBn ? 'কেন?' : 'Why?'}
+                  </span>
+                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{alert.reason_bn}</p>
                 </div>
 
                 {/* Review status badge if reviewed or dismissed */}
                 {alert.status !== 'active' && (
-                  <div className="mb-3 px-3 py-1.5 rounded-lg bg-slate-950 text-[11px] text-slate-400 flex items-center justify-between border border-slate-800">
+                  <div className="mb-3 px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-950 text-[11px] text-slate-600 dark:text-slate-400 flex items-center justify-between border border-slate-200 dark:border-slate-800">
                     <span className="flex items-center gap-1.5">
                       {alert.status === 'reviewed' ? (
-                        <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
+                        <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
                       ) : (
                         <XCircle className="w-3.5 h-3.5 text-slate-400" />
                       )}
-                      স্ট্যাটাস: <strong className="text-white">{alert.status === 'reviewed' ? 'পর্যালোচিত' : 'বাতিল'}</strong>
+                      {isBn ? 'স্ট্যাটাস:' : 'Status:'} <strong className="text-slate-900 dark:text-white">{alert.status === 'reviewed' ? (isBn ? 'পর্যালোচিত' : 'Reviewed') : (isBn ? 'বাতিল' : 'Dismissed')}</strong>
                     </span>
                     {alert.reviewer_note && (
                       <span className="text-[10px] text-slate-500 italic max-w-[180px] truncate">
-                        মন্তব্য: {alert.reviewer_note}
+                        {isBn ? 'মন্তব্য:' : 'Note:'} {alert.reviewer_note}
                       </span>
                     )}
                   </div>
                 )}
 
-                {/* Expandable "প্রমাণ" (Evidence) Section */}
-                <div className="border-t border-slate-800/80 pt-2">
+                {/* Expandable Evidence Section */}
+                <div className="border-t border-slate-100 dark:border-slate-800/80 pt-2">
                   <button
                     onClick={() => toggleExpand(alert.id)}
-                    className="touch-target w-full flex items-center justify-between py-1 text-xs font-semibold text-emerald-400 hover:text-emerald-300"
+                    className="touch-target w-full flex items-center justify-between py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-500"
                   >
                     <span className="flex items-center gap-1.5">
                       <FileText className="w-3.5 h-3.5" />
-                      প্রমাণ ও সংশ্লিষ্ট নথি ({alert.evidence.length} টি)
+                      {isBn ? `প্রমাণ ও সংশ্লিষ্ট নথি (${alert.evidence.length} টি)` : `Evidence & Linked Documents (${alert.evidence.length})`}
                     </span>
                     {isExpanded ? (
                       <ChevronUp className="w-4 h-4" />
@@ -441,25 +456,25 @@ export const ParcelAlertsPage: React.FC<ParcelAlertsPageProps> = ({
                       {alert.evidence.map((ev, idx) => (
                         <div
                           key={idx}
-                          className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 flex flex-col gap-1"
+                          className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex flex-col gap-1"
                         >
                           <div className="flex items-center justify-between">
-                            <span className="font-semibold text-slate-200">
+                            <span className="font-semibold text-slate-800 dark:text-slate-200">
                               {ev.field_name_bn || ev.field_name}
                             </span>
                             {ev.document_id && (
                               <button
                                 onClick={() => onViewDocument && onViewDocument(ev.document_id!)}
-                                className="inline-flex items-center gap-1 text-[11px] text-emerald-400 hover:underline"
+                                className="inline-flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400 hover:underline"
                               >
                                 <ExternalLink className="w-3 h-3" />
-                                <span>নথি দেখুন</span>
+                                <span>{isBn ? 'নথি দেখুন' : 'View Document'}</span>
                               </button>
                             )}
                           </div>
-                          <div className="flex items-center justify-between text-[11px] text-slate-400">
-                            <span>মান: <strong className="text-white font-mono">{String(ev.extracted_value ?? '—')}</strong></span>
-                            <span>নথি: {ev.doc_type || 'দলিল/খতিয়ান'}</span>
+                          <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
+                            <span>{isBn ? 'মান:' : 'Value:'} <strong className="text-slate-900 dark:text-white font-mono">{String(ev.extracted_value ?? '—')}</strong></span>
+                            <span>{isBn ? 'নথি:' : 'Doc:'} {ev.doc_type || (isBn ? 'দলিল/খতিয়ান' : 'Deed/Khatian')}</span>
                           </div>
                           {ev.details && (
                             <p className="text-[10px] text-slate-500 mt-0.5">{ev.details}</p>
@@ -470,20 +485,20 @@ export const ParcelAlertsPage: React.FC<ParcelAlertsPageProps> = ({
                   )}
                 </div>
 
-                {/* Staff Review Controls (Mark Reviewed / Dismissed) */}
+                {/* Staff Review Controls */}
                 {isStaff && alert.status === 'active' && (
-                  <div className="mt-3 pt-2.5 border-t border-slate-800 flex items-center justify-end gap-2">
+                  <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end gap-2">
                     <button
                       onClick={() => setActionAlert({ id: alert.id, action: 'dismissed' })}
-                      className="touch-target px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 active:scale-95 transition-all"
+                      className="touch-target px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 active:scale-95 transition-all"
                     >
-                      বাতিল করুন
+                      {isBn ? 'বাতিল করুন' : 'Dismiss Alert'}
                     </button>
                     <button
                       onClick={() => setActionAlert({ id: alert.id, action: 'reviewed' })}
-                      className="touch-target px-3 py-1.5 rounded-lg bg-primary hover:bg-primary-hover text-xs font-semibold text-white active:scale-95 transition-all"
+                      className="touch-target px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-xs font-semibold text-white active:scale-95 transition-all shadow-sm"
                     >
-                      পর্যালোচিত চিহ্নিত করুন
+                      {isBn ? 'পর্যালোচিত চিহ্নিত করুন' : 'Mark as Reviewed'}
                     </button>
                   </div>
                 )}
@@ -499,53 +514,55 @@ export const ParcelAlertsPage: React.FC<ParcelAlertsPageProps> = ({
           <button
             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
-            className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 disabled:opacity-40"
+            className="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 disabled:opacity-40"
           >
-            পূর্ববর্তী
+            {isBn ? 'পূর্ববর্তী' : 'Previous'}
           </button>
-          <span className="text-xs text-slate-400 font-mono">
-            পৃষ্ঠা {currentPage} / {totalPages}
+          <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+            {isBn ? `পৃষ্ঠা ${currentPage} / ${totalPages}` : `Page ${currentPage} of ${totalPages}`}
           </span>
           <button
             onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
             disabled={currentPage === totalPages}
-            className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 disabled:opacity-40"
+            className="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 disabled:opacity-40"
           >
-            পরবর্তী
+            {isBn ? 'পরবর্তী' : 'Next'}
           </button>
         </div>
       )}
 
       {/* Staff Action Note Modal */}
       {actionAlert && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-sm rounded-2xl bg-slate-900 border border-slate-700 p-4 shadow-2xl animate-in zoom-in-95">
-            <h4 className="text-sm font-bold text-white mb-2">
-              {actionAlert.action === 'reviewed' ? 'অ্যালার্ট পর্যালোচিত করুন' : 'অ্যালার্ট বাতিল করুন'}
+        <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="w-full max-w-sm rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-5 shadow-2xl animate-in zoom-in-95">
+            <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-2">
+              {actionAlert.action === 'reviewed' ? (isBn ? 'অ্যালার্ট পর্যালোচিত করুন' : 'Mark Alert as Reviewed') : (isBn ? 'অ্যালার্ট বাতিল করুন' : 'Dismiss Alert')}
             </h4>
-            <p className="text-xs text-slate-400 mb-3">
-              অডিট লগ এবং ভবিষ্যৎ রেফারেন্সের জন্য সিদ্ধান্তের কারণ বা নোট প্রদান করুন:
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
+              {isBn
+                ? 'অডিট লগ এবং ভবিষ্যৎ রেফারেন্সের জন্য সিদ্ধান্তের কারণ বা নোট প্রদান করুন:'
+                : 'Provide rationale or notes for the official immutable audit trail:'}
             </p>
             <textarea
               value={reviewNote}
               onChange={(e) => setReviewNote(e.target.value)}
-              placeholder="সিদ্ধান্তের কারণ লিখুন..."
+              placeholder={isBn ? 'সিদ্ধান্তের কারণ লিখুন...' : 'Enter resolution rationale...'}
               rows={3}
-              className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:ring-1 focus:ring-primary focus:outline-none mb-3"
+              className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none mb-3"
             />
             <div className="flex items-center justify-end gap-2">
               <button
                 onClick={() => setActionAlert(null)}
-                className="px-3 py-2 rounded-xl bg-slate-800 text-xs text-slate-300"
+                className="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-xs text-slate-700 dark:text-slate-300"
               >
-                বাতিল
+                {isBn ? 'বাতিল' : 'Cancel'}
               </button>
               <button
                 onClick={handleStaffAction}
                 disabled={isSubmittingAction}
-                className="px-4 py-2 rounded-xl bg-primary text-xs font-bold text-white disabled:opacity-50"
+                className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-xs font-bold text-white disabled:opacity-50"
               >
-                {isSubmittingAction ? 'সংরক্ষণ হচ্ছে...' : 'নিশ্চিত করুন'}
+                {isSubmittingAction ? (isBn ? 'সংরক্ষণ হচ্ছে...' : 'Saving...') : (isBn ? 'নিশ্চিত করুন' : 'Confirm')}
               </button>
             </div>
           </div>

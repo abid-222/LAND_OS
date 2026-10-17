@@ -15,6 +15,7 @@ import {
   Search,
   Compass,
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { TrustBadge } from '../components/TrustBadge';
 import { DisclaimerBanner } from '../components/DisclaimerBanner';
 import type { TrustStatus } from '../types/trust';
@@ -159,6 +160,9 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
   onNavigateToAlerts,
   onNavigateToMap,
 }) => {
+  const { i18n } = useTranslation();
+  const isBn = (i18n.language || 'bn').startsWith('bn');
+
   const [selectedParcelId, setSelectedParcelId] = useState<string>(initialParcelId);
   const [manualInputId, setManualInputId] = useState<string>('');
   const [report, setReport] = useState<BuyerReportData | null>(null);
@@ -403,7 +407,7 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
           <div className="flex-1">
             <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-2 flex items-center gap-1.5">
               <Compass className="w-3.5 h-3.5 text-emerald-500" />
-              <span>প্লট ও পার্সেল দ্রুত নির্বাচন করুন:</span>
+              <span>{isBn ? 'প্লট ও পার্সেল দ্রুত নির্বাচন করুন:' : 'Quick Select Demo Parcel:'}</span>
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {DEMO_PARCELS.map((p) => (
@@ -432,21 +436,21 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
           <div className="md:w-72 border-t md:border-t-0 md:border-l border-slate-200 dark:border-slate-800 pt-3 md:pt-0 md:pl-4">
             <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-2 flex items-center gap-1.5">
               <Search className="w-3.5 h-3.5 text-emerald-500" />
-              <span>ম্যানুয়াল পার্সেল / দাগ আইডি:</span>
+              <span>{isBn ? 'ম্যানুয়াল পার্সেল / দাগ আইডি:' : 'Manual Parcel / Dag ID:'}</span>
             </label>
             <form onSubmit={handleManualSearch} className="flex gap-2">
               <input
                 type="text"
                 value={manualInputId}
                 onChange={(e) => setManualInputId(e.target.value)}
-                placeholder="যেমন: P-4520 বা দাগ নং"
+                placeholder={isBn ? 'যেমন: P-4520 বা দাগ নং' : 'e.g. P-4520 or Dag No.'}
                 className="w-full px-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-black/80 text-slate-900 dark:text-white border border-slate-300 dark:border-slate-800 focus:outline-none focus:border-emerald-500"
               />
               <button
                 type="submit"
                 className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shrink-0 shadow-md transition-all active:scale-95"
               >
-                লোড
+                {isBn ? 'লোড' : 'Load'}
               </button>
             </form>
           </div>
@@ -459,12 +463,12 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
           <div className="flex items-center gap-2">
             <h1 className="text-xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2 tracking-tight">
               <FileBarChart className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-              <span>ক্রেতা ঝুঁকি ও তথ্য অনুসন্ধান প্রতিবেদন</span>
+              <span>{isBn ? 'ক্রেতা ঝুঁকি ও তথ্য অনুসন্ধান প্রতিবেদন' : 'Buyer Due Diligence & Risk Report'}</span>
             </h1>
             <DisclaimerBanner type="badge" />
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-mono">
-            পার্সেল: <strong className="text-emerald-600 dark:text-emerald-400 font-bold">{selectedParcelId}</strong> • তৈরি: {new Date(report?.generated_at || Date.now()).toLocaleDateString('bn-BD')} • ল্যান্ডওএস v3.0
+            {isBn ? 'পার্সেল:' : 'Parcel:'} <strong className="text-emerald-600 dark:text-emerald-400 font-bold">{selectedParcelId}</strong> • {isBn ? 'তৈরি:' : 'Generated:'} {new Date(report?.generated_at || Date.now()).toLocaleDateString(isBn ? 'bn-BD' : 'en-US')} • LandOS v3.0
           </p>
         </div>
 
@@ -476,19 +480,19 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
               className="touch-target px-3 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-xs font-bold flex items-center gap-1.5 active:scale-95 transition-all"
             >
               <MapPin className="w-3.5 h-3.5" />
-              <span>মানচিত্রে অবস্থান</span>
+              <span>{isBn ? 'মানচিত্রে অবস্থান' : 'View on Map'}</span>
             </button>
           )}
 
           <button
             onClick={handleShare}
             className="touch-target p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 relative active:scale-95 transition-all"
-            title="লিংক শেয়ার করুন"
+            title={isBn ? 'লিংক শেয়ার করুন' : 'Share Link'}
           >
             <Share2 className="w-4 h-4" />
             {copiedLink && (
               <span className="absolute -top-7 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-emerald-600 text-white text-[10px] rounded shadow-lg whitespace-nowrap">
-                কপি হয়েছে!
+                {isBn ? 'কপি হয়েছে!' : 'Copied!'}
               </span>
             )}
           </button>
@@ -496,25 +500,27 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
           <button
             onClick={handlePrint}
             className="touch-target px-3.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-emerald-600/20 active:scale-95 transition-all"
-            title="প্রিন্ট বা পিডিএফ সংরক্ষণ"
+            title={isBn ? 'প্রিন্ট বা পিডিএফ সংরক্ষণ' : 'Print or Save as PDF'}
           >
             <Printer className="w-4 h-4" />
-            <span>প্রিন্ট / PDF</span>
+            <span>{isBn ? 'প্রিন্ট / PDF' : 'Print / PDF'}</span>
           </button>
         </div>
       </div>
 
-      {/* Fixed Legal Disclaimer (Prominently pinned at top) */}
+      {/* Fixed Legal Disclaimer */}
       <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border-2 border-amber-500/80 text-amber-900 dark:text-amber-200 text-xs mb-5 shadow-lg leading-relaxed">
         <div className="flex items-start gap-3">
           <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5 animate-pulse" />
           <div>
             <h4 className="font-extrabold text-sm text-amber-950 dark:text-white mb-0.5">
-              তথ্য যাচাই প্রয়োজন — ডেমো পরীক্ষামূলক প্রতিবেদন
+              {isBn ? 'তথ্য যাচাই প্রয়োজন — ডেমো পরীক্ষামূলক প্রতিবেদন' : 'Verification Required — Synthetic Demo Report'}
             </h4>
             <p className="text-[11px] text-amber-800 dark:text-amber-200/90 leading-relaxed">
               {report?.sections.disclaimer.primary_text ||
-                'তথ্য যাচাই প্রয়োজন. এটি আইনি পরামর্শ বা মালিকানার সিদ্ধান্ত নয়। প্রদর্শিত সকল তথ্য ডেমো বা পরীক্ষামূলক। জমি ক্রয়ের পূর্বে সংশ্লিষ্ট রেজিস্ট্রি ও ভূমি অফিসে মূল বালাম বহির সাথে সরাসরি যাচাই করা আইনত আবশ্যক।'}
+                (isBn
+                  ? 'তথ্য যাচাই প্রয়োজন. এটি আইনি পরামর্শ বা মালিকানার সিদ্ধান্ত নয়। প্রদর্শিত সকল তথ্য ডেমো বা পরীক্ষামূলক। জমি ক্রয়ের পূর্বে সংশ্লিষ্ট রেজিস্ট্রি ও ভূমি অফিসে মূল বালাম বহির সাথে সরাসরি যাচাই করা আইনত আবশ্যক।'
+                  : 'Verification Required. This is not legal advice or title guarantee. All data shown is synthetic demo. Direct inspection with sub-registry and land offices is required before transacting.')}
             </p>
           </div>
         </div>
@@ -541,47 +547,63 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
           <section className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#04080c] border border-slate-200 dark:border-emerald-500/20 shadow-xl transition-all">
             <h2 className="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800/80">
               <MapPin className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-              <span>১. পার্সেল পরিচিতি ও জমির বিবরণ</span>
+              <span>{isBn ? '১. পার্সেল পরিচিতি ও জমির বিবরণ' : '1. Parcel Identification & Land Details'}</span>
             </h2>
 
             {/* Data Grid & Due Diligence */}
             <div className="space-y-4 mb-5">
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
                 <div className="p-3 rounded-2xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800/80">
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium block">পার্সেল আইডি</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium block">
+                    {isBn ? 'পার্সেল আইডি' : 'Parcel ID'}
+                  </span>
                   <span className="font-bold font-mono text-emerald-600 dark:text-emerald-400 text-sm">
                     {report.sections.parcel_summary.synthetic_id}
                   </span>
                 </div>
                 <div className="p-3 rounded-2xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800/80">
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium block">মৌজা</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium block">
+                    {isBn ? 'মৌজা' : 'Mouza'}
+                  </span>
                   <span className="font-bold text-slate-900 dark:text-white text-sm">
                     {report.sections.parcel_summary.mouza}
                   </span>
                 </div>
                 <div className="p-3 rounded-2xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800/80">
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium block">দাগ নম্বর</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium block">
+                    {isBn ? 'দাগ নম্বর' : 'Plot / Dag No.'}
+                  </span>
                   <span className="font-bold text-slate-900 dark:text-white font-mono text-sm">
                     {report.sections.parcel_summary.main_no}
                     {report.sections.parcel_summary.sub_no ? `/${report.sections.parcel_summary.sub_no}` : ''}
                   </span>
                 </div>
                 <div className="p-3 rounded-2xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800/80">
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium block">ভূমির শ্রেণি</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium block">
+                    {isBn ? 'ভূমির শ্রেণি' : 'Land Class'}
+                  </span>
                   <span className="font-bold text-slate-900 dark:text-white">
                     {report.sections.parcel_summary.land_type}
                   </span>
                 </div>
                 <div className="p-3 rounded-2xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800/80">
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium block">জমির পরিমাণ</span>
-                  <span className="font-extrabold text-emerald-600 dark:text-emerald-400 font-mono text-sm">
-                    {report.sections.parcel_summary.area_decimal} শতক
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium block">
+                    {isBn ? 'জমির পরিমাণ' : 'Land Area'}
                   </span>
-                  <span className="text-[10px] text-slate-500 block">({report.sections.parcel_summary.area_acres} একর)</span>
+                  <span className="font-extrabold text-emerald-600 dark:text-emerald-400 font-mono text-sm">
+                    {report.sections.parcel_summary.area_decimal} {isBn ? 'শতক' : 'decimals'}
+                  </span>
+                  <span className="text-[10px] text-slate-500 block">
+                    ({report.sections.parcel_summary.area_acres} {isBn ? 'একর' : 'acres'})
+                  </span>
                 </div>
                 <div className="p-3 rounded-2xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800/80">
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium block">ডেটা প্রকার</span>
-                  <span className="font-semibold text-slate-700 dark:text-slate-300">ডিজিটাল সার্টিফাইড</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium block">
+                    {isBn ? 'ডেটা প্রকার' : 'Data Type'}
+                  </span>
+                  <span className="font-semibold text-slate-700 dark:text-slate-300">
+                    {isBn ? 'ডিজিটাল সার্টিফাইড' : 'Digital Certified'}
+                  </span>
                 </div>
               </div>
 
@@ -590,12 +612,14 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
                 <div className="flex items-center justify-between mb-1.5">
                   <span className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
                     <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                    <span>মালিকানা নির্ভরযোগ্যতা সূচক (Title Due Diligence Integrity)</span>
+                    <span>{isBn ? 'মালিকানা নির্ভরযোগ্যতা সূচক (Title Due Diligence Integrity)' : 'Title Due Diligence Integrity Index'}</span>
                   </span>
-                  <span className="font-mono font-extrabold text-emerald-600 dark:text-emerald-400">৮৫% (উচ্চ)</span>
+                  <span className="font-mono font-extrabold text-emerald-600 dark:text-emerald-400">{isBn ? '৮৫% (উচ্চ)' : '85% (High)'}</span>
                 </div>
                 <p className="text-[11px] text-slate-600 dark:text-slate-300">
-                  বালাম বইয়ের সাথে দাগ ও খতিয়ান মিল শতভাগ। তবে বায়া দলিলের মধ্যবর্তী রেফারেন্স মাঠপর্যায়ে যাচাইযোগ্য।
+                  {isBn
+                    ? 'বালাম বইয়ের সাথে দাগ ও খতিয়ান মিল শতভাগ। তবে বায়া দলিলের মধ্যবর্তী রেফারেন্স মাঠপর্যায়ে যাচাইযোগ্য।'
+                    : 'Balam register matches dag and khatian by 100%. Intermediate chain of title requires field verification.'}
                 </p>
               </div>
             </div>
@@ -621,31 +645,33 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
           <section className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#04080c] border border-slate-200 dark:border-emerald-500/20 shadow-xl transition-all">
             <h2 className="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800/80">
               <CheckCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-              <span>২. ম্যাচিং সরকারি খতিয়ান রেকর্ড</span>
+              <span>{isBn ? '২. ম্যাচিং সরকারি খতিয়ান রেকর্ড' : '2. Matching Official Khatian Records'}</span>
             </h2>
             {report.sections.matching_records.length === 0 ? (
-              <p className="text-xs text-slate-500 dark:text-slate-400">কোনো অনুমোদিত বালাম রেকর্ড মেলেনি।</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                {isBn ? 'কোনো অনুমোদিত বালাম রেকর্ড মেলেনি।' : 'No authorized balam records matched.'}
+              </p>
             ) : (
               <div className="space-y-3">
                 {report.sections.matching_records.map((rec, idx) => (
                   <div key={idx} className="p-4 rounded-2xl bg-slate-50 dark:bg-black/60 border border-slate-200 dark:border-slate-800 text-xs space-y-2.5">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <span className="font-extrabold text-slate-900 dark:text-white text-sm">
-                        খতিয়ান #{rec.khatian_no} • দাগ #{rec.dag_no}
+                        {isBn ? `খতিয়ান #${rec.khatian_no} • দাগ #${rec.dag_no}` : `Khatian #${rec.khatian_no} • Plot #${rec.dag_no}`}
                       </span>
                       <TrustBadge status={rec.status_label} />
                     </div>
                     <div className="text-[12px] text-slate-700 dark:text-slate-300">
-                      মালিক/রেকর্ডধারী: <strong className="text-slate-900 dark:text-white font-bold">{rec.owner_names || '—'}</strong>
+                      {isBn ? 'মালিক/রেকর্ডধারী:' : 'Owner / Record Holder:'} <strong className="text-slate-900 dark:text-white font-bold">{rec.owner_names || '—'}</strong>
                     </div>
                     {rec.reasons?.length > 0 && (
                       <p className="text-[11px] text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 p-2 rounded-xl border border-emerald-500/20 font-medium">
-                        মিলের কারণ: {rec.reasons.join(', ')}
+                        {isBn ? 'মিলের কারণ:' : 'Match Reason:'} {rec.reasons.join(', ')}
                       </p>
                     )}
                     <div className="flex items-center justify-between text-[10px] text-slate-500 pt-2 border-t border-slate-200 dark:border-slate-800">
-                      <span>উৎস: {rec.source}</span>
-                      <span>যাচাই সময়: {new Date(rec.retrieved_at).toLocaleDateString('bn-BD')}</span>
+                      <span>{isBn ? 'উৎস:' : 'Source:'} {rec.source}</span>
+                      <span>{isBn ? 'যাচাই সময়:' : 'Retrieved:'} {new Date(rec.retrieved_at).toLocaleDateString(isBn ? 'bn-BD' : 'en-US')}</span>
                     </div>
                   </div>
                 ))}
@@ -654,12 +680,12 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
           </section>
 
           {/* ------------------------------------------------------------- */}
-          {/* HISTORICAL OWNERSHIP TRANSFER CHAIN (EXCLUSIVE FEATURE) */}
+          {/* HISTORICAL OWNERSHIP TRANSFER CHAIN */}
           {/* ------------------------------------------------------------- */}
           <section className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#04080c] border border-slate-200 dark:border-emerald-500/20 shadow-xl transition-all">
             <h2 className="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800/80">
               <History className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-              <span>মালিকানা ধারাবাহিকতা টাইমলাইন (Deed Chain of Title)</span>
+              <span>{isBn ? 'মালিকানা ধারাবাহিকতা টাইমলাইন (Deed Chain of Title)' : 'Deed Chain of Title Timeline'}</span>
             </h2>
             <div className="space-y-4 relative before:absolute before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200 dark:before:bg-slate-800">
               {HISTORICAL_CHAIN.map((item, idx) => (
@@ -684,7 +710,7 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
                       <span className="text-[10px] text-slate-500 dark:text-slate-400">{item.source}</span>
                     </div>
                     <p className="text-[11px] text-slate-600 dark:text-slate-300">
-                      রেকর্ডধারী/গ্রহীতা: <strong className="text-slate-900 dark:text-white">{item.owner}</strong>
+                      {isBn ? 'রেকর্ডধারী/গ্রহীতা:' : 'Record Holder/Grantee:'} <strong className="text-slate-900 dark:text-white">{item.owner}</strong>
                     </p>
                     {item.note && (
                       <p className="text-[10px] text-amber-700 dark:text-amber-400 mt-1 font-medium bg-amber-500/10 p-1.5 rounded-lg border border-amber-500/20">
@@ -698,41 +724,47 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
           </section>
 
           {/* ------------------------------------------------------------- */}
-          {/* SECTION 3: DOCUMENT CONFLICTS (Counts by severity, strictly no overall score) */}
+          {/* SECTION 3: DOCUMENT CONFLICTS */}
           {/* ------------------------------------------------------------- */}
           <section className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#04080c] border border-slate-200 dark:border-emerald-500/20 shadow-xl transition-all">
             <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800/80">
               <h2 className="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
                 <AlertTriangle className="w-5 h-5 text-amber-500" />
-                <span>৩. দলিল ও রেকর্ড সংক্রান্ত সম্ভাব্য অসঙ্গতি</span>
+                <span>{isBn ? '৩. দলিল ও রেকর্ড সংক্রান্ত সম্ভাব্য অসঙ্গতি' : '3. Potential Document & Record Discrepancies'}</span>
               </h2>
               {onNavigateToAlerts && (
                 <button
                   onClick={() => onNavigateToAlerts(selectedParcelId)}
                   className="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1"
                 >
-                  <span>সকল অ্যালার্ট</span>
+                  <span>{isBn ? 'সকল অ্যালার্ট' : 'All Alerts'}</span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </button>
               )}
             </div>
 
-            {/* Severity Counts Bar (NO overall score, NO safe/unsafe verdict) */}
+            {/* Severity Counts Bar */}
             <div className="grid grid-cols-3 gap-3 mb-4 text-center">
               <div className="p-3 rounded-2xl bg-rose-500/10 border border-rose-500/30">
-                <span className="text-[10px] text-rose-600 dark:text-rose-400 font-extrabold block">উচ্চ মনোযোগ</span>
+                <span className="text-[10px] text-rose-600 dark:text-rose-400 font-extrabold block">
+                  {isBn ? 'উচ্চ মনোযোগ' : 'High Priority'}
+                </span>
                 <span className="text-lg font-extrabold text-rose-600 dark:text-rose-400 font-mono">
                   {report.sections.document_conflicts.counts.high}
                 </span>
               </div>
               <div className="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/30">
-                <span className="text-[10px] text-amber-600 dark:text-amber-400 font-extrabold block">সতর্কতা</span>
+                <span className="text-[10px] text-amber-600 dark:text-amber-400 font-extrabold block">
+                  {isBn ? 'সতর্কতা' : 'Warnings'}
+                </span>
                 <span className="text-lg font-extrabold text-amber-600 dark:text-amber-400 font-mono">
                   {report.sections.document_conflicts.counts.warn}
                 </span>
               </div>
               <div className="p-3 rounded-2xl bg-sky-500/10 border border-sky-500/30">
-                <span className="text-[10px] text-sky-600 dark:text-sky-400 font-extrabold block">তথ্যগত</span>
+                <span className="text-[10px] text-sky-600 dark:text-sky-400 font-extrabold block">
+                  {isBn ? 'তথ্যগত' : 'Informational'}
+                </span>
                 <span className="text-lg font-extrabold text-sky-600 dark:text-sky-400 font-mono">
                   {report.sections.document_conflicts.counts.info}
                 </span>
@@ -756,7 +788,7 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
                             : 'bg-sky-500/20 text-sky-600 dark:text-sky-400 border border-sky-500/40'
                         }`}
                       >
-                        {alt.severity === 'high' ? 'উচ্চ মনোযোগ' : alt.severity === 'warn' ? 'সতর্কতা' : 'তথ্যগত'}
+                        {alt.severity === 'high' ? (isBn ? 'উচ্চ মনোযোগ' : 'High') : alt.severity === 'warn' ? (isBn ? 'সতর্কতা' : 'Warning') : (isBn ? 'তথ্যগত' : 'Info')}
                       </span>
                     </div>
                     <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed mb-3">{alt.reason_bn}</p>
@@ -768,7 +800,7 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
                           onClick={() => toggleAlertExpand(idx)}
                           className="flex items-center justify-between w-full text-[11px] font-bold text-emerald-600 dark:text-emerald-400"
                         >
-                          <span>প্রমাণাদি ({alt.evidence.length} টি)</span>
+                          <span>{isBn ? `প্রমাণাদি (${alt.evidence.length} টি)` : `Evidence (${alt.evidence.length} items)`}</span>
                           {isExp ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                         </button>
                         {isExp && (
@@ -796,14 +828,14 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
             <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800/80">
               <h2 className="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
                 <FileText className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-                <span>৪. প্রয়োজনীয় দলিলের নমুনা যাচাই তালিকা</span>
+                <span>{isBn ? '৪. প্রয়োজনীয় দলিলের নমুনা যাচাই তালিকা' : '4. Required Document Checklist (Sample)'}</span>
               </h2>
               <span className="text-[10px] px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-amber-700 dark:text-amber-400 font-bold border border-slate-200 dark:border-slate-700">
                 SAMPLE
               </span>
             </div>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-4 italic">
-              {report.sections.missing_evidence.sample_disclaimer} (মোট: {report.sections.missing_evidence.total_required} টির মধ্যে {report.sections.missing_evidence.attached_count} টি সংযুক্ত)
+              {report.sections.missing_evidence.sample_disclaimer} ({isBn ? `মোট: ${report.sections.missing_evidence.total_required} টির মধ্যে ${report.sections.missing_evidence.attached_count} টি সংযুক্ত` : `Total: ${report.sections.missing_evidence.attached_count} of ${report.sections.missing_evidence.total_required} attached`})
             </p>
             <div className="space-y-2.5">
               {report.sections.missing_evidence.items.map((item, idx) => {
@@ -839,12 +871,12 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
           </section>
 
           {/* ------------------------------------------------------------- */}
-          {/* SECTION 5: NEXT STEPS (Grounded KB with last verified date) */}
+          {/* SECTION 5: NEXT STEPS */}
           {/* ------------------------------------------------------------- */}
           <section className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#04080c] border border-slate-200 dark:border-emerald-500/20 shadow-xl transition-all">
             <h2 className="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800/80">
               <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-              <span>৫. {report.sections.next_steps.title}</span>
+              <span>{isBn ? `৫. ${report.sections.next_steps.title}` : `5. ${report.sections.next_steps.title}`}</span>
             </h2>
             <div className="space-y-3.5">
               {report.sections.next_steps.items.map((ns) => (
@@ -853,19 +885,19 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
                     <h4 className="font-extrabold text-slate-900 dark:text-white text-sm">{ns.title}</h4>
                     {ns.needs_verification ? (
                       <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/40">
-                        তথ্য যাচাই প্রয়োজন
+                        {isBn ? 'তথ্য যাচাই প্রয়োজন' : 'Verification Required'}
                       </span>
                     ) : (
                       <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/40">
-                        অনুমোদিত নির্দেশিকা
+                        {isBn ? 'অনুমোদিত নির্দেশিকা' : 'Official Guideline'}
                       </span>
                     )}
                   </div>
                   <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-[11px]">{ns.step_text}</p>
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[10px] text-slate-500 pt-2 border-t border-slate-200 dark:border-slate-800">
-                    <span>আইনি উৎস: {ns.source}</span>
+                    <span>{isBn ? 'আইনি উৎস:' : 'Legal Source:'} {ns.source}</span>
                     {ns.last_verified_at && (
-                      <span>সর্বশেষ যাচাই: {new Date(ns.last_verified_at).toLocaleDateString('bn-BD')}</span>
+                      <span>{isBn ? 'সর্বশেষ যাচাই:' : 'Last Verified:'} {new Date(ns.last_verified_at).toLocaleDateString(isBn ? 'bn-BD' : 'en-US')}</span>
                     )}
                   </div>
                 </div>
@@ -882,7 +914,7 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
           className="touch-target flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold rounded-2xl border border-slate-300 dark:border-slate-700 text-xs active:scale-98 transition-all"
         >
           <Printer className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-          <span>প্রিন্ট / অফিসিয়াল পিডিএফ সংরক্ষণ</span>
+          <span>{isBn ? 'প্রিন্ট / অফিসিয়াল পিডিএফ সংরক্ষণ' : 'Print / Save Official PDF'}</span>
         </button>
 
         {onNavigateToMap && (
@@ -891,7 +923,7 @@ export const BuyerReportPage: React.FC<BuyerReportPageProps> = ({
             className="touch-target flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl shadow-xl shadow-emerald-600/20 text-xs active:scale-98 transition-all"
           >
             <MapPin className="w-4 h-4" />
-            <span>৩ডি ক্যাডাস্ট্রাল মানচিত্রে প্লট পর্যবেক্ষণ</span>
+            <span>{isBn ? '৩ডি ক্যাডাস্ট্রাল মানচিত্রে প্লট পর্যবেক্ষণ' : 'Inspect Plot on 3D Cadastral Map'}</span>
           </button>
         )}
       </div>

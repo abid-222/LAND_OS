@@ -13,6 +13,7 @@ import {
   List,
   WifiOff,
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useNetworkStore } from '../lib/networkMonitor';
 import { DisclaimerBanner } from '../components/DisclaimerBanner';
 
@@ -65,6 +66,9 @@ interface MapPageProps {
 }
 
 export const MapPage: React.FC<MapPageProps> = ({ onNavigateToReport }) => {
+  const { i18n } = useTranslation();
+  const isBn = (i18n.language || 'bn').startsWith('bn');
+
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
 
@@ -167,9 +171,9 @@ export const MapPage: React.FC<MapPageProps> = ({ onNavigateToReport }) => {
             'match',
             ['get', 'land_class'],
             'নাল',
-            '#334155', // Neutral slate-700
+            '#334155',
             'বাড়ি',
-            '#475569', // Neutral slate-600
+            '#475569',
             'ভিটি',
             '#3b4252',
             '#334155',
@@ -301,35 +305,37 @@ export const MapPage: React.FC<MapPageProps> = ({ onNavigateToReport }) => {
   };
 
   return (
-    <div className="relative w-full h-[calc(100dvh-64px)] overflow-hidden bg-slate-950">
-      {/* Permanent Non-Dismissible Legal Banner (Mandatory 3.1) */}
+    <div className="relative w-full h-[calc(100dvh-64px)] overflow-hidden bg-slate-100 dark:bg-slate-950 transition-colors">
+      {/* Permanent Non-Dismissible Legal Banner */}
       <div className="absolute top-2 left-2 right-2 z-20">
         <DisclaimerBanner type="map" />
       </div>
 
       {/* Offline Alert Overlay if internet is down */}
       {!isOnline && (
-        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 bg-slate-950/90 backdrop-blur-md text-center text-slate-200">
-          <WifiOff className="w-12 h-12 text-amber-400 mb-3" />
-          <h3 className="text-base font-bold text-white mb-1">
-            মানচিত্র সাময়িকভাবে অফলাইনে অনুপলব্ধ
+        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 bg-white/95 dark:bg-slate-950/90 backdrop-blur-md text-center text-slate-900 dark:text-slate-200">
+          <WifiOff className="w-12 h-12 text-amber-500 dark:text-amber-400 mb-3" />
+          <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1">
+            {isBn ? 'মানচিত্র সাময়িকভাবে অফলাইনে অনুপলব্ধ' : 'Map Temporarily Unavailable Offline'}
           </h3>
-          <p className="text-xs text-slate-400 max-w-sm mb-4">
-            টাইল লোড করার জন্য ইন্টারনেট সংযোগ প্রয়োজন। আপনি নিচের এক্সেসিবিলিটি তালিকা থেকে সংরক্ষিত পার্সেলসমূহ দেখতে পারেন।
+          <p className="text-xs text-slate-600 dark:text-slate-400 max-w-sm mb-4">
+            {isBn
+              ? 'টাইল লোড করার জন্য ইন্টারনেট সংযোগ প্রয়োজন। আপনি নিচের এক্সেসিবিলিটি তালিকা থেকে সংরক্ষিত পার্সেলসমূহ দেখতে পারেন।'
+              : 'Internet connection is required to load map tiles. You can view saved parcels from the accessibility list below.'}
           </p>
           <button
             onClick={() => setShowAccessibilityList(true)}
-            className="py-2 px-4 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs"
+            className="py-2 px-4 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-md"
           >
-            পার্সেল তালিকা দেখুন
+            {isBn ? 'পার্সেল তালিকা দেখুন' : 'View Parcel List'}
           </button>
         </div>
       )}
 
       {/* Demo Parcel Quick Selector Bar */}
-      <div className="absolute top-24 left-2 z-10 flex items-center gap-1.5 overflow-x-auto max-w-[calc(100%-80px)] p-1 rounded-xl bg-slate-950/80 border border-slate-800 backdrop-blur-md text-[11px]">
-        <span className="text-slate-400 pl-1 font-semibold flex items-center gap-0.5 shrink-0">
-          <MapPin className="w-3 h-3 text-emerald-400" /> প্লট আইডি:
+      <div className="absolute top-24 left-2 z-10 flex items-center gap-1.5 overflow-x-auto max-w-[calc(100%-80px)] p-1.5 rounded-xl bg-white/90 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 backdrop-blur-md text-[11px] shadow-sm">
+        <span className="text-slate-600 dark:text-slate-400 pl-1 font-semibold flex items-center gap-0.5 shrink-0">
+          <MapPin className="w-3 h-3 text-emerald-500" /> {isBn ? 'প্লট আইডি:' : 'Plot ID:'}
         </span>
         {demoParcels.map((p) => (
           <button
@@ -337,8 +343,8 @@ export const MapPage: React.FC<MapPageProps> = ({ onNavigateToReport }) => {
             onClick={() => handleSelectParcelById(p.synthetic_id)}
             className={`px-2 py-0.5 rounded-lg border font-mono shrink-0 transition-colors ${
               selectedParcel?.synthetic_id === p.synthetic_id
-                ? 'bg-emerald-500/20 border-emerald-500/60 text-emerald-300 font-bold'
-                : 'bg-slate-900 border-slate-700 text-white hover:bg-slate-800'
+                ? 'bg-emerald-500/20 border-emerald-500/60 text-emerald-700 dark:text-emerald-300 font-bold'
+                : 'bg-slate-100 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-800'
             }`}
           >
             {p.synthetic_id}
@@ -357,10 +363,10 @@ export const MapPage: React.FC<MapPageProps> = ({ onNavigateToReport }) => {
           disabled={!webGlSupported || isLowNetworkMode}
           className={`p-2.5 rounded-xl border shadow-xl backdrop-blur-md flex items-center justify-center transition-all ${
             is3DMode
-              ? 'bg-emerald-500 text-slate-950 font-bold border-emerald-400'
-              : 'bg-slate-900/90 text-white border-slate-700 hover:bg-slate-800 disabled:opacity-40'
+              ? 'bg-emerald-600 dark:bg-emerald-500 text-white dark:text-slate-950 font-bold border-emerald-400'
+              : 'bg-white/90 dark:bg-slate-900/90 text-slate-800 dark:text-white border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40'
           }`}
-          title="2D / 3D মোড পরিবর্তন"
+          title={isBn ? '2D / 3D মোড পরিবর্তন' : 'Toggle 2D / 3D Mode'}
           aria-label="2D/3D Toggle"
         >
           <Box className="w-5 h-5" />
@@ -370,41 +376,41 @@ export const MapPage: React.FC<MapPageProps> = ({ onNavigateToReport }) => {
         {/* Reset View Button */}
         <button
           onClick={resetView}
-          className="p-2.5 rounded-xl bg-slate-900/90 text-white border border-slate-700 shadow-xl backdrop-blur-md hover:bg-slate-800"
-          title="ভিউ রিসেট করুন"
+          className="p-2.5 rounded-xl bg-white/90 dark:bg-slate-900/90 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-700 shadow-xl backdrop-blur-md hover:bg-slate-100 dark:hover:bg-slate-800"
+          title={isBn ? 'ভিউ রিসেট করুন' : 'Reset View'}
           aria-label="Reset View"
         >
-          <RotateCcw className="w-5 h-5 text-emerald-400" />
+          <RotateCcw className="w-5 h-5 text-emerald-500" />
         </button>
 
         {/* Layer Toggle Button */}
         <button
           onClick={() => setShowLayerMenu(!showLayerMenu)}
-          className="p-2.5 rounded-xl bg-slate-900/90 text-white border border-slate-700 shadow-xl backdrop-blur-md hover:bg-slate-800"
-          title="লেয়ার ও ফিল্টার"
+          className="p-2.5 rounded-xl bg-white/90 dark:bg-slate-900/90 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-700 shadow-xl backdrop-blur-md hover:bg-slate-100 dark:hover:bg-slate-800"
+          title={isBn ? 'লেয়ার ও ফিল্টার' : 'Layers & Filters'}
           aria-label="Layer Menu"
         >
-          <Layers className="w-5 h-5 text-emerald-400" />
+          <Layers className="w-5 h-5 text-emerald-500" />
         </button>
 
         {/* Accessibility Parcel List Toggle */}
         <button
           onClick={() => setShowAccessibilityList(!showAccessibilityList)}
-          className="p-2.5 rounded-xl bg-slate-900/90 text-white border border-slate-700 shadow-xl backdrop-blur-md hover:bg-slate-800"
-          title="পার্সেল তালিকা (এক্সেসিবিলিটি)"
+          className="p-2.5 rounded-xl bg-white/90 dark:bg-slate-900/90 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-700 shadow-xl backdrop-blur-md hover:bg-slate-100 dark:hover:bg-slate-800"
+          title={isBn ? 'পার্সেল তালিকা (এক্সেসিবিলিটি)' : 'Parcel List (Accessibility)'}
           aria-label="Accessibility List"
         >
-          <List className="w-5 h-5 text-cyan-400" />
+          <List className="w-5 h-5 text-cyan-500" />
         </button>
 
         {/* Layer Menu Popover */}
         {showLayerMenu && (
-          <div className="absolute right-0 top-36 w-52 p-3 rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl backdrop-blur-xl animate-in fade-in text-xs space-y-2 z-20">
-            <h4 className="font-bold text-white mb-2 pb-1 border-b border-slate-800">
-              মানচিত্রের স্তরসমূহ
+          <div className="absolute right-0 top-36 w-56 p-3 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-2xl backdrop-blur-xl animate-in fade-in text-xs space-y-2 z-20">
+            <h4 className="font-bold text-slate-900 dark:text-white mb-2 pb-1 border-b border-slate-100 dark:border-slate-800">
+              {isBn ? 'মানচিত্রের স্তরসমূহ' : 'Map Layers'}
             </h4>
-            <label className="flex items-center justify-between cursor-pointer text-slate-200 hover:text-white">
-              <span>দাগ সীমানা</span>
+            <label className="flex items-center justify-between cursor-pointer text-slate-700 dark:text-slate-200 hover:text-emerald-600">
+              <span>{isBn ? 'দাগ সীমানা' : 'Plot Boundaries'}</span>
               <input
                 type="checkbox"
                 checked={activeLayers.boundary}
@@ -412,8 +418,8 @@ export const MapPage: React.FC<MapPageProps> = ({ onNavigateToReport }) => {
                 className="accent-primary rounded"
               />
             </label>
-            <label className="flex items-center justify-between cursor-pointer text-slate-200 hover:text-white">
-              <span>ভূমির শ্রেণি</span>
+            <label className="flex items-center justify-between cursor-pointer text-slate-700 dark:text-slate-200 hover:text-emerald-600">
+              <span>{isBn ? 'ভূমির শ্রেণি' : 'Land Classification'}</span>
               <input
                 type="checkbox"
                 checked={activeLayers.landType}
@@ -421,8 +427,8 @@ export const MapPage: React.FC<MapPageProps> = ({ onNavigateToReport }) => {
                 className="accent-primary rounded"
               />
             </label>
-            <label className="flex items-center justify-between cursor-pointer text-slate-200 hover:text-white">
-              <span>সড়ক ও যোগাযোগ</span>
+            <label className="flex items-center justify-between cursor-pointer text-slate-700 dark:text-slate-200 hover:text-emerald-600">
+              <span>{isBn ? 'সড়ক ও যোগাযোগ' : 'Roads & Access'}</span>
               <input
                 type="checkbox"
                 checked={activeLayers.roads}
@@ -430,8 +436,8 @@ export const MapPage: React.FC<MapPageProps> = ({ onNavigateToReport }) => {
                 className="accent-primary rounded"
               />
             </label>
-            <label className="flex items-center justify-between cursor-pointer text-slate-200 hover:text-white">
-              <span>নদী ও জলাশয়</span>
+            <label className="flex items-center justify-between cursor-pointer text-slate-700 dark:text-slate-200 hover:text-emerald-600">
+              <span>{isBn ? 'নদী ও জলাশয়' : 'Rivers & Canals'}</span>
               <input
                 type="checkbox"
                 checked={activeLayers.water}
@@ -443,14 +449,16 @@ export const MapPage: React.FC<MapPageProps> = ({ onNavigateToReport }) => {
         )}
       </div>
 
-      {/* Accessibility Text List Modal/Drawer (3.4) */}
+      {/* Accessibility Text List Modal/Drawer */}
       {showAccessibilityList && (
-        <div className="absolute inset-x-2 top-24 bottom-20 z-30 max-w-lg mx-auto bg-slate-900/95 border border-slate-700 rounded-2xl p-4 shadow-2xl backdrop-blur-xl flex flex-col">
-          <div className="flex justify-between items-center pb-2 border-b border-slate-800">
-            <h3 className="text-sm font-bold text-white">পার্সেল তালিকা (Screen Reader & Accessibility)</h3>
+        <div className="absolute inset-x-2 top-24 bottom-20 z-30 max-w-lg mx-auto bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 shadow-2xl backdrop-blur-xl flex flex-col">
+          <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+              {isBn ? 'পার্সেল তালিকা (এক্সেসিবিলিটি)' : 'Parcel List (Accessibility View)'}
+            </h3>
             <button
               onClick={() => setShowAccessibilityList(false)}
-              className="p-1 rounded-lg text-slate-400 hover:text-white"
+              className="p-1 rounded-lg text-slate-400 hover:text-slate-900 dark:hover:text-white"
             >
               <X className="w-5 h-5" />
             </button>
@@ -463,76 +471,84 @@ export const MapPage: React.FC<MapPageProps> = ({ onNavigateToReport }) => {
                   setSelectedParcel(p);
                   setShowAccessibilityList(false);
                 }}
-                className="p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 cursor-pointer text-xs"
+                className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-emerald-500 cursor-pointer text-xs"
               >
                 <div className="flex justify-between items-center mb-1">
-                  <span className="font-mono font-bold text-emerald-400">{p.synthetic_id}</span>
-                  <span className="text-slate-400">শ্রেণি: {p.land_class}</span>
+                  <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">{p.synthetic_id}</span>
+                  <span className="text-slate-600 dark:text-slate-400">{isBn ? `শ্রেণি: ${p.land_class}` : `Class: ${p.land_class}`}</span>
                 </div>
-                <div className="text-slate-300">ক্ষেত্রফল: {p.area_acres} একর</div>
+                <div className="text-slate-700 dark:text-slate-300">
+                  {isBn ? `ক্ষেত্রফল: ${p.area_acres} একর` : `Area: ${p.area_acres} Acres`}
+                </div>
               </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* Bottom Sheet for Selected Parcel (Mandatory 3.2) */}
+      {/* Bottom Sheet for Selected Parcel */}
       {selectedParcel && (
-        <div className="absolute bottom-16 left-2 right-2 z-40 max-w-lg mx-auto p-4 bg-slate-900/95 border border-slate-700/80 rounded-2xl shadow-2xl backdrop-blur-xl animate-in slide-in-from-bottom duration-300">
-          <div className="w-12 h-1 bg-slate-700 rounded-full mx-auto mb-3" />
+        <div className="absolute bottom-16 left-2 right-2 z-40 max-w-lg mx-auto p-4 bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-slate-700/80 rounded-2xl shadow-2xl backdrop-blur-xl animate-in slide-in-from-bottom duration-300">
+          <div className="w-12 h-1 bg-slate-300 dark:bg-slate-700 rounded-full mx-auto mb-3" />
 
           <div className="flex items-start justify-between gap-2 mb-3">
             <div>
-              <span className="text-[11px] font-mono text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
-                আইডি: {selectedParcel.synthetic_id}
+              <span className="text-[11px] font-mono text-emerald-700 dark:text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+                {isBn ? `আইডি: ${selectedParcel.synthetic_id}` : `ID: ${selectedParcel.synthetic_id}`}
               </span>
-              <h3 className="text-base font-bold text-white mt-1">
-                শ্রেণি: {selectedParcel.land_class} • পরিমাণ: {selectedParcel.area_acres} একর
+              <h3 className="text-base font-bold text-slate-900 dark:text-white mt-1">
+                {isBn
+                  ? `শ্রেণি: ${selectedParcel.land_class} • পরিমাণ: ${selectedParcel.area_acres} একর`
+                  : `Class: ${selectedParcel.land_class} • Area: ${selectedParcel.area_acres} Acres`}
               </h3>
             </div>
             <button
               onClick={() => setSelectedParcel(null)}
-              className="p-1 rounded-full text-slate-400 hover:text-white hover:bg-slate-800"
+              className="p-1 rounded-full text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Alert Counts by Severity (Strictly no safe/unsafe colors on parcels) */}
+          {/* Alert Counts by Severity */}
           {selectedParcel.alert_counts && (
-            <div className="flex flex-wrap items-center gap-1.5 my-2.5 p-2 rounded-xl bg-slate-950/70 border border-slate-800 text-xs">
-              <span className="text-slate-400 font-medium">যাচাই প্রয়োজন:</span>
+            <div className="flex flex-wrap items-center gap-1.5 my-2.5 p-2 rounded-xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 text-xs">
+              <span className="text-slate-600 dark:text-slate-400 font-medium">{isBn ? 'যাচাই প্রয়োজন:' : 'Verification:'}</span>
               {selectedParcel.alert_counts.high > 0 && (
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40">
-                  উচ্চ গুরুত্ব: {selectedParcel.alert_counts.high}
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-700 dark:text-rose-300 border border-rose-500/40">
+                  {isBn ? `উচ্চ গুরুত্ব: ${selectedParcel.alert_counts.high}` : `High Risk: ${selectedParcel.alert_counts.high}`}
                 </span>
               )}
               {selectedParcel.alert_counts.warn > 0 && (
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                  সতর্কতা: {selectedParcel.alert_counts.warn}
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+                  {isBn ? `সতর্কতা: ${selectedParcel.alert_counts.warn}` : `Warning: ${selectedParcel.alert_counts.warn}`}
                 </span>
               )}
               {selectedParcel.alert_counts.info > 0 && (
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30">
-                  তথ্যগত: {selectedParcel.alert_counts.info}
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/20 text-sky-700 dark:text-sky-300 border border-sky-500/30">
+                  {isBn ? `তথ্যগত: ${selectedParcel.alert_counts.info}` : `Info: ${selectedParcel.alert_counts.info}`}
                 </span>
               )}
               {selectedParcel.alert_counts.total === 0 && (
-                <span className="text-emerald-400 text-[11px]">কোনো অসঙ্গতি পাওয়া যায়নি</span>
+                <span className="text-emerald-600 dark:text-emerald-400 text-[11px]">
+                  {isBn ? 'কোনো অসঙ্গতি পাওয়া যায়নি' : 'No discrepancies detected'}
+                </span>
               )}
             </div>
           )}
 
           {/* Sample Documents List */}
-          <div className="mt-2 text-xs text-slate-300">
-            <span className="text-slate-400 font-semibold block mb-1">নমুনা নথিপত্র:</span>
+          <div className="mt-2 text-xs text-slate-700 dark:text-slate-300">
+            <span className="text-slate-500 dark:text-slate-400 font-semibold block mb-1">
+              {isBn ? 'নমুনা নথিপত্র:' : 'Sample Documents:'}
+            </span>
             <div className="flex flex-wrap gap-1.5">
               {selectedParcel.sample_documents.map((doc, idx) => (
                 <span
                   key={idx}
-                  className="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-200 border border-slate-700/60 flex items-center gap-1"
+                  className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700/60 flex items-center gap-1"
                 >
-                  <FileText className="w-3 h-3 text-emerald-400" />
+                  <FileText className="w-3 h-3 text-emerald-500" />
                   {doc}
                 </span>
               ))}
@@ -543,10 +559,10 @@ export const MapPage: React.FC<MapPageProps> = ({ onNavigateToReport }) => {
           <div className="pt-3">
             <button
               onClick={() => onNavigateToReport && onNavigateToReport(selectedParcel.synthetic_id)}
-              className="touch-target w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-primary hover:bg-emerald-600 text-white font-semibold text-xs shadow-lg shadow-emerald-950/50 active:scale-98 transition-all"
+              className="touch-target w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-lg shadow-emerald-950/20 active:scale-98 transition-all"
             >
               <FileBarChart className="w-4 h-4" />
-              <span>ক্রেতা রিপোর্ট দেখুন</span>
+              <span>{isBn ? 'ক্রেতা রিপোর্ট দেখুন' : 'View Buyer Due Diligence Report'}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
