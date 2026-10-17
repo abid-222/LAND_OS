@@ -22,7 +22,11 @@ import {
 } from 'lucide-react';
 import { api, ApiError } from '../api/client';
 import { VisualDeedHeatmapScanner } from './VisualDeedHeatmapScanner';
-import { CadastralScene, defaultDemoParcels, type Parcel } from './landtech/CadastralScene';
+import {
+  CadastralScene,
+  MOUZA_REGISTRY,
+  type Parcel,
+} from './landtech/CadastralScene';
 
 export interface MLExtractResponse {
   success: boolean;
@@ -113,6 +117,7 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
   // ---------------------------------------------------------------------------
   // Module 0: 3D Cadastral & Spatial Mesh States
   // ---------------------------------------------------------------------------
+  const [activeMouzaId, setActiveMouzaId] = useState<string>('TEJGAON');
   const [selected3DParcelId, setSelected3DParcelId] = useState<string>('P-4520');
   const [isCadastralScanning, setIsCadastralScanning] = useState<boolean>(true);
 
@@ -272,18 +277,26 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const current3DParcel: Parcel =
-    defaultDemoParcels.find((p) => p.id === selected3DParcelId) || defaultDemoParcels[0];
+  const currentMouza = MOUZA_REGISTRY[activeMouzaId] || MOUZA_REGISTRY.TEJGAON;
+  const current3DParcel: Parcel = (() => {
+    const inCurrent = currentMouza.parcels.find((p) => p.id === selected3DParcelId);
+    if (inCurrent) return inCurrent;
+    for (const key of Object.keys(MOUZA_REGISTRY)) {
+      const p = MOUZA_REGISTRY[key].parcels.find((item) => item.id === selected3DParcelId);
+      if (p) return p;
+    }
+    return currentMouza.parcels[0];
+  })();
 
   const handleRunNlpOn3DParcel = () => {
     setRawText(
       `বাংলাদেশ ফরম নং ৫৪। সাফ-কবলা বিক্রয় দলিল।\n` +
-      `জেলা: ঢাকা, উপজেলা/থানা: তেজগাঁও, মৌজা: ${current3DParcel.mouza || 'তেজগাঁও'}\n` +
-      `খতিয়ান নং ৩৪০, দাগ নং ${current3DParcel.dag || '১২০৫'}/১।\n` +
-      `জমির মোট পরিমাণ: ${current3DParcel.area}।\n` +
+      `জেলা: ${currentMouza.district || 'ঢাকা'}, উপজেলা/থানা: ${currentMouza.thana || 'তেজগাঁও'}, মৌজা: ${current3DParcel.mouza || currentMouza.nameBn} (জেএল নং ${currentMouza.jlNo})।\n` +
+      `খতিয়ান নং: ${current3DParcel.khatian || '৩৪০/বিএস'}, দাগ নং: ${current3DParcel.dag || '১২০৫'}/১।\n` +
+      `জমির শ্রেণি: ${current3DParcel.landTypeNameBn || 'নাল ও ভিটি'}, মোট পরিমাণ: ${current3DParcel.area}।\n` +
       `ক্রেতা (গ্রহীতা): মোঃ রহিম মিয়া, পিতা: মরহুম আবদুর রহমান।\n` +
-      `বিক্রেতা (দাতা): জনাব আবদুল করিম, পিতা: মরহুম ফজলুল হক।\n` +
-      `চৌহদ্দি: উত্তরে সরকারি রাস্তা, দক্ষিণে খাল, পূর্বে দাগ নং ১২০৪, পশ্চিমে দাগ নং ১২০৬।`
+      `বিক্রেতা (দাতা): ${current3DParcel.owner || 'জনাব আবদুল করিম'}, পিতা: মরহুম ফজলুল হক।\n` +
+      `চৌহদ্দি: উত্তরে ${currentMouza.roadName}, দক্ষিণে ${currentMouza.waterName}, পূর্বে দাগ নং ১২০৪, পশ্চিমে দাগ নং ১২০৬।`
     );
     setActiveTab('extract');
   };
@@ -432,11 +445,13 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
               {/* 3D Scene Card */}
               <div className="p-4 sm:p-5 rounded-3xl bg-slate-900 border border-emerald-500/30 shadow-2xl overflow-hidden relative">
                 <CadastralScene
-                  parcels={defaultDemoParcels}
                   selectedId={selected3DParcelId}
                   onSelect={(id) => setSelected3DParcelId(id)}
                   scanning={isCadastralScanning}
-                  className="w-full h-[360px] sm:h-[420px] rounded-2xl"
+                  activeMouzaId={activeMouzaId}
+                  onMouzaChange={(mouzaId) => setActiveMouzaId(mouzaId)}
+                  allowAreaSwitching={true}
+                  className="w-full"
                 />
 
                 <div className="mt-4 pt-3 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
@@ -455,7 +470,7 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
                     </span>
                   </div>
                   <span className="text-[11px] font-mono text-emerald-400 font-bold">
-                    {isBn ? 'প্লটে ক্লিক করে প্যারামিটার পরীক্ষা করুন' : 'Click any parcel to inspect telemetry'}
+                    {isBn ? 'উপরে বিভিন্ন মৌজা ও প্লটে ক্লিক করে পরীক্ষা করুন' : 'Click any mouza or plot to inspect telemetry'}
                   </span>
                 </div>
               </div>
@@ -480,7 +495,7 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
                 <div className="flex items-start justify-between border-b border-slate-200 dark:border-slate-800/80 pb-3">
                   <div>
                     <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">
-                      {isBn ? 'ক্যাডাস্ট্রাল আইডি' : 'Cadastral Parcel ID'}
+                      {isBn ? 'ক্যাডাস্ট্রাল প্লট ও মৌজা' : 'Cadastral Plot & Mouza'}
                     </span>
                     <h4 className="text-lg font-black text-slate-900 dark:text-white font-mono flex items-center gap-2">
                       <span>{current3DParcel.id}</span>
@@ -503,23 +518,44 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
                 <div className="grid grid-cols-2 gap-3 text-xs">
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-slate-800">
                     <span className="text-[10px] text-slate-400 block font-bold">{isBn ? 'মৌজা ও সার্কেল' : 'Mouza & Circle'}</span>
-                    <strong className="text-slate-800 dark:text-slate-200">{current3DParcel.mouza || 'তেজগাঁও সার্কেল'}</strong>
+                    <strong className="text-slate-800 dark:text-slate-200">{current3DParcel.mouza || currentMouza.nameBn}</strong>
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-slate-800">
                     <span className="text-[10px] text-slate-400 block font-bold">{isBn ? 'দাগ নম্বর (Dag No.)' : 'Dag / Plot No.'}</span>
-                    <strong className="text-slate-800 dark:text-slate-200 font-mono">{current3DParcel.dag || '১২০৫'}</strong>
+                    <strong className="text-slate-800 dark:text-slate-200 font-mono text-emerald-500 font-black">দাগ {current3DParcel.dag || '১২০৫'}</strong>
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-slate-800">
-                    <span className="text-[10px] text-slate-400 block font-bold">{isBn ? 'রেকর্ডকৃত জমির পরিমাণ' : 'Recorded Area'}</span>
+                    <span className="text-[10px] text-slate-400 block font-bold">{isBn ? 'জমির পরিমাণ ও শ্রেণি' : 'Area & Classification'}</span>
                     <strong className="text-emerald-600 dark:text-emerald-400 font-mono font-black">{current3DParcel.area}</strong>
+                    <span className="text-[10px] text-slate-400 block mt-0.5">{current3DParcel.landTypeNameBn || 'নাল জমি'}</span>
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-slate-800">
-                    <span className="text-[10px] text-slate-400 block font-bold">{isBn ? 'ব্লকচেইন হ্যাশ অ্যাঙ্কর' : 'Ledger Hash Anchor'}</span>
-                    <strong className="text-slate-800 dark:text-slate-200 font-mono text-[10px] truncate block">
-                      0x7f2a...c9e1
-                    </strong>
+                    <span className="text-[10px] text-slate-400 block font-bold">{isBn ? 'খতিয়ান নম্বর' : 'Khatian No.'}</span>
+                    <strong className="text-slate-800 dark:text-slate-200 font-mono">{current3DParcel.khatian || '৩৪০/বিএস'}</strong>
+                  </div>
+                  <div className="col-span-2 p-3 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] text-slate-400 block font-bold">{isBn ? 'রেকর্ডকৃত স্বত্বাধিকারী / মালিক' : 'Recorded Owner / Entity'}</span>
+                      <strong className="text-slate-800 dark:text-slate-200 text-xs">{current3DParcel.owner || 'মোঃ করিম মিয়া'}</strong>
+                    </div>
+                    {current3DParcel.surveyDistance && (
+                      <span className="text-[11px] font-mono text-emerald-400 px-2 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 font-bold">
+                        {current3DParcel.surveyDistance}
+                      </span>
+                    )}
                   </div>
                 </div>
+
+                {/* Dispute / Conflict Warning Banner */}
+                {current3DParcel.disputeNote && (
+                  <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs flex items-start gap-2.5">
+                    <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                    <div>
+                      <b className="block text-amber-200">{isBn ? 'সতর্কবার্তা ও বিবাদ চিহ্নিত:' : 'Conflict / Risk Identified:'}</b>
+                      <span>{current3DParcel.disputeNote}</span>
+                    </div>
+                  </div>
+                )}
 
                 {/* 1-Click Direct ML Execution Buttons */}
                 <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800">

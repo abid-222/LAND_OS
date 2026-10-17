@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './landtech.css';
-import { CadastralScene, defaultDemoParcels } from './CadastralScene';
+import { CadastralScene, MOUZA_REGISTRY, defaultDemoParcels } from './CadastralScene';
 import { MapPin, FileCheck2 } from 'lucide-react';
 
 interface LandTechShowcaseProps {
@@ -66,13 +66,20 @@ export const LandTechShowcase: React.FC<LandTechShowcaseProps> = ({
   const currentLang = (i18n.language || 'bn').startsWith('bn') ? 'bn' : 'en';
   const t = copy[currentLang];
 
+  const [activeMouzaId, setActiveMouzaId] = useState<string>('TEJGAON');
   const [selectedId, setSelectedId] = useState<string>(defaultDemoParcels[0].id);
   const [scanning, setScanning] = useState<boolean>(true);
 
-  const selected = useMemo(
-    () => defaultDemoParcels.find((parcel) => parcel.id === selectedId) ?? defaultDemoParcels[0],
-    [selectedId]
-  );
+  const currentMouza = MOUZA_REGISTRY[activeMouzaId] || MOUZA_REGISTRY.TEJGAON;
+  const selected = useMemo(() => {
+    const inCurrent = currentMouza.parcels.find((p) => p.id === selectedId);
+    if (inCurrent) return inCurrent;
+    for (const key of Object.keys(MOUZA_REGISTRY)) {
+      const p = MOUZA_REGISTRY[key].parcels.find((item) => item.id === selectedId);
+      if (p) return p;
+    }
+    return currentMouza.parcels[0];
+  }, [currentMouza, selectedId]);
 
   const statusLabel =
     selected.status === 'verified'
@@ -154,10 +161,12 @@ export const LandTechShowcase: React.FC<LandTechShowcaseProps> = ({
           </div>
 
           <CadastralScene
-            parcels={defaultDemoParcels}
             selectedId={selectedId}
             onSelect={setSelectedId}
             scanning={scanning}
+            activeMouzaId={activeMouzaId}
+            onMouzaChange={setActiveMouzaId}
+            allowAreaSwitching={true}
           />
 
           <div className="lt-map-footer">

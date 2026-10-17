@@ -7,8 +7,137 @@ import {
   ShieldCheck,
   MapPin,
   RefreshCw,
+  Users,
+  Scale,
+  ChevronDown,
+  ChevronUp,
+  CheckCircle2,
+  Key,
+  Shield,
+  Sparkles,
 } from 'lucide-react';
 import { api } from '../api/client';
+
+export interface GovRoleInfo {
+  roleId: string;
+  nameBn: string;
+  nameEn: string;
+  email: string;
+  password: string;
+  badgeColor: string;
+  phase: string;
+  responsibilitiesBn: string[];
+  sampleAction: string;
+  actionNoteBn: string;
+}
+
+export const GOV_WORKER_ROLES: GovRoleInfo[] = [
+  {
+    roleId: 'Operator',
+    nameBn: 'ইউনিয়ন ভূমি সহকারী কর্মকর্তা (তহশিলদার)',
+    nameEn: 'Union Land Assistant Officer (Tahsildar)',
+    email: 'operator@landos.gov.bd',
+    password: 'Password123!',
+    badgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/30',
+    phase: 'ধাপ ১: প্রাথমিক সরজমিন তদন্ত ও ফরম ৯ক',
+    responsibilitiesBn: [
+      'নাগরিকের দাখিলকৃত নামজারি আবেদন ও দলিলের প্রাথমিক যাচাই',
+      'জমির সরজমিন দখল ও প্রকৃত চৌহদ্দি পরিদর্শন',
+      'সরকারি খাস, অর্পিত বা পরিত্যক্ত সম্পত্তি নয় মর্মে নিশ্চিতকরণ',
+      'তদন্ত প্রতিবেদন (ফরম ৯ক) প্রস্তুত ও সহকারী কমিশনার (ভূমি) বরাবরে প্রেরণ',
+    ],
+    sampleAction: 'তদন্ত প্রতিবেদন (ফরম ৯ক) দাখিল',
+    actionNoteBn:
+      'জমির দখলদার মোঃ রহিম মিয়াকে সরজমিনে পাওয়া গিয়েছে। চৌহদ্দি ও খতিয়ান মিল রয়েছে। কোনো সরকারি স্বার্থ বা অর্পিত খাস জমি ক্ষুণ্ণ হয়নি।',
+  },
+  {
+    roleId: 'Reviewer',
+    nameBn: 'কানুনগো ও সার্ভেয়ার (জরিপ ও দাগ পরীক্ষক)',
+    nameEn: 'Kanungo & Surveyor (Cadastral Reviewer)',
+    email: 'reviewer@landos.gov.bd',
+    password: 'Password123!',
+    badgeColor: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
+    phase: 'ধাপ ২: মৌজা নকশা, দাগ পরিমাপ ও এআই অডিট',
+    responsibilitiesBn: [
+      'মৌজা নকশায় সিএস/আরএস/বিএস দাগের অবস্থান ও জ্যামিতিক সীমানা যাচাই',
+      'রেলওয়ে, সড়ক ও জনপথ বা খালের বাফার জোনে কোনো অনুপ্রবেশ হয়েছে কি না পরীক্ষণ',
+      'R1-R6 এআই কনফ্লিক্ট ইঞ্জিনে কোনো দ্বৈত বিক্রি বা খতিয়ান জালিয়াতি শনাক্ত হয়েছে কি না পরীক্ষণ',
+      'কানুনগো যাচাই প্রতিবেদন প্রণয়ন ও শুনানির সুপারিশ',
+    ],
+    sampleAction: 'কানুনগো ও নকশা যাচাই প্রতিবেদন',
+    actionNoteBn:
+      'মৌজা নকশার দাগ নং ১২০৫ এর সীমানা পরিমাপ করা হয়েছে। পার্শ্ববর্তী দাগের সাথে কোনো সীমানা ওভারল্যাপ বা বিরোধ নেই। নামজারি অনুমোদনের সুপারিশ করা হলো।',
+  },
+  {
+    roleId: 'Supervisor',
+    nameBn: 'সহকারী কমিশনার (ভূমি) / এসি ল্যান্ড',
+    nameEn: 'Assistant Commissioner (Land) - AC Land',
+    email: 'supervisor@landos.gov.bd',
+    password: 'Password123!',
+    badgeColor: 'bg-purple-500/10 text-purple-400 border-purple-500/30',
+    phase: 'ধাপ ৩: আধা-বিচারিক শুনানি ও খতিয়ান স্বাক্ষর',
+    responsibilitiesBn: [
+      'উভয় পক্ষের শুনানির নোটিশ জারি ও আধা-বিচারিক শুনানি গ্রহণ',
+      'রেকর্ডীয় স্বত্ব ও উত্তরাধিকার সনদ অনুযায়ী চূড়ান্ত নামজারি আদেশ প্রদান',
+      'ডি-নথিতে ডিজিটাল স্বাক্ষর এবং নতুন নামজারি খতিয়ান (Khatian) অনুমোদন',
+      'সরকারি ডিসিআর ফি (DCR Fee) এবং কর নির্ধারণ নিশ্চিতকরণ',
+    ],
+    sampleAction: 'চূড়ান্ত খতিয়ান অনুমোদন ও স্বাক্ষর',
+    actionNoteBn:
+      'উভয় পক্ষের কাগজপত্র ও কানুনগো প্রতিবেদন পর্যালোচনায় স্বত্ব প্রমাণিত হওয়ায় নামজারি প্রস্তাব মঞ্জুর করা হলো। নতুন খতিয়ান প্রস্তুতের নির্দেশ দেওয়া হলো।',
+  },
+  {
+    roleId: 'OfficeAdmin',
+    nameBn: 'উপজেলা রেকর্ড কিপার ও প্রশাসনিক কর্মকর্তা',
+    nameEn: 'Upazila Land Office Administrator',
+    email: 'officeadmin@landos.gov.bd',
+    password: 'Password123!',
+    badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/30',
+    phase: 'ধাপ ৪: রেজিস্টার-৯ ভলিউম ও নাগরিক ডেলিভারি',
+    responsibilitiesBn: [
+      'রেজিস্টার-৯ (Register-IX) এ নতুন নামজারি ভলিউম লিপিবদ্ধকরণ',
+      'সার্কেল কর্মকর্তা ও কর্মচারীদের কেস অ্যাসাইনমেন্ট ব্যবস্থাপনা',
+      'অনুমোদিত খতিয়ান ও ডিসিআর কপি নাগরিককে ডিজিটাল পোর্টাল বা কাউন্টারে হস্তান্তর',
+    ],
+    sampleAction: 'রেজিস্টার-৯ ভলিউম এন্ট্রি সম্পন্ন',
+    actionNoteBn:
+      'অনুমোদিত নামজারি কেস রেজিস্টার-৯ এর পৃষ্ঠা নং ১২৪-এ অন্তর্ভুক্ত হয়েছে। কিউআর কোডযুক্ত খতিয়ান নাগরিককে ডেলিভারির জন্য প্রস্তুত।',
+  },
+  {
+    roleId: 'RegionalManager',
+    nameBn: 'অতিরিক্ত জেলা প্রশাসক (রাজস্ব) / এডিসি রাজস্ব',
+    nameEn: 'Additional Deputy Commissioner (Revenue)',
+    email: 'regionalmanager@landos.gov.bd',
+    password: 'Password123!',
+    badgeColor: 'bg-rose-500/10 text-rose-400 border-rose-500/30',
+    phase: 'আপিল ধাপ: নামজারি মিস কেস ও রাজস্ব অডিট',
+    responsibilitiesBn: [
+      'সহকারী কমিশনার (ভূমি)-এর আদেশের বিরুদ্ধে দাখিলকৃত নামজারি আপিল ও মিস কেসের শুনানি গ্রহণ',
+      'আন্তঃউপজেলা সীমানা সংক্রান্ত বিতর্ক ও নদীভাঙ্গা জমির পুনর্বন্টন নিষ্পত্তি',
+      'জেলা পর্যায়ে রাজস্ব আদায় ও ডিজিটাল ভূমি সেবা তদারকি',
+    ],
+    sampleAction: 'আপিল শুনানি ও মিস কেস নিষ্পত্তি',
+    actionNoteBn:
+      'দাখিলকৃত আপিল পিটিশন পর্যালোচনা করা হলো। সহকারী কমিশনার (ভূমি)-এর আদেশে কোনো পদ্ধতিগত ত্রুটি না থাকায় আদেশ বহাল রাখা হলো।',
+  },
+  {
+    roleId: 'SecurityOfficer',
+    nameBn: 'সাইবার ও অডিট নিরাপত্তা কর্মকর্তা',
+    nameEn: 'Cyber & Audit Security Officer',
+    email: 'securityofficer@landos.gov.bd',
+    password: 'Password123!',
+    badgeColor: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30',
+    phase: 'নিরাপত্তা অডিট: ব্লকচেইন হ্যাশ চেইন ও ট্যাম্পার যাচাই',
+    responsibilitiesBn: [
+      'SHA-256 ক্রিপ্টোগ্রাফিক হ্যাশ চেইন দিয়ে রেকর্ড অপরিবর্তনযোগ্যতা যাচাই',
+      'অননুমোদিত ডেটাবেজ পরিবর্তন ও জালিয়াতি অ্যালার্ট ইনভেস্টিগেশন',
+      'জিরো-ট্রাস্ট অ্যাক্সেস লগ ও সাইবার অডিট রিপোর্ট প্রস্তুত',
+    ],
+    sampleAction: 'ক্রিপ্টোগ্রাফিক হ্যাশ অখণ্ডতা যাচাই',
+    actionNoteBn:
+      'রেকর্ডটির বর্তমান হ্যাশ পূর্ববর্তী ব্লক হ্যাশের সাথে শতভাগ মিলেছে। কোনো অননুমোদিত ট্যাম্পারিং বা পরিবর্তন পাওয়া যায়নি।',
+  },
+];
 
 interface ReviewCase {
   id: string;
@@ -39,7 +168,7 @@ export const StaffPage: React.FC<StaffPageProps> = ({ onNavigateToTab }) => {
       created_at: '2026-03-15 10:30',
       priority: 'high',
       status: 'pending',
-      flagged_fields: [isBn ? 'দাগ নং ১২০৫ (তেজগাঁও সার্কেল)' : 'Plot No. 1205 (Tejgaon Circle)'],
+      flagged_fields: [isBn ? 'দাগ নং ১২০৫ (তেজগাঁও শিল্প এলাকা)' : 'Plot No. 1205 (Tejgaon Circle)'],
       assigned_to: isBn ? 'সহকারী কমিশনার (ভূমি) / রিভিউয়ার' : 'AC Land Reviewer',
     },
     {
@@ -51,7 +180,7 @@ export const StaffPage: React.FC<StaffPageProps> = ({ onNavigateToTab }) => {
       priority: 'medium',
       status: 'pending',
       flagged_fields: [isBn ? 'দলিলের তারিখ ও নামজারি' : 'Registration Date & Mutation'],
-      assigned_to: isBn ? 'সহকারী কমিশনার (ভূমি) / রিভিউয়ার' : 'AC Land Reviewer',
+      assigned_to: isBn ? 'ইউনিয়ন ভূমি সহকারী কর্মকর্তা (তহশিলদার)' : 'Union Land Assistant Officer',
     },
     {
       id: 'c-103',
@@ -62,7 +191,18 @@ export const StaffPage: React.FC<StaffPageProps> = ({ onNavigateToTab }) => {
       priority: 'low',
       status: 'approved',
       flagged_fields: [],
-      assigned_to: isBn ? 'সহকারী কমিশনার (ভূমি) / রিভিউয়ার' : 'AC Land Reviewer',
+      assigned_to: isBn ? 'কানুনগো ও সার্ভেয়ার' : 'Kanungo & Surveyor',
+    },
+    {
+      id: 'c-104',
+      case_number: 'REV-2026-084',
+      document_name: 'purbachal_sector17_dag7801.pdf',
+      doc_type: isBn ? 'ই-নামজারি ও জমাভাগ আবেদন' : 'e-Mutation Application',
+      created_at: '2026-03-16 09:20',
+      priority: 'high',
+      status: 'pending',
+      flagged_fields: [isBn ? 'দাগ নং ৭৮০১ (পূর্বাচল স্মার্ট সিটি)' : 'Plot No. 7801 (Purbachal Smart City)'],
+      assigned_to: isBn ? 'সহকারী কমিশনার (ভূমি) / এসি ল্যান্ড' : 'Assistant Commissioner (Land)',
     },
   ]);
 
@@ -71,16 +211,18 @@ export const StaffPage: React.FC<StaffPageProps> = ({ onNavigateToTab }) => {
   const [actionReason, setActionReason] = useState('');
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [isLoadingQueue, setIsLoadingQueue] = useState(false);
+  const [showGovGuide, setShowGovGuide] = useState<boolean>(true);
+  const [activeGovRole, setActiveGovRole] = useState<string>('Supervisor');
 
-interface QueueCaseItem {
-  id: string;
-  case_number: string;
-  case_type?: string;
-  created_at?: string;
-  priority?: string;
-  status?: string;
-  notes?: string;
-}
+  interface QueueCaseItem {
+    id: string;
+    case_number: string;
+    case_type?: string;
+    created_at?: string;
+    priority?: string;
+    status?: string;
+    notes?: string;
+  }
 
   const fetchLiveQueue = async () => {
     setIsLoadingQueue(true);
@@ -138,25 +280,49 @@ interface QueueCaseItem {
     setActionReason('');
   };
 
+  const applyTemplateNote = (noteText: string, isApproval: boolean = true) => {
+    setActionReason(noteText);
+    setActionModal(isApproval ? 'approve' : 'return');
+  };
+
+  const currentRoleDetails = GOV_WORKER_ROLES.find((r) => r.roleId === activeGovRole) || GOV_WORKER_ROLES[2];
+
   return (
-    <div className="flex flex-col min-h-screen-dvh max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 text-slate-800 dark:text-slate-100 transition-colors pb-28">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-800/80">
+    <div className="flex flex-col min-h-screen-dvh max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 text-slate-800 dark:text-slate-100 transition-colors pb-28 space-y-6">
+      {/* Top Title Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800/80">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+          <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
             <UserCheck className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              {isBn ? 'ভূমি কর্মকর্তা ও নিরীক্ষক ওয়ার্কস্পেস' : 'Reviewer & Land Officer Workspace'}
-            </h1>
+            <div className="flex items-center gap-2">
+              <h1 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                {isBn ? 'ভূমি প্রশাসন ও কর্মকর্তা ওয়ার্কস্পেস' : 'Land Administration Officer Workspace'}
+              </h1>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">
+                E-NAMJARI V4
+              </span>
+            </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              {isBn ? 'পর্যালোচনা কিউ ও ফিল্ড ওভারলে অডিট নিয়ন্ত্রণ' : 'Inspection queue and document overlay verification'}
+              {isBn
+                ? 'ইউনিয়ন তহশিলদার, কানুনগো, সার্ভেয়ার, এসি ল্যান্ড ও এডিসি রাজস্ব কর্মকর্তাদের সমন্বিত ওয়ার্কস্পেস'
+                : 'Unified portal for Tahsildar, Kanungo, Surveyor, AC Land and ADC Revenue'}
             </p>
           </div>
         </div>
 
         {/* Filter Pills & Refresh */}
         <div className="flex items-center gap-2 self-start sm:self-auto">
+          <button
+            onClick={() => setShowGovGuide(!showGovGuide)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-colors"
+          >
+            <Users className="w-3.5 h-3.5" />
+            <span>{isBn ? 'কর্মকর্তাদের ভূমিকা ও দায়িত্ব' : 'Gov Worker Roles'}</span>
+            {showGovGuide ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+          </button>
+
           <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-black/60 p-1 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
             {['all', 'pending', 'approved', 'returned'].map((status) => (
               <button
@@ -189,6 +355,92 @@ interface QueueCaseItem {
           </button>
         </div>
       </div>
+
+      {/* Expandable Government Worker Roles & Responsibilities Matrix */}
+      {showGovGuide && (
+        <div className="p-5 rounded-3xl bg-slate-900/90 border border-emerald-500/30 text-white shadow-2xl relative overflow-hidden animate-in fade-in duration-300">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-3 mb-4">
+            <div className="flex items-center gap-2">
+              <Scale className="w-4 h-4 text-emerald-400" />
+              <h3 className="text-sm font-extrabold uppercase tracking-wider text-emerald-300">
+                {isBn
+                  ? 'বাংলাদেশ ডিজিটাল ভূমি সেবা — কর্মকর্তা পদবি, দায়িত্ব ও টেস্ট একাউন্ট তালিকা'
+                  : 'Bangladesh Land Administration — Hierarchy & Demo Role Accounts'}
+              </h3>
+            </div>
+            <span className="text-[11px] font-mono text-slate-400">
+              ডিফল্ট পাসওয়ার্ড: <b className="text-white font-mono bg-black/60 px-2 py-0.5 rounded border border-slate-700">Password123!</b>
+            </span>
+          </div>
+
+          {/* Role Pill Switcher */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar mb-4">
+            {GOV_WORKER_ROLES.map((role) => {
+              const isCurrent = role.roleId === activeGovRole;
+              return (
+                <button
+                  key={role.roleId}
+                  onClick={() => setActiveGovRole(role.roleId)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 border ${
+                    isCurrent
+                      ? 'bg-emerald-500 text-slate-950 border-emerald-300 shadow-md font-black'
+                      : 'bg-black/40 text-slate-300 hover:bg-slate-800 border-slate-700'
+                  }`}
+                >
+                  {role.nameBn.split(' ')[0]} ({role.nameEn.split(' ')[0]})
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Active Role Card Details */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 rounded-2xl bg-black/50 border border-slate-800">
+            <div className="md:col-span-5 space-y-2 border-r border-slate-800/80 pr-4">
+              <span className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border ${currentRoleDetails.badgeColor}`}>
+                {currentRoleDetails.phase}
+              </span>
+              <h4 className="text-base font-black text-white mt-1">{currentRoleDetails.nameBn}</h4>
+              <p className="text-xs text-slate-400 font-mono">{currentRoleDetails.nameEn}</p>
+
+              <div className="pt-2 text-xs text-slate-300 space-y-1">
+                <div className="flex items-center gap-2 font-mono text-[11px]">
+                  <Key className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>ইমেইল: <b className="text-emerald-300">{currentRoleDetails.email}</b></span>
+                </div>
+                <div className="flex items-center gap-2 font-mono text-[11px]">
+                  <Shield className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>পাসওয়ার্ড: <b className="text-slate-200">Password123!</b></span>
+                </div>
+              </div>
+
+              {/* Template Action Button */}
+              <div className="pt-3">
+                <button
+                  onClick={() => applyTemplateNote(currentRoleDetails.actionNoteBn, true)}
+                  className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow-sm"
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>{currentRoleDetails.sampleAction} প্রয়োগ করুন</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="md:col-span-7 space-y-2">
+              <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">
+                {isBn ? 'এই কর্মকর্তার মূল দায়িত্ব ও কার্যাবলী:' : 'Core Responsibilities:'}
+              </span>
+              <ul className="space-y-1.5 text-xs text-slate-200">
+                {currentRoleDetails.responsibilitiesBn.map((resp, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                    <span>{resp}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Main Grid: Left Review Queue Table / Cards, Right Document Viewer */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -246,11 +498,11 @@ interface QueueCaseItem {
           </div>
         </div>
 
-        {/* Right Column: Document Viewer */}
+        {/* Right Column: Document Viewer & Decision Panel */}
         <div className="lg:col-span-7 flex flex-col gap-4">
           {selectedCase ? (
-            <div className="p-6 rounded-3xl bg-white dark:bg-[#04080c] border border-slate-200 dark:border-emerald-500/20 shadow-xl">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+            <div className="p-6 rounded-3xl bg-white dark:bg-[#04080c] border border-slate-200 dark:border-emerald-500/20 shadow-xl space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800/80 pb-4">
                 <div>
                   <h3 className="text-base font-bold text-slate-900 dark:text-white">
                     {isBn ? `নথি নিরীক্ষণ: ${selectedCase.document_name}` : `Inspection: ${selectedCase.document_name}`}
@@ -300,6 +552,37 @@ interface QueueCaseItem {
                 </div>
               </div>
 
+              {/* Quick Official Report Action Bar */}
+              <div className="flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-slate-50 dark:bg-[#070d12] border border-slate-200 dark:border-slate-800 text-xs">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mr-1">
+                  {isBn ? 'অফিসিয়াল অ্যাকশন:' : 'Actions:'}
+                </span>
+                <button
+                  onClick={() => applyTemplateNote('তদন্ত প্রতিবেদন (ফরম ৯ক): সরজমিনে দখলদার যাচাই সম্পন্ন। খাস বা অর্পিত জমি নয়।', true)}
+                  className="px-2.5 py-1 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/30 font-bold transition-colors text-[11px]"
+                >
+                  তহশিলদার ফরম ৯ক
+                </button>
+                <button
+                  onClick={() => applyTemplateNote('কানুনগো যাচাই প্রতিবেদন: মৌজা নকশার দাগ ও সিএস/আরএস খতিয়ান মিল রয়েছে।', true)}
+                  className="px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold transition-colors text-[11px]"
+                >
+                  কানুনগো নকশা রিপোর্ট
+                </button>
+                <button
+                  onClick={() => applyTemplateNote('সহকারী কমিশনার (ভূমি): শুনানির তারিখ আগামী ১৫ কার্যদিবসের মধ্যে নির্ধারণ করা হলো।', true)}
+                  className="px-2.5 py-1 rounded-lg bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 border border-purple-500/30 font-bold transition-colors text-[11px]"
+                >
+                  শুনানি নোটিশ
+                </button>
+                <button
+                  onClick={() => applyTemplateNote('সহকারী কমিশনার (ভূমি): নামজারি প্রস্তাব চূড়ান্ত অনুমোদন ও খতিয়ান স্বাক্ষর প্রদান করা হলো।', true)}
+                  className="px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold transition-colors text-[11px]"
+                >
+                  খতিয়ান অনুমোদন
+                </button>
+              </div>
+
               {/* Document Simulator */}
               <div className="relative rounded-2xl bg-slate-100 dark:bg-black/90 aspect-[4/3] border border-slate-200 dark:border-slate-800 overflow-hidden flex items-center justify-center p-5 shadow-inner">
                 <div className="w-full h-full bg-white dark:bg-[#070d12] rounded-xl p-6 border border-slate-200 dark:border-slate-800 flex flex-col justify-between font-serif relative shadow-md">
@@ -319,11 +602,11 @@ interface QueueCaseItem {
 
                   {/* Bounding Box Overlay 2 (dag_no) */}
                   <div className="absolute top-32 right-8 p-1.5 border border-emerald-600/50 rounded-lg bg-slate-100 dark:bg-slate-900 text-[11px] text-slate-800 dark:text-slate-200 font-sans font-bold">
-                    {isBn ? 'দাগ নং: ১২০৫ [যাচাই প্রয়োজন]' : 'Plot No: 1205 [Review Required]'}
+                    {isBn ? 'দাগ নং: ১২০৫ [যাচাই সম্পন্ন]' : 'Plot No: 1205 [Verified]'}
                   </div>
 
                   <div className="space-y-2 text-xs text-slate-700 dark:text-slate-300 font-sans">
-                    <p>{isBn ? 'মৌজা: তেজগাঁও, জেএল নং: ০৪৫' : 'Mouza: Tejgaon, JL No: 045'}</p>
+                    <p>{isBn ? 'মৌজা: তেজগাঁও শিল্প এলাকা, জেএল নং: ০১৪' : 'Mouza: Tejgaon Industrial, JL No: 014'}</p>
                     <p>{isBn ? 'মালিকের নাম: মোঃ আব্দুল করিম' : 'Owner: Md. Abdul Karim'}</p>
                     <p>{isBn ? 'অংশের পরিমাণ: ০.৩৩ একর (নাল জমি)' : 'Area: 0.33 Acres'}</p>
                   </div>
@@ -337,7 +620,7 @@ interface QueueCaseItem {
               </div>
 
               {selectedCase.flagged_fields.length > 0 && (
-                <div className="mt-5 p-4 rounded-2xl bg-slate-50 dark:bg-[#070d12] border border-slate-200 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300">
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#070d12] border border-slate-200 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300">
                   <span className="font-bold text-slate-900 dark:text-white">
                     {isBn ? 'পর্যালোচনার কারণ: ' : 'Flagged Reason: '}
                   </span>
