@@ -8,8 +8,9 @@ and per-image ground-truth bounding boxes with train/val/test split by record.
 import json
 import os
 import random
+from typing import Any
+
 import numpy as np
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
 import qrcode
 from bangla_data import (
     BANGLA_NAMES_FEMALE,
@@ -19,6 +20,12 @@ from bangla_data import (
     SURVEY_TYPES,
     to_bn_digits,
 )
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
+
+# Pillow 10+ compatibility aliases
+RESAMPLING_BILINEAR = getattr(Image, "Resampling", Image).BILINEAR
+RESAMPLING_NEAREST = getattr(Image, "Resampling", Image).NEAREST
+TRANSFORM_PERSPECTIVE = getattr(Image, "Transform", Image).PERSPECTIVE
 
 SEED = 42
 
@@ -46,7 +53,7 @@ def apply_perspective_warp(image, max_warp=12):
         [(dx1, dy1), (w + dx2, dy2), (w + dx3, h + dy3), (dx4, h + dy4)],
     )
     return image.transform(
-        (w, h), Image.PERSPECTIVE, coeffs, Image.BILINEAR, fillcolor=(246, 243, 237)
+        (w, h), TRANSFORM_PERSPECTIVE, coeffs, RESAMPLING_BILINEAR, fillcolor=(246, 243, 237)
     )
 
 
@@ -120,8 +127,8 @@ def apply_darkness(image, factor=0.45):
 def apply_low_res(image, scale_down=0.30):
     """Simulates low-resolution camera sensor downsampling."""
     w, h = image.size
-    small = image.resize((int(w * scale_down), int(h * scale_down)), Image.BILINEAR)
-    return small.resize((w, h), Image.NEAREST)
+    small = image.resize((int(w * scale_down), int(h * scale_down)), RESAMPLING_BILINEAR)
+    return small.resize((w, h), RESAMPLING_NEAREST)
 
 
 def format_digits_variety(num_str: str, variety_mode: str) -> str:
@@ -198,7 +205,7 @@ def generate_documents(output_dir="data/synthetic/documents", count=310):
         record_ref = f"REC-MOUZA-{mouza['jl_no']}-{khatian_int}-{dag_int}"
         record_ids_assigned.append(record_ref)
 
-        gt_fields = {}
+        gt_fields: dict[str, Any] = {}
 
         # 1. Header & Government Monogram Simulation
         draw.text((360, 40), "বাংলাদেশ ফরম নং ৫৪৬৩", fill=(40, 40, 40), font=font_small)
@@ -332,7 +339,7 @@ def generate_documents(output_dir="data/synthetic/documents", count=310):
             degraded = apply_shadow(degraded)
             degradation_list.append("shadow")
             rot_angle = round(random.uniform(-6.0, 6.0), 2)
-            degraded = degraded.rotate(rot_angle, resample=Image.BILINEAR, expand=False, fillcolor=paper_bg)
+            degraded = degraded.rotate(rot_angle, resample=RESAMPLING_BILINEAR, expand=False, fillcolor=paper_bg)
             degradation_list.append("rotation")
             jpeg_q = random.randint(18, 32)
             degradation_list.append("jpeg")
@@ -343,7 +350,7 @@ def generate_documents(output_dir="data/synthetic/documents", count=310):
             quality_gate_passed = True
             rot_angle = round(random.uniform(-0.8, 0.8), 2)
             if abs(rot_angle) > 0.1:
-                degraded = degraded.rotate(rot_angle, resample=Image.BILINEAR, expand=False, fillcolor=paper_bg)
+                degraded = degraded.rotate(rot_angle, resample=RESAMPLING_BILINEAR, expand=False, fillcolor=paper_bg)
                 degradation_list.append("rotation")
             jpeg_q = random.randint(85, 95)
             # Very subtle light grain
@@ -361,7 +368,7 @@ def generate_documents(output_dir="data/synthetic/documents", count=310):
 
             # Rotation (+- 6 degrees)
             rot_angle = round(random.uniform(-6.0, 6.0), 2)
-            degraded = degraded.rotate(rot_angle, resample=Image.BILINEAR, expand=False, fillcolor=paper_bg)
+            degraded = degraded.rotate(rot_angle, resample=RESAMPLING_BILINEAR, expand=False, fillcolor=paper_bg)
             degradation_list.append("rotation")
 
             # Blur
