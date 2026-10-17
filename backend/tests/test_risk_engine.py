@@ -77,6 +77,7 @@ async def test_engine_preserves_reviewed_dismissed_history():
         await engine.run_all(parcel_id="P-TEST-2", db=session, ctx=ctx)
 
         from sqlalchemy import select
+
         res = await session.execute(select(Alert).where(Alert.parcel_id == "P-TEST-2"))
         db_alert = res.scalar_one()
         assert db_alert.status == "open"

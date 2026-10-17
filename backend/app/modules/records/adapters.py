@@ -71,18 +71,20 @@ class CSVSourceAdapter(BaseSourceAdapter):
             retrieved_at = row.get("retrieved_at", "").strip() or now_iso
             version = row.get("version", "").strip() or "v1.0"
 
-            parsed_records.append({
-                "khatian_no": khatian,
-                "dag_no": dag,
-                "mouza": mouza,
-                "owner_names": owners,
-                "area_decimal": area,
-                "provenance": {
-                    "source_id": source_id,
-                    "source_ref": source_ref,
-                    "retrieved_at": retrieved_at,
-                    "version": version,
-                },
-            })
+            parsed_records.append(
+                {
+                    "khatian_no": khatian,
+                    "dag_no": dag,
+                    "mouza": mouza,
+                    "owner_names": owners,
+                    "area_decimal": area,
+                    "provenance": {
+                        "source_id": source_id,
+                        "source_ref": source_ref,
+                        "retrieved_at": retrieved_at,
+                        "version": version,
+                    },
+                }
+            )
 
         return parsed_records

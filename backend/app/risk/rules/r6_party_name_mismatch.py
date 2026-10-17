@@ -32,7 +32,9 @@ def _load_r6_config() -> Dict[str, Any]:
 
 class PartyNameMismatchRule(BaseRiskRule):
     id = "R6_party_name_mismatch"
-    description = "Detects fuzzy name mismatches between document parties, deed parties, and record owners."
+    description = (
+        "Detects fuzzy name mismatches between document parties, deed parties, and record owners."
+    )
 
     def run(self, ctx: ParcelContext) -> List[RuleAlert]:
         alerts: List[RuleAlert] = []
@@ -43,7 +45,9 @@ class PartyNameMismatchRule(BaseRiskRule):
         # Baseline record owner
         rec_owners = ""
         if ctx.record:
-            rec_owners = str(ctx.record.get("owner_names_bn") or ctx.record.get("owner") or "").strip()
+            rec_owners = str(
+                ctx.record.get("owner_names_bn") or ctx.record.get("owner") or ""
+            ).strip()
 
         # Check linked documents against record / deeds
         for doc in ctx.documents:

@@ -77,7 +77,7 @@ jobs:
       - name: Install Playwright Browsers
         run: |
           cd frontend
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps chromium webkit
 
       - name: Run Playwright Smoke Test
         run: |

@@ -42,6 +42,7 @@ def create_access_token(user_id: str, role: str, email: str) -> str:
 
 def create_refresh_token(user_id: str, jti: Optional[str] = None) -> str:
     import uuid
+
     token_jti = jti or str(uuid.uuid4())
     return create_token(
         data={"sub": user_id, "jti": token_jti},

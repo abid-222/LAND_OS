@@ -72,10 +72,20 @@ export const StaffPage: React.FC<StaffPageProps> = ({ onNavigateToTab }) => {
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [isLoadingQueue, setIsLoadingQueue] = useState(false);
 
+interface QueueCaseItem {
+  id: string;
+  case_number: string;
+  case_type?: string;
+  created_at?: string;
+  priority?: string;
+  status?: string;
+  notes?: string;
+}
+
   const fetchLiveQueue = async () => {
     setIsLoadingQueue(true);
     try {
-      const res = await api.get<{ total_pending: number; cases: any[] }>('/api/v1/review/queue');
+      const res = await api.get<{ total_pending: number; cases: QueueCaseItem[] }>('/api/v1/review/queue');
       if (res && res.cases && res.cases.length > 0) {
         const mapped: ReviewCase[] = res.cases.map((c) => ({
           id: c.id,
@@ -100,6 +110,7 @@ export const StaffPage: React.FC<StaffPageProps> = ({ onNavigateToTab }) => {
 
   useEffect(() => {
     fetchLiveQueue();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filteredCases = cases.filter((c) => {

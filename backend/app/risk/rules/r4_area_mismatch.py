@@ -82,7 +82,9 @@ class AreaMismatchRule(BaseRiskRule):
                 continue
 
             # Compare converted decimal area against baseline
-            val_dec = norm_ar.area_decimal if norm_ar.area_decimal is not None else norm_ar.parsed_value
+            val_dec = (
+                norm_ar.area_decimal if norm_ar.area_decimal is not None else norm_ar.parsed_value
+            )
             if val_dec is not None and val_dec > 0:
                 diff_pct = abs(val_dec - baseline_area) / baseline_area * 100.0
                 if diff_pct > tolerance_pct:
@@ -147,7 +149,9 @@ class AreaMismatchRule(BaseRiskRule):
                 )
                 continue
 
-            val_dec = norm_ar.area_decimal if norm_ar.area_decimal is not None else norm_ar.parsed_value
+            val_dec = (
+                norm_ar.area_decimal if norm_ar.area_decimal is not None else norm_ar.parsed_value
+            )
             if val_dec is not None and val_dec > 0:
                 diff_pct = abs(val_dec - baseline_area) / baseline_area * 100.0
                 if diff_pct > tolerance_pct:

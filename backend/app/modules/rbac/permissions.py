@@ -176,4 +176,3 @@ def require_public_or_role(permission: Permission, scope: Optional[Scope] = None
         return current_user
 
     return dependency
-

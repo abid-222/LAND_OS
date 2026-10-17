@@ -41,6 +41,7 @@ REVIEWER_ROLES = {
 # Pydantic Schemas
 # ------------------------------------------------------------------------------
 
+
 class AlertResponseItem(BaseModel):
     id: str
     parcel_id: str
@@ -55,7 +56,11 @@ class AlertResponseItem(BaseModel):
 
 
 class AlertPatchRequest(BaseModel):
-    status: str = Field(..., pattern="^(reviewed|dismissed)$", description="New alert status ('reviewed' or 'dismissed')")
+    status: str = Field(
+        ...,
+        pattern="^(reviewed|dismissed)$",
+        description="New alert status ('reviewed' or 'dismissed')",
+    )
     note: Optional[str] = Field(None, description="Reviewer explanation kept in history")
 
 
@@ -70,6 +75,7 @@ class AlertsRunResponse(BaseModel):
 # Parcel Alerts Endpoints
 # ------------------------------------------------------------------------------
 
+
 @parcels_alerts_router.get(
     "/{parcel_id}/alerts",
     response_model=List[AlertResponseItem],
@@ -78,7 +84,9 @@ class AlertsRunResponse(BaseModel):
 )
 async def get_parcel_alerts(
     parcel_id: str,
-    severity: Optional[str] = Query(None, pattern="^(info|warn|high)$", description="Filter by severity level"),
+    severity: Optional[str] = Query(
+        None, pattern="^(info|warn|high)$", description="Filter by severity level"
+    ),
     db: AsyncSession = Depends(get_db),
     current_user=Depends(require(Permission.RECORD_SEARCH, Scope.GLOBAL)),
 ):
@@ -113,7 +121,9 @@ async def get_parcel_alerts(
             evidence=a.evidence or [],
             status=a.status,
             rule_version=a.rule_version,
-            created_at=a.created_at.isoformat() if a.created_at else datetime.now(timezone.utc).isoformat(),
+            created_at=a.created_at.isoformat()
+            if a.created_at
+            else datetime.now(timezone.utc).isoformat(),
         )
         for a in alerts
     ]
@@ -176,7 +186,9 @@ async def run_parcel_alerts(
             evidence=a.evidence or [],
             status=a.status,
             rule_version=a.rule_version,
-            created_at=a.created_at.isoformat() if a.created_at else datetime.now(timezone.utc).isoformat(),
+            created_at=a.created_at.isoformat()
+            if a.created_at
+            else datetime.now(timezone.utc).isoformat(),
         )
         for a in alerts
     ]
@@ -192,6 +204,7 @@ async def run_parcel_alerts(
 # ------------------------------------------------------------------------------
 # Alert Management Endpoints
 # ------------------------------------------------------------------------------
+
 
 @alerts_router.patch(
     "/{alert_id}",
@@ -275,5 +288,7 @@ async def update_alert_status(
         evidence=alert.evidence or [],
         status=alert.status,
         rule_version=alert.rule_version,
-        created_at=alert.created_at.isoformat() if alert.created_at else datetime.now(timezone.utc).isoformat(),
+        created_at=alert.created_at.isoformat()
+        if alert.created_at
+        else datetime.now(timezone.utc).isoformat(),
     )

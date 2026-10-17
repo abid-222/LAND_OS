@@ -31,9 +31,19 @@ async def audit_test_setup():
 
     async with engine.begin() as conn:
         for t in [
-            "regions", "offices", "users", "mouzas", "land_records", "documents",
-            "extracted_fields", "cases", "notifications", "feedback_corrections",
-            "consent_records", "audit_logs", "buyer_reports"
+            "regions",
+            "offices",
+            "users",
+            "mouzas",
+            "land_records",
+            "documents",
+            "extracted_fields",
+            "cases",
+            "notifications",
+            "feedback_corrections",
+            "consent_records",
+            "audit_logs",
+            "buyer_reports",
         ]:
             if t in Base.metadata.tables:
                 await conn.run_sync(Base.metadata.tables[t].create)
@@ -161,7 +171,10 @@ async def test_csrf_protection_on_cookie_authentication(audit_client):
     client, token_a, token_b, token_admin, user_a, user_b, doc_a, office, session = audit_client
 
     # Cookie auth without CSRF header must be rejected with 403
-    cookies = {"landos_access_token": token_a, "landos_csrf_token": "valid_random_csrf_token_value_abc"}
+    cookies = {
+        "landos_access_token": token_a,
+        "landos_csrf_token": "valid_random_csrf_token_value_abc",
+    }
     res = await client.patch(
         f"/api/v1/documents/{doc_a.id}/fields",
         cookies=cookies,

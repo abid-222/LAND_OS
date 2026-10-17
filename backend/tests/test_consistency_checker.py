@@ -7,7 +7,6 @@ Verifies:
 - Shows each issue with severity (CRITICAL, HIGH, MEDIUM, LOW, INFO)
 """
 
-
 from app.modules.documents.verification import check_document_consistency
 
 
@@ -94,10 +93,10 @@ def test_consistency_checker_flags_implausible_area():
 
 def test_consistency_checker_flags_mismatches_against_record():
     doc_fields = {
-        "dag_no": "999",       # Mismatch vs record 1205
-        "khatian_no": "888",   # Mismatch vs record 340
+        "dag_no": "999",  # Mismatch vs record 1205
+        "khatian_no": "888",  # Mismatch vs record 340
         "mouza": "তেজগাঁও",
-        "area": "100 শতাংশ",    # 100 vs 33 (severe mismatch)
+        "area": "100 শতাংশ",  # 100 vs 33 (severe mismatch)
         "party_names": "রহিম মোল্লা",  # Mismatch vs আব্দুল করিম
     }
     record_data = {

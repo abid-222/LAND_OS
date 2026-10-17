@@ -44,7 +44,9 @@ async def submit_feedback_correction(
         try:
             doc_uuid = uuid.UUID(payload.document_id)
         except ValueError:
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID.")
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID."
+            )
 
     correction = FeedbackCorrection(
         id=uuid.uuid4(),

@@ -45,7 +45,8 @@ class ConflictingSaleRule(BaseRiskRule):
 
         # Filter sale deeds
         sale_deeds = [
-            d for d in ctx.deeds
+            d
+            for d in ctx.deeds
             if str(d.get("deed_type", "sale")).lower() in ("sale", "বিক্রয়", "ক্রয়", "সাফ-কবলা")
         ]
         if len(sale_deeds) < 2:

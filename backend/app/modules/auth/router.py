@@ -433,14 +433,18 @@ async def confirm_password_reset(
     try:
         user_uuid = uuid.UUID(user_id_str)
     except (ValueError, TypeError):
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed reset token subject.")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed reset token subject."
+        )
 
     stmt = select(User).where(User.id == user_uuid)
     res = await db.execute(stmt)
     user = res.scalar_one_or_none()
 
     if not user or user.email.lower() != payload.email.lower():
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Token does not match provided email.")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Token does not match provided email."
+        )
 
     user.hashed_password = hash_password(payload.new_password)
     revoke_user_refresh_tokens(str(user.id))
@@ -457,7 +461,10 @@ async def confirm_password_reset(
         payload={"email": user.email},
     )
 
-    return {"status": "success", "message": "Password has been successfully reset. You may now log in."}
+    return {
+        "status": "success",
+        "message": "Password has been successfully reset. You may now log in.",
+    }
 
 
 @router.post("/mfa/setup", response_model=MFASetupResponse)

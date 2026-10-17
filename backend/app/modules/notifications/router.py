@@ -28,7 +28,9 @@ class NotificationListResponse(BaseModel):
     notifications: List[NotificationItem]
 
 
-@router.get("", response_model=NotificationListResponse, summary="List notifications for current user")
+@router.get(
+    "", response_model=NotificationListResponse, summary="List notifications for current user"
+)
 async def list_notifications(
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
@@ -72,9 +74,13 @@ async def mark_notification_read(
     try:
         n_uuid = uuid.UUID(notification_id)
     except ValueError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed notification UUID.")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed notification UUID."
+        )
 
-    stmt = select(Notification).where(Notification.id == n_uuid, Notification.user_id == current_user.id)
+    stmt = select(Notification).where(
+        Notification.id == n_uuid, Notification.user_id == current_user.id
+    )
     res = await db.execute(stmt)
     notif = res.scalar_one_or_none()
     if not notif:

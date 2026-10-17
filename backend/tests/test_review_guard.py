@@ -11,7 +11,7 @@ import uuid
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-from app.models import Base, Case, Document, ExtractedField, StatusLabel
+from app.models import Base, Document, ExtractedField, StatusLabel
 from app.modules.review.service import guard_and_create_review_case
 
 
@@ -24,7 +24,9 @@ async def memory_db():
         Base.metadata.tables["extracted_fields"],
     ]
     async with engine.begin() as conn:
-        await conn.run_sync(lambda sync_conn: Base.metadata.create_all(sync_conn, tables=target_tables))
+        await conn.run_sync(
+            lambda sync_conn: Base.metadata.create_all(sync_conn, tables=target_tables)
+        )
 
     session_maker = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
     async with session_maker() as session:

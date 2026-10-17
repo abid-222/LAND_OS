@@ -15,12 +15,29 @@ import {
 import { api } from '../api/client';
 import { BlockchainLedgerSimulator } from '../components/BlockchainLedgerSimulator';
 
+interface AuditLogItem {
+  id?: string;
+  actor?: string;
+  actor_id?: string;
+  actor_role?: string;
+  action?: string;
+  resource?: string;
+  resource_type?: string;
+  resource_id?: string;
+  timestamp?: string;
+  created_at?: string;
+  details?: Record<string, unknown>;
+  ip_address?: string;
+  prev_hash?: string;
+  current_hash?: string;
+}
+
 export const AdminPage: React.FC = () => {
   const { i18n } = useTranslation();
   const isBn = (i18n.language || 'bn').startsWith('bn');
 
   const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'audit' | 'blockchain'>('blockchain');
-  const [auditLogs, setAuditLogs] = useState<any[]>([]);
+  const [auditLogs, setAuditLogs] = useState<AuditLogItem[]>([]);
   const [isVerifyingChain, setIsVerifyingChain] = useState(false);
   const [chainResult, setChainResult] = useState<{
     valid: boolean;
@@ -54,7 +71,7 @@ export const AdminPage: React.FC = () => {
 
   const fetchLiveAuditLogs = async () => {
     try {
-      const res = await api.get<{ records: any[] }>('/api/v1/admin/audit?limit=20');
+      const res = await api.get<{ records: AuditLogItem[] }>('/api/v1/admin/audit?limit=20');
       if (res && res.records && res.records.length > 0) {
         setAuditLogs(res.records);
       }
@@ -73,10 +90,11 @@ export const AdminPage: React.FC = () => {
         message: string;
       }>('/api/v1/admin/audit/verify-chain');
       setChainResult(res);
-    } catch (err: any) {
+    } catch (err) {
+      const error = err as Error;
       setChainResult({
         valid: false,
-        message: err?.message || 'চেইন যাচাইকরণ ব্যর্থ হয়েছে।',
+        message: error?.message || 'চেইন যাচাইকরণ ব্যর্থ হয়েছে।',
       });
     } finally {
       setIsVerifyingChain(false);
@@ -376,7 +394,7 @@ export const AdminPage: React.FC = () => {
           )}
 
           <div className="flex flex-col gap-3">
-            {(auditLogs.length > 0 ? auditLogs : sampleAuditLogs).map((log: any, idx: number) => {
+            {(auditLogs.length > 0 ? auditLogs : sampleAuditLogs).map((log: AuditLogItem, idx: number) => {
               const actorText = log.actor_role
                 ? `${log.actor_role} (${log.actor_id ? log.actor_id.slice(0, 8) + '...' : 'System'})`
                 : log.actor || 'System Action';

@@ -181,7 +181,9 @@ class DeedMutationInconsistencyRule(BaseRiskRule):
                 d_date = _parse_dt(d.get("deed_date"))
                 if d_date != datetime.min.replace(tzinfo=timezone.utc):
                     age_days = (now - d_date).days
-                    if age_days > grace_days and (did not in linked_deed_ids and len(ctx.mutations) == 0):
+                    if age_days > grace_days and (
+                        did not in linked_deed_ids and len(ctx.mutations) == 0
+                    ):
                         alerts.append(
                             RuleAlert(
                                 rule_id=self.id,

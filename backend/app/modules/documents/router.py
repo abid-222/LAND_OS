@@ -51,6 +51,7 @@ router = APIRouter(prefix="/documents", tags=["Document Scanning & OCR"])
 # Pydantic Schemas
 # ------------------------------------------------------------------------------
 
+
 class ExtractedFieldItem(BaseModel):
     id: Optional[str] = None
     field_name: str
@@ -87,8 +88,12 @@ class DocumentExtractionResponse(BaseModel):
 
 
 class DocumentFieldsPatchRequest(BaseModel):
-    fields: Dict[str, str] = Field(..., description="Map of field_name to user corrected string value")
-    correction_reason: Optional[str] = Field(None, description="Optional explanation for audit tracking")
+    fields: Dict[str, str] = Field(
+        ..., description="Map of field_name to user corrected string value"
+    )
+    correction_reason: Optional[str] = Field(
+        None, description="Optional explanation for audit tracking"
+    )
 
 
 class DocumentFieldsPatchResponse(BaseModel):
@@ -142,10 +147,10 @@ class DocumentVerificationResponse(BaseModel):
     verified_at: str
 
 
-
 # ------------------------------------------------------------------------------
 # Storage & Background Queue Helpers
 # ------------------------------------------------------------------------------
+
 
 def _upload_to_minio(object_name: str, file_data: bytes, content_type: str) -> bool:
     """Attempts upload to MinIO with graceful fallback if MinIO service is offline."""
@@ -179,12 +184,14 @@ async def _enqueue_ocr_task(document_id: str, file_name: str):
     """Enqueues document for background OCR worker processing via Redis."""
     try:
         r = aioredis.from_url(settings.REDIS_URL, socket_connect_timeout=1)
-        job_payload = json.dumps({
-            "task": "process_document",
-            "document_id": document_id,
-            "file_name": file_name,
-            "enqueued_at": datetime.now(timezone.utc).isoformat(),
-        })
+        job_payload = json.dumps(
+            {
+                "task": "process_document",
+                "document_id": document_id,
+                "file_name": file_name,
+                "enqueued_at": datetime.now(timezone.utc).isoformat(),
+            }
+        )
         await r.lpush("landos:tasks:ocr", job_payload)
         await r.close()
     except Exception as e:
@@ -321,7 +328,9 @@ async def get_document_extraction(
     try:
         doc_uuid = uuid.UUID(document_id)
     except ValueError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID.")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID."
+        )
 
     stmt = select(Document).where(Document.id == doc_uuid)
     res = await db.execute(stmt)
@@ -367,17 +376,21 @@ async def get_document_extraction(
             )
         )
         if f.flagged:
-            indicators.append({
-                "field": f.field_name,
-                "reason_bn": f.flag_reason or "সম্ভাব্য অসঙ্গতি, যাচাই প্রয়োজন",
-                "evidence": [{
-                    "source_type": "document_ocr",
-                    "source_id": str(doc.id),
+            indicators.append(
+                {
                     "field": f.field_name,
-                    "value": f.raw_value,
-                    "document_ref": doc.file_name,
-                }],
-            })
+                    "reason_bn": f.flag_reason or "সম্ভাব্য অসঙ্গতি, যাচাই প্রয়োজন",
+                    "evidence": [
+                        {
+                            "source_type": "document_ocr",
+                            "source_id": str(doc.id),
+                            "field": f.field_name,
+                            "value": f.raw_value,
+                            "document_ref": doc.file_name,
+                        }
+                    ],
+                }
+            )
 
     return DocumentExtractionResponse(
         document_id=str(doc.id),
@@ -410,7 +423,9 @@ async def patch_document_fields(
     try:
         doc_uuid = uuid.UUID(document_id)
     except ValueError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID.")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID."
+        )
 
     stmt = select(Document).where(Document.id == doc_uuid)
     res = await db.execute(stmt)
@@ -529,7 +544,9 @@ async def patch_document_fields(
     )
 
 
-@router.get("/{document_id}/events", summary="Stream real-time document processing progress via SSE")
+@router.get(
+    "/{document_id}/events", summary="Stream real-time document processing progress via SSE"
+)
 async def document_progress_events(
     document_id: str,
     request: Request,
@@ -543,7 +560,9 @@ async def document_progress_events(
     try:
         doc_uuid = uuid.UUID(document_id)
     except ValueError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID.")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID."
+        )
 
     stmt = select(Document).where(Document.id == doc_uuid)
     res = await db.execute(stmt)
@@ -552,7 +571,9 @@ async def document_progress_events(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")
 
     if current_user.role == Role.CITIZEN.value and doc.uploader_id != current_user.id:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access denied to document events.")
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Access denied to document events."
+        )
 
     redis_url = settings.REDIS_URL
 
@@ -582,7 +603,9 @@ async def document_progress_events(
                 if message and message.get("type") == "message":
                     idle_ticks = 0
                     raw_data = message["data"]
-                    data_str = raw_data.decode("utf-8") if isinstance(raw_data, bytes) else str(raw_data)
+                    data_str = (
+                        raw_data.decode("utf-8") if isinstance(raw_data, bytes) else str(raw_data)
+                    )
                     yield f"data: {data_str}\n\n"
 
                     try:
@@ -646,7 +669,9 @@ async def get_document_download_url(
     try:
         doc_uuid = uuid.UUID(document_id)
     except ValueError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID.")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID."
+        )
 
     stmt = select(Document).where(Document.id == doc_uuid)
     res = await db.execute(stmt)
@@ -655,12 +680,17 @@ async def get_document_download_url(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document not found.")
 
     if current_user.role == Role.CITIZEN.value and doc.uploader_id != current_user.id:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access denied to document download.")
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Access denied to document download."
+        )
 
     if ".." in doc.file_key or doc.file_key.startswith("/"):
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid object storage key.")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid object storage key."
+        )
 
     from datetime import timedelta
+
     presigned_url = None
     try:
         minio_client = Minio(
@@ -678,7 +708,12 @@ async def get_document_download_url(
     except Exception:
         # Fallback local signed URL
         from app.core.security import create_token
-        token = create_token({"sub": str(doc.id), "key": doc.file_key}, expires_delta=timedelta(seconds=300), token_type="download")
+
+        token = create_token(
+            {"sub": str(doc.id), "key": doc.file_key},
+            expires_delta=timedelta(seconds=300),
+            token_type="download",
+        )
         presigned_url = f"http://localhost:8000/api/v1/documents/{doc.id}/content?token={token}"
 
     return DownloadUrlResponse(download_url=presigned_url, expires_in_seconds=300)
@@ -699,7 +734,9 @@ async def verify_document(
     try:
         doc_uuid = uuid.UUID(document_id)
     except ValueError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID.")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID."
+        )
 
     # 1. Fetch document & check ownership
     stmt = select(Document).where(Document.id == doc_uuid)
@@ -715,14 +752,22 @@ async def verify_document(
     rec = None
     try:
         rec_uuid = uuid.UUID(payload.record_id)
-        r_stmt = select(LandRecord).options(selectinload(LandRecord.mouza)).where(LandRecord.id == rec_uuid)
+        r_stmt = (
+            select(LandRecord)
+            .options(selectinload(LandRecord.mouza))
+            .where(LandRecord.id == rec_uuid)
+        )
         r_res = await db.execute(r_stmt)
         rec = r_res.scalar_one_or_none()
     except ValueError:
         pass
 
     if not rec:
-        r_stmt = select(LandRecord).options(selectinload(LandRecord.mouza)).where(LandRecord.record_no == payload.record_id)
+        r_stmt = (
+            select(LandRecord)
+            .options(selectinload(LandRecord.mouza))
+            .where(LandRecord.record_no == payload.record_id)
+        )
         r_res = await db.execute(r_stmt)
         rec = r_res.scalar_one_or_none()
 
@@ -773,7 +818,9 @@ async def verify_document(
     )
 
     # 6. Fetch QR integrity check result
-    qr_stmt = select(QRCheck).where(QRCheck.document_id == doc.id).order_by(QRCheck.checked_at.desc())
+    qr_stmt = (
+        select(QRCheck).where(QRCheck.document_id == doc.id).order_by(QRCheck.checked_at.desc())
+    )
     qr_res = await db.execute(qr_stmt)
     qr_check = qr_res.scalars().first()
 
@@ -783,7 +830,9 @@ async def verify_document(
         hash_match=qr_check.hash_match if qr_check else False,
         scope="integrity_only",
         scope_text="নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।",
-        ui_text_bn="নথির তথ্য QR-এর সঙ্গে মিলেছে (মালিকানা যাচাই নয়)" if (qr_check and qr_check.hash_match) else "মেলেনি",
+        ui_text_bn="নথির তথ্য QR-এর সঙ্গে মিলেছে (মালিকানা যাচাই নয়)"
+        if (qr_check and qr_check.hash_match)
+        else "মেলেনি",
     )
 
     # Update document status
@@ -836,7 +885,9 @@ async def get_latest_verification(
     try:
         doc_uuid = uuid.UUID(document_id)
     except ValueError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID.")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed document UUID."
+        )
 
     # Fetch document
     d_stmt = select(Document).where(Document.id == doc_uuid)
@@ -863,7 +914,9 @@ async def get_latest_verification(
         )
 
     # Fetch latest QR check
-    qr_stmt = select(QRCheck).where(QRCheck.document_id == doc_uuid).order_by(QRCheck.checked_at.desc())
+    qr_stmt = (
+        select(QRCheck).where(QRCheck.document_id == doc_uuid).order_by(QRCheck.checked_at.desc())
+    )
     qr_res = await db.execute(qr_stmt)
     qr_check = qr_res.scalars().first()
 
@@ -873,7 +926,9 @@ async def get_latest_verification(
         hash_match=qr_check.hash_match if qr_check else False,
         scope="integrity_only",
         scope_text="নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।",
-        ui_text_bn="নথির তথ্য QR-এর সঙ্গে মিলেছে (মালিকানা যাচাই নয়)" if (qr_check and qr_check.hash_match) else "মেলেনি",
+        ui_text_bn="নথির তথ্য QR-এর সঙ্গে মিলেছে (মালিকানা যাচাই নয়)"
+        if (qr_check and qr_check.hash_match)
+        else "মেলেনি",
     )
 
     comparisons = [FieldComparisonItem(**c) for c in (latest_vr.comparisons or [])]
@@ -905,5 +960,7 @@ async def get_latest_verification(
         scope="integrity_only",
         scope_text="নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।",
         status_label=getattr(doc, "status_label", None) or StatusLabel.POSSIBLE_MATCH.value,
-        verified_at=latest_vr.created_at.isoformat() if latest_vr.created_at else datetime.now(timezone.utc).isoformat(),
+        verified_at=latest_vr.created_at.isoformat()
+        if latest_vr.created_at
+        else datetime.now(timezone.utc).isoformat(),
     )

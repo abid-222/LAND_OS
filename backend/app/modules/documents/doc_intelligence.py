@@ -57,12 +57,20 @@ class DocumentIntelligenceV2:
 
     @staticmethod
     def load_template(doc_type: str) -> Dict[str, Any]:
-        clean_type = (doc_type or "khatian").lower().replace("দলিল", "deed").replace("খতিয়ান", "khatian").replace("পর্চা", "porcha")
+        clean_type = (
+            (doc_type or "khatian")
+            .lower()
+            .replace("দলিল", "deed")
+            .replace("খতিয়ান", "khatian")
+            .replace("পর্চা", "porcha")
+        )
         candidates = [
             os.path.abspath(f"config/doc_templates/{clean_type}.yaml"),
             os.path.abspath(f"../config/doc_templates/{clean_type}.yaml"),
             os.path.abspath(f"../../config/doc_templates/{clean_type}.yaml"),
-            os.path.join(os.path.dirname(__file__), f"../../../../config/doc_templates/{clean_type}.yaml"),
+            os.path.join(
+                os.path.dirname(__file__), f"../../../../config/doc_templates/{clean_type}.yaml"
+            ),
         ]
         for path in candidates:
             if os.path.exists(path):
@@ -81,13 +89,25 @@ class DocumentIntelligenceV2:
         Extracts number, mouza, dag, area (+ original unit) and names from document fixture.
         """
         extracted: Dict[str, ExtractedFieldData] = {}
-        clean_type = (doc_type or "khatian").lower().replace("দলিল", "deed").replace("খতিয়ান", "khatian").replace("পর্চা", "porcha")
+        clean_type = (
+            (doc_type or "khatian")
+            .lower()
+            .replace("দলিল", "deed")
+            .replace("খতিয়ান", "khatian")
+            .replace("পর্চা", "porcha")
+        )
 
         # 1. Number extraction (document_no for deed/porcha; khatian_no for khatian/porcha)
         if clean_type == "deed":
-            raw_no = fixture_data.get("document_no") or fixture_data.get("deed_no") or fixture_data.get("number")
+            raw_no = (
+                fixture_data.get("document_no")
+                or fixture_data.get("deed_no")
+                or fixture_data.get("number")
+            )
             conf = float(fixture_data.get("confidences", {}).get("document_no", 0.98))
-            norm_no = normalize_identifier(str(raw_no), pattern_type="document_no") if raw_no else None
+            norm_no = (
+                normalize_identifier(str(raw_no), pattern_type="document_no") if raw_no else None
+            )
             extracted["document_no"] = ExtractedFieldData(
                 field_name="document_no",
                 raw_value=raw_no,
@@ -98,7 +118,11 @@ class DocumentIntelligenceV2:
         else:
             raw_khatian = fixture_data.get("khatian_no") or fixture_data.get("number")
             conf = float(fixture_data.get("confidences", {}).get("khatian_no", 0.98))
-            norm_kh = normalize_identifier(str(raw_khatian), pattern_type="khatian_no") if raw_khatian else None
+            norm_kh = (
+                normalize_identifier(str(raw_khatian), pattern_type="khatian_no")
+                if raw_khatian
+                else None
+            )
             extracted["khatian_no"] = ExtractedFieldData(
                 field_name="khatian_no",
                 raw_value=raw_khatian,
@@ -140,7 +164,9 @@ class DocumentIntelligenceV2:
             extracted["area"] = ExtractedFieldData(
                 field_name="area",
                 raw_value=raw_area,
-                normalized_value=str(norm_area.area_decimal) if norm_area.area_decimal is not None else None,
+                normalized_value=str(norm_area.area_decimal)
+                if norm_area.area_decimal is not None
+                else None,
                 confidence=conf_area,
                 original_unit=norm_area.original_unit,
                 area_decimal=norm_area.area_decimal,
@@ -178,7 +204,11 @@ class DocumentIntelligenceV2:
                 confidence=conf_buyer,
             )
         else:
-            raw_owner = fixture_data.get("owner") or fixture_data.get("owner_name") or fixture_data.get("party_names")
+            raw_owner = (
+                fixture_data.get("owner")
+                or fixture_data.get("owner_name")
+                or fixture_data.get("party_names")
+            )
             conf_owner = float(fixture_data.get("confidences", {}).get("owner", 0.95))
             norm_owner = normalize_name(str(raw_owner)) if raw_owner else None
             extracted["owner"] = ExtractedFieldData(

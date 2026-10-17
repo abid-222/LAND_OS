@@ -229,7 +229,9 @@ def normalize_identifier(
     normalized_candidate = "/".join(stripped_parts)
 
     # 6. Validate with regex
-    pattern_str = PATTERNS.get(pattern_type, DEFAULT_PATTERNS.get(pattern_type, DEFAULT_PATTERNS["dag_no"]))
+    pattern_str = PATTERNS.get(
+        pattern_type, DEFAULT_PATTERNS.get(pattern_type, DEFAULT_PATTERNS["dag_no"])
+    )
     match = re.match(pattern_str, normalized_candidate)
 
     if not match:
@@ -344,7 +346,10 @@ def normalize_mouza(
     raw_aliases = dict(MOUZA_ALIASES)
     if alias_table:
         raw_aliases.update(alias_table)
-    aliases = {unicodedata.normalize("NFC", k): unicodedata.normalize("NFC", v) for k, v in raw_aliases.items()}
+    aliases = {
+        unicodedata.normalize("NFC", k): unicodedata.normalize("NFC", v)
+        for k, v in raw_aliases.items()
+    }
     collapsed = aliases.get(name, name)
 
     if not known_mouzas:
@@ -399,6 +404,7 @@ def normalize_mouza(
 # NAME NORMALIZATION & FUZZY COMPARISON (PART 1)
 # ==============================================================================
 
+
 @dataclass
 class NormalizedName:
     raw_name: str
@@ -410,11 +416,38 @@ class NormalizedName:
 
 # Common Bangla honorific prefixes & titles
 NAME_HONORIFICS = [
-    "মোঃ", "মো:", "মোহাম্মদ", "মুহাম্মদ", "মোছাঃ", "মোছা:", "মোসাম্মৎ",
-    "শ্রীমতি", "শ্রীমতী", "শ্রী", "বাবু", "জনাব", "জনাবা", "বেগম",
-    "ড.", "ডক্টর", "প্রফেসর", "ইঞ্জি:", "ইঞ্জিনিয়ার", "অ্যাডভোকেট", "ব্যারিস্টার",
-    "আলহাজ্ব", "আলহাজ", "হাজী", "মাওলানা", "মুফতি", "ক্বারী",
-    "মৌলভী", "মরহুম", "লে.", "ক্যাপ্টেন", "মেজর"
+    "মোঃ",
+    "মো:",
+    "মোহাম্মদ",
+    "মুহাম্মদ",
+    "মোছাঃ",
+    "মোছা:",
+    "মোসাম্মৎ",
+    "শ্রীমতি",
+    "শ্রীমতী",
+    "শ্রী",
+    "বাবু",
+    "জনাব",
+    "জনাবা",
+    "বেগম",
+    "ড.",
+    "ডক্টর",
+    "প্রফেসর",
+    "ইঞ্জি:",
+    "ইঞ্জিনিয়ার",
+    "অ্যাডভোকেট",
+    "ব্যারিস্টার",
+    "আলহাজ্ব",
+    "আলহাজ",
+    "হাজী",
+    "মাওলানা",
+    "মুফতি",
+    "ক্বারী",
+    "মৌলভী",
+    "মরহুম",
+    "লে.",
+    "ক্যাপ্টেন",
+    "মেজর",
 ]
 
 # Punctuation to strip from personal names
@@ -500,16 +533,19 @@ def fuzzy_compare_names(name1: Optional[str], name2: Optional[str]) -> float:
 
     try:
         from rapidfuzz import fuzz
+
         return float(fuzz.token_sort_ratio(n1, n2))
     except ImportError:
         # Fallback ratio if rapidfuzz not present
         from difflib import SequenceMatcher
+
         return round(SequenceMatcher(None, n1, n2).ratio() * 100.0, 2)
 
 
 # ==============================================================================
 # AREA NORMALIZATION & REGIONAL UNIT CONVERSION (PART 1)
 # ==============================================================================
+
 
 @dataclass
 class NormalizedArea:
@@ -583,10 +619,18 @@ WELL_DEFINED_UNITS = {
 
 # Regional units requiring regional config
 REGIONAL_UNITS = {
-    "bigha", "বিঘা",
-    "katha", "কাঠা", "কাটা", "cotta",
-    "ganda", "গণ্ডা", "গন্ডা", "gonda",
-    "kani", "কানি",
+    "bigha",
+    "বিঘা",
+    "katha",
+    "কাঠা",
+    "কাটা",
+    "cotta",
+    "ganda",
+    "গণ্ডা",
+    "গন্ডা",
+    "gonda",
+    "kani",
+    "কানি",
 }
 
 
@@ -733,4 +777,3 @@ def normalize_area(raw_area: Any, region_code: Optional[str] = None) -> Normaliz
         status="valid" if not clean_unit else "invalid",
         confidence=0.70 if not clean_unit else 0.40,
     )
-

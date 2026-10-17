@@ -46,7 +46,9 @@ def get_year(val: Any) -> Optional[int]:
 
 class DuplicateDeedRule(BaseRiskRule):
     id = "R2_duplicate_deed_reference"
-    description = "Detects identical deed number, office, and year assigned to different parcels or parties."
+    description = (
+        "Detects identical deed number, office, and year assigned to different parcels or parties."
+    )
 
     def run(self, ctx: ParcelContext) -> List[RuleAlert]:
         alerts: List[RuleAlert] = []
@@ -87,8 +89,10 @@ class DuplicateDeedRule(BaseRiskRule):
 
                 # Match on deed_no, registry_office, and year
                 if no1 == no2 and yr1 == yr2 and fuzzy_compare_names(off1, off2) >= 85.0:
-                    diff_parcel = (p1 != p2)
-                    diff_parties = (fuzzy_compare_names(s1, s2) < 75.0 or fuzzy_compare_names(b1, b2) < 75.0)
+                    diff_parcel = p1 != p2
+                    diff_parties = (
+                        fuzzy_compare_names(s1, s2) < 75.0 or fuzzy_compare_names(b1, b2) < 75.0
+                    )
 
                     if diff_parcel or diff_parties:
                         reason = (

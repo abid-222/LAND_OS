@@ -52,7 +52,7 @@ async def test_ml_simulate_conflict_r3_r4(client: AsyncClient):
         "deed_date": "2024-05-15",
         "mutation_date": "2023-01-10",  # mutation predates deed! -> R3
         "deed_area_decimal": 50.0,
-        "record_area_decimal": 33.0,     # oversale by 17 decimal -> R4
+        "record_area_decimal": 33.0,  # oversale by 17 decimal -> R4
         "seller_name": "আব্দুল কাদের",
         "record_owner_name": "মোঃ সামসুল হক",  # completely different party -> R6
         "prior_sold_area_decimal": 0.0,

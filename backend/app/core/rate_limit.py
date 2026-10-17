@@ -20,7 +20,9 @@ class InMemoryRateLimiter:
         self._requests: Dict[str, List[float]] = defaultdict(list)
         self.enabled: bool = True
 
-    def is_allowed(self, client_key: str, max_requests: int, window_seconds: float) -> tuple[bool, int]:
+    def is_allowed(
+        self, client_key: str, max_requests: int, window_seconds: float
+    ) -> tuple[bool, int]:
         if not getattr(self, "enabled", True):
             return True, 0
 

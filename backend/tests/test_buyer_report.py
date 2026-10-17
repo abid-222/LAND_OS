@@ -36,10 +36,13 @@ async def test_buyer_report_structure_and_rules():
         },
         deeds=[
             {
-                "id": "D1", "deed_no": "4582", "deed_type": "sale",
+                "id": "D1",
+                "deed_no": "4582",
+                "deed_type": "sale",
                 "deed_date": "2022-01-01T00:00:00Z",
                 "registered_date": "2022-01-05T00:00:00Z",
-                "seller": "আব্দুল করিম", "buyer": "রফিকুল ইসলাম",
+                "seller": "আব্দুল করিম",
+                "buyer": "রফিকুল ইসলাম",
                 "area": "33.0 শতাংশ",
             }
         ],
@@ -88,12 +91,17 @@ async def test_buyer_report_structure_and_rules():
     assert len(sec["next_steps"]["items"]) >= 1
     for item in sec["next_steps"]["items"]:
         has_approved_source = bool(item.get("source") and item.get("last_verified_at"))
-        is_needs_verification = "যাচাই প্রয়োজন" in item.get("title", "") or "needs_verification" in item.get("status", "")
+        is_needs_verification = "যাচাই প্রয়োজন" in item.get(
+            "title", ""
+        ) or "needs_verification" in item.get("status", "")
         assert has_approved_source or is_needs_verification, f"Invalid next_step item: {item}"
 
     # 6. disclaimer
     assert "disclaimer" in sec
-    assert "তথ্য যাচাই প্রয়োজন. এটি আইনি পরামর্শ বা মালিকানার সিদ্ধান্ত নয়। ডেমো ডেটা।" in sec["disclaimer"]["text_bn"]
+    assert (
+        "তথ্য যাচাই প্রয়োজন. এটি আইনি পরামর্শ বা মালিকানার সিদ্ধান্ত নয়। ডেমো ডেটা।"
+        in sec["disclaimer"]["text_bn"]
+    )
 
     # Printable HTML test
     html = render_report_html(report)
@@ -131,7 +139,10 @@ async def test_buyer_report_audit_logging():
         )
 
         from sqlalchemy import select
-        res = await session.execute(select(AuditLog).where(AuditLog.action == "buyer_report:generate"))
+
+        res = await session.execute(
+            select(AuditLog).where(AuditLog.action == "buyer_report:generate")
+        )
         logs = res.scalars().all()
         assert len(logs) == 1
         assert logs[0].resource_id == rep["id"]
@@ -169,7 +180,15 @@ def test_buyer_report_no_score_or_safe_unsafe_automated_grep():
             content = f.read()
 
         # Check for banned score & safety judgment patterns
-        assert not re.search(r"\bsafety_score\b", content, re.IGNORECASE), f"Found safety_score in {rel_path}"
-        assert not re.search(r"['\"]safe['\"]", content, re.IGNORECASE), f"Found 'safe' string in {rel_path}"
-        assert not re.search(r"['\"]unsafe['\"]", content, re.IGNORECASE), f"Found 'unsafe' string in {rel_path}"
-        assert not re.search(r"নিরাপদ|ঝুঁকিমুক্ত", content), f"Found subjective safety verdict in {rel_path}"
+        assert not re.search(
+            r"\bsafety_score\b", content, re.IGNORECASE
+        ), f"Found safety_score in {rel_path}"
+        assert not re.search(
+            r"['\"]safe['\"]", content, re.IGNORECASE
+        ), f"Found 'safe' string in {rel_path}"
+        assert not re.search(
+            r"['\"]unsafe['\"]", content, re.IGNORECASE
+        ), f"Found 'unsafe' string in {rel_path}"
+        assert not re.search(
+            r"নিরাপদ|ঝুঁকিমুক্ত", content
+        ), f"Found subjective safety verdict in {rel_path}"

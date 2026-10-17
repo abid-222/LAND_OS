@@ -40,6 +40,15 @@ interface HomePageProps {
   isDarkMode?: boolean;
 }
 
+interface CitizenCaseItem {
+  id?: string;
+  case_number: string;
+  case_type?: string;
+  status: string;
+  notes?: string;
+  created_at?: string;
+}
+
 export const HomePage: React.FC<HomePageProps> = ({
   onNavigate,
   onStartTour,
@@ -53,7 +62,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   const { user, isAuthenticated } = useAuthStore();
 
   const [selectedParcelId, setSelectedParcelId] = React.useState<string>('P-4520');
-  const [myCases, setMyCases] = React.useState<any[]>([]);
+  const [myCases, setMyCases] = React.useState<CitizenCaseItem[]>([]);
   const [isApplyModalOpen, setIsApplyModalOpen] = React.useState(false);
   const [applyForm, setApplyForm] = React.useState({
     mouza: 'তেজগাঁও',
@@ -68,7 +77,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   React.useEffect(() => {
     if (isAuthenticated && currentRole === 'Citizen') {
-      api.get<any[]>('/api/v1/review/cases/my')
+      api.get<CitizenCaseItem[]>('/api/v1/review/cases/my')
         .then((res) => {
           if (Array.isArray(res) && res.length > 0) {
             setMyCases(res);
@@ -82,7 +91,7 @@ export const HomePage: React.FC<HomePageProps> = ({
     e.preventDefault();
     setIsSubmittingCase(true);
     try {
-      const res = await api.post<any>('/api/v1/review/cases/apply', {
+      const res = await api.post<CitizenCaseItem>('/api/v1/review/cases/apply', {
         case_type: 'MUTATION',
         mouza: applyForm.mouza,
         dag_no: applyForm.dag_no,
@@ -107,7 +116,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         setIsApplyModalOpen(false);
         setCaseSubmitSuccess(null);
       }, 2000);
-    } catch (err: any) {
+    } catch (err) {
       console.warn('Apply case failed:', err);
     } finally {
       setIsSubmittingCase(false);
@@ -535,7 +544,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                     status: 'APPROVED',
                     created_at: new Date().toISOString(),
                   }
-                ]).map((c: any, idx: number) => {
+                ]).map((c: CitizenCaseItem, idx: number) => {
                   const isApproved = c.status === 'APPROVED';
                   const isReturned = c.status === 'REJECTED';
 

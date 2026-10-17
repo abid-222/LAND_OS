@@ -100,9 +100,24 @@ async def run_seed():
         async with session_maker() as session:
             # 2. Seed Regions
             region_defs = [
-                {"code": "DIV-DHAKA", "name_bn": "ঢাকা বিভাগ", "name_en": "Dhaka Division", "division": "Dhaka"},
-                {"code": "DIV-CTG", "name_bn": "চট্টগ্রাম বিভাগ", "name_en": "Chattogram Division", "division": "Chattogram"},
-                {"code": "DIV-SYL", "name_bn": "সিলেট বিভাগ", "name_en": "Sylhet Division", "division": "Sylhet"},
+                {
+                    "code": "DIV-DHAKA",
+                    "name_bn": "ঢাকা বিভাগ",
+                    "name_en": "Dhaka Division",
+                    "division": "Dhaka",
+                },
+                {
+                    "code": "DIV-CTG",
+                    "name_bn": "চট্টগ্রাম বিভাগ",
+                    "name_en": "Chattogram Division",
+                    "division": "Chattogram",
+                },
+                {
+                    "code": "DIV-SYL",
+                    "name_bn": "সিলেট বিভাগ",
+                    "name_en": "Sylhet Division",
+                    "division": "Sylhet",
+                },
             ]
             region_map = {}
             for r_def in region_defs:
@@ -124,23 +139,125 @@ async def run_seed():
 
             # 3. Seed Upazila Land Offices (AC Land Offices)
             office_defs = [
-                ("OFF-TEJGAON", "সহকারী কমিশনার (ভূমি) কার্যালয়, তেজগাঁও সার্কেল", "AC Land Office, Tejgaon", "AC_LAND", "Dhaka"),
-                ("OFF-GULSHAN", "সহকারী কমিশনার (ভূমি) কার্যালয়, গুলশান সার্কেল", "AC Land Office, Gulshan", "AC_LAND", "Dhaka"),
-                ("OFF-MIRPUR", "সহকারী কমিশনার (ভূমি) কার্যালয়, মিরপুর সার্কেল", "AC Land Office, Mirpur", "AC_LAND", "Dhaka"),
-                ("OFF-MOHAMMADPUR", "সহকারী কমিশনার (ভূমি) কার্যালয়, মোহাম্মদপুর সার্কেল", "AC Land Office, Mohammadpur", "AC_LAND", "Dhaka"),
-                ("OFF-SAVAR", "সহকারী কমিশনার (ভূমি) কার্যালয়, সাভার", "AC Land Office, Savar", "AC_LAND", "Dhaka"),
-                ("OFF-DHAMRAI", "সহকারী কমিশনার (ভূমি) কার্যালয়, ধামরাই", "AC Land Office, Dhamrai", "AC_LAND", "Dhaka"),
-                ("OFF-KERANIGANJ", "সহকারী কমিশনার (ভূমি) কার্যালয়, কেরানীগঞ্জ", "AC Land Office, Keraniganj", "AC_LAND", "Dhaka"),
-                ("OFF-GAZIPUR", "সহকারী কমিশনার (ভূমি) কার্যালয়, গাজীপুর সদর", "AC Land Office, Gazipur Sadar", "AC_LAND", "Dhaka"),
-                ("OFF-SREEPUR", "সহকারী কমিশনার (ভূমি) কার্যালয়, শ্রীপুর", "AC Land Office, Sreepur", "AC_LAND", "Dhaka"),
-                ("OFF-KALIAKAIR", "সহকারী কমিশনার (ভূমি) কার্যালয়, কালিয়াকৈর", "AC Land Office, Kaliakair", "AC_LAND", "Dhaka"),
-                ("OFF-NARAYANGANJ", "সহকারী কমিশনার (ভূমি) কার্যালয়, নারায়ণগঞ্জ সদর", "AC Land Office, Narayanganj Sadar", "AC_LAND", "Dhaka"),
-                ("OFF-SONARGAON", "সহকারী কমিশনার (ভূমি) কার্যালয়, সোনারগাঁও", "AC Land Office, Sonargaon", "AC_LAND", "Dhaka"),
-                ("OFF-RUPGANJ", "সহকারী কমিশনার (ভূমি) কার্যালয়, রূপগঞ্জ", "AC Land Office, Rupganj", "AC_LAND", "Dhaka"),
-                ("OFF-KOTWALI-CUM", "সহকারী কমিশনার (ভূমি) কার্যালয়, কোতোয়ালি সার্কেল", "AC Land Office, Kotwali", "AC_LAND", "Chattogram"),
-                ("OFF-BURICHANG", "সহকারী কমিশনার (ভূমি) কার্যালয়, বুড়িচং", "AC Land Office, Burichang", "AC_LAND", "Chattogram"),
-                ("OFF-SYLHET-SADAR", "সহকারী কমিশনার (ভূমি) কার্যালয়, সিলেট সদর", "AC Land Office, Sylhet Sadar", "AC_LAND", "Sylhet"),
-                ("OFF-GOLAPGANJ", "সহকারী কমিশনার (ভূমি) কার্যালয়, গোলাপগঞ্জ", "AC Land Office, Golapganj", "AC_LAND", "Sylhet"),
+                (
+                    "OFF-TEJGAON",
+                    "সহকারী কমিশনার (ভূমি) কার্যালয়, তেজগাঁও সার্কেল",
+                    "AC Land Office, Tejgaon",
+                    "AC_LAND",
+                    "Dhaka",
+                ),
+                (
+                    "OFF-GULSHAN",
+                    "সহকারী কমিশনার (ভূমি) কার্যালয়, গুলশান সার্কেল",
+                    "AC Land Office, Gulshan",
+                    "AC_LAND",
+                    "Dhaka",
+                ),
+                (
+                    "OFF-MIRPUR",
+                    "সহকারী কমিশনার (ভূমি) কার্যালয়, মিরপুর সার্কেল",
+                    "AC Land Office, Mirpur",
+                    "AC_LAND",
+                    "Dhaka",
+                ),
+                (
+                    "OFF-MOHAMMADPUR",
+                    "সহকারী কমিশনার (ভূমি) কার্যালয়, মোহাম্মদপুর সার্কেল",
+                    "AC Land Office, Mohammadpur",
+                    "AC_LAND",
+                    "Dhaka",
+                ),
+                (
+                    "OFF-SAVAR",
+                    "সহকারী কমিশনার (ভূমি) কার্যালয়, সাভার",
+                    "AC Land Office, Savar",
+                    "AC_LAND",
+                    "Dhaka",
+                ),
+                (
+                    "OFF-DHAMRAI",
+                    "সহকারী কমিশনার (ভূমি) কার্যালয়, ধামরাই",
+                    "AC Land Office, Dhamrai",
+                    "AC_LAND",
+                    "Dhaka",
+                ),
+                (
+                    "OFF-KERANIGANJ",
+                    "সহকারী কমিশনার (ভূমি) কার্যালয়, কেরানীগঞ্জ",
+                    "AC Land Office, Keraniganj",
+                    "AC_LAND",
+                    "Dhaka",
+                ),
+                (
+                    "OFF-GAZIPUR",
+                    "সহকারী কমিশনার (ভূমি) কার্যালয়, গাজীপুর সদর",
+                    "AC Land Office, Gazipur Sadar",
+                    "AC_LAND",
+                    "Dhaka",
+                ),
+                (
+                    "OFF-SREEPUR",
+                    "সহকারী কমিশনার (ভূমি) কার্যালয়, শ্রীপুর",
+                    "AC Land Office, Sreepur",
+                    "AC_LAND",
+                    "Dhaka",
+                ),
+                (
+                    "OFF-KALIAKAIR",
+                    "সহকারী কমিশনার (ভূমি) কার্যালয়, কালিয়াকৈর",
+                    "AC Land Office, Kaliakair",
+                    "AC_LAND",
+                    "Dhaka",
+                ),
+                (
+                    "OFF-NARAYANGANJ",
+                    "সহকারী কমিশনার (ভূমি) কার্যালয়, নারায়ণগঞ্জ সদর",
+                    "AC Land Office, Narayanganj Sadar",
+                    "AC_LAND",
+                    "Dhaka",
+                ),
+                (
+                    "OFF-SONARGAON",
+                    "সহকারী কমিশনার (ভূমি) কার্যালয়, সোনারগাঁও",
+                    "AC Land Office, Sonargaon",
+                    "AC_LAND",
+                    "Dhaka",
+                ),
+                (
+                    "OFF-RUPGANJ",
+                    "সহকারী কমিশনার (ভূমি) কার্যালয়, রূপগঞ্জ",
+                    "AC Land Office, Rupganj",
+                    "AC_LAND",
+                    "Dhaka",
+                ),
+                (
+                    "OFF-KOTWALI-CUM",
+                    "সহকারী কমিশনার (ভূমি) কার্যালয়, কোতোয়ালি সার্কেল",
+                    "AC Land Office, Kotwali",
+                    "AC_LAND",
+                    "Chattogram",
+                ),
+                (
+                    "OFF-BURICHANG",
+                    "সহকারী কমিশনার (ভূমি) কার্যালয়, বুড়িচং",
+                    "AC Land Office, Burichang",
+                    "AC_LAND",
+                    "Chattogram",
+                ),
+                (
+                    "OFF-SYLHET-SADAR",
+                    "সহকারী কমিশনার (ভূমি) কার্যালয়, সিলেট সদর",
+                    "AC Land Office, Sylhet Sadar",
+                    "AC_LAND",
+                    "Sylhet",
+                ),
+                (
+                    "OFF-GOLAPGANJ",
+                    "সহকারী কমিশনার (ভূমি) কার্যালয়, গোলাপগঞ্জ",
+                    "AC Land Office, Golapganj",
+                    "AC_LAND",
+                    "Sylhet",
+                ),
             ]
             office_map = {}
             for code, name_bn, name_en, o_type, div in office_defs:
@@ -169,17 +286,98 @@ async def run_seed():
             primary_region = list(region_map.values())[0]
 
             demo_role_users = [
-                ("citizen@landos.gov.bd", "Citizen", "নাগরিক ডেমো ব্যবহারকারী", "Demo Citizen User", None, None, False, None),
-                ("operator@landos.gov.bd", "Operator", "ইউনিয়ন ভূমি সহকারী কর্মকর্তা", "Union Land Assistant Officer", primary_office, primary_region, False, None),
-                ("reviewer@landos.gov.bd", "Reviewer", "কানুনগো / সার্ভেয়ার পর্যালোচক", "Kanungo / Survey Reviewer", primary_office, primary_region, False, None),
-                ("supervisor@landos.gov.bd", "Supervisor", "সহকারী কমিশনার (ভূমি) পর্যবেক্ষক", "Assistant Commissioner (Land) Supervisor", primary_office, primary_region, False, None),
-                ("officeadmin@landos.gov.bd", "Office Admin", "উপজেলা ভূমি রেকর্ড ও প্রশাসনিক কর্মকর্তা", "Upazila Land Office Administrator", primary_office, primary_region, False, None),
-                ("regionalmanager@landos.gov.bd", "Regional Manager", "অতিরিক্ত জেলা প্রশাসক (রাজস্ব)", "Additional Deputy Commissioner (Revenue)", None, primary_region, False, None),
-                ("securityofficer@landos.gov.bd", "Security Officer", "সাইবার ও অডিট নিরাপত্তা কর্মকর্তা", "Cyber & Audit Security Officer", None, None, True, demo_mfa_secret),
-                ("techadmin@landos.gov.bd", "Tech Admin", "সিস্টেম টেকনিক্যাল অ্যাডমিন", "System Technical Administrator", primary_office, primary_region, True, demo_mfa_secret),
+                (
+                    "citizen@landos.gov.bd",
+                    "Citizen",
+                    "নাগরিক ডেমো ব্যবহারকারী",
+                    "Demo Citizen User",
+                    None,
+                    None,
+                    False,
+                    None,
+                ),
+                (
+                    "operator@landos.gov.bd",
+                    "Operator",
+                    "ইউনিয়ন ভূমি সহকারী কর্মকর্তা",
+                    "Union Land Assistant Officer",
+                    primary_office,
+                    primary_region,
+                    False,
+                    None,
+                ),
+                (
+                    "reviewer@landos.gov.bd",
+                    "Reviewer",
+                    "কানুনগো / সার্ভেয়ার পর্যালোচক",
+                    "Kanungo / Survey Reviewer",
+                    primary_office,
+                    primary_region,
+                    False,
+                    None,
+                ),
+                (
+                    "supervisor@landos.gov.bd",
+                    "Supervisor",
+                    "সহকারী কমিশনার (ভূমি) পর্যবেক্ষক",
+                    "Assistant Commissioner (Land) Supervisor",
+                    primary_office,
+                    primary_region,
+                    False,
+                    None,
+                ),
+                (
+                    "officeadmin@landos.gov.bd",
+                    "Office Admin",
+                    "উপজেলা ভূমি রেকর্ড ও প্রশাসনিক কর্মকর্তা",
+                    "Upazila Land Office Administrator",
+                    primary_office,
+                    primary_region,
+                    False,
+                    None,
+                ),
+                (
+                    "regionalmanager@landos.gov.bd",
+                    "Regional Manager",
+                    "অতিরিক্ত জেলা প্রশাসক (রাজস্ব)",
+                    "Additional Deputy Commissioner (Revenue)",
+                    None,
+                    primary_region,
+                    False,
+                    None,
+                ),
+                (
+                    "securityofficer@landos.gov.bd",
+                    "Security Officer",
+                    "সাইবার ও অডিট নিরাপত্তা কর্মকর্তা",
+                    "Cyber & Audit Security Officer",
+                    None,
+                    None,
+                    True,
+                    demo_mfa_secret,
+                ),
+                (
+                    "techadmin@landos.gov.bd",
+                    "Tech Admin",
+                    "সিস্টেম টেকনিক্যাল অ্যাডমিন",
+                    "System Technical Administrator",
+                    primary_office,
+                    primary_region,
+                    True,
+                    demo_mfa_secret,
+                ),
             ]
 
-            for email, role_name, bn_name, en_name, u_off, u_reg, req_mfa, u_mfa_secret in demo_role_users:
+            for (
+                email,
+                role_name,
+                bn_name,
+                en_name,
+                u_off,
+                u_reg,
+                req_mfa,
+                u_mfa_secret,
+            ) in demo_role_users:
                 u_stmt = select(User).where(User.email == email)
                 existing_u = (await session.execute(u_stmt)).scalar_one_or_none()
                 if not existing_u:
@@ -208,6 +406,7 @@ async def run_seed():
 
             # 4. Seed Mouzas from data/synthetic/bangla_data.py
             from data.synthetic.bangla_data import MOUZAS
+
             mouza_db_map = {}
             for m in MOUZAS:
                 # Find matching office
@@ -220,7 +419,9 @@ async def run_seed():
                 if not matching_office_id:
                     matching_office_id = list(office_map.values())[0]
 
-                stmt = select(Mouza).where(Mouza.name_en == m["name_en"], Mouza.upazila == m["upazila"])
+                stmt = select(Mouza).where(
+                    Mouza.name_en == m["name_en"], Mouza.upazila == m["upazila"]
+                )
                 mouza_obj = (await session.execute(stmt)).scalar_one_or_none()
                 if not mouza_obj:
                     mouza_obj = Mouza(
@@ -245,10 +446,14 @@ async def run_seed():
                 with open(records_file, "r", encoding="utf-8") as f:
                     recs_data = json.load(f)
 
-                existing_records_count = (await session.execute(select(func.count(LandRecord.id)))).scalar() or 0
+                existing_records_count = (
+                    await session.execute(select(func.count(LandRecord.id)))
+                ).scalar() or 0
                 if existing_records_count < 1000:
                     print(f"Bulk inserting {len(recs_data)} land records into database...")
-                    default_mouza_id = list(mouza_db_map.values())[0] if mouza_db_map else uuid.uuid4()
+                    default_mouza_id = (
+                        list(mouza_db_map.values())[0] if mouza_db_map else uuid.uuid4()
+                    )
                     batch = []
                     for idx, r in enumerate(recs_data):
                         m_id = mouza_db_map.get(r["mouza_name_en"], default_mouza_id)
@@ -300,7 +505,9 @@ async def run_seed():
                 category = meta.get("category", "general")
                 last_verified_str = meta.get("last_verified_at", "2024-06-01T00:00:00Z")
                 try:
-                    last_verified_dt = datetime.fromisoformat(last_verified_str.replace("Z", "+00:00"))
+                    last_verified_dt = datetime.fromisoformat(
+                        last_verified_str.replace("Z", "+00:00")
+                    )
                 except Exception:
                     last_verified_dt = utc_now()
 
@@ -327,11 +534,19 @@ async def run_seed():
             if os.path.exists(geojson_file):
                 with open(geojson_file, "r", encoding="utf-8") as f:
                     geo_data = json.load(f)
-                features = [feat for feat in geo_data.get("features", []) if feat["properties"].get("layer") == "parcels"]
+                features = [
+                    feat
+                    for feat in geo_data.get("features", [])
+                    if feat["properties"].get("layer") == "parcels"
+                ]
                 print(f"Loading {len(features)} parcel polygons...")
-                existing_parcels = (await session.execute(select(func.count(ParcelDemo.id)))).scalar() or 0
+                existing_parcels = (
+                    await session.execute(select(func.count(ParcelDemo.id)))
+                ).scalar() or 0
                 if existing_parcels < 50:
-                    default_mouza_id = list(mouza_db_map.values())[0] if mouza_db_map else uuid.uuid4()
+                    default_mouza_id = (
+                        list(mouza_db_map.values())[0] if mouza_db_map else uuid.uuid4()
+                    )
                     for feat in features:
                         props = feat["properties"]
                         geom_wkt = f"POLYGON(({', '.join(f'{coord[0]} {coord[1]}' for coord in feat['geometry']['coordinates'][0])}))"
@@ -361,9 +576,13 @@ async def run_seed():
                 with open(conflict_file, "r", encoding="utf-8") as f:
                     c_data = json.load(f)
                 c_parcels = c_data.get("parcels", [])
-                existing_p3_parcels = (await session.execute(select(func.count(Parcel.parcel_id)))).scalar() or 0
+                existing_p3_parcels = (
+                    await session.execute(select(func.count(Parcel.parcel_id)))
+                ).scalar() or 0
                 if existing_p3_parcels < 50:
-                    default_mouza_id = list(mouza_db_map.values())[0] if mouza_db_map else uuid.uuid4()
+                    default_mouza_id = (
+                        list(mouza_db_map.values())[0] if mouza_db_map else uuid.uuid4()
+                    )
                     for p_item in c_parcels:
                         p_obj = Parcel(
                             parcel_id=p_item["parcel_id"],
@@ -378,17 +597,22 @@ async def run_seed():
 
                         for d_item in p_item.get("deeds", []):
                             try:
-                                d_date = datetime.fromisoformat(d_item["deed_date"].replace("Z", "+00:00"))
+                                d_date = datetime.fromisoformat(
+                                    d_item["deed_date"].replace("Z", "+00:00")
+                                )
                             except Exception:
                                 d_date = utc_now()
                             try:
-                                r_date = datetime.fromisoformat(d_item["registered_date"].replace("Z", "+00:00"))
+                                r_date = datetime.fromisoformat(
+                                    d_item["registered_date"].replace("Z", "+00:00")
+                                )
                             except Exception:
                                 r_date = d_date
 
                             ar_val = d_item.get("area", p_item["area_decimal"])
                             if isinstance(ar_val, str):
                                 import re
+
                                 m_re = re.search(r"(\d+(?:\.\d+)?)", ar_val)
                                 ar_val = float(m_re.group(1)) if m_re else p_item["area_decimal"]
 
@@ -396,7 +620,9 @@ async def run_seed():
                                 id=uuid.uuid4(),
                                 deed_no=d_item.get("deed_no", "D-0"),
                                 deed_type=d_item.get("deed_type", "sale"),
-                                registry_office=d_item.get("registry_office", "তেজগাঁও সাব-রেজিস্ট্রি অফিস"),
+                                registry_office=d_item.get(
+                                    "registry_office", "তেজগাঁও সাব-রেজিস্ট্রি অফিস"
+                                ),
                                 deed_date=d_date,
                                 registered_date=r_date,
                                 seller=d_item.get("seller", "বিক্রেতা"),
@@ -408,12 +634,15 @@ async def run_seed():
 
                         for m_item in p_item.get("mutations", []):
                             try:
-                                m_date = datetime.fromisoformat(m_item["mutation_date"].replace("Z", "+00:00"))
+                                m_date = datetime.fromisoformat(
+                                    m_item["mutation_date"].replace("Z", "+00:00")
+                                )
                             except Exception:
                                 m_date = utc_now()
                             m_ar = m_item.get("area", p_item["area_decimal"])
                             if isinstance(m_ar, str):
                                 import re
+
                                 m_re = re.search(r"(\d+(?:\.\d+)?)", m_ar)
                                 m_ar = float(m_re.group(1)) if m_re else p_item["area_decimal"]
 
@@ -448,6 +677,7 @@ async def run_seed():
 
     try:
         from data.synthetic.bangla_data import MOUZAS
+
         inventory["mouzas"] = len(MOUZAS)
     except Exception:
         pass
@@ -468,7 +698,13 @@ async def run_seed():
         try:
             with open(geo_path, "r", encoding="utf-8") as f:
                 gdata = json.load(f)
-                inventory["parcels"] = len([f for f in gdata.get("features", []) if f.get("properties", {}).get("layer") == "parcels"])
+                inventory["parcels"] = len(
+                    [
+                        f
+                        for f in gdata.get("features", [])
+                        if f.get("properties", {}).get("layer") == "parcels"
+                    ]
+                )
         except Exception:
             pass
 

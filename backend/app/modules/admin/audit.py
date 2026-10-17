@@ -215,7 +215,9 @@ async def simulate_tamper_endpoint(
     }
 
 
-@router.post("/restore-chain", summary="Restore tampered database record using cryptographic consensus")
+@router.post(
+    "/restore-chain", summary="Restore tampered database record using cryptographic consensus"
+)
 async def restore_chain_endpoint(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(require(Permission.AUDIT_VERIFY, Scope.GLOBAL)),
@@ -244,4 +246,3 @@ async def restore_chain_endpoint(
         "status": "RESTORED",
         "message": "ব্লকচেইন কনসেনসাস প্রুফ অনুযায়ী সফলভাবে ডেটাবেজ সেলফ-হিলিং ও আগের অবস্থায় রিস্টোর সম্পন্ন হয়েছে!",
     }
-

@@ -27,9 +27,40 @@ router = APIRouter(prefix="/guide", tags=["Grounded Citizen Land Guide"])
 
 # Common Bengali query stop words
 BENGALI_STOPWORDS = {
-    "জন্য", "কী", "কি", "কীভাবে", "কেন", "কার", "কোথায়", "কখন", "কত", "পারে", "হতে",
-    "হলে", "এবং", "ও", "বা", "থেকে", "দ্বারা", "দিয়ে", "করা", "করলে", "হবে", "আছে", "না",
-    "একটি", "এই", "সেই", "এর", "কে", "তে", "র", "সহ", "নিয়ে", "সার্ভিস", "সরকারি"
+    "জন্য",
+    "কী",
+    "কি",
+    "কীভাবে",
+    "কেন",
+    "কার",
+    "কোথায়",
+    "কখন",
+    "কত",
+    "পারে",
+    "হতে",
+    "হলে",
+    "এবং",
+    "ও",
+    "বা",
+    "থেকে",
+    "দ্বারা",
+    "দিয়ে",
+    "করা",
+    "করলে",
+    "হবে",
+    "আছে",
+    "না",
+    "একটি",
+    "এই",
+    "সেই",
+    "এর",
+    "কে",
+    "তে",
+    "র",
+    "সহ",
+    "নিয়ে",
+    "সার্ভিস",
+    "সরকারি",
 }
 
 
@@ -44,7 +75,9 @@ class GuideResponse(BaseModel):
     source: Optional[str] = None
     last_verified_at: Optional[str] = None
     similarity_score: Optional[float] = None
-    disclaimer_bn: str = "এটি আইনি পরামর্শ বা মালিকানার সিদ্ধান্ত নয়। সরকারি বিধিমালা অনুযায়ী যাচাই করুন।"
+    disclaimer_bn: str = (
+        "এটি আইনি পরামর্শ বা মালিকানার সিদ্ধান্ত নয়। সরকারি বিধিমালা অনুযায়ী যাচাই করুন।"
+    )
 
 
 def resolve_kb_path() -> Optional[str]:
@@ -130,7 +163,9 @@ async def ask_land_guide(
                     s = f"{s_name} ({s_url})" if s_url else s_name
                     lv = meta.get("last_verified_at")
                     dt = datetime.fromisoformat(lv.replace("Z", "+00:00")) if lv else None
-                    articles.append(StaticArticle(title=t, content=body, source=s, last_verified_at=dt))
+                    articles.append(
+                        StaticArticle(title=t, content=body, source=s, last_verified_at=dt)
+                    )
                 except Exception:
                     pass
 

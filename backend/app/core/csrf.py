@@ -38,7 +38,11 @@ def verify_csrf(request: Request):
         csrf_cookie = request.cookies.get("landos_csrf_token")
         csrf_header = request.headers.get("X-CSRF-Token")
 
-        if not csrf_cookie or not csrf_header or not secrets.compare_digest(csrf_cookie, csrf_header):
+        if (
+            not csrf_cookie
+            or not csrf_header
+            or not secrets.compare_digest(csrf_cookie, csrf_header)
+        ):
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="CSRF protection error: Invalid or missing CSRF token header.",

@@ -20,7 +20,6 @@ from app.core.normalize import (
     normalize_name,
 )
 from app.core.rate_limit import rate_limit
-from app.modules.guide.router import ask_land_guide, AskGuideRequest
 
 router = APIRouter(prefix="/ml", tags=["ML Studio & Inference Engine"])
 
@@ -29,10 +28,17 @@ router = APIRouter(prefix="/ml", tags=["ML Studio & Inference Engine"])
 # Request & Response Schemas
 # ------------------------------------------------------------------------------
 
+
 class MLExtractRequest(BaseModel):
-    raw_text: str = Field(..., min_length=5, description="Raw Bengali or English deed, porcha, or khatian text")
-    doc_type_hint: Optional[str] = Field("deed", description="Optional hint: deed, khatian, mutation")
-    region_code: Optional[str] = Field("dhaka", description="Regional code for land unit normalization")
+    raw_text: str = Field(
+        ..., min_length=5, description="Raw Bengali or English deed, porcha, or khatian text"
+    )
+    doc_type_hint: Optional[str] = Field(
+        "deed", description="Optional hint: deed, khatian, mutation"
+    )
+    region_code: Optional[str] = Field(
+        "dhaka", description="Regional code for land unit normalization"
+    )
 
 
 class ExtractedParty(BaseModel):
@@ -89,7 +95,7 @@ class ConflictSimulateRequest(BaseModel):
 
 class ConflictAlert(BaseModel):
     rule_code: str  # R1..R6
-    severity: str   # "CRITICAL" | "HIGH" | "WARNING"
+    severity: str  # "CRITICAL" | "HIGH" | "WARNING"
     title_bn: str
     title_en: str
     evidence_bn: str
@@ -99,7 +105,7 @@ class ConflictAlert(BaseModel):
 class ConflictSimulateResponse(BaseModel):
     conflict_detected: bool
     risk_score: float  # 0 to 100
-    risk_level: str    # "LOW" | "MEDIUM" | "HIGH" | "CRITICAL"
+    risk_level: str  # "LOW" | "MEDIUM" | "HIGH" | "CRITICAL"
     alerts: List[ConflictAlert]
     simulation_summary_bn: str
 
@@ -107,6 +113,7 @@ class ConflictSimulateResponse(BaseModel):
 # ------------------------------------------------------------------------------
 # Entity Extraction Helpers
 # ------------------------------------------------------------------------------
+
 
 def _detect_doc_type(text: str) -> str:
     text_lower = text.lower()
@@ -141,6 +148,7 @@ def _detect_khatian_type(text: str) -> Optional[str]:
 # ------------------------------------------------------------------------------
 # Endpoints
 # ------------------------------------------------------------------------------
+
 
 @router.post(
     "/extract",
@@ -269,7 +277,9 @@ async def extract_land_entities(payload: MLExtractRequest):
     # 5. Parties extraction
     parties: List[ExtractedParty] = []
     # Check for buyer
-    buyer_match = re.search(r"(?:গ্রহীতা|ক্রেতা|buyer)\s*[:\-\s]*([^\n,;।]{2,40})", text, re.IGNORECASE)
+    buyer_match = re.search(
+        r"(?:গ্রহীতা|ক্রেতা|buyer)\s*[:\-\s]*([^\n,;।]{2,40})", text, re.IGNORECASE
+    )
     if buyer_match:
         b_name = normalize_name(buyer_match.group(1).strip())
         parties.append(
@@ -283,7 +293,9 @@ async def extract_land_entities(payload: MLExtractRequest):
         )
 
     # Check for seller
-    seller_match = re.search(r"(?:দাতার|দাতা|বিক্রেতা|seller)\s*[:\-\s]*([^\n,;।]{2,40})", text, re.IGNORECASE)
+    seller_match = re.search(
+        r"(?:দাতার|দাতা|বিক্রেতা|seller)\s*[:\-\s]*([^\n,;।]{2,40})", text, re.IGNORECASE
+    )
     if seller_match:
         s_name = normalize_name(seller_match.group(1).strip())
         parties.append(
@@ -297,7 +309,9 @@ async def extract_land_entities(payload: MLExtractRequest):
         )
 
     # Check for owner
-    owner_match = re.search(r"(?:মালিক|মালিকের\s*নাম|owner)\s*[:\-\s]*([^\n,;।]{2,40})", text, re.IGNORECASE)
+    owner_match = re.search(
+        r"(?:মালিক|মালিকের\s*নাম|owner)\s*[:\-\s]*([^\n,;।]{2,40})", text, re.IGNORECASE
+    )
     if owner_match and not buyer_match and not seller_match:
         o_name = normalize_name(owner_match.group(1).strip())
         parties.append(
@@ -316,8 +330,15 @@ async def extract_land_entities(payload: MLExtractRequest):
         conf_scores.append(extracted_dags[0].confidence)
     if extracted_khatians:
         conf_scores.append(extracted_khatians[0].confidence)
-    if mouza_info:
-        conf_scores.append(mouza_info["confidence"])
+    if mouza_info and mouza_info.get("confidence") is not None:
+        conf_val = mouza_info["confidence"]
+        if isinstance(conf_val, (int, float)):
+            conf_scores.append(float(conf_val))
+        elif isinstance(conf_val, str):
+            try:
+                conf_scores.append(float(conf_val))
+            except ValueError:
+                pass
     if area_info:
         conf_scores.append(area_info.confidence)
     if parties:
@@ -799,4 +820,3 @@ async def analyze_visual_forensics(payload: VisualForensicsRequest):
             risk_score=0.0,
             boxes=boxes,
         )
-

@@ -6,7 +6,9 @@ from pythonjsonlogger import jsonlogger
 
 # Regular expressions for scrubbing PII and sensitive tokens from log streams
 TOKEN_PATTERN = re.compile(r"(Bearer\s+)[A-Za-z0-9._-]+", re.IGNORECASE)
-PASSWORD_PATTERN = re.compile(r"(?:password|secret|access_token|refresh_token)\s*[:=]\s*[^\s,]+", re.IGNORECASE)
+PASSWORD_PATTERN = re.compile(
+    r"(?:password|secret|access_token|refresh_token)\s*[:=]\s*[^\s,]+", re.IGNORECASE
+)
 PHONE_PATTERN = re.compile(r"\b01[3-9]\d{8}\b")
 NID_PATTERN = re.compile(r"\b(?:\d{10}|\d{13}|\d{17})\b")
 

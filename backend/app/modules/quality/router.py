@@ -148,8 +148,12 @@ def parse_eval_run_json(file_path: str, data: Dict[str, Any]) -> EvalRunDetail:
     kh_gate_thresh = float(gates_cfg.get("khatian_no", {}).get("fea", 0.95))
     mz_gate_thresh = 0.90
 
-    dag_passed = dag_fea >= dag_gate_thresh and dag_ser <= float(gates_cfg.get("dag_no", {}).get("silent_error_rate", 0.02))
-    kh_passed = kh_fea >= kh_gate_thresh and kh_ser <= float(gates_cfg.get("khatian_no", {}).get("silent_error_rate", 0.02))
+    dag_passed = dag_fea >= dag_gate_thresh and dag_ser <= float(
+        gates_cfg.get("dag_no", {}).get("silent_error_rate", 0.02)
+    )
+    kh_passed = kh_fea >= kh_gate_thresh and kh_ser <= float(
+        gates_cfg.get("khatian_no", {}).get("silent_error_rate", 0.02)
+    )
     mz_passed = mz_fea >= mz_gate_thresh
 
     fields = {

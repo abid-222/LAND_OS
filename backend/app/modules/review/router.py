@@ -42,7 +42,9 @@ class ReviewQueueResponse(BaseModel):
 class ReviewDecisionRequest(BaseModel):
     decision: str = Field(..., description="CONFIRMED | REJECTED | CORRECTED | HEARING_SCHEDULED")
     notes: Optional[str] = Field(None, description="Official reviewer notes")
-    corrected_fields: Optional[Dict[str, str]] = Field(None, description="Field corrections if decision is CORRECTED")
+    corrected_fields: Optional[Dict[str, str]] = Field(
+        None, description="Field corrections if decision is CORRECTED"
+    )
 
 
 class ReviewDecisionResponse(BaseModel):
@@ -73,19 +75,22 @@ async def get_review_queue(
     Returns pending cases in the human review queue.
     Shows cases requiring human verification (low confidence OCR, repaired fields, conflicting dates).
     """
-    stmt = (
-        select(Case)
-        .where(
-            or_(
-                Case.status == "needs_human_review",
-                Case.status == "SUBMITTED",
-                Case.status == "open",
-                Case.status == "PENDING",
-            )
+    stmt = select(Case).where(
+        or_(
+            Case.status == "needs_human_review",
+            Case.status == "SUBMITTED",
+            Case.status == "open",
+            Case.status == "PENDING",
         )
     )
     from app.modules.rbac.permissions import Role
-    if current_user.role in (Role.OPERATOR.value, Role.REVIEWER.value, Role.SUPERVISOR.value, Role.OFFICE_ADMIN.value):
+
+    if current_user.role in (
+        Role.OPERATOR.value,
+        Role.REVIEWER.value,
+        Role.SUPERVISOR.value,
+        Role.OFFICE_ADMIN.value,
+    ):
         if current_user.office_id:
             stmt = stmt.where(Case.office_id == current_user.office_id)
 
@@ -96,6 +101,7 @@ async def get_review_queue(
     if not db_cases:
         # Auto-seed standard demo cases for review queue if DB is fresh
         from app.models import Office, User
+
         c_res = await db.execute(select(User).where(User.email == "citizen@landos.gov.bd").limit(1))
         citizen_user = c_res.scalar_one_or_none()
         o_res = await db.execute(select(Office).limit(1))
@@ -162,7 +168,9 @@ async def get_review_queue(
 
 
 class CitizenCaseApplyRequest(BaseModel):
-    case_type: str = Field(default="MUTATION", description="MUTATION | RECORD_VERIFICATION | BOUNDARY_DISPUTE")
+    case_type: str = Field(
+        default="MUTATION", description="MUTATION | RECORD_VERIFICATION | BOUNDARY_DISPUTE"
+    )
     khatian_no: str
     dag_no: str
     mouza: str
@@ -199,6 +207,7 @@ async def apply_for_case(
     current_user=Depends(require(Permission.CASE_CREATE, Scope.OWN)),
 ):
     from app.models import Office
+
     office_uuid: Optional[uuid.UUID] = None
     if payload.office_id:
         try:
@@ -339,7 +348,13 @@ async def submit_case_decision(
         )
 
     from app.modules.rbac.permissions import Role
-    if current_user.role in (Role.OPERATOR.value, Role.REVIEWER.value, Role.SUPERVISOR.value, Role.OFFICE_ADMIN.value):
+
+    if current_user.role in (
+        Role.OPERATOR.value,
+        Role.REVIEWER.value,
+        Role.SUPERVISOR.value,
+        Role.OFFICE_ADMIN.value,
+    ):
         if current_user.office_id and c.office_id and c.office_id != current_user.office_id:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
@@ -424,19 +439,27 @@ async def assign_case(
     res = await db.execute(stmt)
     c = res.scalar_one_or_none()
     if not c:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Case '{case_id}' not found.")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"Case '{case_id}' not found."
+        )
 
     from app.models import User
     from app.modules.rbac.permissions import Role
+
     if current_user.role in (Role.SUPERVISOR.value, Role.OFFICE_ADMIN.value):
         if current_user.office_id and c.office_id and c.office_id != current_user.office_id:
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Cannot assign cases outside assigned office.")
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Cannot assign cases outside assigned office.",
+            )
 
     r_stmt = select(User).where(User.id == payload.reviewer_id)
     r_res = await db.execute(r_stmt)
     reviewer = r_res.scalar_one_or_none()
     if not reviewer:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Assigned reviewer not found.")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Assigned reviewer not found."
+        )
 
     c.assigned_reviewer_id = reviewer.id
     if payload.notes:
@@ -455,5 +478,9 @@ async def assign_case(
         payload={"case_number": c.case_number, "assigned_to": str(reviewer.id)},
     )
 
-    return {"status": "success", "case_id": str(c.id), "assigned_to": str(reviewer.id), "case_status": c.status}
-
+    return {
+        "status": "success",
+        "case_id": str(c.id),
+        "assigned_to": str(reviewer.id),
+        "case_status": c.status,
+    }

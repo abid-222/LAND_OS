@@ -90,7 +90,9 @@ async def build_report(
         "mouza": parcel_ctx.mouza_name,
         "main_no": parcel_ctx.main_no,
         "sub_no": parcel_ctx.sub_no,
-        "land_type": parcel_ctx.record.get("land_class_bn", "নাল/কৃষি") if parcel_ctx.record else "নাল",
+        "land_type": parcel_ctx.record.get("land_class_bn", "নাল/কৃষি")
+        if parcel_ctx.record
+        else "নাল",
         "area_decimal": parcel_ctx.area_decimal,
         "area_acres": round(parcel_ctx.area_decimal / 100.0, 4),
         "boundary_note": "Illustrative / Not a legal boundary (প্রদর্শিত সীমানা ও নকশা শুধুমাত্র উদাহরণের জন্য, এটি কোনো আইনি সীমানা নয়)",
@@ -100,17 +102,21 @@ async def build_report(
     # Section 2: matching_records
     matching_records: List[Dict[str, Any]] = []
     if parcel_ctx.record:
-        matching_records.append({
-            "record_id": parcel_ctx.record.get("id"),
-            "khatian_no": parcel_ctx.record.get("khatian_no"),
-            "dag_no": parcel_ctx.record.get("dag_no"),
-            "owner_names": parcel_ctx.record.get("owner_names_bn"),
-            "similarity_score": 1.0,
-            "reasons": ["দাগ ও খতিয়ান নম্বর রেকর্ড ডাটাবেজের সাথে সম্পূর্ণভাবে মিলেছে"],
-            "status_label": "VERIFIED_AUTHORIZED_SOURCE" if parcel_ctx.record.get("id") else "POSSIBLE_MATCH",
-            "source": "উপজেলা ভূমি অফিস রেকর্ড রুম (ডিজিটাল আরএস খতিয়ান)",
-            "retrieved_at": now_iso,
-        })
+        matching_records.append(
+            {
+                "record_id": parcel_ctx.record.get("id"),
+                "khatian_no": parcel_ctx.record.get("khatian_no"),
+                "dag_no": parcel_ctx.record.get("dag_no"),
+                "owner_names": parcel_ctx.record.get("owner_names_bn"),
+                "similarity_score": 1.0,
+                "reasons": ["দাগ ও খতিয়ান নম্বর রেকর্ড ডাটাবেজের সাথে সম্পূর্ণভাবে মিলেছে"],
+                "status_label": "VERIFIED_AUTHORIZED_SOURCE"
+                if parcel_ctx.record.get("id")
+                else "POSSIBLE_MATCH",
+                "source": "উপজেলা ভূমি অফিস রেকর্ড রুম (ডিজিটাল আরএস খতিয়ান)",
+                "retrieved_at": now_iso,
+            }
+        )
 
     # Section 3: document_conflicts (Risk Engine alerts grouped by severity)
     alerts = await engine.run_all(parcel_id, db=db, ctx=parcel_ctx)
@@ -155,15 +161,17 @@ async def build_report(
     checklist_items: List[Dict[str, Any]] = []
     for req in checklist_cfg.get("required_documents", []):
         dtype = req.get("doc_type", "").lower()
-        is_attached = (dtype in linked_doc_types)
-        checklist_items.append({
-            "doc_type": dtype,
-            "title_bn": req.get("title_bn"),
-            "description_bn": req.get("description_bn"),
-            "mandatory_for_purchase": req.get("mandatory_for_purchase", True),
-            "status": "attached" if is_attached else "not_attached",
-            "status_bn": "সংযুক্ত রয়েছে" if is_attached else "সংযুক্ত নেই (যাচাই আবশ্যক)",
-        })
+        is_attached = dtype in linked_doc_types
+        checklist_items.append(
+            {
+                "doc_type": dtype,
+                "title_bn": req.get("title_bn"),
+                "description_bn": req.get("description_bn"),
+                "mandatory_for_purchase": req.get("mandatory_for_purchase", True),
+                "status": "attached" if is_attached else "not_attached",
+                "status_bn": "সংযুক্ত রয়েছে" if is_attached else "সংযুক্ত নেই (যাচাই আবশ্যক)",
+            }
+        )
 
     missing_evidence = {
         "checklist_title": checklist_cfg.get("title"),
@@ -186,13 +194,19 @@ async def build_report(
             res = await db.execute(stmt)
             articles = res.scalars().all()
             for art in articles:
-                next_steps_items.append({
-                    "title": art.title,
-                    "summary": art.content[:160] + "..." if len(art.content) > 160 else art.content,
-                    "source": art.source,
-                    "last_verified_at": art.last_verified_at.isoformat() if art.last_verified_at else None,
-                    "category": art.category,
-                })
+                next_steps_items.append(
+                    {
+                        "title": art.title,
+                        "summary": art.content[:160] + "..."
+                        if len(art.content) > 160
+                        else art.content,
+                        "source": art.source,
+                        "last_verified_at": art.last_verified_at.isoformat()
+                        if art.last_verified_at
+                        else None,
+                        "category": art.category,
+                    }
+                )
         except Exception as e:
             logger.debug(f"KB articles lookup note: {e}")
 

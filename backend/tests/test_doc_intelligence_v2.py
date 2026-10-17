@@ -18,7 +18,7 @@ backend_dir = os.path.abspath(os.path.join(current_dir, ".."))
 if backend_dir not in sys.path:
     sys.path.insert(0, backend_dir)
 
-from app.models import Base, Case, Document, ExtractedField  # noqa: E402
+from app.models import Base, Document  # noqa: E402
 from app.modules.documents.doc_intelligence import DocumentIntelligenceV2  # noqa: E402
 
 
@@ -31,7 +31,9 @@ async def memory_db():
         Base.metadata.tables["extracted_fields"],
     ]
     async with engine.begin() as conn:
-        await conn.run_sync(lambda sync_conn: Base.metadata.create_all(sync_conn, tables=target_tables))
+        await conn.run_sync(
+            lambda sync_conn: Base.metadata.create_all(sync_conn, tables=target_tables)
+        )
 
     session_maker = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
     async with session_maker() as session:
@@ -103,7 +105,9 @@ async def test_khatian_fixture_extraction_and_units():
     }
 
     # With region DHAKA: 1 bigha = 33.06 decimal -> 2 bigha = 66.12 decimal
-    extracted = DocumentIntelligenceV2.extract_from_fixture("khatian", fixture_khatian, region_code="DHAKA")
+    extracted = DocumentIntelligenceV2.extract_from_fixture(
+        "khatian", fixture_khatian, region_code="DHAKA"
+    )
 
     assert "khatian_no" in extracted
     assert extracted["khatian_no"].normalized_value == "340"
@@ -131,7 +135,9 @@ async def test_porcha_fixture_extraction_and_units():
         },
     }
 
-    extracted = DocumentIntelligenceV2.extract_from_fixture("porcha", fixture_porcha, region_code="DHAKA")
+    extracted = DocumentIntelligenceV2.extract_from_fixture(
+        "porcha", fixture_porcha, region_code="DHAKA"
+    )
 
     assert "khatian_no" in extracted
     assert extracted["khatian_no"].normalized_value == "789"

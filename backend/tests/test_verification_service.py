@@ -66,7 +66,7 @@ async def test_verification_mismatches_and_missing():
     doc_fields = {
         "dag_no": "৯৯৯৯",  # Mismatch
         "khatian_no": "৩৪০",
-        "mouza": None,      # Missing
+        "mouza": None,  # Missing
         "area": "১০০ শতাংশ",  # Mismatch (100 vs 33)
         "party_names": "সুবোধ কুমার দাস",  # Mismatch
     }
@@ -138,4 +138,5 @@ async def test_qr_hash_integrity_mismatch():
 
 def json_dump(obj):
     import json
+
     return json.dumps(obj)

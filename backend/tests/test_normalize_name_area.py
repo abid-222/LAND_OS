@@ -22,6 +22,7 @@ from app.core.normalize import (
 # NAME NORMALIZATION TESTS (15+ cases)
 # ==============================================================================
 
+
 @pytest.mark.parametrize(
     "raw_name,expected_normalized,expected_honorific",
     [
@@ -45,6 +46,7 @@ from app.core.normalize import (
 def test_name_honorific_stripping(raw_name, expected_normalized, expected_honorific):
     res = normalize_name(raw_name)
     import unicodedata
+
     assert res.normalized_name == unicodedata.normalize("NFC", expected_normalized)
     assert expected_honorific in res.stripped_honorifics
     assert res.confidence >= 0.90
@@ -88,6 +90,7 @@ def test_name_fuzzy_comparison():
 # ==============================================================================
 # AREA NORMALIZATION & UNIT CONVERSION TESTS (20+ cases)
 # ==============================================================================
+
 
 @pytest.mark.parametrize(
     "raw_input,expected_val,expected_unit,expected_decimal",

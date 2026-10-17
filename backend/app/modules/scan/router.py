@@ -89,14 +89,12 @@ async def scan_qr_endpoint(
             # If payload has canonical fields, verify hash
             if "fields" in payload_dict and isinstance(payload_dict["fields"], dict):
                 computed = compute_canonical_fields_hash(payload_dict["fields"])
-                hash_match = (computed.lower() == str(expected_hash).lower())
+                hash_match = computed.lower() == str(expected_hash).lower()
             else:
                 hash_match = True  # Self-contained validated payload
 
             ui_text_bn = (
-                "নথির তথ্য QR-এর সঙ্গে মিলেছে (মালিকানা যাচাই নয়)"
-                if hash_match
-                else "মেলেনি"
+                "নথির তথ্য QR-এর সঙ্গে মিলেছে (মালিকানা যাচাই নয়)" if hash_match else "মেলেনি"
             )
         else:
             ui_text_bn = "নথির তথ্য QR-এর সঙ্গে মিলেছে (মালিকানা যাচাই নয়)"

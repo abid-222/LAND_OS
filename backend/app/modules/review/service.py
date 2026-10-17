@@ -26,12 +26,20 @@ DEFAULT_CRITICAL_FIELDS: Dict[str, List[str]] = {
 
 def get_critical_fields_for_type(doc_type: str) -> List[str]:
     """Loads critical fields from config/doc_templates/{doc_type}.yaml or falls back to defaults."""
-    clean_type = (doc_type or "khatian").lower().replace("দলিল", "deed").replace("খতিয়ান", "khatian").replace("পর্চা", "porcha")
+    clean_type = (
+        (doc_type or "khatian")
+        .lower()
+        .replace("দলিল", "deed")
+        .replace("খতিয়ান", "khatian")
+        .replace("পর্চা", "porcha")
+    )
     candidates = [
         os.path.abspath(f"config/doc_templates/{clean_type}.yaml"),
         os.path.abspath(f"../config/doc_templates/{clean_type}.yaml"),
         os.path.abspath(f"../../config/doc_templates/{clean_type}.yaml"),
-        os.path.join(os.path.dirname(__file__), f"../../../../config/doc_templates/{clean_type}.yaml"),
+        os.path.join(
+            os.path.dirname(__file__), f"../../../../config/doc_templates/{clean_type}.yaml"
+        ),
     ]
     for path in candidates:
         if os.path.exists(path):
@@ -49,6 +57,7 @@ def get_critical_fields_for_type(doc_type: str) -> List[str]:
 
 class UnconfirmedCriticalFieldsError(Exception):
     """Raised when pipeline attempts cross-record verification or alerts on unconfirmed critical fields."""
+
     def __init__(self, document_id: str, case_id: str, flagged_fields: List[str]):
         super().__init__(
             f"Document {document_id} has unconfirmed critical fields {flagged_fields}. "
@@ -81,17 +90,19 @@ async def guard_and_create_review_case(
     for field in extracted_fields:
         if field.field_name in critical_names:
             # Check if user already corrected or reviewer approved
-            is_confirmed = field.user_corrected or (field.status_label == StatusLabel.USER_CORRECTED.value)
+            is_confirmed = field.user_corrected or (
+                field.status_label == StatusLabel.USER_CORRECTED.value
+            )
             if is_confirmed:
                 continue
 
             # Criteria for low-confidence / unconfirmed
             needs_review = (
-                field.repaired or
-                field.flagged or
-                (field.confidence < threshold) or
-                (field.status_label == "INVALID") or
-                (field.raw_value is None or not field.raw_value.strip())
+                field.repaired
+                or field.flagged
+                or (field.confidence < threshold)
+                or (field.status_label == "INVALID")
+                or (field.raw_value is None or not field.raw_value.strip())
             )
 
             if needs_review:
@@ -135,4 +146,5 @@ async def guard_and_create_review_case(
 
 def datetime_seq() -> str:
     import time
+
     return time.strftime("%Y%m%d%H%M%S")

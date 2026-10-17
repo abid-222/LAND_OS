@@ -148,4 +148,3 @@ async def import_records_csv(
         "adapter": adapter.get_source_identifier(),
         "message": f"Successfully validated and ingested {imported_count} land records with provenance.",
     }
-

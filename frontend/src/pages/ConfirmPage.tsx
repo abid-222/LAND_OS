@@ -67,6 +67,7 @@ export const ConfirmPage: React.FC<ConfirmPageProps> = ({
 
   useEffect(() => {
     fetchDocumentFields();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [documentId]);
 
   const fetchDocumentFields = async () => {

@@ -130,7 +130,10 @@ async def get_parcels(
                     if coords:
                         lons = [pt[0] for pt in coords]
                         lats = [pt[1] for pt in coords]
-                        if any(min_lon <= lo <= max_lon and min_lat <= la <= max_lat for lo, la in zip(lons, lats)):
+                        if any(
+                            min_lon <= lo <= max_lon and min_lat <= la <= max_lat
+                            for lo, la in zip(lons, lats)
+                        ):
                             filtered.append(feat)
                 features = filtered
         except Exception:
@@ -143,10 +146,7 @@ async def get_parcels(
         props["is_synthetic_demo"] = True
         if "synthetic_id" not in props:
             props["synthetic_id"] = (
-                f.get("id")
-                or props.get("parcel_id")
-                or props.get("parcel_number")
-                or "P-DEMO"
+                f.get("id") or props.get("parcel_id") or props.get("parcel_number") or "P-DEMO"
             )
 
     resp = {
@@ -274,11 +274,18 @@ async def get_parcel_summary(
         )
 
     props = target.get("properties", {})
-    resolved_id = str(target.get("id") or props.get("parcel_id") or props.get("synthetic_id") or synthetic_id)
+    resolved_id = str(
+        target.get("id") or props.get("parcel_id") or props.get("synthetic_id") or synthetic_id
+    )
     mouza = str(props.get("mouza_bn", props.get("mouza", "তেজগাঁও")))
     dag_no = str(props.get("dag_no", "১২০৫"))
     khatian_no = str(props.get("khatian_no", "৩৪০"))
-    area_dec = float(props.get("area_decimal", props.get("area_acres", 0.33) * 100.0 if props.get("area_acres") else 33.0))
+    area_dec = float(
+        props.get(
+            "area_decimal",
+            props.get("area_acres", 0.33) * 100.0 if props.get("area_acres") else 33.0,
+        )
+    )
     area_ac = float(props.get("area_acres", round(area_dec / 100.0, 4)))
 
     # Fetch alerts for this parcel from DB
@@ -310,4 +317,3 @@ async def get_parcel_summary(
 
     await set_cached_public_data(cache_key, resp.model_dump(), ttl_seconds=300)
     return resp
-

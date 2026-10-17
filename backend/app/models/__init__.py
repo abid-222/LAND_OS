@@ -237,9 +237,7 @@ class ExtractedField(Base):
     flagged: Mapped[bool] = mapped_column(Boolean, default=False)
     flag_reason: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
     user_corrected: Mapped[bool] = mapped_column(Boolean, default=False)
-    status_label: Mapped[str] = mapped_column(
-        String(50), default=StatusLabel.OCR_EXTRACTED.value
-    )
+    status_label: Mapped[str] = mapped_column(String(50), default=StatusLabel.OCR_EXTRACTED.value)
     bbox: Mapped[Optional[dict]] = mapped_column(
         JSONB().with_variant(JSON, "sqlite"), nullable=True
     )
@@ -390,6 +388,7 @@ class EvalRun(Base):
     Tracks evaluation benchmark runs and model evaluation metrics.
     Stores per-field metrics JSONB: cer, fea, silent_error_rate, flag_recall, confusion matrix.
     """
+
     __tablename__ = "eval_runs"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -403,11 +402,13 @@ class EvalRun(Base):
 # P1 - P5 EXTENSION MODELS: VERIFICATION, RISK & BUYER REPORTS
 # ==============================================================================
 
+
 class VerificationResult(Base):
     """
     Cross-record comparison results between extracted document fields and baseline land record.
     Stores comparisons list and summary counts without ever declaring 'verified ownership'.
     """
+
     __tablename__ = "verification_results"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -432,6 +433,7 @@ class QRCheck(Base):
     QR code integrity verification check result. Scope is strictly 'integrity_only'.
     UI Text: 'নথির তথ্য QR-এর সঙ্গে মিলেছে (মালিকানা যাচাই নয়)' or 'মেলেনি'.
     """
+
     __tablename__ = "qr_checks"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -451,6 +453,7 @@ class Parcel(Base):
     """
     Cadastral parcel link connecting land records, deeds, and mutations.
     """
+
     __tablename__ = "parcels"
 
     parcel_id: Mapped[str] = mapped_column(String(100), primary_key=True)
@@ -476,6 +479,7 @@ class Deed(Base):
     """
     Registered deed records (sale, gift, inheritance, other).
     """
+
     __tablename__ = "deeds"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -501,6 +505,7 @@ class Mutation(Base):
     """
     Approved land mutation cases (নামজারি ও জমাভাগ).
     """
+
     __tablename__ = "mutations"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -527,6 +532,7 @@ class Alert(Base):
     Bangla wording: 'সম্ভাব্য অসঙ্গতি, যাচাই প্রয়োজন'. Every alert has reason + evidence.
     Evidence must be a non-empty list of {source_type, source_id, field, value, document_ref}.
     """
+
     __tablename__ = "alerts"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -542,10 +548,10 @@ class Alert(Base):
         String(255), nullable=False, default="সম্ভাব্য অসঙ্গতি, যাচাই প্রয়োজন"
     )
     reason_bn: Mapped[str] = mapped_column(Text, nullable=False)
-    evidence: Mapped[list] = mapped_column(
-        JSONB().with_variant(JSON, "sqlite"), nullable=False
-    )
-    status: Mapped[str] = mapped_column(String(50), nullable=False, default="open")  # "open" | "reviewed" | "dismissed"
+    evidence: Mapped[list] = mapped_column(JSONB().with_variant(JSON, "sqlite"), nullable=False)
+    status: Mapped[str] = mapped_column(
+        String(50), nullable=False, default="open"
+    )  # "open" | "reviewed" | "dismissed"
     rule_version: Mapped[str] = mapped_column(String(50), nullable=False, default="v1.0")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
 
@@ -564,6 +570,7 @@ class BuyerReport(Base):
     Comprehensive buyer parcel risk summary report.
     Plain list and counts by severity only. Never outputs or stores composite scores or safe/unsafe verdicts.
     """
+
     __tablename__ = "buyer_reports"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -574,9 +581,7 @@ class BuyerReport(Base):
         String(100), ForeignKey("parcels.parcel_id"), nullable=False, index=True
     )
     generated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
-    sections: Mapped[dict] = mapped_column(
-        JSONB().with_variant(JSON, "sqlite"), nullable=False
-    )
+    sections: Mapped[dict] = mapped_column(JSONB().with_variant(JSON, "sqlite"), nullable=False)
     rule_version: Mapped[str] = mapped_column(String(50), nullable=False, default="v1.0")
     disclaimer_version: Mapped[str] = mapped_column(String(50), nullable=False, default="v1.0")
 
@@ -588,14 +593,21 @@ class Notification(Base):
     """
     In-app notifications for background sync, review decisions, and conflict alerts.
     """
+
     __tablename__ = "notifications"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
-    type: Mapped[str] = mapped_column(String(50), nullable=False)  # "sync_finished" | "review_decision" | "alert_opened"
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True
+    )
+    type: Mapped[str] = mapped_column(
+        String(50), nullable=False
+    )  # "sync_finished" | "review_decision" | "alert_opened"
     title: Mapped[str] = mapped_column(String(255), nullable=False)
     message: Mapped[str] = mapped_column(Text, nullable=False)
-    data: Mapped[Optional[dict]] = mapped_column(JSONB().with_variant(JSON, "sqlite"), nullable=True)
+    data: Mapped[Optional[dict]] = mapped_column(
+        JSONB().with_variant(JSON, "sqlite"), nullable=True
+    )
     is_read: Mapped[bool] = mapped_column(Boolean, default=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
 
@@ -606,11 +618,16 @@ class ConsentRecord(Base):
     """
     Consent records tracking camera usage, offline storage, and privacy terms.
     """
+
     __tablename__ = "consent_records"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True, index=True)
-    consent_type: Mapped[str] = mapped_column(String(50), nullable=False)  # "camera" | "offline_storage" | "privacy_terms"
+    user_id: Mapped[Optional[uuid.UUID]] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id"), nullable=True, index=True
+    )
+    consent_type: Mapped[str] = mapped_column(
+        String(50), nullable=False
+    )  # "camera" | "offline_storage" | "privacy_terms"
     version: Mapped[str] = mapped_column(String(20), nullable=False, default="v1.0")
     agreed: Mapped[bool] = mapped_column(Boolean, default=True)
     ip_address: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
@@ -621,17 +638,22 @@ class FeedbackCorrection(Base):
     """
     Human-in-the-loop feedback corrections for evaluation set (never auto-trained).
     """
+
     __tablename__ = "feedback_corrections"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
-    document_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("documents.id"), nullable=True, index=True)
-    feedback_type: Mapped[str] = mapped_column(String(50), nullable=False)  # "wrong_match" | "wrong_field"
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True
+    )
+    document_id: Mapped[Optional[uuid.UUID]] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("documents.id"), nullable=True, index=True
+    )
+    feedback_type: Mapped[str] = mapped_column(
+        String(50), nullable=False
+    )  # "wrong_match" | "wrong_field"
     field_name: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
     reported_value: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     corrected_value: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     comments: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     status: Mapped[str] = mapped_column(String(50), default="evaluation_candidate")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
-
-

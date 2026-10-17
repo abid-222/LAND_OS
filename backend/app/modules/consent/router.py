@@ -64,7 +64,11 @@ async def submit_consent(
             resource_type="consent",
             resource_id=str(consent.id),
             scope="own",
-            payload={"type": payload.consent_type, "version": payload.version, "agreed": payload.agreed},
+            payload={
+                "type": payload.consent_type,
+                "version": payload.version,
+                "agreed": payload.agreed,
+            },
             ip_address=client_ip,
         )
 

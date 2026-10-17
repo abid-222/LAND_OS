@@ -107,7 +107,9 @@ async def global_exception_handler(request: Request, exc: Exception):
     logger.error(f"Unhandled error on {request.method} {request.url.path}: {exc}", exc_info=True)
     return JSONResponse(
         status_code=500,
-        content={"detail": "An internal server error occurred. Please contact technical administration."},
+        content={
+            "detail": "An internal server error occurred. Please contact technical administration."
+        },
     )
 
 
@@ -134,8 +136,12 @@ app.include_router(consent_router, prefix=settings.API_V1_PREFIX)
 app.include_router(ml_router, prefix=settings.API_V1_PREFIX)
 
 
-@app.get("/metrics", summary="Export Prometheus metrics and latency histograms", tags=["Observability"])
-@app.get(f"{settings.API_V1_PREFIX}/metrics", summary="Export Prometheus metrics", tags=["Observability"])
+@app.get(
+    "/metrics", summary="Export Prometheus metrics and latency histograms", tags=["Observability"]
+)
+@app.get(
+    f"{settings.API_V1_PREFIX}/metrics", summary="Export Prometheus metrics", tags=["Observability"]
+)
 async def prometheus_metrics():
     """Exports raw Prometheus metrics format with latency histograms for p95 computation."""
     return get_prometheus_metrics_response()

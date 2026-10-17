@@ -212,7 +212,9 @@ async def client_fixture(test_db):
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://testserver") as ac:
         admin_token = create_access_token(str(admin_user.id), admin_user.role, admin_user.email)
-        citizen_token = create_access_token(str(citizen_user.id), citizen_user.role, citizen_user.email)
+        citizen_token = create_access_token(
+            str(citizen_user.id), citizen_user.role, citizen_user.email
+        )
         yield ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1
 
     app.dependency_overrides.clear()
@@ -241,12 +243,17 @@ def make_test_jpeg() -> bytes:
 # Tests
 # ------------------------------------------------------------------------------
 
+
 @pytest.mark.asyncio
 async def test_scan_qr_endpoint_valid_and_invalid(client_fixture):
-    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = (
+        client_fixture
+    )
 
     # 1. Valid QR Code scan
-    qr_payload = json.dumps({"doc_id": "DEED-2024-001", "fields": {"dag_no": "1205", "khatian_no": "340"}})
+    qr_payload = json.dumps(
+        {"doc_id": "DEED-2024-001", "fields": {"dag_no": "1205", "khatian_no": "340"}}
+    )
     qr_bytes = make_test_qr_image(qr_payload)
 
     res = await ac.post(
@@ -271,7 +278,9 @@ async def test_scan_qr_endpoint_valid_and_invalid(client_fixture):
 
 @pytest.mark.asyncio
 async def test_document_upload_magic_bytes_and_reencode(client_fixture):
-    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = (
+        client_fixture
+    )
     headers = {"Authorization": f"Bearer {citizen_token}"}
 
     # 1. Valid JPEG upload
@@ -300,7 +309,9 @@ async def test_document_upload_magic_bytes_and_reencode(client_fixture):
 
 @pytest.mark.asyncio
 async def test_document_extraction_and_patch_fields(client_fixture):
-    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = (
+        client_fixture
+    )
     headers = {"Authorization": f"Bearer {citizen_token}"}
 
     # Create document with extracted fields
@@ -370,7 +381,9 @@ async def test_document_extraction_and_patch_fields(client_fixture):
 
 @pytest.mark.asyncio
 async def test_search_multi_identifier_and_ambiguity_rule(client_fixture):
-    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = (
+        client_fixture
+    )
     headers = {"Authorization": f"Bearer {citizen_token}"}
 
     # 1. Search that matches both rec1 and rec2 closely on dag 1205 -> Top-2 gap < 0.10 -> ambiguous=True
@@ -404,7 +417,9 @@ async def test_search_multi_identifier_and_ambiguity_rule(client_fixture):
 
 @pytest.mark.asyncio
 async def test_get_record_detail_and_source_metadata(client_fixture):
-    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = (
+        client_fixture
+    )
     headers = {"Authorization": f"Bearer {citizen_token}"}
 
     res = await ac.get(f"/api/v1/records/{rec1.id}", headers=headers)
@@ -419,7 +434,9 @@ async def test_get_record_detail_and_source_metadata(client_fixture):
 
 @pytest.mark.asyncio
 async def test_guide_ask_grounded_and_refusal(client_fixture):
-    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = (
+        client_fixture
+    )
 
     # 1. Groundable query (matches kb1)
     res = await ac.post(
@@ -446,7 +463,9 @@ async def test_guide_ask_grounded_and_refusal(client_fixture):
 
 @pytest.mark.asyncio
 async def test_map_parcels_and_synthetic_detail(client_fixture):
-    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = (
+        client_fixture
+    )
 
     # 1. GET /map/parcels with bbox
     res = await ac.get("/api/v1/map/parcels?bbox=90.3,23.7,90.5,23.9")
@@ -466,7 +485,9 @@ async def test_map_parcels_and_synthetic_detail(client_fixture):
 
 @pytest.mark.asyncio
 async def test_review_queue_and_decision_rbac(client_fixture):
-    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = (
+        client_fixture
+    )
 
     # Create pending review case
     case = Case(
@@ -483,11 +504,15 @@ async def test_review_queue_and_decision_rbac(client_fixture):
     await session.commit()
 
     # 1. Citizen cannot view review queue (RBAC 403)
-    res_citizen = await ac.get("/api/v1/review/queue", headers={"Authorization": f"Bearer {citizen_token}"})
+    res_citizen = await ac.get(
+        "/api/v1/review/queue", headers={"Authorization": f"Bearer {citizen_token}"}
+    )
     assert res_citizen.status_code == 403
 
     # 2. Tech Admin / Reviewer can view queue
-    res_admin = await ac.get("/api/v1/review/queue", headers={"Authorization": f"Bearer {admin_token}"})
+    res_admin = await ac.get(
+        "/api/v1/review/queue", headers={"Authorization": f"Bearer {admin_token}"}
+    )
     assert res_admin.status_code == 200
     qdata = res_admin.json()
     assert qdata["total_pending"] >= 1
@@ -525,7 +550,9 @@ async def test_review_queue_and_decision_rbac(client_fixture):
 
 @pytest.mark.asyncio
 async def test_quality_summary_and_admin_endpoints(client_fixture):
-    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = (
+        client_fixture
+    )
 
     # 1. Quality summary
     res_q = await ac.get("/api/v1/quality/summary")
@@ -535,22 +562,30 @@ async def test_quality_summary_and_admin_endpoints(client_fixture):
     assert qdata["ocr_fea_dag"] >= 0.95
 
     # 2. Admin Users endpoint (Citizen forbidden, Tech Admin allowed)
-    res_cit_u = await ac.get("/api/v1/admin/users", headers={"Authorization": f"Bearer {citizen_token}"})
+    res_cit_u = await ac.get(
+        "/api/v1/admin/users", headers={"Authorization": f"Bearer {citizen_token}"}
+    )
     assert res_cit_u.status_code == 403
 
-    res_adm_u = await ac.get("/api/v1/admin/users", headers={"Authorization": f"Bearer {admin_token}"})
+    res_adm_u = await ac.get(
+        "/api/v1/admin/users", headers={"Authorization": f"Bearer {admin_token}"}
+    )
     assert res_adm_u.status_code == 200
     assert res_adm_u.json()["total_users"] >= 2
 
     # 3. Admin Audit endpoint
-    res_audit = await ac.get("/api/v1/admin/audit", headers={"Authorization": f"Bearer {admin_token}"})
+    res_audit = await ac.get(
+        "/api/v1/admin/audit", headers={"Authorization": f"Bearer {admin_token}"}
+    )
     assert res_audit.status_code == 200
     assert "records" in res_audit.json()
 
 
 @pytest.mark.asyncio
 async def test_prometheus_metrics_and_rate_limit(client_fixture):
-    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = (
+        client_fixture
+    )
 
     # 1. Prometheus /metrics endpoint
     res_metrics = await ac.get("/metrics")
@@ -577,7 +612,9 @@ async def test_prometheus_metrics_and_rate_limit(client_fixture):
 
 @pytest.mark.asyncio
 async def test_document_verify_and_verification_endpoints(client_fixture):
-    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = (
+        client_fixture
+    )
     headers = {"Authorization": f"Bearer {citizen_token}"}
 
     # 1. Create document with valid extracted fields
@@ -627,7 +664,9 @@ async def test_document_verify_and_verification_endpoints(client_fixture):
 
     # 2. Call POST /api/v1/documents/{id}/verify
     verify_payload = {"record_id": str(rec1.id)}
-    res_verify = await ac.post(f"/api/v1/documents/{doc.id}/verify", headers=headers, json=verify_payload)
+    res_verify = await ac.post(
+        f"/api/v1/documents/{doc.id}/verify", headers=headers, json=verify_payload
+    )
     assert res_verify.status_code == 200
     vdata = res_verify.json()
     assert vdata["document_id"] == str(doc.id)
@@ -680,24 +719,34 @@ async def test_document_verify_and_verification_endpoints(client_fixture):
 
 @pytest.mark.asyncio
 async def test_parcel_alerts_and_reviewer_run_endpoints(client_fixture):
-    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = (
+        client_fixture
+    )
     res_user = await session.execute(select(User).where(User.role == Role.REVIEWER.value))
     reviewer_user = res_user.scalars().first()
     assert reviewer_user is not None
-    reviewer_token = create_access_token(str(reviewer_user.id), reviewer_user.role, reviewer_user.email)
+    reviewer_token = create_access_token(
+        str(reviewer_user.id), reviewer_user.role, reviewer_user.email
+    )
 
     # 1. GET /api/v1/parcels/P-4520/alerts (Citizen allowed)
-    res_alerts = await ac.get("/api/v1/parcels/P-4520/alerts", headers={"Authorization": f"Bearer {citizen_token}"})
+    res_alerts = await ac.get(
+        "/api/v1/parcels/P-4520/alerts", headers={"Authorization": f"Bearer {citizen_token}"}
+    )
     assert res_alerts.status_code == 200
     alerts = res_alerts.json()
     assert isinstance(alerts, list)
 
     # 2. POST /api/v1/parcels/P-4520/alerts/run (Citizen forbidden -> 403)
-    res_run_cit = await ac.post("/api/v1/parcels/P-4520/alerts/run", headers={"Authorization": f"Bearer {citizen_token}"})
+    res_run_cit = await ac.post(
+        "/api/v1/parcels/P-4520/alerts/run", headers={"Authorization": f"Bearer {citizen_token}"}
+    )
     assert res_run_cit.status_code == 403
 
     # 3. POST /api/v1/parcels/P-4520/alerts/run (Reviewer allowed -> 200)
-    res_run_rev = await ac.post("/api/v1/parcels/P-4520/alerts/run", headers={"Authorization": f"Bearer {reviewer_token}"})
+    res_run_rev = await ac.post(
+        "/api/v1/parcels/P-4520/alerts/run", headers={"Authorization": f"Bearer {reviewer_token}"}
+    )
     assert res_run_rev.status_code == 200
     run_data = res_run_rev.json()
     assert run_data["parcel_id"] == "P-4520"
@@ -740,7 +789,9 @@ async def test_parcel_alerts_and_reviewer_run_endpoints(client_fixture):
 
 @pytest.mark.asyncio
 async def test_buyer_reports_and_citizen_isolation(client_fixture):
-    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = (
+        client_fixture
+    )
     other_citizen = User(
         id=uuid.uuid4(),
         email="othercitizen@test.gov.bd",
@@ -750,7 +801,9 @@ async def test_buyer_reports_and_citizen_isolation(client_fixture):
     )
     session.add(other_citizen)
     await session.commit()
-    other_citizen_token = create_access_token(str(other_citizen.id), other_citizen.role, other_citizen.email)
+    other_citizen_token = create_access_token(
+        str(other_citizen.id), other_citizen.role, other_citizen.email
+    )
 
     # 1. Citizen generates report on demo parcel P-4520 -> 200 OK
     res_rep = await ac.post(
@@ -772,16 +825,24 @@ async def test_buyer_reports_and_citizen_isolation(client_fixture):
     assert "ডেমো" in res_non_demo.json()["detail"]
 
     # 3. GET /api/v1/buyer-reports/{id} as owner -> 200 OK
-    res_get_own = await ac.get(f"/api/v1/buyer-reports/{report_id}", headers={"Authorization": f"Bearer {citizen_token}"})
+    res_get_own = await ac.get(
+        f"/api/v1/buyer-reports/{report_id}", headers={"Authorization": f"Bearer {citizen_token}"}
+    )
     assert res_get_own.status_code == 200
     assert res_get_own.json()["id"] == report_id
 
     # 4. GET /api/v1/buyer-reports/{id} as other citizen -> 403 Forbidden (isolation)
-    res_get_other = await ac.get(f"/api/v1/buyer-reports/{report_id}", headers={"Authorization": f"Bearer {other_citizen_token}"})
+    res_get_other = await ac.get(
+        f"/api/v1/buyer-reports/{report_id}",
+        headers={"Authorization": f"Bearer {other_citizen_token}"},
+    )
     assert res_get_other.status_code == 403
 
     # 5. GET /api/v1/buyer-reports/{id}/print as owner -> 200 OK with printable HTML
-    res_print = await ac.get(f"/api/v1/buyer-reports/{report_id}/print", headers={"Authorization": f"Bearer {citizen_token}"})
+    res_print = await ac.get(
+        f"/api/v1/buyer-reports/{report_id}/print",
+        headers={"Authorization": f"Bearer {citizen_token}"},
+    )
     assert res_print.status_code == 200
     assert "text/html" in res_print.headers["content-type"]
     assert "<!DOCTYPE html>" in res_print.text
@@ -790,7 +851,9 @@ async def test_buyer_reports_and_citizen_isolation(client_fixture):
 
 @pytest.mark.asyncio
 async def test_map_parcel_summary_endpoint(client_fixture):
-    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = (
+        client_fixture
+    )
 
     # GET /api/v1/map/parcels/P-4520/summary
     res = await ac.get("/api/v1/map/parcels/P-4520/summary")
@@ -809,7 +872,9 @@ async def test_map_parcel_summary_endpoint(client_fixture):
 
 @pytest.mark.asyncio
 async def test_wording_rule_no_forbidden_terms_in_responses(client_fixture):
-    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = (
+        client_fixture
+    )
     headers = {"Authorization": f"Bearer {citizen_token}"}
 
     # Fetch multiple representative endpoints
@@ -818,7 +883,9 @@ async def test_wording_rule_no_forbidden_terms_in_responses(client_fixture):
     res_report = await ac.post("/api/v1/parcels/P-4520/buyer-report", headers=headers)
     rep_id = res_report.json()["id"]
     res_print = await ac.get(f"/api/v1/buyer-reports/{rep_id}/print", headers=headers)
-    res_search = await ac.post("/api/v1/search", headers=headers, json={"dag_no": "১২০৫", "limit": 2})
+    res_search = await ac.post(
+        "/api/v1/search", headers=headers, json={"dag_no": "১২০৫", "limit": 2}
+    )
 
     responses = [
         res_summary.text,
@@ -839,7 +906,9 @@ async def test_wording_rule_no_forbidden_terms_in_responses(client_fixture):
     for body in responses:
         lower_body = body.lower()
         for phrase in forbidden_phrases:
-            assert phrase not in lower_body, f"Forbidden phrase '{phrase}' found in API response body: {body[:200]}"
+            assert (
+                phrase not in lower_body
+            ), f"Forbidden phrase '{phrase}' found in API response body: {body[:200]}"
 
 
 @pytest.mark.asyncio
@@ -851,7 +920,9 @@ async def test_upload_abuse_prevention_and_unauthorized(client_fixture):
     - Rejects empty uploads (400)
     - Enforces rate limiting on rapid repeated requests (429)
     """
-    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = client_fixture
+    ac, admin_token, citizen_token, session, admin_user, citizen_user, rec1, rec2, kb1 = (
+        client_fixture
+    )
     headers = {"Authorization": f"Bearer {citizen_token}"}
 
     # 1. Unauthenticated upload -> 401
@@ -878,4 +949,3 @@ async def test_upload_abuse_prevention_and_unauthorized(client_fixture):
         files={"file": ("empty.jpg", b"", "image/jpeg")},
     )
     assert res_empty.status_code == 400
-

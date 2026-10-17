@@ -53,6 +53,7 @@ def is_demo_parcel(parcel_id: str) -> bool:
 # Pydantic Schemas
 # ------------------------------------------------------------------------------
 
+
 class BuyerReportCreateResponse(BaseModel):
     id: str
     user_id: str
@@ -66,6 +67,7 @@ class BuyerReportCreateResponse(BaseModel):
 # ------------------------------------------------------------------------------
 # Endpoints
 # ------------------------------------------------------------------------------
+
 
 @parcels_reports_router.post(
     "/{parcel_id}/buyer-report",
@@ -122,7 +124,9 @@ async def get_buyer_report_json(
     try:
         rep_uuid = uuid.UUID(report_id)
     except ValueError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed report UUID.")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed report UUID."
+        )
 
     stmt = select(BuyerReport).where(BuyerReport.id == rep_uuid)
     res = await db.execute(stmt)
@@ -178,7 +182,9 @@ async def get_buyer_report_print(
     try:
         rep_uuid = uuid.UUID(report_id)
     except ValueError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed report UUID.")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Malformed report UUID."
+        )
 
     stmt = select(BuyerReport).where(BuyerReport.id == rep_uuid)
     res = await db.execute(stmt)

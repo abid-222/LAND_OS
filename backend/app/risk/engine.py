@@ -28,10 +28,14 @@ class RiskEngine:
     def __init__(self, rules: Optional[List[BaseRiskRule]] = None):
         self.rules = rules or ALL_RULES
 
-    async def build_context_from_db(self, parcel_id: str, db: AsyncSession) -> Optional[ParcelContext]:
+    async def build_context_from_db(
+        self, parcel_id: str, db: AsyncSession
+    ) -> Optional[ParcelContext]:
         """Loads parcel and associated deeds, mutations, and records to build ParcelContext."""
         # 1. Load Parcel
-        p_stmt = select(Parcel).options(selectinload(Parcel.mouza)).where(Parcel.parcel_id == parcel_id)
+        p_stmt = (
+            select(Parcel).options(selectinload(Parcel.mouza)).where(Parcel.parcel_id == parcel_id)
+        )
         p_res = await db.execute(p_stmt)
         parcel = p_res.scalar_one_or_none()
         if not parcel:
@@ -114,7 +118,11 @@ class RiskEngine:
         ]
 
         # 4. Load Mutations on this parcel
-        m_stmt = select(Mutation).where(Mutation.parcel_id == parcel_id).order_by(Mutation.mutation_date.asc())
+        m_stmt = (
+            select(Mutation)
+            .where(Mutation.parcel_id == parcel_id)
+            .order_by(Mutation.mutation_date.asc())
+        )
         m_res = await db.execute(m_stmt)
         mutations = [
             {
@@ -210,6 +218,7 @@ class RiskEngine:
             # Hash existing DB alerts: rule_id + evidence
             def db_alert_hash(a: Alert) -> str:
                 import hashlib
+
                 serialized = json.dumps(a.evidence or [], sort_keys=True, default=str)
                 return hashlib.sha256(f"{a.rule_id}:{serialized}".encode("utf-8")).hexdigest()
 
