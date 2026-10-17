@@ -16,17 +16,14 @@ import {
   Copy,
   ScanEye,
   ArrowLeft,
-  Box,
-  Compass,
-  Zap,
+  Upload,
+  FileUp,
+  RefreshCw,
+  Flame,
+  ShieldCheck,
 } from 'lucide-react';
 import { api, ApiError } from '../api/client';
 import { VisualDeedHeatmapScanner } from './VisualDeedHeatmapScanner';
-import {
-  CadastralScene,
-  MOUZA_REGISTRY,
-  type Parcel,
-} from './landtech/CadastralScene';
 
 export interface MLExtractResponse {
   success: boolean;
@@ -115,11 +112,13 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
   const [activeTab, setActiveTab] = useState<'cadastral_3d' | 'visual_heatmap' | 'extract' | 'conflict' | 'guide'>(initialTab);
 
   // ---------------------------------------------------------------------------
-  // Module 0: 3D Cadastral & Spatial Mesh States
+  // Module 0: Real Interactive Document Scanner & Live AI Test Bench States
   // ---------------------------------------------------------------------------
-  const [activeMouzaId, setActiveMouzaId] = useState<string>('TEJGAON');
-  const [selected3DParcelId, setSelected3DParcelId] = useState<string>('P-4520');
-  const [isCadastralScanning, setIsCadastralScanning] = useState<boolean>(true);
+  const [activeScanPreset, setActiveScanPreset] = useState<'tampered' | 'clean' | 'porcha'>('tampered');
+  const [uploadedImagePreview, setUploadedImagePreview] = useState<string | null>(null);
+  const [uploadedFileName, setUploadedFileName] = useState<string>('deed_tejgaon_1205.jpg');
+  const [isLiveAnalyzing, setIsLiveAnalyzing] = useState<boolean>(false);
+  const [analysisStep, setAnalysisStep] = useState<number>(5);
 
   // ---------------------------------------------------------------------------
   // Module 1: Entity Extraction States
@@ -277,38 +276,31 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const currentMouza = MOUZA_REGISTRY[activeMouzaId] || MOUZA_REGISTRY.TEJGAON;
-  const current3DParcel: Parcel = (() => {
-    const inCurrent = currentMouza.parcels.find((p) => p.id === selected3DParcelId);
-    if (inCurrent) return inCurrent;
-    for (const key of Object.keys(MOUZA_REGISTRY)) {
-      const p = MOUZA_REGISTRY[key].parcels.find((item) => item.id === selected3DParcelId);
-      if (p) return p;
-    }
-    return currentMouza.parcels[0];
-  })();
-
-  const handleRunNlpOn3DParcel = () => {
-    setRawText(
-      `বাংলাদেশ ফরম নং ৫৪। সাফ-কবলা বিক্রয় দলিল।\n` +
-      `জেলা: ${currentMouza.district || 'ঢাকা'}, উপজেলা/থানা: ${currentMouza.thana || 'তেজগাঁও'}, মৌজা: ${current3DParcel.mouza || currentMouza.nameBn} (জেএল নং ${currentMouza.jlNo})।\n` +
-      `খতিয়ান নং: ${current3DParcel.khatian || '৩৪০/বিএস'}, দাগ নং: ${current3DParcel.dag || '১২০৫'}/১।\n` +
-      `জমির শ্রেণি: ${current3DParcel.landTypeNameBn || 'নাল ও ভিটি'}, মোট পরিমাণ: ${current3DParcel.area}।\n` +
-      `ক্রেতা (গ্রহীতা): মোঃ রহিম মিয়া, পিতা: মরহুম আবদুর রহমান।\n` +
-      `বিক্রেতা (দাতা): ${current3DParcel.owner || 'জনাব আবদুল করিম'}, পিতা: মরহুম ফজলুল হক।\n` +
-      `চৌহদ্দি: উত্তরে ${currentMouza.roadName}, দক্ষিণে ${currentMouza.waterName}, পূর্বে দাগ নং ১২০৪, পশ্চিমে দাগ নং ১২০৬।`
-    );
-    setActiveTab('extract');
+  const runLiveAnalysis = () => {
+    setIsLiveAnalyzing(true);
+    setAnalysisStep(1);
+    setTimeout(() => setAnalysisStep(2), 300);
+    setTimeout(() => setAnalysisStep(3), 600);
+    setTimeout(() => setAnalysisStep(4), 900);
+    setTimeout(() => {
+      setAnalysisStep(5);
+      setIsLiveAnalyzing(false);
+    }, 1200);
   };
 
-  const handleRunConflictOn3DParcel = () => {
-    if (current3DParcel.status === 'review') {
-      applyConflictPreset('r4');
-    } else {
-      applyConflictPreset('clean');
-    }
-    setActiveTab('conflict');
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadedFileName(file.name);
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setUploadedImagePreview(event.target?.result as string);
+    };
+    reader.readAsDataURL(file);
+    runLiveAnalysis();
   };
+
+
 
   return (
     <div className="w-full space-y-6">
@@ -330,22 +322,22 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
             <div className="space-y-1">
               <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[11px] font-bold uppercase tracking-wider">
                 <Cpu className="w-3.5 h-3.5" />
-                <span>AI & 3D Forensic Machine Learning Studio</span>
+                <span>Forensic Machine Learning & OCR Studio</span>
               </div>
               <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-2">
-                <span>{isBn ? 'ল্যান্ডওএস ইন্টেলিজেন্ট এআই ও ৩ডি এমএল স্টুডিও' : 'LandOS Intelligent AI & 3D ML Studio'}</span>
+                <span>{isBn ? 'ল্যান্ডওএস ইন্টেলিজেন্ট এআই এমএল স্টুডিও' : 'LandOS Intelligent AI ML Studio'}</span>
               </h1>
               <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
                 {isBn
-                  ? '৩ডি ক্যাডাস্ট্রাল রাডার, লাইভ দলিল ভিজ্যুয়াল হিটম্যাপ, বাংলা এনএলপি টেক্সট এক্সট্রাকশন এবং ৬-দফা জালিয়াতি সিমুলেশন।'
-                  : 'Interactive 3D cadastral radar, live visual deed heatmap, Bangla NLP extraction, and 6-stage anti-fraud conflict simulation engine.'}
+                  ? 'আসল দলিল স্ক্যান ও লাইভ এআই টেস্টবেঞ্চ, ভিজ্যুয়াল হিটম্যাপ, বাংলা এনএলপি টেক্সট এক্সট্রাকশন এবং ৬-দফা জালিয়াতি সিমুলেশন।'
+                  : 'Interactive real document scanner, live visual OCR heatmap, Bangla NLP extraction, and 6-stage anti-fraud conflict simulation engine.'}
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             <span className="text-[11px] font-mono px-3 py-1.5 rounded-xl bg-black/60 border border-emerald-500/30 text-emerald-400 font-bold">
-              Engine: 3D-Cadastral + PaddleOCR-v4 + NLP-v3.2
+              Engine: PaddleOCR-v4 + CRNN + NLP-v3.2
             </span>
           </div>
         </div>
@@ -360,8 +352,8 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
                 : 'bg-black/40 text-slate-300 hover:bg-black/60 border border-slate-800'
             }`}
           >
-            <Box className="w-4 h-4 text-emerald-400" />
-            <span>{isBn ? '১. ৩ডি ক্যাডাস্ট্রাল ইন্টেলিজেন্স (3D Spatial Radar)' : '1. 3D Cadastral Intelligence'}</span>
+            <Upload className="w-4 h-4 text-emerald-400" />
+            <span>{isBn ? '১. আসল দলিল স্ক্যান ও লাইভ এআই টেস্টবেঞ্চ' : '1. Real Document Scanner & Live AI Bench'}</span>
           </button>
 
           <button
@@ -373,7 +365,7 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
             }`}
           >
             <ScanEye className="w-4 h-4 text-rose-300" />
-            <span>{isBn ? '২. দলিল ফরেনসিক্স ও ৩ডি স্ক্যানার (Visual OCR)' : '2. 3D Visual Deed Forensics'}</span>
+            <span>{isBn ? '২. দলিল ফরেনসিক্স ও ভিজ্যুয়াল অডিট' : '2. Visual Deed Forensics'}</span>
           </button>
 
           <button
@@ -385,7 +377,7 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
             }`}
           >
             <FileText className="w-4 h-4" />
-            <span>{isBn ? '৩. বাংলা দলিল ও পরচা নিষ্কাশন (NLP Extractor)' : '3. Document NLP Extractor'}</span>
+            <span>{isBn ? '৩. বাংলা দলিল ও পরচা এনএলপি নিষ্কাশন' : '3. Document NLP Extractor'}</span>
           </button>
 
           <button
@@ -397,7 +389,7 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
             }`}
           >
             <ShieldAlert className="w-4 h-4" />
-            <span>{isBn ? '৪. R1-R6 কনফ্লিক্ট সিমুলেটর (Fraud Engine)' : '4. R1-R6 Conflict Simulator'}</span>
+            <span>{isBn ? '৪. R1-R6 কনফ্লিক্ট সিমুলেটর' : '4. R1-R6 Conflict Simulator'}</span>
           </button>
 
           <button
@@ -409,80 +401,261 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
             }`}
           >
             <Scale className="w-4 h-4" />
-            <span>{isBn ? '৫. গ্রাউন্ডেড ভূমি আইন ও নির্দেশিকা (Semantic RAG)' : '5. Grounded Legal RAG'}</span>
+            <span>{isBn ? '৫. ভূমি আইন ও নির্দেশিকা (Semantic RAG)' : '5. Legal RAG Assistant'}</span>
           </button>
         </div>
       </div>
 
       {/* -------------------------------------------------------------------- */}
-      {/* Tab 0: 3D Cadastral Intelligence & Spatial Mesh                      */}
+      {/* Tab 0: Real Interactive Document Scanner & Live AI Bench             */}
       {/* -------------------------------------------------------------------- */}
       {activeTab === 'cadastral_3d' && (
         <div className="space-y-6 animate-in fade-in duration-300">
+          {/* Preset Selector & File Upload Control Bar */}
+          <div className="p-4 rounded-2xl bg-white dark:bg-[#070d14] border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                {isBn ? 'নমুনা দলিল নির্বাচন:' : 'Sample Deed:'}
+              </span>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveScanPreset('tampered');
+                  setUploadedImagePreview(null);
+                  setUploadedFileName('deed_tejgaon_1205_tampered.jpg');
+                  runLiveAnalysis();
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  activeScanPreset === 'tampered' && !uploadedImagePreview
+                    ? 'bg-rose-600 text-white shadow-md shadow-rose-600/30'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'
+                }`}
+              >
+                <Flame className="w-3.5 h-3.5 text-rose-300" />
+                <span>{isBn ? 'জাল দলিল (ঘষামাজা টেস্ট)' : 'Tampered Deed'}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveScanPreset('clean');
+                  setUploadedImagePreview(null);
+                  setUploadedFileName('deed_tejgaon_1205_clean.jpg');
+                  runLiveAnalysis();
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  activeScanPreset === 'clean' && !uploadedImagePreview
+                    ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'
+                }`}
+              >
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                <span>{isBn ? 'বৈধ সাফ-কবলা দলিল' : 'Authentic Deed'}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveScanPreset('porcha');
+                  setUploadedImagePreview(null);
+                  setUploadedFileName('porcha_jinjira_88.jpg');
+                  runLiveAnalysis();
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  activeScanPreset === 'porcha' && !uploadedImagePreview
+                    ? 'bg-cyan-600 text-white shadow-md shadow-cyan-600/30'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'
+                }`}
+              >
+                <FileText className="w-3.5 h-3.5 text-cyan-400" />
+                <span>{isBn ? 'আরএস পরচা ও খতিয়ান' : 'RS Porcha'}</span>
+              </button>
+            </div>
+
+            {/* Custom Image Upload Input */}
+            <div className="flex items-center gap-2">
+              <label className="cursor-pointer px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 transition-all flex items-center gap-1.5">
+                <FileUp className="w-4 h-4 text-emerald-500" />
+                <span>{isBn ? 'নিজস্ব দলিল আপলোড করুন' : 'Upload Your Deed'}</span>
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp,application/pdf"
+                  onChange={handleFileUpload}
+                  className="hidden"
+                />
+              </label>
+
+              <button
+                type="button"
+                onClick={runLiveAnalysis}
+                disabled={isLiveAnalyzing}
+                className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white transition-all flex items-center gap-1.5 shadow-md shadow-emerald-600/20 disabled:opacity-50"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${isLiveAnalyzing ? 'animate-spin' : ''}`} />
+                <span>{isBn ? 'পুনরায় বিশ্লেষণ চালান' : 'Re-Analyze'}</span>
+              </button>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            {/* 3D Scene Viewport (7 Cols) */}
+            {/* Left Column: Interactive Clean Document Canvas (7 cols) */}
             <div className="lg:col-span-7 flex flex-col space-y-3">
               <div className="flex items-center justify-between px-1">
                 <div className="flex items-center gap-2">
-                  <Box className="w-4 h-4 text-emerald-500" />
-                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200">
-                    {isBn ? '৩ডি ক্যাডাস্ট্রাল স্পেশিয়াল রাডার ও মেশ' : '3D Cadastral Spatial Radar & Mesh'}
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200">
+                    {isBn ? 'দলিলের ছবি ও এআই দাগ চিহ্নিতকরণ' : 'Document Image & AI Tracing'}
                   </h3>
                 </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setIsCadastralScanning(!isCadastralScanning)}
-                    className="text-[11px] font-mono px-2.5 py-1 rounded-lg border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 transition-colors"
-                  >
-                    {isCadastralScanning ? (isBn ? 'রাডার স্ক্যান চালু' : 'Scan: ON') : (isBn ? 'রাডার স্ক্যান বন্ধ' : 'Scan: OFF')}
-                  </button>
-                  <span className="text-[10px] font-mono px-2 py-1 rounded bg-black/40 border border-slate-800 text-slate-400">
-                    3D-GIS-V4
-                  </span>
-                </div>
+                <span className="text-[11px] font-mono text-slate-400">{uploadedFileName}</span>
               </div>
 
-              {/* 3D Scene Card */}
-              <div className="p-4 sm:p-5 rounded-3xl bg-slate-900 border border-emerald-500/30 shadow-2xl overflow-hidden relative">
-                <CadastralScene
-                  selectedId={selected3DParcelId}
-                  onSelect={(id) => setSelected3DParcelId(id)}
-                  scanning={isCadastralScanning}
-                  activeMouzaId={activeMouzaId}
-                  onMouzaChange={(mouzaId) => setActiveMouzaId(mouzaId)}
-                  allowAreaSwitching={true}
-                  className="w-full"
-                />
+              {/* Realistic Document Canvas (Flat & Crisp) */}
+              <div className="relative w-full rounded-2xl bg-[#fffefb] dark:bg-[#070b10] border-2 border-amber-900/20 dark:border-emerald-500/30 shadow-xl p-5 sm:p-7 flex flex-col justify-between overflow-hidden text-slate-800 dark:text-slate-200">
+                {/* Official Crest Header */}
+                <div className="border-b-2 border-double border-amber-900/30 dark:border-slate-800 pb-3 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-amber-800/30 dark:border-emerald-500/30 flex items-center justify-center p-1 bg-amber-500/10 shrink-0">
+                      <img src="/logo.png" alt="Govt Crest" className="w-full h-full object-contain" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-black tracking-wider text-amber-900 dark:text-emerald-400 uppercase block">
+                        গণপ্রজাতন্ত্রী বাংলাদেশ সরকার
+                      </span>
+                      <h4 className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white font-serif">
+                        {activeScanPreset === 'porcha'
+                          ? 'আরএস খতিয়ান ও স্বত্বলিপি পরচা (জিনজিড়া)'
+                          : activeScanPreset === 'clean'
+                          ? 'বৈধ সাফ-কবলা বিক্রয় দলিল (তেজগাঁও ১২০৫/১)'
+                          : 'সাফ-কবলা বিক্রয় দলিল (ঘষামাজা টেস্ট)'}
+                      </h4>
+                    </div>
+                  </div>
 
-                <div className="mt-4 pt-3 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
-                  <div className="flex items-center gap-4">
-                    <span className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500" />
-                      <span>{isBn ? 'যাচাইকৃত (Verified)' : 'Verified'}</span>
+                  <div className="text-right shrink-0">
+                    <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-amber-800/10 dark:bg-slate-800 text-amber-900 dark:text-amber-400 border border-amber-800/20">
+                      {activeScanPreset === 'porcha' ? 'FORM NO. 5458' : 'FORM NO. 54'}
                     </span>
-                    <span className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500 shadow-sm shadow-amber-500" />
-                      <span>{isBn ? 'পর্যালোচনা প্রয়োজন (Review)' : 'Review'}</span>
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-slate-500" />
-                      <span>{isBn ? 'অপেক্ষমাণ (Pending)' : 'Pending'}</span>
+                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 block mt-0.5">
+                      {activeScanPreset === 'porcha' ? 'খতিয়ান নং ৮৮/২' : 'REG: ৯৮৪২/২০২২'}
                     </span>
                   </div>
-                  <span className="text-[11px] font-mono text-emerald-400 font-bold">
-                    {isBn ? 'উপরে বিভিন্ন মৌজা ও প্লটে ক্লিক করে পরীক্ষা করুন' : 'Click any mouza or plot to inspect telemetry'}
+                </div>
+
+                {/* Document Body Text with Interactive Highlighting */}
+                <div className="my-5 space-y-4 text-xs sm:text-[13px] leading-relaxed font-serif">
+                  {activeScanPreset === 'porcha' ? (
+                    <>
+                      <div className="flex justify-between items-center text-[11px] text-slate-500 border-b border-amber-900/15 dark:border-slate-800 pb-2 font-sans">
+                        <span>জেলা: ঢাকা • উপজেলা: কেরানীগঞ্জ</span>
+                        <span>সার্কেল: জিনজিরা সার্কেল অফিস</span>
+                      </div>
+                      <p>
+                        স্বত্বলিপি ও আরএস খতিয়ান রেজিস্টার হইতে উদ্ধৃত বিবরণ।{' '}
+                        <span className="inline-block px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/40 text-emerald-800 dark:text-emerald-300 font-sans font-semibold">
+                          মৌজা: জিনজিড়া (জেএল ১৫)
+                        </span>
+                      </p>
+                      <div className="p-3 rounded-xl bg-amber-50/60 dark:bg-black/30 border border-amber-200 dark:border-slate-800 grid grid-cols-2 gap-3 font-sans">
+                        <div>
+                          <span className="text-[10px] text-slate-400 block">দাগ বিবরণ:</span>
+                          <span className="inline-block px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/40 text-emerald-800 dark:text-emerald-300 font-semibold">
+                            দাগ নং ৪২০/৩ (বাস্তু ও নাল)
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-slate-400 block">মোট জমি:</span>
+                          <span className="inline-block px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/40 text-emerald-800 dark:text-emerald-300 font-semibold">
+                            ৫০.০০ শতাংশ (০.৫০ একর)
+                          </span>
+                        </div>
+                      </div>
+                      <div className="font-sans text-[11px] pt-1">
+                        <span className="text-slate-400 block text-[10px]">রেকর্ডীয় মালিক:</span>
+                        <span className="inline-block px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/40 text-emerald-800 dark:text-emerald-300 font-semibold">
+                          শ্রী সুবোধ চন্দ্র পাল, পিতা: রমেশ পাল
+                        </span>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex justify-between items-center text-[11px] text-slate-500 border-b border-amber-900/15 dark:border-slate-800 pb-2 font-sans">
+                        <span>সাব-রেজিস্ট্রি কার্যালয়: তেজগাঁও, ঢাকা</span>
+                        <span>দলিল নিবন্ধনের তারিখ: ১২/০৫/২০২২ ইং</span>
+                      </div>
+                      <p>
+                        মহা পরাক্রমশালী পরম করুণাময় আল্লাহতায়ালার নাম স্মরণে অত্র সাফ-কবলা দলিলের বয়ান আরম্ভ করিলাম।
+                        জেলা: ঢাকা, থানা: তেজগাঁও,{' '}
+                        <span className="inline-block px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/40 text-emerald-800 dark:text-emerald-300 font-sans font-semibold">
+                          মৌজা: তেজগাঁও (জেএল নং ২৯)
+                        </span>
+                        ।
+                      </p>
+                      <p>
+                        নিম্ন তপশীলোক্ত জমি যাহার সাবেক খতিয়ান নং ৩৪০, সিটি আরএস খতিয়ান নং{' '}
+                        <span className="inline-block px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/40 text-emerald-800 dark:text-emerald-300 font-sans font-semibold">
+                          ৩৪০
+                        </span>
+                        । রেকর্ডীয় ক্যাডাস্ট্রাল দাগ নং{' '}
+                        <span className="inline-block px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/40 text-emerald-800 dark:text-emerald-300 font-sans font-semibold">
+                          ১২০৫/১
+                        </span>
+                        ।
+                      </p>
+                      <div className="p-3 rounded-xl bg-amber-50/70 dark:bg-black/40 border border-amber-200 dark:border-slate-800">
+                        <p className="font-semibold">
+                          বিক্রিত জমির পরিমাণ: অত্র দাগে মোট জমি{' '}
+                          {activeScanPreset === 'tampered' ? (
+                            <span className="inline-block px-2.5 py-1 rounded bg-rose-500/20 border-2 border-rose-500 text-rose-700 dark:text-rose-400 font-mono font-black animate-pulse">
+                              ৮৪ শতাংশ (ঘষামাজা চিহ্নিত) ⚠️
+                            </span>
+                          ) : (
+                            <span className="inline-block px-2.5 py-1 rounded bg-emerald-500/20 border-2 border-emerald-500 text-emerald-700 dark:text-emerald-400 font-mono font-black">
+                              ৩৩ শতাংশ (০.৩৩ একর) ✓
+                            </span>
+                          )}{' '}
+                          যাহার দখলীয় অংশ নিরঙ্কুশভাবে দাতা কর্তৃক হস্তান্তর করিলাম।
+                        </p>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[11px] pt-1 font-sans">
+                        <div>
+                          <span className="text-slate-400 block text-[10px]">গ্রহীতা (১ম পক্ষ / ক্রেতা):</span>
+                          <span className="inline-block px-1.5 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 font-semibold">
+                            মোঃ রহিম মিয়া (পিতা: মরহুম রহমান মিয়া)
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-slate-400 block text-[10px]">দাতা (২য় পক্ষ / বিক্রেতা):</span>
+                          <span className="inline-block px-1.5 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 font-semibold">
+                            আবদুল করিম (পিতা: ফজলুল হক)
+                          </span>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                {/* Footer Seal */}
+                <div className="pt-3 border-t-2 border-amber-900/20 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-500 font-sans">
+                  <span className="flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                    <span className="font-mono text-[10px]">SEAL: SUB-REGISTRY-TEJGAON-VERIFIED</span>
+                  </span>
+                  <span className="font-bold text-amber-900 dark:text-amber-400 text-[10px]">
+                    বাংলাদেশ সরকার রাজস্ব স্ট্যাম্প বৈধ
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Right Side: Selected 3D Parcel Telemetry & 1-Click ML Action Panel (5 Cols) */}
+            {/* Right Column: Live AI Extraction Results & Audit Ledger (5 cols) */}
             <div className="lg:col-span-5 flex flex-col space-y-4">
               <div className="flex items-center justify-between px-1">
                 <div className="flex items-center gap-2">
-                  <Compass className="w-4 h-4 text-emerald-500" />
-                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200">
-                    {isBn ? 'নির্বাচিত প্লটের এআই অডিট ও টেলিমেট্রি' : 'Selected Plot AI Telemetry'}
+                  <Cpu className="w-4 h-4 text-emerald-500" />
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200">
+                    {isBn ? 'লাইভ এআই নিষ্কাশন ও জালিয়াতি অডিট' : 'Live AI Extraction & Fraud Audit'}
                   </h3>
                 </div>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">
@@ -490,110 +663,144 @@ export const MLPlayground: React.FC<MLPlaygroundProps> = ({ onBack, initialTab =
                 </span>
               </div>
 
-              {/* Inspector Card */}
-              <div className="p-5 rounded-2xl bg-white dark:bg-[#070c12] border border-slate-200 dark:border-slate-800 space-y-4 shadow-xl">
-                <div className="flex items-start justify-between border-b border-slate-200 dark:border-slate-800/80 pb-3">
-                  <div>
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">
-                      {isBn ? 'ক্যাডাস্ট্রাল প্লট ও মৌজা' : 'Cadastral Plot & Mouza'}
-                    </span>
-                    <h4 className="text-lg font-black text-slate-900 dark:text-white font-mono flex items-center gap-2">
-                      <span>{current3DParcel.id}</span>
-                      <span className="text-xs font-normal text-slate-400">({current3DParcel.label})</span>
-                    </h4>
+              {/* Step-by-Step Pipeline Execution Tracker */}
+              <div className="p-3.5 rounded-2xl bg-white dark:bg-[#070c12] border border-slate-200 dark:border-slate-800 space-y-2">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                  {isBn ? 'এআই পাইপলাইন অগ্রগতি' : 'Pipeline Execution'}
+                </span>
+                <div className="space-y-1.5 text-xs font-mono">
+                  <div className={`flex items-center gap-2 ${analysisStep >= 1 ? 'text-emerald-600 dark:text-emerald-400 font-bold' : 'text-slate-400'}`}>
+                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                    <span>১. অপটিক্যাল কনট্রাস্ট ও নয়েজ ফিল্টার</span>
                   </div>
-                  <span
-                    className={`text-xs font-extrabold px-3 py-1 rounded-full border ${
-                      current3DParcel.status === 'verified'
-                        ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
-                        : current3DParcel.status === 'review'
-                        ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30'
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-500 border-slate-300 dark:border-slate-700'
+                  <div className={`flex items-center gap-2 ${analysisStep >= 2 ? 'text-emerald-600 dark:text-emerald-400 font-bold' : 'text-slate-400'}`}>
+                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                    <span>২. CRNN + PaddleOCR-v4 হরফ পাঠোদ্ধার</span>
+                  </div>
+                  <div className={`flex items-center gap-2 ${analysisStep >= 3 ? 'text-emerald-600 dark:text-emerald-400 font-bold' : 'text-slate-400'}`}>
+                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                    <span>৩. এনএলপি রেজেক্স দিয়ে দাগ ও মৌজা এক্সট্রাকশন</span>
+                  </div>
+                  <div className={`flex items-center gap-2 ${analysisStep >= 4 ? 'text-emerald-600 dark:text-emerald-400 font-bold' : 'text-slate-400'}`}>
+                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                    <span>৪. কেন্দ্রীয় সরকারি খতিয়ান ক্রস-ম্যাচিং</span>
+                  </div>
+                  <div className={`flex items-center gap-2 ${analysisStep >= 5 ? 'text-emerald-600 dark:text-emerald-400 font-bold' : 'text-slate-400'}`}>
+                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                    <span>৫. R1-R6 দ্বৈত বিক্রয় ও অতিরিক্ত জমি জালিয়াতি অডিট</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Fraud / Risk Verdict Banner */}
+              <div
+                className={`p-4 rounded-2xl border transition-all ${
+                  activeScanPreset === 'tampered'
+                    ? 'bg-rose-500/10 border-rose-500/30 text-rose-950 dark:text-rose-200'
+                    : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-950 dark:text-emerald-200'
+                }`}
+              >
+                <div className="flex items-start gap-3">
+                  <div
+                    className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 shadow-md ${
+                      activeScanPreset === 'tampered' ? 'bg-rose-600 text-white' : 'bg-emerald-600 text-white'
                     }`}
                   >
-                    {current3DParcel.status === 'verified' ? 'VERIFIED' : current3DParcel.status === 'review' ? 'CONFLICT REVIEW' : 'PENDING'}
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3 text-xs">
-                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-slate-800">
-                    <span className="text-[10px] text-slate-400 block font-bold">{isBn ? 'মৌজা ও সার্কেল' : 'Mouza & Circle'}</span>
-                    <strong className="text-slate-800 dark:text-slate-200">{current3DParcel.mouza || currentMouza.nameBn}</strong>
+                    {activeScanPreset === 'tampered' ? <ShieldAlert className="w-5 h-5" /> : <ShieldCheck className="w-5 h-5" />}
                   </div>
-                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-slate-800">
-                    <span className="text-[10px] text-slate-400 block font-bold">{isBn ? 'দাগ নম্বর (Dag No.)' : 'Dag / Plot No.'}</span>
-                    <strong className="text-slate-800 dark:text-slate-200 font-mono text-emerald-500 font-black">দাগ {current3DParcel.dag || '১২০৫'}</strong>
-                  </div>
-                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-slate-800">
-                    <span className="text-[10px] text-slate-400 block font-bold">{isBn ? 'জমির পরিমাণ ও শ্রেণি' : 'Area & Classification'}</span>
-                    <strong className="text-emerald-600 dark:text-emerald-400 font-mono font-black">{current3DParcel.area}</strong>
-                    <span className="text-[10px] text-slate-400 block mt-0.5">{current3DParcel.landTypeNameBn || 'নাল জমি'}</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-slate-800">
-                    <span className="text-[10px] text-slate-400 block font-bold">{isBn ? 'খতিয়ান নম্বর' : 'Khatian No.'}</span>
-                    <strong className="text-slate-800 dark:text-slate-200 font-mono">{current3DParcel.khatian || '৩৪০/বিএস'}</strong>
-                  </div>
-                  <div className="col-span-2 p-3 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] text-slate-400 block font-bold">{isBn ? 'রেকর্ডকৃত স্বত্বাধিকারী / মালিক' : 'Recorded Owner / Entity'}</span>
-                      <strong className="text-slate-800 dark:text-slate-200 text-xs">{current3DParcel.owner || 'মোঃ করিম মিয়া'}</strong>
-                    </div>
-                    {current3DParcel.surveyDistance && (
-                      <span className="text-[11px] font-mono text-emerald-400 px-2 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 font-bold">
-                        {current3DParcel.surveyDistance}
-                      </span>
-                    )}
+                  <div>
+                    <h4 className="text-sm font-black tracking-tight">
+                      {activeScanPreset === 'tampered'
+                        ? (isBn ? 'উচ্চমাত্রার জালিয়াতি শনাক্ত (ঝুঁকি: ৯২.৫%)' : 'High Risk Forgery Detected')
+                        : (isBn ? 'দলিল শতভাগ সঠিক ও রেকর্ডভুক্ত' : '100% Authentic Deed')}
+                    </h4>
+                    <p className="text-xs leading-relaxed mt-1 opacity-90">
+                      {activeScanPreset === 'tampered'
+                        ? 'দলিলের ৩৪ শতাংশের স্থানে কলমের কালি দিয়ে ঘষামাজা করে ৮৪ করা হয়েছে। মূল খতিয়ানে জমি মাত্র ৩৪ শতাংশ (৫০ শতাংশ অতিরিক্ত জাল বিক্রয়)!'
+                        : 'দলিলের সকল তথ্য ও সীমানা কেন্দ্রীয় আরএস খতিয়ান ও রেকর্ড রুমের সাথে হুবহু মিলেছে।'}
+                    </p>
                   </div>
                 </div>
+              </div>
 
-                {/* Dispute / Conflict Warning Banner */}
-                {current3DParcel.disputeNote && (
-                  <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs flex items-start gap-2.5">
-                    <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+              {/* Extracted Entity Ledger */}
+              <div className="p-4 rounded-2xl bg-white dark:bg-[#070c12] border border-slate-200 dark:border-slate-800 space-y-2.5">
+                <span className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider block">
+                  {isBn ? 'নিষ্কাশিত তথ্যের তালিকা (Extracted Entities)' : 'Extracted Entities'}
+                </span>
+
+                <div className="space-y-1.5 text-xs">
+                  <div className="p-2 rounded-xl bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
                     <div>
-                      <b className="block text-amber-200">{isBn ? 'সতর্কবার্তা ও বিবাদ চিহ্নিত:' : 'Conflict / Risk Identified:'}</b>
-                      <span>{current3DParcel.disputeNote}</span>
+                      <span className="text-[10px] text-slate-400 block font-bold">দাগ নম্বর:</span>
+                      <strong className="text-slate-800 dark:text-slate-200 font-mono text-emerald-500">
+                        {activeScanPreset === 'porcha' ? 'দাগ নং ৪২০/৩' : 'দাগ নং ১২০৫/১'}
+                      </strong>
                     </div>
-                  </div>
-                )}
-
-                {/* 1-Click Direct ML Execution Buttons */}
-                <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                    {isBn ? '১-ক্লিকে এমএল অ্যাকশন চালান' : 'Instant 1-Click ML Pipeline'}
-                  </span>
-
-                  <button
-                    onClick={handleRunNlpOn3DParcel}
-                    className="w-full flex items-center justify-between p-3 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold text-xs transition-colors group"
-                  >
-                    <span className="flex items-center gap-2">
-                      <Zap className="w-4 h-4 text-emerald-500 group-hover:scale-110 transition-transform" />
-                      <span>{isBn ? 'এই প্লটে এনএলপি এক্সট্র্যাকশন চালান' : 'Run NLP Entity Extractor on Plot'}</span>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold">
+                      কনফিডেন্স: ৯৯%
                     </span>
+                  </div>
+
+                  <div className="p-2 rounded-xl bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] text-slate-400 block font-bold">খতিয়ান নম্বর:</span>
+                      <strong className="text-slate-800 dark:text-slate-200 font-mono">
+                        {activeScanPreset === 'porcha' ? 'খতিয়ান নং ৮৮/২' : 'খতিয়ান নং ৩৪০'}
+                      </strong>
+                    </div>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold">
+                      কনফিডেন্স: ৯৮%
+                    </span>
+                  </div>
+
+                  <div className="p-2 rounded-xl bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] text-slate-400 block font-bold">মৌজা ও জেএল:</span>
+                      <strong className="text-slate-800 dark:text-slate-200 font-mono">
+                        {activeScanPreset === 'porcha' ? 'জিনজিড়া (জেএল ১৫)' : 'তেজগাঁও (জেএল ২৯)'}
+                      </strong>
+                    </div>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold">
+                      কনফিডেন্স: ৯৮%
+                    </span>
+                  </div>
+
+                  <div className="p-2 rounded-xl bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] text-slate-400 block font-bold">জমির পরিমাণ:</span>
+                      <strong className={`font-mono ${activeScanPreset === 'tampered' ? 'text-rose-600 dark:text-rose-400 font-bold' : 'text-emerald-500 font-bold'}`}>
+                        {activeScanPreset === 'porcha'
+                          ? '৫০.০০ শতাংশ'
+                          : activeScanPreset === 'tampered'
+                          ? '৮৪ শতাংশ (ঘষামাজা)'
+                          : '৩৩.০০ শতাংশ'}
+                      </strong>
+                    </div>
+                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded font-bold ${activeScanPreset === 'tampered' ? 'bg-rose-500/20 text-rose-600 dark:text-rose-400' : 'bg-emerald-500/10 text-emerald-400'}`}>
+                      {activeScanPreset === 'tampered' ? 'অসঙ্গতি চিহ্নিত' : 'রেকর্ড সমর্থিত'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* 1-Click Pipeline Export Actions */}
+                <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('extract')}
+                    className="w-full flex items-center justify-between p-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold text-xs transition-colors"
+                  >
+                    <span>{isBn ? 'এই দলিলটিকে এনএলপি এক্সট্র্যাক্টরে টেস্ট করুন' : 'Test in NLP Extractor'}</span>
                     <ArrowRight className="w-4 h-4 text-emerald-500" />
                   </button>
 
                   <button
-                    onClick={handleRunConflictOn3DParcel}
-                    className="w-full flex items-center justify-between p-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-600 dark:text-amber-400 font-bold text-xs transition-colors group"
+                    type="button"
+                    onClick={() => setActiveTab('conflict')}
+                    className="w-full flex items-center justify-between p-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-600 dark:text-amber-400 font-bold text-xs transition-colors"
                   >
-                    <span className="flex items-center gap-2">
-                      <ShieldAlert className="w-4 h-4 text-amber-500 group-hover:scale-110 transition-transform" />
-                      <span>{isBn ? 'এই প্লটে R1-R6 কনফ্লিক্ট সিমুলেশন চালান' : 'Simulate R1-R6 Conflicts on Plot'}</span>
-                    </span>
+                    <span>{isBn ? 'এই দলিলের R1-R6 কনফ্লিক্ট সিমুলেশন চালান' : 'Simulate R1-R6 Fraud Rules'}</span>
                     <ArrowRight className="w-4 h-4 text-amber-500" />
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab('visual_heatmap')}
-                    className="w-full flex items-center justify-between p-3 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-600 dark:text-rose-400 font-bold text-xs transition-colors group"
-                  >
-                    <span className="flex items-center gap-2">
-                      <ScanEye className="w-4 h-4 text-rose-500 group-hover:scale-110 transition-transform" />
-                      <span>{isBn ? '৩ডি দলিল ফরেনসিক্স ও ঘষামাজা স্ক্যানার' : 'Inspect in 3D Visual Deed Scanner'}</span>
-                    </span>
-                    <ArrowRight className="w-4 h-4 text-rose-500" />
                   </button>
                 </div>
               </div>

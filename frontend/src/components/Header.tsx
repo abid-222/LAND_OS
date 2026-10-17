@@ -5,7 +5,6 @@ import {
   ShieldCheck,
   User,
   UserCheck,
-  Lock,
   Gauge,
   ChevronDown,
   Bell,
@@ -70,15 +69,15 @@ export const Header: React.FC<HeaderProps> = ({
     setQuickSearch('');
   };
 
-  const roles: Array<{ id: UserRole; labelBn: string; labelEn: string; icon: React.ElementType }> = [
-    { id: 'Citizen', labelBn: 'সাধারণ নাগরিক', labelEn: 'Citizen (Public)', icon: User },
-    { id: 'Operator', labelBn: 'ইউনিয়ন সহকারী কর্মকর্তা', labelEn: 'Land Assistant Officer', icon: UserCheck },
-    { id: 'Reviewer', labelBn: 'কানুনগো ও সার্ভেয়ার', labelEn: 'Kanungo & Surveyor Reviewer', icon: FileCheck2 },
-    { id: 'Supervisor', labelBn: 'সহকারী কমিশনার (ভূমি)', labelEn: 'Assistant Commissioner (Land)', icon: ShieldCheck },
-    { id: 'Office Admin', labelBn: 'রেকর্ড ও প্রশাসন শাখা', labelEn: 'Office Administrator', icon: Lock },
-    { id: 'Regional Manager', labelBn: 'অতিরিক্ত জেলা প্রশাসক', labelEn: 'Regional Manager (ADC)', icon: Lock },
-    { id: 'Security Officer', labelBn: 'নিরাপত্তা কর্মকর্তা', labelEn: 'Security Officer', icon: Lock },
-    { id: 'Tech Admin', labelBn: 'টেক অ্যাডমিন', labelEn: 'Technical Administrator', icon: Gauge },
+  const publicRoles: Array<{ id: UserRole; labelBn: string; labelEn: string; icon: React.ElementType }> = [
+    { id: 'Citizen', labelBn: 'সাধারণ নাগরিক সেবা', labelEn: 'Citizen (Public)', icon: User },
+  ];
+
+  const staffRoles: Array<{ id: UserRole; labelBn: string; labelEn: string; icon: React.ElementType }> = [
+    { id: 'Operator', labelBn: 'ইউনিয়ন সহকারী কর্মকর্তা (তহশিলদার)', labelEn: 'Intake Officer (Tahsildar)', icon: UserCheck },
+    { id: 'Reviewer', labelBn: 'কানুনগো ও সার্ভেয়ার (জরিপ)', labelEn: 'Kanungo & Surveyor Reviewer', icon: FileCheck2 },
+    { id: 'Supervisor', labelBn: 'সহকারী কমিশনার (ভূমি) / এসি ল্যান্ড', labelEn: 'Assistant Commissioner (Land)', icon: ShieldCheck },
+    { id: 'Tech Admin', labelBn: 'সিস্টেম অ্যাডমিন ও এমএল ল্যাব', labelEn: 'Technical Administrator', icon: Gauge },
   ];
 
   return (
@@ -212,12 +211,40 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* Role Dropdown */}
             {showRoleMenu && (
-              <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-[#0c1219] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 py-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
-                <div className="px-3 py-2 border-b border-slate-100 dark:border-slate-800 text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                  {isBn ? 'রোল নির্বাচন ও সুইচ' : 'Select Active Role'}
+              <div className="absolute right-0 top-full mt-2 w-72 bg-white dark:bg-[#0c1219] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 py-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
+                <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  {isBn ? 'পাবলিক সেবা' : 'Public Services'}
                 </div>
-                <div className="max-h-72 overflow-y-auto p-1 space-y-0.5">
-                  {roles.map((r) => {
+                <div className="p-1 space-y-0.5">
+                  {publicRoles.map((r) => {
+                    const Icon = r.icon;
+                    const isSelected = r.id === currentRole;
+
+                    return (
+                      <button
+                        key={r.id}
+                        onClick={() => {
+                          onRoleChange(r.id);
+                          setShowRoleMenu(false);
+                        }}
+                        className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors text-left ${
+                          isSelected
+                            ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold'
+                            : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                        }`}
+                      >
+                        <Icon className="w-3.5 h-3.5 shrink-0 text-emerald-500" />
+                        <span className="truncate">{isBn ? r.labelBn : r.labelEn}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="px-3 pt-2 pb-1 border-t border-slate-100 dark:border-slate-800 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  {isBn ? 'সরকারি কর্মকর্তা পোর্টাল' : 'Official Staff Portal'}
+                </div>
+                <div className="p-1 space-y-0.5">
+                  {staffRoles.map((r) => {
                     const Icon = r.icon;
                     const isSelected = r.id === currentRole;
 
