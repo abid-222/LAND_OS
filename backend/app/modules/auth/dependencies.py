@@ -1,4 +1,5 @@
 import uuid
+from typing import Optional
 
 from fastapi import Depends, HTTPException, Request, status
 from sqlalchemy import select
@@ -69,3 +70,45 @@ async def get_current_user(
         )
 
     return user
+
+
+async def get_optional_current_user(
+    request: Request,
+    db: AsyncSession = Depends(get_db),
+) -> Optional[User]:
+    """Extract authenticated user if valid token/cookie present, else return None without raising."""
+    token = request.cookies.get("landos_access_token")
+
+    if not token:
+        auth_header = request.headers.get("Authorization")
+        if auth_header and auth_header.startswith("Bearer "):
+            token = auth_header.split(" ")[1]
+
+    if not token:
+        token = request.query_params.get("token")
+
+    if not token:
+        return None
+
+    payload = decode_token(token)
+    if not payload or payload.get("type") != "access":
+        return None
+
+    user_id_str = payload.get("sub")
+    if not user_id_str:
+        return None
+
+    try:
+        user_uuid = uuid.UUID(user_id_str)
+    except ValueError:
+        return None
+
+    stmt = select(User).where(User.id == user_uuid)
+    result = await db.execute(stmt)
+    user = result.scalar_one_or_none()
+
+    if not user or not user.is_active:
+        return None
+
+    return user
+

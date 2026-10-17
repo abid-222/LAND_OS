@@ -20,7 +20,7 @@ from app.core.database import get_db
 from app.core.normalize import fuzzy_compare_names, normalize_identifier, normalize_mouza
 from app.core.rate_limit import rate_limit
 from app.models import LandRecord, Mouza, StatusLabel
-from app.modules.rbac.permissions import Permission, Scope, require
+from app.modules.rbac.permissions import Permission, Scope, require, require_public_or_role
 
 router = APIRouter(prefix="/search", tags=["Land Records & Khatian Search"])
 
@@ -68,7 +68,7 @@ class SearchResponse(BaseModel):
 async def multi_identifier_search(
     payload: SearchRequest,
     db: AsyncSession = Depends(get_db),
-    current_user=Depends(require(Permission.RECORD_SEARCH, Scope.GLOBAL)),
+    current_user=Depends(require_public_or_role(Permission.RECORD_SEARCH, Scope.GLOBAL)),
 ):
     """
     Multi-identifier search using exact normalized matching and trigram similarity.
@@ -83,16 +83,35 @@ async def multi_identifier_search(
     norm_khatian = normalize_identifier(payload.khatian_no, "khatian_no").normalized_value if payload.khatian_no else None
     norm_mouza = normalize_mouza(payload.mouza).normalized_name if payload.mouza else None
 
+    ASCII_TO_BANGLA = str.maketrans("0123456789", "০১২৩৪৫৬৭৮৯")
+    BANGLA_TO_ASCII = str.maketrans("০১২৩৪৫৬৭৮৯", "0123456789")
+
+    def digit_variants(val: str) -> List[str]:
+        cleaned = val.strip()
+        variants = {cleaned, cleaned.translate(ASCII_TO_BANGLA), cleaned.translate(BANGLA_TO_ASCII)}
+        # Also include sub-part if any
+        if "/" in cleaned:
+            parts = cleaned.split("/")
+            for p in parts:
+                p_c = p.strip()
+                if p_c:
+                    variants.add(p_c)
+                    variants.add(p_c.translate(ASCII_TO_BANGLA))
+                    variants.add(p_c.translate(BANGLA_TO_ASCII))
+        return [v for v in variants if v]
+
     if payload.dag_no:
-        dag_crit = [LandRecord.dag_no.ilike(f"%{payload.dag_no.strip()}%")]
-        if norm_dag and norm_dag != payload.dag_no.strip():
-            dag_crit.append(LandRecord.dag_no.ilike(f"%{norm_dag}%"))
+        dag_variants = digit_variants(payload.dag_no)
+        if norm_dag:
+            dag_variants.extend(digit_variants(norm_dag))
+        dag_crit = [LandRecord.dag_no.ilike(f"%{v}%") for v in set(dag_variants)]
         filters.append(or_(*dag_crit))
 
     if payload.khatian_no:
-        khat_crit = [LandRecord.khatian_no.ilike(f"%{payload.khatian_no.strip()}%")]
-        if norm_khatian and norm_khatian != payload.khatian_no.strip():
-            khat_crit.append(LandRecord.khatian_no.ilike(f"%{norm_khatian}%"))
+        khat_variants = digit_variants(payload.khatian_no)
+        if norm_khatian:
+            khat_variants.extend(digit_variants(norm_khatian))
+        khat_crit = [LandRecord.khatian_no.ilike(f"%{v}%") for v in set(khat_variants)]
         filters.append(or_(*khat_crit))
 
     if payload.owner_name:
@@ -124,23 +143,27 @@ async def multi_identifier_search(
 
         # Dag comparison
         if norm_dag or payload.dag_no:
-            r_dag = normalize_identifier(r.dag_no, "dag_no").normalized_value
-            raw_dag = payload.dag_no.strip() if payload.dag_no else ""
-            if (norm_dag and r_dag == norm_dag) or (raw_dag and raw_dag == (r.dag_no or "").strip()):
+            r_dag_norm = normalize_identifier(r.dag_no, "dag_no").normalized_value if r.dag_no else ""
+            r_dag_ascii = (r.dag_no or "").strip().translate(BANGLA_TO_ASCII)
+            input_dag_ascii = (payload.dag_no or "").strip().translate(BANGLA_TO_ASCII)
+
+            if (norm_dag and r_dag_norm == norm_dag) or (input_dag_ascii and (r_dag_ascii == input_dag_ascii or r.dag_no == payload.dag_no.strip())):
                 base_score += 0.25
                 reasons.append("দাগ নম্বর হুবহু মিলেছে")
-            elif (norm_dag and r_dag and norm_dag in r_dag) or (raw_dag and raw_dag in (r.dag_no or "")):
+            elif (norm_dag and r_dag_norm and norm_dag in r_dag_norm) or (input_dag_ascii and input_dag_ascii in r_dag_ascii):
                 base_score += 0.18
                 reasons.append("দাগ নম্বর আংশিক মিলেছে")
 
         # Khatian comparison
         if norm_khatian or payload.khatian_no:
-            r_khat = normalize_identifier(r.khatian_no, "khatian_no").normalized_value
-            raw_khat = payload.khatian_no.strip() if payload.khatian_no else ""
-            if (norm_khatian and r_khat == norm_khatian) or (raw_khat and raw_khat == (r.khatian_no or "").strip()):
+            r_khat_norm = normalize_identifier(r.khatian_no, "khatian_no").normalized_value if r.khatian_no else ""
+            r_khat_ascii = (r.khatian_no or "").strip().translate(BANGLA_TO_ASCII)
+            input_khat_ascii = (payload.khatian_no or "").strip().translate(BANGLA_TO_ASCII)
+
+            if (norm_khatian and r_khat_norm == norm_khatian) or (input_khat_ascii and (r_khat_ascii == input_khat_ascii or r.khatian_no == payload.khatian_no.strip())):
                 base_score += 0.25
                 reasons.append("খতিয়ান নম্বর মিলেছে")
-            elif (norm_khatian and r_khat and norm_khatian in r_khat) or (raw_khat and raw_khat in (r.khatian_no or "")):
+            elif (norm_khatian and r_khat_norm and norm_khatian in r_khat_norm) or (input_khat_ascii and input_khat_ascii in r_khat_ascii):
                 base_score += 0.18
                 reasons.append("খতিয়ান নম্বর আংশিক মিলেছে")
 
@@ -211,7 +234,7 @@ async def search_land_records(
     survey_type: Optional[str] = Query(None, description="CS, SA, RS, BS, City Survey"),
     limit: int = Query(20, ge=1, le=100),
     db: AsyncSession = Depends(get_db),
-    current_user=Depends(require(Permission.RECORD_SEARCH, Scope.GLOBAL)),
+    current_user=Depends(require_public_or_role(Permission.RECORD_SEARCH, Scope.GLOBAL)),
 ):
     stmt = select(LandRecord).limit(limit)
     if q:

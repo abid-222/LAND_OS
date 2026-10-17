@@ -61,8 +61,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   const navCitizen = [
     { id: 'home', labelBn: 'ড্যাশবোর্ড', labelEn: 'Dashboard', icon: LayoutDashboard },
-    { id: 'scan', labelBn: 'স্মার্ট দলিল স্ক্যান', labelEn: 'Scan & OCR', icon: ScanLine },
-    { id: 'search', labelBn: 'খতিয়ান ও দাগ অনুসন্ধান', labelEn: 'Record Search', icon: Search },
+    { id: 'scan', labelBn: 'ডিজিটাল স্ক্যান ও ওসিআর', labelEn: 'Scan & OCR', icon: ScanLine },
+    { id: 'search', labelBn: 'খতিয়ান ও দাগ রেকর্ড', labelEn: 'Record Search', icon: Search },
     { id: 'map', labelBn: '৩ডি ক্যাডাস্ট্রাল ম্যাপ', labelEn: '3D Cadastral Map', icon: MapIcon },
     { id: 'report', labelBn: 'বায়ার ডিউ ডিলিজেন্স', labelEn: 'Buyer Report', icon: FileCheck2 },
     { id: 'guide', labelBn: 'এআই ভূমি নির্দেশিকা', labelEn: 'AI Land Guide', icon: Bot },
@@ -104,7 +104,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <span className="font-extrabold text-base tracking-tight text-slate-900 dark:text-white flex items-center gap-1.5 font-sans">
                 Land<span className="text-emerald-500 dark:text-emerald-400">OS</span>
                 <span className="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                  v2.0
+                  v3.0
                 </span>
               </span>
               <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 tracking-wider truncate">

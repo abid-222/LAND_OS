@@ -484,7 +484,7 @@ export const MapPage: React.FC<MapPageProps> = ({ onNavigateToReport }) => {
           <div className="flex items-start justify-between gap-2 mb-3">
             <div>
               <span className="text-[11px] font-mono text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
-                সিনথেটিক আইডি: {selectedParcel.synthetic_id}
+                আইডি: {selectedParcel.synthetic_id}
               </span>
               <h3 className="text-base font-bold text-white mt-1">
                 শ্রেণি: {selectedParcel.land_class} • পরিমাণ: {selectedParcel.area_acres} একর
@@ -501,7 +501,7 @@ export const MapPage: React.FC<MapPageProps> = ({ onNavigateToReport }) => {
           {/* Alert Counts by Severity (Strictly no safe/unsafe colors on parcels) */}
           {selectedParcel.alert_counts && (
             <div className="flex flex-wrap items-center gap-1.5 my-2.5 p-2 rounded-xl bg-slate-950/70 border border-slate-800 text-xs">
-              <span className="text-slate-400 font-medium">অসঙ্গতি নির্দেশক:</span>
+              <span className="text-slate-400 font-medium">যাচাই প্রয়োজন:</span>
               {selectedParcel.alert_counts.high > 0 && (
                 <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40">
                   উচ্চ গুরুত্ব: {selectedParcel.alert_counts.high}

@@ -308,8 +308,8 @@ export const ScanPage: React.FC<ScanPageProps> = ({
                 </h1>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                   {isBn
-                    ? 'কৃত্রিম বুদ্ধিমত্তা ও কিউআর প্রযুক্তির মাধ্যমে স্বয়ংক্রিয় পাঠোদ্ধার'
-                    : 'AI-assisted OCR & QR recognition for cadastral documents'}
+                    ? 'ক্যামেরা চালু করার আগে নির্দেশনা ও স্বয়ংক্রিয় পাঠোদ্ধার'
+                    : 'Instructions before launching camera & AI OCR'}
                 </p>
               </div>
             </div>
@@ -386,11 +386,12 @@ export const ScanPage: React.FC<ScanPageProps> = ({
             </button>
 
             <button
+              aria-label="ছবি বা ফাইল নির্বাচন করুন"
               onClick={() => fileInputRef.current?.click()}
               className="flex-1 flex items-center justify-center gap-2 px-6 py-3.5 bg-white dark:bg-[#04080c] hover:bg-slate-50 dark:hover:bg-slate-900 text-slate-800 dark:text-slate-200 font-bold rounded-xl border border-slate-200 dark:border-slate-800 text-sm transition-all shadow-sm"
             >
               <Upload className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-              <span>{isBn ? 'ছবি বা ফাইল আপলোড করুন' : 'Upload Image File'}</span>
+              <span>{isBn ? 'ছবি বা ফাইল নির্বাচন করুন' : 'Upload Image File'}</span>
             </button>
 
             {onNavigateToSearch && (

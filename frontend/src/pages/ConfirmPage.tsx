@@ -243,7 +243,7 @@ export const ConfirmPage: React.FC<ConfirmPageProps> = ({
           <Info className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
           <div>
             <h4 className="font-bold text-slate-900 dark:text-white">
-              {isBn ? 'পর্যালোচনা কেস প্রস্তুত' : 'Review Case Initialized'}
+              {isBn ? 'কম নিশ্চিত তথ্য: মানবীয় যাচাই লাগবে' : 'Review Case Initialized'}
             </h4>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
               {isBn
@@ -278,6 +278,7 @@ export const ConfirmPage: React.FC<ConfirmPageProps> = ({
           <div className="grid grid-cols-3 gap-3">
             <button
               type="button"
+              aria-label="খতিয়ান"
               onClick={() => handleDocTypeChange('khatian')}
               className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl text-xs font-bold transition-all border ${
                 docType === 'khatian'
@@ -286,10 +287,11 @@ export const ConfirmPage: React.FC<ConfirmPageProps> = ({
               }`}
             >
               <FileCheck2 className="w-4 h-4 shrink-0" />
-              <span>Khatian <span className="opacity-75 font-normal text-[11px]">(খতিয়ান)</span></span>
+              <span>{isBn ? 'খতিয়ান (Khatian)' : 'Khatian (খতিয়ান)'}</span>
             </button>
             <button
               type="button"
+              aria-label="দলিল"
               onClick={() => handleDocTypeChange('deed')}
               className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl text-xs font-bold transition-all border ${
                 docType === 'deed'
@@ -298,10 +300,11 @@ export const ConfirmPage: React.FC<ConfirmPageProps> = ({
               }`}
             >
               <FileSpreadsheet className="w-4 h-4 shrink-0" />
-              <span>Deed <span className="opacity-75 font-normal text-[11px]">(দলিল)</span></span>
+              <span>{isBn ? 'দলিল (Deed)' : 'Deed (দলিল)'}</span>
             </button>
             <button
               type="button"
+              aria-label="পর্চা"
               onClick={() => handleDocTypeChange('porcha')}
               className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl text-xs font-bold transition-all border ${
                 docType === 'porcha'
@@ -310,7 +313,7 @@ export const ConfirmPage: React.FC<ConfirmPageProps> = ({
               }`}
             >
               <FileText className="w-4 h-4 shrink-0" />
-              <span>Porcha <span className="opacity-75 font-normal text-[11px]">(পর্চা)</span></span>
+              <span>{isBn ? 'পর্চা (Porcha)' : 'Porcha (পর্চা)'}</span>
             </button>
           </div>
         </div>
@@ -424,11 +427,23 @@ export const ConfirmPage: React.FC<ConfirmPageProps> = ({
             <span>{isSaving ? (isBn ? 'সংরক্ষণ হচ্ছে...' : 'Saving...') : (isBn ? 'পরিবর্তন সংরক্ষণ' : 'Save Changes')}</span>
           </button>
 
+          {onNavigateToVerify && (
+            <button
+              aria-label="রেকর্ড মিল যাচাই"
+              onClick={() => onNavigateToVerify(documentId, 'REC-TG-001')}
+              className="flex-1 sm:flex-initial sm:min-w-[180px] flex items-center justify-center gap-2 px-6 py-3 bg-emerald-700 hover:bg-emerald-600 text-white font-bold rounded-xl shadow-lg shadow-emerald-700/20 text-sm transition-all"
+            >
+              <span>{isBn ? 'রেকর্ড মিল যাচাই' : 'Verify Record Match'}</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          )}
+
           <button
+            aria-label="রেকর্ড সন্ধান করুন"
             onClick={handleProceedToSearch}
-            className="flex-1 sm:flex-initial sm:min-w-[200px] flex items-center justify-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-600/20 text-sm transition-all"
+            className="flex-1 sm:flex-initial sm:min-w-[180px] flex items-center justify-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-600/20 text-sm transition-all"
           >
-            <span>{isBn ? 'রেকর্ড অনুসন্ধানে যান' : 'Search Land Record'}</span>
+            <span>{isBn ? 'রেকর্ড সন্ধান করুন' : 'Search Land Record'}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

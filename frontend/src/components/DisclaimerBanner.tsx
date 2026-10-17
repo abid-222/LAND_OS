@@ -26,7 +26,7 @@ export const DisclaimerBanner: React.FC<DisclaimerBannerProps> = ({
           Illustrative / Not a legal boundary. উদাহরণ মাত্র, আইনি সীমানা নয়. Heights are illustrative.
         </span>
         <span className="text-[11px] text-slate-400 dark:text-slate-500">
-          আইনি সীমানা নির্ধারণে সরকারি মৌজা নকশা ও মাঠ জরিপ প্রযোজ্য।
+          মানচিত্রটি শুধুমাত্র ধারণাগত / কোনো আইনি সীমানা নির্দেশ করে না (সরকারি মৌজা নকশা ও মাঠ জরিপ প্রযোজ্য)।
         </span>
       </div>
     </div>

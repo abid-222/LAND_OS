@@ -160,3 +160,20 @@ def require(permission: Permission, scope: Optional[Scope] = None) -> Callable:
         return current_user
 
     return dependency
+
+
+def require_public_or_role(permission: Permission, scope: Optional[Scope] = None) -> Callable:
+    """FastAPI Dependency allowing public citizen access, or enforcing permissions for logged-in users."""
+    from app.modules.auth.dependencies import get_optional_current_user
+
+    async def dependency(current_user=Depends(get_optional_current_user)):
+        user_role = Role(current_user.role) if current_user else Role.CITIZEN
+        if not has_permission(user_role, permission, scope):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Permission denied: {permission.value} with scope '{scope.value if scope else 'any'}' requires elevated privileges.",
+            )
+        return current_user
+
+    return dependency
+

@@ -282,6 +282,8 @@ const AppContent: React.FC = () => {
                     initialDag={searchParams.dag_no}
                     initialMouza={searchParams.mouza}
                     onSelectRecord={(recId) => handleNavigate('verify', { recordId: recId })}
+                    onNavigateToBuyerReport={(pid) => handleNavigate('report', { parcelId: pid })}
+                    onNavigateToMap={() => handleNavigate('map')}
                   />
                 )}
 
@@ -315,14 +317,14 @@ const AppContent: React.FC = () => {
           </Suspense>
         </main>
 
-        {/* Mobile-Only Bottom Navigation (Hidden on Tablet & Desktop) */}
-        <div className="md:hidden">
+        {/* Mobile & Tablet Quick Bottom Navigation */}
+        {!['confirm', 'verify'].includes(activeTab) && (
           <BottomNav
             activeTab={activeTab}
             onTabChange={handleNavigate}
             pendingCount={pendingCount}
           />
-        </div>
+        )}
 
         {/* Floating AI Land Guide Assistant */}
         <ChatbotWidget />
