@@ -16,10 +16,11 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List
 
 import yaml
-from fastapi import APIRouter, File, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from pydantic import BaseModel
 
 from app.core.cache import get_cached_public_data, set_cached_public_data
+from app.modules.rbac.permissions import Permission, Scope, require
 
 logger = logging.getLogger("landos.quality.router")
 router = APIRouter(prefix="/quality", tags=["Image Quality & Pipeline Metrics"])
@@ -259,7 +260,9 @@ def parse_eval_run_json(file_path: str, data: Dict[str, Any]) -> EvalRunDetail:
     response_model=EvalRunsResponse,
     summary="Get Accuracy and Reliability Lab evaluation benchmark runs",
 )
-async def get_eval_runs():
+async def get_eval_runs(
+    current_user=Depends(require(Permission.SYSTEM_CONFIGURE, Scope.GLOBAL)),
+):
     """
     Reads evaluation benchmark run reports from eval_runs/ directory.
     Provides field-separated CER, FEA, critical field FEA, silent error rates,
@@ -313,7 +316,9 @@ async def get_eval_runs():
     response_model=EvalRunDetail,
     summary="Run live evaluation pipeline benchmark (Tech Admin action)",
 )
-async def trigger_eval_run():
+async def trigger_eval_run(
+    current_user=Depends(require(Permission.SYSTEM_CONFIGURE, Scope.GLOBAL)),
+):
     """
     Executes a model benchmark run and records the results into eval_runs/.
     Enforces quality gates defined in eval/gates.yaml.

@@ -1,6 +1,6 @@
-from typing import List, Union
+from typing import List, Optional, Union
 
-from pydantic import field_validator
+from pydantic import field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -21,11 +21,12 @@ class Settings(BaseSettings):
         "http://localhost:8080",
         "http://localhost:3000",
     ]
+    CORS_ORIGIN_REGEX: Optional[str] = None
 
     @field_validator("BACKEND_CORS_ORIGINS", mode="before")
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> List[str]:
         if isinstance(v, str) and not v.startswith("["):
-            return [i.strip() for i in v.split(",")]
+            return [i.strip() for i in v.split(",") if i.strip()]
         elif isinstance(v, str) and v.startswith("["):
             import json
 
@@ -59,6 +60,7 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
     COOKIE_SECURE: bool = False
     COOKIE_SAMESITE: str = "lax"
+    ALLOW_DEV_MFA_BYPASS: bool = False
 
     # Storage
     MINIO_ENDPOINT: str = "localhost:9000"
@@ -66,6 +68,7 @@ class Settings(BaseSettings):
     MINIO_SECRET_KEY: str = "minio_dev_password"
     MINIO_BUCKET: str = "landos-documents"
     MINIO_USE_SSL: bool = False
+    STORAGE_LOCAL_DIR: str = "data/storage"
 
     # Map Tile Provider (Requirement 3.9)
     MAP_TILE_URL: str = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -76,6 +79,20 @@ class Settings(BaseSettings):
 
     # Observability
     LOG_LEVEL: str = "INFO"
+
+    @model_validator(mode="after")
+    def validate_security_settings(self) -> "Settings":
+        # Dev MFA bypass is strictly prohibited outside development environment
+        if self.ENVIRONMENT != "development":
+            self.ALLOW_DEV_MFA_BYPASS = False
+
+        # In production cross-site cookie settings: default SameSite=None and Secure=True
+        if self.ENVIRONMENT == "production":
+            if self.COOKIE_SAMESITE == "lax":
+                self.COOKIE_SAMESITE = "none"
+            if not self.COOKIE_SECURE:
+                self.COOKIE_SECURE = True
+        return self
 
 
 settings = Settings()

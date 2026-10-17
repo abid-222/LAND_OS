@@ -8,17 +8,59 @@ Verifies:
 - POST /api/v1/quality/run-eval triggers evaluation run
 """
 
+import uuid
+from typing import cast
+
 import pytest
 from httpx import ASGITransport, AsyncClient
+from sqlalchemy import Table
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
+from app.core.database import Base, get_db
+from app.core.security import create_access_token, hash_password
 from app.main import app
+from app.models import User
 
 
 @pytest.fixture
 async def client():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://testserver") as ac:
-        yield ac
+    engine = create_async_engine("sqlite+aiosqlite:///:memory:", echo=False)
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all, tables=[cast(Table, User.__table__)])
+
+    session_maker = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+    async with session_maker() as session:
+        admin_user = User(
+            id=uuid.uuid4(),
+            email="techadmin@landos.gov.bd",
+            hashed_password=hash_password("Password123!"),
+            role="Tech Admin",
+            mfa_enabled=False,
+        )
+        session.add(admin_user)
+        await session.commit()
+
+        async def override_get_db():
+            yield session
+
+        app.dependency_overrides[get_db] = override_get_db
+
+        admin_token = create_access_token(str(admin_user.id), admin_user.role, admin_user.email)
+        csrf_token = "test_csrf_token_quality_lab"
+        transport = ASGITransport(app=app)
+        async with AsyncClient(
+            transport=transport,
+            base_url="http://testserver",
+            cookies={
+                "landos_access_token": admin_token,
+                "landos_csrf_token": csrf_token,
+            },
+            headers={"X-CSRF-Token": csrf_token},
+        ) as ac:
+            yield ac
+
+        app.dependency_overrides.clear()
+    await engine.dispose()
 
 
 @pytest.mark.asyncio

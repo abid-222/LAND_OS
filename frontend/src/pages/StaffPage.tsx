@@ -16,7 +16,11 @@ import {
   Shield,
   Sparkles,
 } from 'lucide-react';
+import { RoleSwitchTerminal } from '../components/RoleSwitchTerminal';
 import { api } from '../api/client';
+
+const isDemoMode = import.meta.env.VITE_DEMO_MODE === 'true';
+const DEMO_PWD = isDemoMode ? 'Password123!' : '';
 
 export interface GovRoleInfo {
   roleId: string;
@@ -37,7 +41,7 @@ export const GOV_WORKER_ROLES: GovRoleInfo[] = [
     nameBn: 'ইউনিয়ন ভূমি সহকারী কর্মকর্তা (তহশিলদার)',
     nameEn: 'Union Land Assistant Officer (Tahsildar)',
     email: 'operator@landos.gov.bd',
-    password: 'Password123!',
+    password: DEMO_PWD,
     badgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/30',
     phase: 'ধাপ ১: প্রাথমিক সরজমিন তদন্ত ও ফরম ৯ক',
     responsibilitiesBn: [
@@ -55,7 +59,7 @@ export const GOV_WORKER_ROLES: GovRoleInfo[] = [
     nameBn: 'কানুনগো ও সার্ভেয়ার (জরিপ ও দাগ পরীক্ষক)',
     nameEn: 'Kanungo & Surveyor (Cadastral Reviewer)',
     email: 'reviewer@landos.gov.bd',
-    password: 'Password123!',
+    password: DEMO_PWD,
     badgeColor: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
     phase: 'ধাপ ২: মৌজা নকশা, দাগ পরিমাপ ও এআই অডিট',
     responsibilitiesBn: [
@@ -73,7 +77,7 @@ export const GOV_WORKER_ROLES: GovRoleInfo[] = [
     nameBn: 'সহকারী কমিশনার (ভূমি) / এসি ল্যান্ড',
     nameEn: 'Assistant Commissioner (Land) - AC Land',
     email: 'supervisor@landos.gov.bd',
-    password: 'Password123!',
+    password: DEMO_PWD,
     badgeColor: 'bg-purple-500/10 text-purple-400 border-purple-500/30',
     phase: 'ধাপ ৩: আধা-বিচারিক শুনানি ও খতিয়ান স্বাক্ষর',
     responsibilitiesBn: [
@@ -91,7 +95,7 @@ export const GOV_WORKER_ROLES: GovRoleInfo[] = [
     nameBn: 'উপজেলা রেকর্ড কিপার ও প্রশাসনিক কর্মকর্তা',
     nameEn: 'Upazila Land Office Administrator',
     email: 'officeadmin@landos.gov.bd',
-    password: 'Password123!',
+    password: DEMO_PWD,
     badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/30',
     phase: 'ধাপ ৪: রেজিস্টার-৯ ভলিউম ও নাগরিক ডেলিভারি',
     responsibilitiesBn: [
@@ -108,7 +112,7 @@ export const GOV_WORKER_ROLES: GovRoleInfo[] = [
     nameBn: 'অতিরিক্ত জেলা প্রশাসক (রাজস্ব) / এডিসি রাজস্ব',
     nameEn: 'Additional Deputy Commissioner (Revenue)',
     email: 'regionalmanager@landos.gov.bd',
-    password: 'Password123!',
+    password: DEMO_PWD,
     badgeColor: 'bg-rose-500/10 text-rose-400 border-rose-500/30',
     phase: 'আপিল ধাপ: নামজারি মিস কেস ও রাজস্ব অডিট',
     responsibilitiesBn: [
@@ -125,7 +129,7 @@ export const GOV_WORKER_ROLES: GovRoleInfo[] = [
     nameBn: 'সাইবার ও অডিট নিরাপত্তা কর্মকর্তা',
     nameEn: 'Cyber & Audit Security Officer',
     email: 'securityofficer@landos.gov.bd',
-    password: 'Password123!',
+    password: DEMO_PWD,
     badgeColor: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30',
     phase: 'নিরাপত্তা অডিট: ব্লকচেইন হ্যাশ চেইন ও ট্যাম্পার যাচাই',
     responsibilitiesBn: [
@@ -213,6 +217,7 @@ export const StaffPage: React.FC<StaffPageProps> = ({ onNavigateToTab }) => {
   const [isLoadingQueue, setIsLoadingQueue] = useState(false);
   const [showGovGuide, setShowGovGuide] = useState<boolean>(true);
   const [activeGovRole, setActiveGovRole] = useState<string>('Supervisor');
+  const [isRoleTerminalOpen, setIsRoleTerminalOpen] = useState(false);
 
   interface QueueCaseItem {
     id: string;
@@ -368,9 +373,22 @@ export const StaffPage: React.FC<StaffPageProps> = ({ onNavigateToTab }) => {
                   : 'Bangladesh Land Administration — Hierarchy & Demo Role Accounts'}
               </h3>
             </div>
-            <span className="text-[11px] font-mono text-slate-400">
-              ডিফল্ট পাসওয়ার্ড: <b className="text-white font-mono bg-black/60 px-2 py-0.5 rounded border border-slate-700">Password123!</b>
-            </span>
+            <div className="flex items-center gap-2">
+              {isDemoMode && (
+                <button
+                  onClick={() => setIsRoleTerminalOpen(true)}
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold hover:bg-emerald-500/30 transition-colors"
+                >
+                  <UserCheck className="w-3.5 h-3.5" />
+                  <span>{isBn ? 'রোল পরিবর্তন টার্মিনাল' : 'One-Click Role Switcher'}</span>
+                </button>
+              )}
+              {isDemoMode && (
+                <span className="text-[11px] font-mono text-slate-400">
+                  {isBn ? 'ডিফল্ট পাসওয়ার্ড:' : 'Demo Password:'} <b className="text-white font-mono bg-black/60 px-2 py-0.5 rounded border border-slate-700">{DEMO_PWD}</b>
+                </span>
+              )}
+            </div>
           </div>
 
           {/* Role Pill Switcher */}
@@ -407,10 +425,12 @@ export const StaffPage: React.FC<StaffPageProps> = ({ onNavigateToTab }) => {
                   <Key className="w-3.5 h-3.5 text-emerald-400" />
                   <span>ইমেইল: <b className="text-emerald-300">{currentRoleDetails.email}</b></span>
                 </div>
-                <div className="flex items-center gap-2 font-mono text-[11px]">
-                  <Shield className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>পাসওয়ার্ড: <b className="text-slate-200">Password123!</b></span>
-                </div>
+                {isDemoMode && (
+                  <div className="flex items-center gap-2 font-mono text-[11px]">
+                    <Shield className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>{isBn ? 'পাসওয়ার্ড:' : 'Password:'} <b className="text-slate-200">{DEMO_PWD}</b></span>
+                  </div>
+                )}
               </div>
 
               {/* Template Action Button */}
@@ -683,6 +703,17 @@ export const StaffPage: React.FC<StaffPageProps> = ({ onNavigateToTab }) => {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Instant RBAC Role Switch Terminal */}
+      {isDemoMode && (
+        <RoleSwitchTerminal
+          isOpen={isRoleTerminalOpen}
+          onClose={() => setIsRoleTerminalOpen(false)}
+          onRoleChanged={() => {
+            fetchLiveQueue();
+          }}
+        />
       )}
     </div>
   );

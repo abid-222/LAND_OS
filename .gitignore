@@ -83,3 +83,10 @@ eval_runs/
 *.sqlite3
 landos_dev.db
 
+# Backups and archive assets
+backups/*.tar.gz*
+landtech-3d-ui-kit.zip
+landtech-3d-ui-kit/
+data/storage/
+backend/data/
+

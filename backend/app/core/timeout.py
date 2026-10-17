@@ -1,41 +1,101 @@
 """
-Request Timeout Middleware for Bangladesh LandOS.
-Enforces default 5s request timeout across non-streaming endpoints.
+Pure ASGI Request Timeout Middleware for Bangladesh LandOS.
+Enforces per-route-class timeouts:
+- 60s extended timeout for heavy operations: /documents, /scan, /ml, /reports, /buyer-reports, /namjari
+- Exempt for streaming endpoints: SSE (/events), /metrics, /docs, /redoc, /openapi.json
+- 15s standard timeout for typical API transactions
 """
 
 import asyncio
-from typing import Callable
+import json
 
-from fastapi import Request, Response
-from fastapi.responses import JSONResponse
-from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.types import ASGIApp
+from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
 
-class RequestTimeoutMiddleware(BaseHTTPMiddleware):
+class RequestTimeoutMiddleware:
     """
-    Aborts requests exceeding default timeout (5.0 seconds).
-    Exempts Server-Sent Events (SSE) and documentation/metrics endpoints.
+    Pure ASGI Middleware that enforces safe per-route timeouts without BaseHTTPMiddleware streaming cancellation bugs.
     """
 
-    def __init__(self, app: ASGIApp, timeout_seconds: float = 5.0):
-        super().__init__(app)
-        self.timeout_seconds = timeout_seconds
+    def __init__(
+        self,
+        app: ASGIApp,
+        default_timeout: float = 15.0,
+        extended_timeout: float = 60.0,
+        timeout_seconds: float | None = None,
+    ):
+        self.app = app
+        self.default_timeout = timeout_seconds if timeout_seconds is not None else default_timeout
+        self.extended_timeout = extended_timeout
+        self.extended_prefixes = (
+            "/api/v1/documents",
+            "/api/v1/scan",
+            "/api/v1/ml",
+            "/api/v1/reports",
+            "/api/v1/buyer-reports",
+            "/api/v1/parcels",
+            "/api/v1/namjari",
+        )
 
-    async def dispatch(self, request: Request, call_next: Callable) -> Response:
-        path = request.url.path
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        if scope["type"] != "http":
+            await self.app(scope, receive, send)
+            return
 
-        # Exempt SSE streaming endpoints, metrics, and docs from timeout
-        if path.endswith("/events") or path.endswith("/metrics") or "/docs" in path:
-            return await call_next(request)
+        path = scope.get("path", "")
+
+        # Exempt SSE streaming, metrics, and API documentation from timeout
+        if (
+            path.endswith("/events")
+            or path.endswith("/metrics")
+            or "/docs" in path
+            or "/redoc" in path
+            or "/openapi.json" in path
+        ):
+            await self.app(scope, receive, send)
+            return
+
+        # Determine route-class timeout threshold
+        timeout = (
+            self.extended_timeout
+            if any(path.startswith(prefix) for prefix in self.extended_prefixes)
+            else self.default_timeout
+        )
+
+        response_started = False
+
+        async def send_wrapper(message: Message) -> None:
+            nonlocal response_started
+            if message["type"] == "http.response.start":
+                response_started = True
+            await send(message)
 
         try:
-            return await asyncio.wait_for(call_next(request), timeout=self.timeout_seconds)
-        except asyncio.TimeoutError:
-            return JSONResponse(
-                status_code=504,
-                content={
-                    "detail": f"Request processing timed out (exceeded {self.timeout_seconds}s threshold)",
-                    "path": path,
-                },
+            await asyncio.wait_for(
+                self.app(scope, receive, send_wrapper),
+                timeout=timeout,
             )
+        except asyncio.TimeoutError:
+            if not response_started:
+                body = json.dumps(
+                    {
+                        "detail": f"Request processing timed out (exceeded {timeout}s threshold).",
+                        "path": path,
+                    }
+                ).encode("utf-8")
+                await send(
+                    {
+                        "type": "http.response.start",
+                        "status": 504,
+                        "headers": [
+                            (b"content-type", b"application/json"),
+                            (b"content-length", str(len(body)).encode("utf-8")),
+                        ],
+                    }
+                )
+                await send(
+                    {
+                        "type": "http.response.body",
+                        "body": body,
+                    }
+                )

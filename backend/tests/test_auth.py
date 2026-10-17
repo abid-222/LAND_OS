@@ -133,3 +133,44 @@ async def test_tech_admin_mfa_requirement(client: AsyncClient, test_session: Asy
     )
     assert success_res.status_code == 200
     assert "landos_access_token" in success_res.cookies
+
+
+@pytest.mark.asyncio
+async def test_mfa_dev_bypass_strictly_controlled(client: AsyncClient, test_session: AsyncSession):
+    """MFA dev bypass (123456/000000) is rejected unless ALLOW_DEV_MFA_BYPASS is explicitly True."""
+    from app.core.config import settings
+    from app.core.security import hash_password, verify_totp
+
+    mfa_secret = pyotp.random_base32()
+    user = User(
+        id=uuid.uuid4(),
+        email="mfa_test@landos.gov.bd",
+        hashed_password=hash_password("Pass123!"),
+        role="Tech Admin",
+        mfa_secret=mfa_secret,
+        mfa_enabled=True,
+    )
+    test_session.add(user)
+    await test_session.commit()
+
+    # By default, ALLOW_DEV_MFA_BYPASS is False -> 123456 must be rejected
+    orig_bypass = settings.ALLOW_DEV_MFA_BYPASS
+    orig_env = settings.ENVIRONMENT
+    try:
+        settings.ALLOW_DEV_MFA_BYPASS = False
+        assert verify_totp(mfa_secret, "123456") is False
+        assert verify_totp(mfa_secret, "000000") is False
+
+        # When ALLOW_DEV_MFA_BYPASS is True and dev mode -> accepted
+        settings.ALLOW_DEV_MFA_BYPASS = True
+        settings.ENVIRONMENT = "development"
+        assert verify_totp(mfa_secret, "123456") is True
+        assert verify_totp(mfa_secret, "000000") is True
+
+        # In production -> always rejected even if someone set bypass true
+        settings.ENVIRONMENT = "production"
+        assert verify_totp(mfa_secret, "123456") is False
+        assert verify_totp(mfa_secret, "000000") is False
+    finally:
+        settings.ALLOW_DEV_MFA_BYPASS = orig_bypass
+        settings.ENVIRONMENT = orig_env

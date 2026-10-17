@@ -1,6 +1,6 @@
 import uuid
 from datetime import timedelta
-from typing import Optional
+from typing import Literal, Optional, cast
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from sqlalchemy import select
@@ -9,6 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.config import settings
 from app.core.csrf import generate_csrf_token
 from app.core.database import get_db
+from app.core.rate_limit import rate_limit
 from app.core.security import (
     create_access_token,
     create_refresh_token,
@@ -47,18 +48,28 @@ from app.modules.rbac.permissions import Role
 router = APIRouter(prefix="/auth", tags=["Authentication & Session"])
 
 
+def _get_cookie_samesite() -> Literal["lax", "strict", "none"]:
+    val = settings.COOKIE_SAMESITE.lower()
+    if val in ("lax", "strict", "none"):
+        return cast(Literal["lax", "strict", "none"], val)
+    return "lax"
+
+
 def set_auth_cookies(
     response: Response,
     access_token: str,
     refresh_token: str,
     csrf_token: Optional[str] = None,
 ):
+    samesite = _get_cookie_samesite()
+    secure = settings.COOKIE_SECURE or (samesite == "none")
+
     response.set_cookie(
         key="landos_access_token",
         value=access_token,
         httponly=True,
-        secure=settings.COOKIE_SECURE,
-        samesite="lax",
+        secure=secure,
+        samesite=samesite,
         max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60,
         path="/",
     )
@@ -66,8 +77,8 @@ def set_auth_cookies(
         key="landos_refresh_token",
         value=refresh_token,
         httponly=True,
-        secure=settings.COOKIE_SECURE,
-        samesite="lax",
+        secure=secure,
+        samesite=samesite,
         max_age=settings.REFRESH_TOKEN_EXPIRE_DAYS * 86400,
         path="/",
     )
@@ -76,17 +87,19 @@ def set_auth_cookies(
             key="landos_csrf_token",
             value=csrf_token,
             httponly=False,  # JavaScript readable for double-submit CSRF defense
-            secure=settings.COOKIE_SECURE,
-            samesite="lax",
+            secure=secure,
+            samesite=samesite,
             max_age=settings.REFRESH_TOKEN_EXPIRE_DAYS * 86400,
             path="/",
         )
 
 
 def clear_auth_cookies(response: Response):
-    response.delete_cookie(key="landos_access_token", path="/")
-    response.delete_cookie(key="landos_refresh_token", path="/")
-    response.delete_cookie(key="landos_csrf_token", path="/")
+    samesite = _get_cookie_samesite()
+    secure = settings.COOKIE_SECURE or (samesite == "none")
+    response.delete_cookie(key="landos_access_token", path="/", secure=secure, samesite=samesite)
+    response.delete_cookie(key="landos_refresh_token", path="/", secure=secure, samesite=samesite)
+    response.delete_cookie(key="landos_csrf_token", path="/", secure=secure, samesite=samesite)
 
 
 @router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
@@ -147,7 +160,11 @@ async def register(
     return new_user
 
 
-@router.post("/login", response_model=UserResponse)
+@router.post(
+    "/login",
+    response_model=UserResponse,
+    dependencies=[Depends(rate_limit(requests=15, window_seconds=60))],
+)
 async def login(
     request: Request,
     response: Response,
@@ -372,7 +389,10 @@ async def change_password(
     return {"status": "success", "message": "Password updated successfully. Please log in again."}
 
 
-@router.post("/password/reset-request")
+@router.post(
+    "/password/reset-request",
+    dependencies=[Depends(rate_limit(requests=10, window_seconds=60))],
+)
 async def request_password_reset(
     payload: PasswordResetRequest,
     db: AsyncSession = Depends(get_db),
@@ -416,7 +436,10 @@ async def request_password_reset(
     }
 
 
-@router.post("/password/reset-confirm")
+@router.post(
+    "/password/reset-confirm",
+    dependencies=[Depends(rate_limit(requests=10, window_seconds=60))],
+)
 async def confirm_password_reset(
     payload: PasswordResetConfirmRequest,
     db: AsyncSession = Depends(get_db),

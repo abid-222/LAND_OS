@@ -53,10 +53,40 @@ def revoke_user_refresh_tokens(user_id: str, jti: str | None = None):
         _REVOKED_JTIS.add(jti)
 
 
+def _get_redis():
+    try:
+        import redis
+
+        from app.core.config import settings
+
+        r = redis.Redis.from_url(
+            settings.REDIS_URL,
+            socket_connect_timeout=0.2,
+            socket_timeout=0.2,
+            decode_responses=True,
+        )
+        r.ping()
+        return r
+    except Exception:
+        return None
+
+
 def record_failed_login(email: str) -> int:
     """Records failed attempt timestamp. Returns current failed attempts in window."""
     now = time.time()
     clean_email = email.lower().strip()
+
+    # Redis attempt recording
+    r = _get_redis()
+    if r is not None:
+        try:
+            key = f"landos:lockout:{clean_email}"
+            val = r.incr(key)
+            if val == 1:
+                r.expire(key, LOCKOUT_DURATION_SECONDS)
+        except Exception:
+            pass
+
     attempts = _LOGIN_FAILURES.get(clean_email, [])
     # Filter attempts within lockout window
     recent = [t for t in attempts if now - t < LOCKOUT_DURATION_SECONDS]
@@ -67,8 +97,20 @@ def record_failed_login(email: str) -> int:
 
 def is_account_locked(email: str) -> bool:
     """Checks if account is locked due to excessive failed attempts."""
-    now = time.time()
     clean_email = email.lower().strip()
+
+    # Check Redis first
+    r = _get_redis()
+    if r is not None:
+        try:
+            key = f"landos:lockout:{clean_email}"
+            val = r.get(key)
+            if val and int(val) >= MAX_FAILED_ATTEMPTS:
+                return True
+        except Exception:
+            pass
+
+    now = time.time()
     attempts = _LOGIN_FAILURES.get(clean_email, [])
     recent = [t for t in attempts if now - t < LOCKOUT_DURATION_SECONDS]
     _LOGIN_FAILURES[clean_email] = recent
@@ -77,4 +119,12 @@ def is_account_locked(email: str) -> bool:
 
 def clear_failed_logins(email: str):
     """Resets failed login attempts upon successful login."""
-    _LOGIN_FAILURES.pop(email.lower().strip(), None)
+    clean_email = email.lower().strip()
+    r = _get_redis()
+    if r is not None:
+        try:
+            key = f"landos:lockout:{clean_email}"
+            r.delete(key)
+        except Exception:
+            pass
+    _LOGIN_FAILURES.pop(clean_email, None)

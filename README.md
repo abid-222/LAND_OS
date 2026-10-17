@@ -11,7 +11,7 @@ Get Bangladesh LandOS running locally with full database, Redis queues, MinIO st
 
 ```bash
 # 1. Clone the repository and enter directory
-git clone https://github.com/bangladesh-landos/landos.git && cd landos
+git clone https://github.com/abid-222/LAND_OS.git && cd LAND_OS
 
 # 2. Copy environment configuration
 cp .env.example .env
@@ -20,7 +20,7 @@ cp .env.example .env
 docker compose up -d
 
 # 4. Seed database (8 demo roles, 40 mouzas, 5,000+ land records, 12 KB articles)
-docker compose exec backend python app/modules/documents/seed.py
+docker compose exec api python app/modules/documents/seed.py
 
 # 5. Access the Web Application
 # Open in browser: http://localhost:5173
@@ -53,7 +53,7 @@ Key runtime environment variables configured in `.env` (derived from `.env.examp
 
 | Variable | Default Value | Description |
 | :--- | :--- | :--- |
-| `DATABASE_URL` | `postgresql+asyncpg://landos:landos@localhost:5432/landos` | Main relational database with PostGIS & pgvector |
+| `DATABASE_URL` | `postgresql+asyncpg://landos_user:landos_dev_password@localhost:5432/landos_db` | Main relational database with PostGIS & pgvector |
 | `REDIS_URL` | `redis://localhost:6379/0` | Async background job queue and SSE progress broker |
 | `MINIO_ENDPOINT` | `localhost:9000` | S3-compatible object storage for document scans |
 | `MINIO_BUCKET` | `landos-documents` | Private bucket for ingested document images |

@@ -39,6 +39,22 @@ async def lifespan(app: FastAPI):
     # Initialize logging
     setup_logging(settings.LOG_LEVEL)
     logger.info(f"Starting {settings.PROJECT_NAME} in [{settings.ENVIRONMENT}] environment.")
+
+    # Production Startup Security Guard
+    if settings.ENVIRONMENT == "production":
+        default_secret = "development_secret_key_change_in_production_min_32_bytes_long"
+        if settings.SECRET_KEY == default_secret or len(settings.SECRET_KEY) < 32:
+            logger.critical(
+                "PRODUCTION STARTUP ABORTED: Insecure or default SECRET_KEY in production mode!"
+            )
+            raise RuntimeError(
+                "Insecure or default SECRET_KEY in production mode. Refusing to start."
+            )
+        if settings.DEMO_PASSWORD == "Password123!":
+            logger.warning(
+                "PRODUCTION NOTICE: Default DEMO_PASSWORD detected; demo accounts disabled."
+            )
+
     yield
     logger.info(f"Shutting down {settings.PROJECT_NAME}.")
 
@@ -53,22 +69,31 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Request Timeout Middleware (5s default threshold, exempting SSE streams)
-app.add_middleware(RequestTimeoutMiddleware, timeout_seconds=5.0)
+# Request Timeout Middleware (per-route class threshold: 60s for heavy ops, 15s standard, exempting SSE streams)
+app.add_middleware(RequestTimeoutMiddleware, default_timeout=15.0, extended_timeout=60.0)
 
 # Prometheus p95 Latency & Request Monitoring Middleware
 app.add_middleware(PrometheusLatencyMiddleware)
 
-# CORS Middleware (strict allow-list from settings with credentials support + Vercel regex)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=settings.BACKEND_CORS_ORIGINS,
-    allow_origin_regex=r"https://.*\.vercel\.app|http://localhost:\d+",
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-    expose_headers=["X-LandOS-MFA-Required", "X-CSRF-Token"],
-)
+if settings.CORS_ORIGIN_REGEX:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.BACKEND_CORS_ORIGINS,
+        allow_origin_regex=settings.CORS_ORIGIN_REGEX,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+        expose_headers=["X-LandOS-MFA-Required", "X-CSRF-Token"],
+    )
+else:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.BACKEND_CORS_ORIGINS,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+        expose_headers=["X-LandOS-MFA-Required", "X-CSRF-Token"],
+    )
 
 
 @app.middleware("http")
