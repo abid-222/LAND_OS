@@ -50,6 +50,9 @@ class Permission(str, Enum):
     AUDIT_VIEW = "audit:view"
     AUDIT_VERIFY = "audit:verify"
     SYSTEM_CONFIGURE = "system:configure"
+    NAMJARI_APPLY = "namjari:apply"
+    NAMJARI_REVIEW = "namjari:review"
+    NAMJARI_APPROVE = "namjari:approve"
 
 
 # Explicit Deny-By-Default Permission Matrix
@@ -62,6 +65,7 @@ PERMISSION_MATRIX: Dict[Role, Dict[Permission, Scope]] = {
         Permission.RECORD_SEARCH: Scope.GLOBAL,
         Permission.CASE_CREATE: Scope.OWN,
         Permission.CASE_VIEW: Scope.OWN,
+        Permission.NAMJARI_APPLY: Scope.OWN,
     },
     Role.OPERATOR: {
         Permission.DOCUMENT_UPLOAD: Scope.OFFICE,
@@ -70,6 +74,7 @@ PERMISSION_MATRIX: Dict[Role, Dict[Permission, Scope]] = {
         Permission.RECORD_VIEW_SENSITIVE: Scope.OFFICE,
         Permission.CASE_CREATE: Scope.OFFICE,
         Permission.CASE_VIEW: Scope.OFFICE,
+        Permission.NAMJARI_APPLY: Scope.OFFICE,
     },
     Role.REVIEWER: {
         Permission.DOCUMENT_READ: Scope.OFFICE,
@@ -78,6 +83,7 @@ PERMISSION_MATRIX: Dict[Role, Dict[Permission, Scope]] = {
         Permission.RECORD_EDIT: Scope.ASSIGNED,
         Permission.CASE_VIEW: Scope.OFFICE,
         Permission.CASE_REVIEW: Scope.ASSIGNED,
+        Permission.NAMJARI_REVIEW: Scope.ASSIGNED,
     },
     Role.SUPERVISOR: {
         Permission.DOCUMENT_READ: Scope.OFFICE,
@@ -88,6 +94,8 @@ PERMISSION_MATRIX: Dict[Role, Dict[Permission, Scope]] = {
         Permission.CASE_ASSIGN: Scope.OFFICE,
         Permission.CASE_REVIEW: Scope.OFFICE,
         Permission.CASE_APPROVE: Scope.OFFICE,
+        Permission.NAMJARI_REVIEW: Scope.OFFICE,
+        Permission.NAMJARI_APPROVE: Scope.OFFICE,
     },
     Role.OFFICE_ADMIN: {
         Permission.DOCUMENT_READ: Scope.OFFICE,
@@ -105,6 +113,8 @@ PERMISSION_MATRIX: Dict[Role, Dict[Permission, Scope]] = {
         Permission.CASE_REVIEW: Scope.REGION,
         Permission.CASE_APPROVE: Scope.REGION,
         Permission.USER_READ: Scope.REGION,
+        Permission.NAMJARI_REVIEW: Scope.REGION,
+        Permission.NAMJARI_APPROVE: Scope.REGION,
     },
     Role.SECURITY_OFFICER: {
         Permission.RECORD_VIEW_SENSITIVE: Scope.GLOBAL,

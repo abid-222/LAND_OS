@@ -15,7 +15,7 @@ import json
 import os
 import sys
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 repo_root = os.path.abspath(os.path.join(current_dir, ".."))
@@ -135,9 +135,11 @@ async def seed():
             ("securityofficer@landos.gov.bd", "Security Officer", "সাইবার নিরাপত্তা কর্মকর্তা", "Cyber Security Officer", None, None, True, DEMO_MFA_SECRET),
             ("techadmin@landos.gov.bd", "Tech Admin", "সিস্টেম টেকনিক্যাল অ্যাডমিন", "System Technical Administrator", off_tejgaon.id, reg_dhaka.id, True, DEMO_MFA_SECRET),
         ]
+        demo_user_map = {}
         for email, role, bn, en, off_id, reg_id, mfa, secret in demo_users:
+            u_id = uuid.uuid4()
             u = User(
-                id=uuid.uuid4(),
+                id=u_id,
                 email=email,
                 phone="01700000000",
                 full_name_bn=bn,
@@ -151,6 +153,7 @@ async def seed():
                 mfa_secret=secret,
             )
             session.add(u)
+            demo_user_map[role] = u_id
         await session.commit()
         print("Seeded 8 RBAC demo accounts.")
 
@@ -356,7 +359,192 @@ async def seed():
         ])
         await session.commit()
 
-        # 7. KB Articles
+        # 7. Seed Demo E-Namjari Applications (P4)
+        citizen_id = demo_user_map.get("Citizen")
+        operator_id = demo_user_map.get("Operator")
+        reviewer_id = demo_user_map.get("Reviewer")
+        supervisor_id = demo_user_map.get("Supervisor")
+
+        demo_apps = [
+            {
+                "tracking_code": "NJ-2026-1001",
+                "parcel_id": "P-CLEAN-01",
+                "status": "khatian_updated",
+                "auto_status": "passed",
+                "deed_no": "D-2023-8812",
+                "sla_days": 15,
+                "reason": None,
+                "events": [
+                    ("submitted", "Citizen", "আবেদন দাখিল করা হয়েছে এবং রেজিস্ট্রেশন দলিল সংযুক্ত।"),
+                    ("auto_verification", "System (AI Risk Engine)", "স্বয়ংক্রিয় তথ্য নিরীক্ষা সম্পন্ন: শতভাগ নির্ভুল।"),
+                    ("documents_review", "Reviewer", "মূল দলিল ও নামজারি পূর্বশর্তাবলী সঠিক পাওয়া গেছে।"),
+                    ("hearing_notice", "Reviewer", "উভয় পক্ষের উপস্থিতিতে শুনানি সম্পন্ন হয়েছে।"),
+                    ("approved", "Supervisor", "সহকারী কমিশনার (ভূমি) কর্তৃক নামজারি প্রস্তাব অনুমোদিত।"),
+                    ("khatian_updated", "Supervisor", "নতুন খতিয়ান প্রস্তুত ও ভূমি রেকর্ড হালনাগাদ সম্পন্ন।"),
+                ],
+            },
+            {
+                "tracking_code": "NJ-2026-1002",
+                "parcel_id": "P-CLEAN-02",
+                "status": "approved",
+                "auto_status": "passed",
+                "deed_no": "D-2024-1025",
+                "sla_days": 15,
+                "reason": None,
+                "events": [
+                    ("submitted", "Citizen", "অনলাইনে ই-নামজারি আবেদন দাখিলকৃত।"),
+                    ("auto_verification", "System (AI Risk Engine)", "স্বয়ংক্রিয় প্রি-ভেরিফিকেশন সম্পন্ন: কোনো অসঙ্গতি নেই।"),
+                    ("documents_review", "Reviewer", "নথিপত্র যাচাই সম্পন্ন।"),
+                    ("hearing_notice", "Reviewer", "শুনানি সম্পন্ন হয়েছে।"),
+                    ("approved", "Supervisor", "নামজারি মঞ্জুর করা হলো। ডিএইচসি ফি জমাদান সাপেক্ষে খতিয়ান প্রস্তুত হবে।"),
+                ],
+            },
+            {
+                "tracking_code": "NJ-2026-1003",
+                "parcel_id": "P-CLEAN-03",
+                "status": "hearing_notice",
+                "auto_status": "passed",
+                "deed_no": "D-2024-3058",
+                "sla_days": 21,
+                "reason": None,
+                "events": [
+                    ("submitted", "Operator", "ইউনিয়ন ভূমি অফিসের মাধ্যমে আবেদন জমা হয়েছে।"),
+                    ("auto_verification", "System (AI Risk Engine)", "স্বয়ংক্রিয় নিরীক্ষা উত্তীর্ণ।"),
+                    ("documents_review", "Reviewer", "কাগজপত্র সঠিক।"),
+                    ("hearing_notice", "Reviewer", "আগামী শুনানির নোটিশ জারি করা হলো।"),
+                ],
+            },
+            {
+                "tracking_code": "NJ-2026-1004",
+                "parcel_id": "P-4520",
+                "status": "rejected",
+                "auto_status": "failed",
+                "deed_no": "DEED-2023-02",
+                "sla_days": 7,
+                "reason": "দ্বৈত বিক্রয় ঝুঁকি (R1): একই দাগে পূর্বে সম্পাদিত ও অনিষ্পন্ন হস্তান্তর বিদ্যমান।",
+                "events": [
+                    ("submitted", "Citizen", "আবেদন দাখিল করা হয়েছে।"),
+                    ("auto_verification", "System (AI Risk Engine)", "স্বয়ংক্রিয় নিরীক্ষায় দ্বৈত বিক্রয় (R1) অসঙ্গতি চিহ্নিত।"),
+                    ("rejected", "Supervisor", "স্বয়ংক্রিয় ঝুঁকি ইঞ্জিন দ্বারা দ্বৈত বিক্রয়ের প্রমাণ পাওয়ায় আবেদন নামঞ্জুর।"),
+                ],
+            },
+            {
+                "tracking_code": "NJ-2026-1005",
+                "parcel_id": "P-KHAS-01",
+                "status": "rejected",
+                "auto_status": "failed",
+                "deed_no": "D-2024-7714",
+                "sla_days": 7,
+                "reason": "খাস জমি (R7): সরকারি খাস/অর্পিত জমিতে ব্যক্তিমালিকানাধীন নামজারি আইনত নিষিদ্ধ।",
+                "events": [
+                    ("submitted", "Citizen", "আবেদন দাখিল করা হয়েছে।"),
+                    ("auto_verification", "System (AI Risk Engine)", "খাস জমি (R7) শ্রেণীভুক্ত জমি শনাক্ত হয়েছে।"),
+                    ("rejected", "Supervisor", "সরকারি খাস জমিতে নামজারি আইনত নিষিদ্ধ হওয়ায় নামঞ্জুর।"),
+                ],
+            },
+            {
+                "tracking_code": "NJ-2026-1006",
+                "parcel_id": "P-LIT-01",
+                "status": "documents_review",
+                "auto_status": "warn",
+                "deed_no": "D-2024-5129",
+                "sla_days": 28,
+                "reason": "আদালতে দেওয়ানি মামলা বিচারাধীন রয়েছে (R8)।",
+                "events": [
+                    ("submitted", "Citizen", "আবেদন দাখিলকৃত।"),
+                    ("auto_verification", "System (AI Risk Engine)", "আদালতে দেওয়ানি মামলা সম্পর্কিত সতর্কতা জারি।"),
+                    ("documents_review", "Reviewer", "আদালতের কোনো স্থগিতাদেশ আছে কিনা তা নিরীক্ষা চলছে।"),
+                ],
+            },
+            {
+                "tracking_code": "NJ-2026-1007",
+                "parcel_id": "P-CLEAN-04",
+                "status": "field_verification",
+                "auto_status": "warn",
+                "deed_no": "D-2024-6041",
+                "sla_days": 25,
+                "reason": None,
+                "events": [
+                    ("submitted", "Citizen", "অনলাইনে আবেদন দাখিলকৃত।"),
+                    ("auto_verification", "System (AI Risk Engine)", "স্বয়ংক্রিয় নিরীক্ষা সম্পন্ন।"),
+                    ("documents_review", "Reviewer", "জমির দাগের সীমানা পুনর্নির্ধারণ প্রয়োজন।"),
+                    ("field_verification", "Reviewer", "ইউনিয়ন ভূমি সহকারী কর্মকর্তাকে সরেজমিন তদন্তের দায়িত্ব দেওয়া হলো।"),
+                ],
+            },
+            {
+                "tracking_code": "NJ-2026-1008",
+                "parcel_id": "P-CLEAN-05",
+                "status": "needs_correction",
+                "auto_status": "warn",
+                "deed_no": "D-2024-9182",
+                "sla_days": 14,
+                "reason": "ওয়ারিশান সনদ অস্পষ্ট। হালনাগাদ মূল সনদ আপলোড আবশ্যক।",
+                "events": [
+                    ("submitted", "Citizen", "আবেদন দাখিলকৃত।"),
+                    ("auto_verification", "System (AI Risk Engine)", "স্বয়ংক্রিয় নিরীক্ষা সম্পন্ন।"),
+                    ("documents_review", "Reviewer", "সংযুক্ত ওয়ারিশান সনদ অস্পষ্ট।"),
+                    ("needs_correction", "Supervisor", "সংশোধিত ওয়ারিশান সনদসহ পুনরায় প্রেরণের নির্দেশ।"),
+                ],
+            },
+        ]
+
+        now = datetime.now(timezone.utc)
+        for app_info in demo_apps:
+            a_id = uuid.uuid4()
+            app_obj = NamjariApplication(
+                id=a_id,
+                tracking_code=app_info["tracking_code"],
+                parcel_id=app_info["parcel_id"],
+                deed_document_id=None,
+                applicant_user_id=citizen_id,
+                registry_office="তেজগাঁও সাব-রেজিস্ট্রি অফিস, ঢাকা",
+                deed_no=app_info["deed_no"],
+                deed_date=now,
+                registration_verified=True,
+                status=app_info["status"],
+                auto_verification_status=app_info["auto_status"],
+                verification_checklist={
+                    "status": app_info["auto_status"],
+                    "items": [
+                        {"id": "chk_qr", "label_bn": "দলিল কিউআর ও অখণ্ডতা", "status": "pass"},
+                        {"id": "chk_seller", "label_bn": "মালিকানার ধারাবাহিকতা", "status": "pass"},
+                        {
+                            "id": "chk_double_sale",
+                            "label_bn": "দ্বৈত বিক্রয় ঝুঁকি (R1)",
+                            "status": "fail" if app_info["tracking_code"] == "NJ-2026-1004" else "pass",
+                        },
+                        {
+                            "id": "chk_khas",
+                            "label_bn": "খাস জমি যাচাই (R7)",
+                            "status": "fail" if app_info["tracking_code"] == "NJ-2026-1005" else "pass",
+                        },
+                    ],
+                },
+                decision_reason=app_info["reason"],
+                sla_due_at=now + timedelta(days=app_info["sla_days"]),
+                created_at=now - timedelta(days=5),
+            )
+            session.add(app_obj)
+            await session.flush()
+
+            for step_idx, (st, role_name, note_txt) in enumerate(app_info["events"]):
+                actor = demo_user_map.get(role_name)
+                session.add(
+                    NamjariEvent(
+                        id=uuid.uuid4(),
+                        application_id=a_id,
+                        status=st,
+                        actor_id=actor,
+                        actor_role=role_name,
+                        note=note_txt,
+                        at=now - timedelta(days=5 - step_idx),
+                    )
+                )
+
+        await session.commit()
+        print(f"Seeded {len(demo_apps)} demo e-namjari applications with full timelines.")
+
+        # 8. KB Articles
         kb_files = glob.glob(os.path.join(repo_root, "data", "kb", "*.md"))
         for f_path in kb_files:
             slug = os.path.splitext(os.path.basename(f_path))[0]

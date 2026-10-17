@@ -71,6 +71,24 @@ def test_deny_by_default_on_unknown():
     assert has_permission(Role.TECH_ADMIN, Permission.CASE_REVIEW) is False
     assert has_permission(Role.TECH_ADMIN, Permission.CASE_APPROVE) is False
     assert has_permission(Role.TECH_ADMIN, Permission.RECORD_EDIT) is False
+    assert has_permission(Role.TECH_ADMIN, Permission.NAMJARI_REVIEW) is False
+    assert has_permission(Role.TECH_ADMIN, Permission.NAMJARI_APPROVE) is False
 
-    # Security Officer cannot edit records (1.9 requirement)
+    # Namjari permissions per role
+    assert has_permission(Role.CITIZEN, Permission.NAMJARI_APPLY) is True
+    assert has_permission(Role.CITIZEN, Permission.NAMJARI_REVIEW) is False
+    assert has_permission(Role.CITIZEN, Permission.NAMJARI_APPROVE) is False
+
+    assert has_permission(Role.OPERATOR, Permission.NAMJARI_APPLY) is True
+    assert has_permission(Role.OPERATOR, Permission.NAMJARI_REVIEW) is False
+    assert has_permission(Role.OPERATOR, Permission.NAMJARI_APPROVE) is False
+
+    assert has_permission(Role.REVIEWER, Permission.NAMJARI_REVIEW) is True
+    assert has_permission(Role.REVIEWER, Permission.NAMJARI_APPROVE) is False
+
+    assert has_permission(Role.SUPERVISOR, Permission.NAMJARI_REVIEW) is True
+    assert has_permission(Role.SUPERVISOR, Permission.NAMJARI_APPROVE) is True
+
+    # Security Officer cannot edit records or decide namjari
     assert has_permission(Role.SECURITY_OFFICER, Permission.RECORD_EDIT) is False
+    assert has_permission(Role.SECURITY_OFFICER, Permission.NAMJARI_APPROVE) is False

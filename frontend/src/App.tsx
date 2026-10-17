@@ -34,6 +34,7 @@ const StaffPage = lazy(() => import('./pages/StaffPage').then((m) => ({ default:
 const AdminPage = lazy(() => import('./pages/AdminPage').then((m) => ({ default: m.AdminPage })));
 const QualityLabPage = lazy(() => import('./pages/QualityLabPage').then((m) => ({ default: m.QualityLabPage })));
 const MLStudioPage = lazy(() => import('./pages/MLStudioPage').then((m) => ({ default: m.MLStudioPage })));
+const NamjariPage = lazy(() => import('./pages/NamjariPage').then((m) => ({ default: m.NamjariPage })));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -313,6 +314,13 @@ const AppContent: React.FC = () => {
                 {activeTab === 'guide' && <GuidePage />}
 
                 {activeTab === 'ml' && <MLStudioPage onNavigateToTab={handleNavigate} />}
+
+                {activeTab === 'namjari' && (
+                  <NamjariPage
+                    onNavigateToTab={handleNavigate}
+                    initialParcelId={selectedParcelId}
+                  />
+                )}
 
                 {activeTab === 'pending' && <PendingUploadsPage />}
               </>

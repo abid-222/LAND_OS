@@ -20,6 +20,7 @@ import {
   X,
   Compass,
   Sparkles,
+  GitBranch,
 } from 'lucide-react';
 import { type UserRole, canAccessTab } from '../lib/authStore';
 
@@ -66,6 +67,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'search', labelBn: 'খতিয়ান ও দাগ রেকর্ড', labelEn: 'Record Search', icon: Search },
     { id: 'map', labelBn: '৩ডি ক্যাডাস্ট্রাল ম্যাপ', labelEn: '3D Cadastral Map', icon: MapIcon },
     { id: 'report', labelBn: 'বায়ার ডিউ ডিলিজেন্স', labelEn: 'Buyer Report', icon: FileCheck2 },
+    { id: 'namjari', labelBn: 'স্মার্ট ই-নামজারি', labelEn: 'Smart E-Namjari', icon: GitBranch },
     { id: 'guide', labelBn: 'এআই ভূমি নির্দেশিকা', labelEn: 'AI Land Guide', icon: Bot },
     { id: 'ml', labelBn: 'ইন্টারেক্টিভ এমএল স্টুডিও', labelEn: 'ML Studio', icon: Sparkles },
     { id: 'pending', labelBn: 'অফলাইন কিউ', labelEn: 'Offline Queue', icon: Clock, count: pendingCount },

@@ -132,6 +132,16 @@ export const TAB_ROLE_PERMISSIONS: Record<string, UserRole[]> = {
     'Security Officer',
     'Tech Admin',
   ],
+  namjari: [
+    'Citizen',
+    'Operator',
+    'Reviewer',
+    'Supervisor',
+    'Office Admin',
+    'Regional Manager',
+    'Security Officer',
+    'Tech Admin',
+  ],
   pending: ['Citizen', 'Operator', 'Reviewer'],
   staff: ['Operator', 'Reviewer', 'Supervisor', 'Office Admin', 'Regional Manager', 'Tech Admin'],
   admin: ['Office Admin', 'Regional Manager', 'Security Officer', 'Tech Admin', 'Supervisor'],
@@ -141,7 +151,7 @@ export const TAB_ROLE_PERMISSIONS: Record<string, UserRole[]> = {
 export function canAccessTab(tab: string, role?: UserRole | null): boolean {
   // Public tabs if unauthenticated
   if (!role) {
-    return ['home', 'search', 'guide', 'map', 'report', 'ml'].includes(tab);
+    return ['home', 'search', 'guide', 'map', 'report', 'ml', 'namjari'].includes(tab);
   }
   const allowed = TAB_ROLE_PERMISSIONS[tab];
   if (!allowed) return true;

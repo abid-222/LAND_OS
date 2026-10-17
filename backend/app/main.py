@@ -23,6 +23,7 @@ from app.modules.guide.router import router as guide_router
 from app.modules.health.router import router as health_router
 from app.modules.map.router import router as map_router
 from app.modules.ml.router import router as ml_router
+from app.modules.namjari.router import router as namjari_router
 from app.modules.notifications.router import router as notifications_router
 from app.modules.quality.router import router as quality_router
 from app.modules.records.router import router as records_router
@@ -159,6 +160,7 @@ app.include_router(notifications_router, prefix=settings.API_V1_PREFIX)
 app.include_router(feedback_router, prefix=settings.API_V1_PREFIX)
 app.include_router(consent_router, prefix=settings.API_V1_PREFIX)
 app.include_router(ml_router, prefix=settings.API_V1_PREFIX)
+app.include_router(namjari_router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get(
