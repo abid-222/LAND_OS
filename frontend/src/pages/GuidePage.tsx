@@ -18,12 +18,26 @@ import {
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { DisclaimerBanner } from '../components/DisclaimerBanner';
+import { apiFetch } from '../api/client';
 
 interface CitationSource {
   title: string;
   act_or_rule: string;
   url?: string;
   last_verified?: string;
+}
+
+interface GuideApiResponse {
+  status: 'verified_source' | 'needs_verification';
+  answer_bn: string;
+  answer_en: string;
+  source?: string | null;
+  last_verified_at?: string | null;
+  similarity_score?: number | null;
+  disclaimer_bn?: string;
+  answer?: string;
+  citations?: CitationSource[];
+  sources?: Array<{ title?: string; act?: string; url?: string; verified_at?: string }>;
 }
 
 interface ChatMessage {
@@ -313,32 +327,47 @@ export const GuidePage: React.FC = () => {
     setIsSending(true);
 
     try {
-      const res = await fetch('/api/v1/guide/ask', {
+      const data = await apiFetch<GuideApiResponse>('/api/v1/guide/ask', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: queryText.trim() }),
       });
 
-      if (!res.ok) throw new Error('সহায়কের উত্তর প্রাপ্তিতে ত্রুটি হয়েছে');
-
-      const data = await res.json();
       const needsVerification = data.status === 'needs_verification';
+      const answerContent = isBn
+        ? (data.answer_bn || data.answer)
+        : (data.answer_en || data.answer || data.answer_bn);
+
+      const resolvedText = answerContent || (needsVerification
+        ? (isBn
+            ? 'তথ্য যাচাই প্রয়োজন: এই বিষয়ে পর্যাপ্ত নির্ভরযোগ্য সরকারি আইন বা পরিপত্র ডাটাবেজে পাওয়া যায়নি। অনুগ্রহ করে সংশ্লিষ্ট সহকারী কমিশনার (ভূমি) অফিসে যোগাযোগ করুন অথবা ১৬১২২ হেল্পলাইনে কল করুন।'
+            : 'Verification required: Sufficient official circulars were not matched. Please consult your local AC (Land) office or call 16122.')
+        : (isBn ? 'উত্তর প্রস্তুত করা সম্ভব হয়নি।' : 'Unable to generate response.'));
+
+      let citationsList = data.citations;
+      if (!citationsList && data.source) {
+        citationsList = [
+          {
+            title: data.source,
+            act_or_rule: isBn ? 'ভূমি সেবা নীতিমালা ও সরকারি সার্কুলার' : 'Land Service Policy & Circulars',
+            url: 'https://minland.gov.bd',
+            last_verified: data.last_verified_at ? data.last_verified_at.slice(0, 10) : undefined,
+          },
+        ];
+      } else if (!citationsList && data.sources) {
+        citationsList = data.sources.map((s) => ({
+          title: s.title || (isBn ? 'ভূমি মন্ত্রণালয় পরিপত্র' : 'Ministry of Land Circular'),
+          act_or_rule: s.act || (isBn ? 'রাষ্ট্রীয় অধিগ্রহণ ও প্রজাস্বত্ব আইন ১৯৫০' : 'State Acquisition and Tenancy Act 1950'),
+          url: s.url || 'https://minland.gov.bd',
+          last_verified: s.verified_at || '২০২৬-০২-১৫',
+        }));
+      }
 
       const assistantMsg: ChatMessage = {
         id: `asst-${Date.now()}`,
         sender: 'assistant',
-        text: data.answer || (needsVerification
-          ? 'তথ্য যাচাই প্রয়োজন: এই বিষয়ে পর্যাপ্ত নির্ভরযোগ্য সরকারি আইন বা পরিপত্র ডাটাবেজে পাওয়া যায়নি। অনুগ্রহ করে সংশ্লিষ্ট সহকারী কমিশনার (ভূমি) অফিসে যোগাযোগ করুন।'
-          : 'উত্তর প্রস্তুত করা সম্ভব হয়নি।'),
+        text: resolvedText,
         needsVerification,
-        citations: data.citations || (data.sources
-          ? data.sources.map((s: { title?: string; act?: string; url?: string; verified_at?: string }) => ({
-              title: s.title || 'ভূমি মন্ত্রণালয় পরিপত্র',
-              act_or_rule: s.act || 'রাষ্ট্রীয় অধিগ্রহণ ও প্রজাস্বত্ব আইন ১৯৫০',
-              url: s.url || 'https://minland.gov.bd',
-              last_verified: s.verified_at || '২০২৬-০২-১৫',
-            }))
-          : undefined),
+        citations: citationsList,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
 
@@ -347,7 +376,9 @@ export const GuidePage: React.FC = () => {
       const fallbackMsg: ChatMessage = {
         id: `err-${Date.now()}`,
         sender: 'assistant',
-        text: 'তথ্য যাচাই প্রয়োজন: নেটওয়ার্ক সমস্যার কারণে আইনি ডাটাবেজ যাচাই করা যায়নি। অনুগ্রহ করে পুনরায় চেষ্টা করুন।',
+        text: isBn
+          ? 'তথ্য যাচাই প্রয়োজন: সার্ভারের সাথে সংযোগে সাময়িক সমস্যা হয়েছে। অনুগ্রহ করে পুনরায় চেষ্টা করুন অথবা ১৬১২২ হেল্পলাইনে যোগাযোগ করুন।'
+          : 'Verification required: Temporary network issue connecting to the legal database. Please try again or contact the 16122 hotline.',
         needsVerification: true,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };

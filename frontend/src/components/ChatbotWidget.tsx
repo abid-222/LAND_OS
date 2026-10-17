@@ -17,6 +17,7 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { parseVoiceCommand, type VoiceCommandIntent } from '../lib/normalize';
+import { apiFetch } from '../api/client';
 
 interface ActionCard {
   type: 'buyer_report' | 'namjari_track' | 'parcel_watch' | 'search_record';
@@ -310,18 +311,23 @@ export const ChatbotWidget: React.FC<ChatbotWidgetProps> = ({ onNavigate }) => {
 
     // 2. Query grounded AI Land Guide API
     try {
-      const res = await fetch('/api/v1/guide/ask', {
+      const data = await apiFetch<{
+        answer_bn?: string;
+        answer_en?: string;
+        source?: string;
+        last_verified_at?: string;
+        disclaimer_bn?: string;
+        disclaimer_en?: string;
+      }>('/api/v1/guide/ask', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: q }),
       });
 
-      if (!res.ok) {
-        throw new Error(`Guide API error: ${res.status}`);
-      }
-
-      const data = await res.json();
-      const botText = isBn ? data.answer_bn : data.answer_en || data.answer_bn;
+      const botText =
+        (isBn ? data.answer_bn : data.answer_en || data.answer_bn) ||
+        (isBn
+          ? 'তথ্য যাচাই প্রয়োজন: সরকারি বিধিমালা অনুযায়ী উপজেলা সহকারী কমিশনার (ভূমি) কার্যালয়ে যোগাযোগ করুন।'
+          : 'Verification required: Please consult the Upazila AC Land Office.');
 
       const botMsg: ChatMessage = {
         id: `b-${Date.now()}`,

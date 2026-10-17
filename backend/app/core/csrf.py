@@ -10,6 +10,8 @@ EXEMPT_PATHS = {
     "/api/v1/auth/refresh",
     "/api/v1/scan/qr",
     "/api/v1/search",
+    "/api/v1/guide/ask",
+    "/api/v1/guide/query",
 }
 
 

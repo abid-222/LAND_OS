@@ -31,12 +31,14 @@ BENGALI_STOPWORDS = {
     "কী",
     "কি",
     "কীভাবে",
+    "কিভাবে",
     "কেন",
     "কার",
     "কোথায়",
     "কখন",
     "কত",
     "পারে",
+    "পারি",
     "হতে",
     "হলে",
     "এবং",
@@ -47,6 +49,11 @@ BENGALI_STOPWORDS = {
     "দিয়ে",
     "করা",
     "করলে",
+    "করতে",
+    "করব",
+    "করবো",
+    "লাগে",
+    "লাগতে",
     "হবে",
     "আছে",
     "না",
@@ -61,6 +68,12 @@ BENGALI_STOPWORDS = {
     "নিয়ে",
     "সার্ভিস",
     "সরকারি",
+    "চাই",
+    "দরকার",
+    "সম্পর্কে",
+    "বলুন",
+    "জানতে",
+    "উপায়",
 }
 
 
@@ -116,6 +129,14 @@ class StaticArticle:
         self.content = content
         self.source = source
         self.last_verified_at = last_verified_at
+
+
+def extract_bn_title(content: str, default_title: str) -> str:
+    for line in content.splitlines():
+        line = line.strip()
+        if line.startswith("# "):
+            return line.lstrip("# ").strip()
+    return default_title
 
 
 @router.post(
@@ -190,7 +211,8 @@ async def ask_land_guide(
     best_score = 0.0
 
     for article in articles:
-        title_lower = article.title.lower()
+        bn_title = extract_bn_title(article.content, article.title)
+        title_lower = f"{article.title} {bn_title}".lower()
         content_lower = article.content.lower()
 
         # Score matching significant keywords
@@ -214,8 +236,8 @@ async def ask_land_guide(
             best_score = total_score
             matched = article
 
-    # Strict confidence threshold: require at least 65% coverage of significant query terms
-    if matched and best_score >= 0.65:
+    # Strict confidence threshold: require at least 50% coverage of significant query terms
+    if matched and best_score >= 0.50:
         verified_date = (
             matched.last_verified_at.isoformat()
             if hasattr(matched, "last_verified_at") and matched.last_verified_at
