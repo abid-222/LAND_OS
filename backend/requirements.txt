@@ -44,3 +44,4 @@ faker>=24.0.0
 qrcode>=7.4.2
 pillow>=10.2.0
 scipy>=1.12.0
+opencv-python-headless>=4.9.0
