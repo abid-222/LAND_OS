@@ -65,3 +65,15 @@ To prevent misinterpretation and guard against hallucination, LandOS operates un
 
 3. **Neutral Discrepancy Reporting**:
    Missing fields or hash mismatches are reported factually as discrepancies (`মেলেনি / অসঙ্গতি`), **never** as defamatory assertions of fraudulent intent or criminal counterfeiting.
+
+---
+
+## 5. Simulated Communication & Voice AI Boundaries (P6)
+
+1. **Simulated SMS Notifications**:
+   All notifications dispatched via the Parcel Guardian watch module (`/api/v1/parcels/{id}/watch`) and displayed in the simulated SMS outbox (`/api/v1/alerts/outbox`) are **entirely simulated** within the application database. No actual SMS messages are transmitted across public telecommunications networks (GP, Banglalink, Robi, Teletalk).
+2. **Bengali Voice Processing**:
+   The voice assistant runs entirely on browser Web Speech APIs (`SpeechRecognition` and `SpeechSynthesis`). Voice audio is parsed for normalized numerical and intent tokens on-device; no private voice recordings are stored or sent to unvetted third-party cloud audio processors.
+3. **Public E-Namjari Tracking**:
+   The public mutation tracking service (`/api/v1/namjari/track/{code}`) serves simulated application tracking codes (e.g. `NJ-2026-1001`) based on seeded demo scenarios and does not link to live Bangladesh Land Ministry mutation databases.
+

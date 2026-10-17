@@ -473,6 +473,46 @@
         }
       }
     },
+    "/api/v1/admin/audit/simulate-tamper": {
+      "post": {
+        "tags": [
+          "Admin Audit Chain"
+        ],
+        "summary": "Simulate database tampering for hackathon presentation",
+        "description": "Intentionally corrupts the payload of the latest audit record without recomputing SHA-256 hash.\nBreaks mathematical cryptographic continuity to demonstrate tamper detection in 0.1 seconds!",
+        "operationId": "simulate_tamper_endpoint_api_v1_admin_audit_simulate_tamper_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/audit/restore-chain": {
+      "post": {
+        "tags": [
+          "Admin Audit Chain"
+        ],
+        "summary": "Restore tampered database record using cryptographic consensus",
+        "description": "Restores the tampered record to its authentic consensus state from immutable peer block proof.",
+        "operationId": "restore_chain_endpoint_api_v1_admin_audit_restore_chain_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/admin/users": {
       "get": {
         "tags": [
@@ -665,7 +705,7 @@
           "QR Code Scanner"
         ],
         "summary": "Scan QR code from document image and verify integrity",
-        "description": "Scans an uploaded document image for QR codes.\nIf the QR payload contains a verification hash, checks mathematical integrity.\nUI Text:\n  Matched: 'নথির তথ্য QR-এর সঙ্গে মিলেছে (মালিকানা যাচাই নয়)'\n  Mismatched / Not found: 'মেলেনি' or 'QR কোড শনাক্ত করা যায়নি'",
+        "description": "Scans an uploaded document image for QR codes.\nIf the QR payload contains a verification hash, checks mathematical integrity.\nUI Text:\n  Matched: '\u09a8\u09a5\u09bf\u09b0 \u09a4\u09a5\u09cd\u09af QR-\u098f\u09b0 \u09b8\u0999\u09cd\u0997\u09c7 \u09ae\u09bf\u09b2\u09c7\u099b\u09c7 (\u09ae\u09be\u09b2\u09bf\u0995\u09be\u09a8\u09be \u09af\u09be\u099a\u09be\u0987 \u09a8\u09af\u09bc)'\n  Mismatched / Not found: '\u09ae\u09c7\u09b2\u09c7\u09a8\u09bf' or 'QR \u0995\u09cb\u09a1 \u09b6\u09a8\u09be\u0995\u09cd\u09a4 \u0995\u09b0\u09be \u09af\u09be\u09af\u09bc\u09a8\u09bf'",
         "operationId": "scan_qr_endpoint_api_v1_scan_qr_post",
         "requestBody": {
           "content": {
@@ -962,6 +1002,46 @@
                 "schema": {
                   "$ref": "#/components/schemas/DownloadUrlResponse"
                 }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents/{document_id}/download": {
+      "get": {
+        "tags": [
+          "Document Scanning & OCR"
+        ],
+        "summary": "Download document binary file directly (local disk or MinIO)",
+        "operationId": "download_document_api_v1_documents__document_id__download_get",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
               }
             }
           },
@@ -1576,6 +1656,138 @@
         }
       }
     },
+    "/api/v1/review/apply": {
+      "post": {
+        "tags": [
+          "Human-in-the-Loop Case Review"
+        ],
+        "summary": "Citizen application (alias)",
+        "operationId": "apply_for_case_api_v1_review_apply_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CitizenCaseApplyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CitizenCaseApplyResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review/cases/apply": {
+      "post": {
+        "tags": [
+          "Human-in-the-Loop Case Review"
+        ],
+        "summary": "Citizen application for land mutation / porcha review",
+        "operationId": "apply_for_case_api_v1_review_cases_apply_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CitizenCaseApplyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CitizenCaseApplyResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review/my-cases": {
+      "get": {
+        "tags": [
+          "Human-in-the-Loop Case Review"
+        ],
+        "summary": "List citizen's own cases (alias)",
+        "operationId": "get_my_cases_api_v1_review_my_cases_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ReviewCaseItem"
+                  },
+                  "type": "array",
+                  "title": "Response Get My Cases Api V1 Review My Cases Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review/cases/my": {
+      "get": {
+        "tags": [
+          "Human-in-the-Loop Case Review"
+        ],
+        "summary": "List citizen's own submitted cases and mutation status",
+        "operationId": "get_my_cases_api_v1_review_cases_my_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ReviewCaseItem"
+                  },
+                  "type": "array",
+                  "title": "Response Get My Cases Api V1 Review Cases My Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/review/cases/{case_id}/decision": {
       "post": {
         "tags": [
@@ -1832,7 +2044,7 @@
           "Image Quality & Pipeline Metrics"
         ],
         "summary": "Get pipeline quality gates and extraction accuracy summary",
-        "description": "Returns verified pipeline quality indicators and model benchmarks.\nCached as public telemetry reference data in Redis.",
+        "description": "Returns verified pipeline quality indicators and model benchmarks.\nComputed dynamically from the latest live evaluation run.",
         "operationId": "get_quality_summary_api_v1_quality_summary_get",
         "responses": {
           "200": {
@@ -1890,13 +2102,39 @@
         }
       }
     },
+    "/api/v1/parcels/watched": {
+      "get": {
+        "tags": [
+          "Cadastral Parcels & Risk Alerts"
+        ],
+        "summary": "List watched parcels for current user",
+        "description": "Returns the list of parcels actively watched by the current user with location & open alerts count.",
+        "operationId": "get_watched_parcels_api_v1_parcels_watched_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/WatchedParcelItem"
+                  },
+                  "type": "array",
+                  "title": "Response Get Watched Parcels Api V1 Parcels Watched Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/parcels/{parcel_id}/alerts": {
       "get": {
         "tags": [
           "Cadastral Parcels & Risk Alerts"
         ],
         "summary": "Get risk & conflict alerts for parcel with reason_bn and evidence",
-        "description": "Returns verified risk and conflict alerts for the specified parcel.\nBangla wording strictly follows 'সম্ভাব্য অসঙ্গতি, যাচাই প্রয়োজন'.\nEvery alert is accompanied by explainable reason_bn and evidence.",
+        "description": "Returns verified risk and conflict alerts for the specified parcel.\nBangla wording strictly follows '\u09b8\u09ae\u09cd\u09ad\u09be\u09ac\u09cd\u09af \u0985\u09b8\u0999\u09cd\u0997\u09a4\u09bf, \u09af\u09be\u099a\u09be\u0987 \u09aa\u09cd\u09b0\u09af\u09bc\u09cb\u099c\u09a8'.\nEvery alert is accompanied by explainable reason_bn and evidence.",
         "operationId": "get_parcel_alerts_api_v1_parcels__parcel_id__alerts_get",
         "parameters": [
           {
@@ -1962,7 +2200,7 @@
           "Cadastral Parcels & Risk Alerts"
         ],
         "summary": "Execute risk & conflict rules engine idempotently (Reviewer/Supervisor/Tech Admin)",
-        "description": "Executes rules R1 to R6 on the parcel context in an idempotent, deduplicated manner.\nRBAC: Enforced strictly for Reviewer, Supervisor, and Tech Admin. Denied for Citizens.\nNever overwrites or deletes reviewed or dismissed alert history.",
+        "description": "Executes rules R1 to R9 on the parcel context in an idempotent, deduplicated manner.\nRBAC: Enforced strictly for Reviewer, Supervisor, and Tech Admin. Denied for Citizens.\nNever overwrites or deletes reviewed or dismissed alert history.\nNotifies active watchers via simulated SMS outbox if alerts are detected.",
         "operationId": "run_parcel_alerts_api_v1_parcels__parcel_id__alerts_run_post",
         "parameters": [
           {
@@ -1983,6 +2221,144 @@
                 "schema": {
                   "$ref": "#/components/schemas/AlertsRunResponse"
                 }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/parcels/{parcel_id}/watch": {
+      "post": {
+        "tags": [
+          "Cadastral Parcels & Risk Alerts"
+        ],
+        "summary": "Subscribe to Parcel Guardian alerts (citizen or staff)",
+        "description": "Subscribes the current user to watch the specified parcel for disputes, mutations, or alerts.\nDispatches an initial simulated SMS confirmation notification.",
+        "operationId": "watch_parcel_api_v1_parcels__parcel_id__watch_post",
+        "parameters": [
+          {
+            "name": "parcel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Parcel Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/WatchParcelRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Payload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WatchParcelResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cadastral Parcels & Risk Alerts"
+        ],
+        "summary": "Unsubscribe from Parcel Guardian alerts",
+        "description": "Deactivates Parcel Guardian watch subscription for the current user.",
+        "operationId": "unwatch_parcel_api_v1_parcels__parcel_id__watch_delete",
+        "parameters": [
+          {
+            "name": "parcel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Parcel Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Cadastral Parcels & Risk Alerts"
+        ],
+        "summary": "Check if current user is watching parcel",
+        "description": "Checks whether the current user actively watches the specified parcel.",
+        "operationId": "check_parcel_watch_api_v1_parcels__parcel_id__watch_get",
+        "parameters": [
+          {
+            "name": "parcel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Parcel Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
               }
             }
           },
@@ -2035,6 +2411,74 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AlertResponseItem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/alerts/outbox": {
+      "get": {
+        "tags": [
+          "Risk Alerts Management"
+        ],
+        "summary": "List simulated SMS alert notifications (Bengali previews)",
+        "description": "Returns simulated SMS alerts sent to citizens and staff.\nAll items are explicitly tagged 'simulated' and contain Bengali notification previews.",
+        "operationId": "get_simulated_sms_outbox_api_v1_alerts_outbox_get",
+        "parameters": [
+          {
+            "name": "parcel_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by parcel ID",
+              "title": "Parcel Id"
+            },
+            "description": "Filter by parcel ID"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SimulatedSMSOutboxItem"
+                  },
+                  "title": "Response Get Simulated Sms Outbox Api V1 Alerts Outbox Get"
                 }
               }
             }
@@ -2348,6 +2792,367 @@
             "content": {
               "application/json": {
                 "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ml/extract": {
+      "post": {
+        "tags": [
+          "ML Studio & Inference Engine"
+        ],
+        "summary": "Extract structured land entities from custom deed/khatian text",
+        "description": "Applies real Bengali NLP and normalizer pipeline on custom input text:\n- Extracts Dag numbers with OCR confusable repair & digit normalization\n- Extracts Khatian numbers with canonical format\n- Identifies Mouza name with fuzzy alias snapping\n- Converts Land Area to decimal, acre, and sq ft\n- Identifies Buyers, Sellers, Owners with honorific stripping",
+        "operationId": "extract_land_entities_api_v1_ml_extract_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MLExtractRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MLExtractResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ml/simulate-conflict": {
+      "post": {
+        "tags": [
+          "ML Studio & Inference Engine"
+        ],
+        "summary": "Simulate R1-R6 Conflict Rules on custom parcel parameters",
+        "description": "Simulates the R1-R6 conflict detection engine with mathematical proof:\n- R3: Chronological ordering (deed date vs mutation date)\n- R4: Land area oversale (deed area vs record area remaining)\n- R6: Party name matching with token-sort fuzzy comparison",
+        "operationId": "simulate_risk_conflicts_api_v1_ml_simulate_conflict_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConflictSimulateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConflictSimulateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ml/visual-forensics": {
+      "post": {
+        "tags": [
+          "ML Studio & Inference Engine"
+        ],
+        "summary": "Generate side-by-side OCR bounding boxes and forgery forensic analysis",
+        "description": "Computes visual bounding boxes for side-by-side OCR heatmap inspection:\n- Normal clean deed: Green bounding boxes, 100% matched with official khatian.\n- Tampered deed: Overwritten acreage, red pulsating bounding box, forensic explanation.\n- Porcha khatian: Multi-dag partition layout.",
+        "operationId": "analyze_visual_forensics_api_v1_ml_visual_forensics_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VisualForensicsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VisualForensicsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/namjari/applications": {
+      "post": {
+        "tags": [
+          "Smart E-Namjari"
+        ],
+        "summary": "Submit a new smart e-namjari application",
+        "description": "Submits a new e-namjari application linked to a verified deed and parcel.\nRuns automated pre-verification checks immediately.",
+        "operationId": "create_namjari_application_api_v1_namjari_applications_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NamjariCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NamjariApplicationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Smart E-Namjari"
+        ],
+        "summary": "List e-namjari applications scoped by user role",
+        "description": "Returns namjari applications:\n- Citizen: only their own applications\n- Staff (Operator, Reviewer, Supervisor, Regional Manager, Office Admin): office queue",
+        "operationId": "list_namjari_applications_api_v1_namjari_applications_get",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NamjariApplicationResponse"
+                  },
+                  "title": "Response List Namjari Applications Api V1 Namjari Applications Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/namjari/applications/{application_id}": {
+      "get": {
+        "tags": [
+          "Smart E-Namjari"
+        ],
+        "summary": "Get application timeline, checklist, and details",
+        "description": "Returns application details. Citizens can only view their own applications.",
+        "operationId": "get_namjari_application_api_v1_namjari_applications__application_id__get",
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Application Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NamjariApplicationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/namjari/applications/{application_id}/transition": {
+      "post": {
+        "tags": [
+          "Smart E-Namjari"
+        ],
+        "summary": "Transition application to next status (Enforces RBAC state machine)",
+        "description": "Enforces state machine transitions:\nOperator: resubmits corrections (needs_correction -> documents_review)\nReviewer: documents_review -> field_verification or hearing_notice\nSupervisor: hearing_notice -> approved/rejected, approved -> khatian_updated\nTech Admin: DENIED (Cannot make record decisions)",
+        "operationId": "transition_namjari_application_api_v1_namjari_applications__application_id__transition_post",
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Application Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NamjariTransitionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NamjariApplicationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/namjari/track/{tracking_code}": {
+      "get": {
+        "tags": [
+          "Smart E-Namjari"
+        ],
+        "summary": "Public status lookup for citizens using tracking code (No Auth Required)",
+        "description": "Public citizen lookup by short tracking code (e.g. NJ-2026-8812).\nIntentionally accessible to unauthenticated citizens.",
+        "operationId": "track_namjari_public_api_v1_namjari_track__tracking_code__get",
+        "parameters": [
+          {
+            "name": "tracking_code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Tracking Code"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NamjariPublicTrackResponse"
+                }
               }
             }
           },
@@ -2726,6 +3531,258 @@
         ],
         "title": "CaseAssignRequest"
       },
+      "CitizenCaseApplyRequest": {
+        "properties": {
+          "case_type": {
+            "type": "string",
+            "title": "Case Type",
+            "description": "MUTATION | RECORD_VERIFICATION | BOUNDARY_DISPUTE",
+            "default": "MUTATION"
+          },
+          "khatian_no": {
+            "type": "string",
+            "title": "Khatian No"
+          },
+          "dag_no": {
+            "type": "string",
+            "title": "Dag No"
+          },
+          "mouza": {
+            "type": "string",
+            "title": "Mouza"
+          },
+          "area_decimal": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Decimal"
+          },
+          "applicant_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Applicant Name"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "office_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Office Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "khatian_no",
+          "dag_no",
+          "mouza"
+        ],
+        "title": "CitizenCaseApplyRequest"
+      },
+      "CitizenCaseApplyResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "case_number": {
+            "type": "string",
+            "title": "Case Number"
+          },
+          "case_type": {
+            "type": "string",
+            "title": "Case Type"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "priority": {
+            "type": "string",
+            "title": "Priority"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "case_number",
+          "case_type",
+          "status",
+          "priority",
+          "notes",
+          "created_at",
+          "message"
+        ],
+        "title": "CitizenCaseApplyResponse"
+      },
+      "ConflictAlert": {
+        "properties": {
+          "rule_code": {
+            "type": "string",
+            "title": "Rule Code"
+          },
+          "severity": {
+            "type": "string",
+            "title": "Severity"
+          },
+          "title_bn": {
+            "type": "string",
+            "title": "Title Bn"
+          },
+          "title_en": {
+            "type": "string",
+            "title": "Title En"
+          },
+          "evidence_bn": {
+            "type": "string",
+            "title": "Evidence Bn"
+          },
+          "mathematical_formula": {
+            "type": "string",
+            "title": "Mathematical Formula"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rule_code",
+          "severity",
+          "title_bn",
+          "title_en",
+          "evidence_bn",
+          "mathematical_formula"
+        ],
+        "title": "ConflictAlert"
+      },
+      "ConflictSimulateRequest": {
+        "properties": {
+          "deed_date": {
+            "type": "string",
+            "title": "Deed Date",
+            "description": "YYYY-MM-DD format"
+          },
+          "mutation_date": {
+            "type": "string",
+            "title": "Mutation Date",
+            "description": "YYYY-MM-DD format"
+          },
+          "deed_area_decimal": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Deed Area Decimal"
+          },
+          "record_area_decimal": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Record Area Decimal"
+          },
+          "seller_name": {
+            "type": "string",
+            "minLength": 2,
+            "title": "Seller Name"
+          },
+          "record_owner_name": {
+            "type": "string",
+            "minLength": 2,
+            "title": "Record Owner Name"
+          },
+          "prior_sold_area_decimal": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Prior Sold Area Decimal",
+            "default": 0.0
+          }
+        },
+        "type": "object",
+        "required": [
+          "deed_date",
+          "mutation_date",
+          "deed_area_decimal",
+          "record_area_decimal",
+          "seller_name",
+          "record_owner_name"
+        ],
+        "title": "ConflictSimulateRequest"
+      },
+      "ConflictSimulateResponse": {
+        "properties": {
+          "conflict_detected": {
+            "type": "boolean",
+            "title": "Conflict Detected"
+          },
+          "risk_score": {
+            "type": "number",
+            "title": "Risk Score"
+          },
+          "risk_level": {
+            "type": "string",
+            "title": "Risk Level"
+          },
+          "alerts": {
+            "items": {
+              "$ref": "#/components/schemas/ConflictAlert"
+            },
+            "type": "array",
+            "title": "Alerts"
+          },
+          "simulation_summary_bn": {
+            "type": "string",
+            "title": "Simulation Summary Bn"
+          }
+        },
+        "type": "object",
+        "required": [
+          "conflict_detected",
+          "risk_score",
+          "risk_level",
+          "alerts",
+          "simulation_summary_bn"
+        ],
+        "title": "ConflictSimulateResponse"
+      },
       "ConsentRecordResponse": {
         "properties": {
           "id": {
@@ -3076,7 +4133,7 @@
           "scope_text": {
             "type": "string",
             "title": "Scope Text",
-            "default": "নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।"
+            "default": "\u09a8\u09a5\u09bf\u09b0 \u09a4\u09a5\u09cd\u09af QR-\u098f\u09b0 \u09b8\u0999\u09cd\u0997\u09c7 \u09af\u09be\u099a\u09be\u0987 \u09b6\u09c1\u09a7\u09c1\u09ae\u09be\u09a4\u09cd\u09b0 \u0985\u0996\u09a3\u09cd\u09a1\u09a4\u09be\u09b0 \u09aa\u09cd\u09b0\u09ae\u09be\u09a3 (\u09ae\u09be\u09b2\u09bf\u0995\u09be\u09a8\u09be \u09ac\u09be \u09b8\u09cd\u09ac\u09a4\u09cd\u09ac \u09af\u09be\u099a\u09be\u0987 \u09a8\u09af\u09bc)\u0964"
           },
           "status_label": {
             "type": "string",
@@ -3245,6 +4302,72 @@
         ],
         "title": "EvalRunsResponse"
       },
+      "ExtractedArea": {
+        "properties": {
+          "raw_value": {
+            "type": "string",
+            "title": "Raw Value"
+          },
+          "area_decimal": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Decimal"
+          },
+          "area_acres": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Acres"
+          },
+          "area_sq_ft": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Sq Ft"
+          },
+          "original_unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Unit"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          }
+        },
+        "type": "object",
+        "required": [
+          "raw_value",
+          "area_decimal",
+          "area_acres",
+          "area_sq_ft",
+          "original_unit",
+          "confidence"
+        ],
+        "title": "ExtractedArea"
+      },
       "ExtractedFieldItem": {
         "properties": {
           "id": {
@@ -3321,6 +4444,99 @@
           "field_name"
         ],
         "title": "ExtractedFieldItem"
+      },
+      "ExtractedIdentifier": {
+        "properties": {
+          "raw_value": {
+            "type": "string",
+            "title": "Raw Value"
+          },
+          "canonical": {
+            "type": "string",
+            "title": "Canonical"
+          },
+          "main_no": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Main No"
+          },
+          "sub_no": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sub No"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "repaired": {
+            "type": "boolean",
+            "title": "Repaired"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          }
+        },
+        "type": "object",
+        "required": [
+          "raw_value",
+          "canonical",
+          "main_no",
+          "sub_no",
+          "status",
+          "repaired",
+          "confidence"
+        ],
+        "title": "ExtractedIdentifier"
+      },
+      "ExtractedParty": {
+        "properties": {
+          "raw_name": {
+            "type": "string",
+            "title": "Raw Name"
+          },
+          "normalized_name": {
+            "type": "string",
+            "title": "Normalized Name"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "honorifics_removed": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Honorifics Removed"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          }
+        },
+        "type": "object",
+        "required": [
+          "raw_name",
+          "normalized_name",
+          "role",
+          "honorifics_removed",
+          "confidence"
+        ],
+        "title": "ExtractedParty"
       },
       "FeedbackCorrectionRequest": {
         "properties": {
@@ -3585,7 +4801,7 @@
           "disclaimer_bn": {
             "type": "string",
             "title": "Disclaimer Bn",
-            "default": "এটি আইনি পরামর্শ বা মালিকানার সিদ্ধান্ত নয়। সরকারি বিধিমালা অনুযায়ী যাচাই করুন।"
+            "default": "\u098f\u099f\u09bf \u0986\u0987\u09a8\u09bf \u09aa\u09b0\u09be\u09ae\u09b0\u09cd\u09b6 \u09ac\u09be \u09ae\u09be\u09b2\u09bf\u0995\u09be\u09a8\u09be\u09b0 \u09b8\u09bf\u09a6\u09cd\u09a7\u09be\u09a8\u09cd\u09a4 \u09a8\u09af\u09bc\u0964 \u09b8\u09b0\u0995\u09be\u09b0\u09bf \u09ac\u09bf\u09a7\u09bf\u09ae\u09be\u09b2\u09be \u0985\u09a8\u09c1\u09af\u09be\u09af\u09bc\u09c0 \u09af\u09be\u099a\u09be\u0987 \u0995\u09b0\u09c1\u09a8\u0964"
           }
         },
         "type": "object",
@@ -3657,6 +4873,594 @@
           "code"
         ],
         "title": "MFAVerifyRequest"
+      },
+      "MLExtractRequest": {
+        "properties": {
+          "raw_text": {
+            "type": "string",
+            "minLength": 5,
+            "title": "Raw Text",
+            "description": "Raw Bengali or English deed, porcha, or khatian text"
+          },
+          "doc_type_hint": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Doc Type Hint",
+            "description": "Optional hint: deed, khatian, mutation",
+            "default": "deed"
+          },
+          "region_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Region Code",
+            "description": "Regional code for land unit normalization",
+            "default": "dhaka"
+          }
+        },
+        "type": "object",
+        "required": [
+          "raw_text"
+        ],
+        "title": "MLExtractRequest"
+      },
+      "MLExtractResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success"
+          },
+          "document_type_detected": {
+            "type": "string",
+            "title": "Document Type Detected"
+          },
+          "khatian_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Khatian Type"
+          },
+          "dag_identifiers": {
+            "items": {
+              "$ref": "#/components/schemas/ExtractedIdentifier"
+            },
+            "type": "array",
+            "title": "Dag Identifiers"
+          },
+          "khatian_identifiers": {
+            "items": {
+              "$ref": "#/components/schemas/ExtractedIdentifier"
+            },
+            "type": "array",
+            "title": "Khatian Identifiers"
+          },
+          "mouza": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mouza"
+          },
+          "area": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ExtractedArea"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "parties": {
+            "items": {
+              "$ref": "#/components/schemas/ExtractedParty"
+            },
+            "type": "array",
+            "title": "Parties"
+          },
+          "overall_confidence": {
+            "type": "number",
+            "title": "Overall Confidence"
+          },
+          "epistemic_status": {
+            "type": "string",
+            "title": "Epistemic Status"
+          },
+          "model_version": {
+            "type": "string",
+            "title": "Model Version",
+            "default": "LandOS-NLP-Bn-v3.2"
+          },
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "success",
+          "document_type_detected",
+          "dag_identifiers",
+          "khatian_identifiers",
+          "mouza",
+          "area",
+          "parties",
+          "overall_confidence",
+          "epistemic_status",
+          "timestamp"
+        ],
+        "title": "MLExtractResponse"
+      },
+      "NamjariApplicationResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "tracking_code": {
+            "type": "string",
+            "title": "Tracking Code"
+          },
+          "parcel_id": {
+            "type": "string",
+            "title": "Parcel Id"
+          },
+          "deed_document_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deed Document Id"
+          },
+          "applicant_user_id": {
+            "type": "string",
+            "title": "Applicant User Id"
+          },
+          "registry_office": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registry Office"
+          },
+          "deed_no": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deed No"
+          },
+          "deed_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deed Date"
+          },
+          "registration_verified": {
+            "type": "boolean",
+            "title": "Registration Verified"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "status_label_bn": {
+            "type": "string",
+            "title": "Status Label Bn"
+          },
+          "status_label_en": {
+            "type": "string",
+            "title": "Status Label En"
+          },
+          "auto_verification_status": {
+            "type": "string",
+            "title": "Auto Verification Status"
+          },
+          "verification_checklist": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Verification Checklist"
+          },
+          "decision_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decision Reason"
+          },
+          "sla_due_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sla Due At"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          },
+          "timeline": {
+            "items": {
+              "$ref": "#/components/schemas/NamjariEventItem"
+            },
+            "type": "array",
+            "title": "Timeline"
+          },
+          "disclaimer_bn": {
+            "type": "string",
+            "title": "Disclaimer Bn",
+            "default": "\u09b8\u09bf\u09ae\u09c1\u09b2\u09c7\u099f\u09c7\u09a1 \u0987-\u09a8\u09be\u09ae\u099c\u09be\u09b0\u09bf \u099f\u09cd\u09b0\u09cd\u09af\u09be\u0995\u09bf\u0982 | \u09b6\u09c1\u09a7\u09c1\u09ae\u09be\u09a4\u09cd\u09b0 \u09aa\u09cd\u09b0\u09a6\u09b0\u09cd\u09b6\u09a8\u09c0 \u0993 \u09a4\u09a5\u09cd\u09af\u0997\u09a4 \u0989\u09a6\u09cd\u09a6\u09c7\u09b6\u09cd\u09af\u09c7"
+          },
+          "disclaimer_en": {
+            "type": "string",
+            "title": "Disclaimer En",
+            "default": "Simulated e-namjari tracking | For demonstration and informational purposes only"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "tracking_code",
+          "parcel_id",
+          "deed_document_id",
+          "applicant_user_id",
+          "registry_office",
+          "deed_no",
+          "deed_date",
+          "registration_verified",
+          "status",
+          "status_label_bn",
+          "status_label_en",
+          "auto_verification_status",
+          "verification_checklist",
+          "decision_reason",
+          "sla_due_at",
+          "created_at",
+          "updated_at",
+          "timeline"
+        ],
+        "title": "NamjariApplicationResponse"
+      },
+      "NamjariCreateRequest": {
+        "properties": {
+          "parcel_id": {
+            "type": "string",
+            "title": "Parcel Id",
+            "description": "Target cadastral parcel ID (e.g. P-CLEAN-01)"
+          },
+          "deed_document_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deed Document Id",
+            "description": "Scanned deed document ID"
+          },
+          "deed_no": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deed No",
+            "description": "Deed registered number (e.g. D-8812)"
+          },
+          "registry_office": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registry Office",
+            "description": "Sub-registry office",
+            "default": "\u09a4\u09c7\u099c\u0997\u09be\u0981\u0993 \u09b8\u09be\u09ac-\u09b0\u09c7\u099c\u09bf\u09b8\u09cd\u099f\u09cd\u09b0\u09bf \u0985\u09ab\u09bf\u09b8, \u09a2\u09be\u0995\u09be"
+          },
+          "deed_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deed Date"
+          },
+          "buyer_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Buyer Name",
+            "description": "Applicant/Buyer full name"
+          },
+          "buyer_nid": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Buyer Nid",
+            "description": "Applicant NID number"
+          },
+          "buyer_phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Buyer Phone",
+            "description": "Applicant contact phone"
+          },
+          "seller_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seller Name",
+            "description": "Seller recorded name"
+          },
+          "applied_area_decimal": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Applied Area Decimal",
+            "description": "Area in decimals to mutate"
+          }
+        },
+        "type": "object",
+        "required": [
+          "parcel_id"
+        ],
+        "title": "NamjariCreateRequest"
+      },
+      "NamjariEventItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "actor_role": {
+            "type": "string",
+            "title": "Actor Role"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "at": {
+            "type": "string",
+            "title": "At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "actor_role",
+          "note",
+          "at"
+        ],
+        "title": "NamjariEventItem"
+      },
+      "NamjariPublicTrackResponse": {
+        "properties": {
+          "tracking_code": {
+            "type": "string",
+            "title": "Tracking Code"
+          },
+          "parcel_id": {
+            "type": "string",
+            "title": "Parcel Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "status_label_bn": {
+            "type": "string",
+            "title": "Status Label Bn"
+          },
+          "status_label_en": {
+            "type": "string",
+            "title": "Status Label En"
+          },
+          "sla_due_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sla Due At"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "timeline": {
+            "items": {
+              "$ref": "#/components/schemas/NamjariEventItem"
+            },
+            "type": "array",
+            "title": "Timeline"
+          },
+          "verification_summary": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Verification Summary"
+          },
+          "disclaimer": {
+            "type": "string",
+            "title": "Disclaimer",
+            "default": "\u09b8\u09bf\u09ae\u09c1\u09b2\u09c7\u099f\u09c7\u09a1 \u099f\u09cd\u09b0\u09cd\u09af\u09be\u0995\u09bf\u0982 \u09a4\u09a5\u09cd\u09af (\u09b6\u09c1\u09a7\u09c1\u09ae\u09be\u09a4\u09cd\u09b0 \u09a4\u09a5\u09cd\u09af\u0997\u09a4 \u0989\u09a6\u09cd\u09a6\u09c7\u09b6\u09cd\u09af\u09c7, \u0995\u09cb\u09a8\u09cb \u09b8\u09b0\u0995\u09be\u09b0\u09bf \u0986\u0987\u09a8\u09bf \u09a8\u09bf\u09b6\u09cd\u099a\u09df\u09a4\u09be \u09a8\u09df)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tracking_code",
+          "parcel_id",
+          "status",
+          "status_label_bn",
+          "status_label_en",
+          "sla_due_at",
+          "created_at",
+          "timeline",
+          "verification_summary"
+        ],
+        "title": "NamjariPublicTrackResponse"
+      },
+      "NamjariTransitionRequest": {
+        "properties": {
+          "target_status": {
+            "type": "string",
+            "title": "Target Status",
+            "description": "Target status: auto_verification, documents_review, field_verification, hearing_notice, approved, rejected, needs_correction, khatian_updated"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note",
+            "description": "Transition note or observation"
+          },
+          "decision_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decision Reason",
+            "description": "Reason if rejected or needs correction"
+          },
+          "hearing_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hearing Date",
+            "description": "Hearing date if applicable"
+          }
+        },
+        "type": "object",
+        "required": [
+          "target_status"
+        ],
+        "title": "NamjariTransitionRequest"
       },
       "NotificationItem": {
         "properties": {
@@ -3891,12 +5695,12 @@
           "scope_text": {
             "type": "string",
             "title": "Scope Text",
-            "default": "নথির তথ্য QR-এর সঙ্গে যাচাই শুধুমাত্র অখণ্ডতার প্রমাণ (মালিকানা বা স্বত্ব যাচাই নয়)।"
+            "default": "\u09a8\u09a5\u09bf\u09b0 \u09a4\u09a5\u09cd\u09af QR-\u098f\u09b0 \u09b8\u0999\u09cd\u0997\u09c7 \u09af\u09be\u099a\u09be\u0987 \u09b6\u09c1\u09a7\u09c1\u09ae\u09be\u09a4\u09cd\u09b0 \u0985\u0996\u09a3\u09cd\u09a1\u09a4\u09be\u09b0 \u09aa\u09cd\u09b0\u09ae\u09be\u09a3 (\u09ae\u09be\u09b2\u09bf\u0995\u09be\u09a8\u09be \u09ac\u09be \u09b8\u09cd\u09ac\u09a4\u09cd\u09ac \u09af\u09be\u099a\u09be\u0987 \u09a8\u09af\u09bc)\u0964"
           },
           "ui_text_bn": {
             "type": "string",
             "title": "Ui Text Bn",
-            "default": "মেলেনি"
+            "default": "\u09ae\u09c7\u09b2\u09c7\u09a8\u09bf"
           }
         },
         "type": "object",
@@ -4140,7 +5944,7 @@
           "source": {
             "type": "string",
             "title": "Source",
-            "default": "উপজেলা ভূমি অফিস রেকর্ড রুম (ডিজিটাল আরএস খতিয়ান)"
+            "default": "\u0989\u09aa\u099c\u09c7\u09b2\u09be \u09ad\u09c2\u09ae\u09bf \u0985\u09ab\u09bf\u09b8 \u09b0\u09c7\u0995\u09b0\u09cd\u09a1 \u09b0\u09c1\u09ae (\u09a1\u09bf\u099c\u09bf\u099f\u09be\u09b2 \u0986\u09b0\u098f\u09b8 \u0996\u09a4\u09bf\u09af\u09bc\u09be\u09a8)"
           },
           "retrieved_at": {
             "type": "string",
@@ -4159,7 +5963,7 @@
           "disclaimer_bn": {
             "type": "string",
             "title": "Disclaimer Bn",
-            "default": "প্রদর্শিত তথ্য শুধুমাত্র প্রদর্শনীমূলক। এটি আইনি দলিল হিসেবে গণ্য নয়।"
+            "default": "\u09aa\u09cd\u09b0\u09a6\u09b0\u09cd\u09b6\u09bf\u09a4 \u09a4\u09a5\u09cd\u09af \u09b6\u09c1\u09a7\u09c1\u09ae\u09be\u09a4\u09cd\u09b0 \u09aa\u09cd\u09b0\u09a6\u09b0\u09cd\u09b6\u09a8\u09c0\u09ae\u09c2\u09b2\u0995\u0964 \u098f\u099f\u09bf \u0986\u0987\u09a8\u09bf \u09a6\u09b2\u09bf\u09b2 \u09b9\u09bf\u09b8\u09c7\u09ac\u09c7 \u0997\u09a3\u09cd\u09af \u09a8\u09af\u09bc\u0964"
           }
         },
         "type": "object",
@@ -4536,7 +6340,7 @@
           "disclaimer_bn": {
             "type": "string",
             "title": "Disclaimer Bn",
-            "default": "প্রদর্শিত তথ্য শুধুমাত্র প্রদর্শনীমূলক। এটি আইনি দলিল হিসেবে গণ্য নয়।"
+            "default": "\u09aa\u09cd\u09b0\u09a6\u09b0\u09cd\u09b6\u09bf\u09a4 \u09a4\u09a5\u09cd\u09af \u09b6\u09c1\u09a7\u09c1\u09ae\u09be\u09a4\u09cd\u09b0 \u09aa\u09cd\u09b0\u09a6\u09b0\u09cd\u09b6\u09a8\u09c0\u09ae\u09c2\u09b2\u0995\u0964 \u098f\u099f\u09bf \u0986\u0987\u09a8\u09bf \u09a6\u09b2\u09bf\u09b2 \u09b9\u09bf\u09b8\u09c7\u09ac\u09c7 \u0997\u09a3\u09cd\u09af \u09a8\u09af\u09bc\u0964"
           },
           "disclaimer_en": {
             "type": "string",
@@ -4551,6 +6355,50 @@
           "candidates"
         ],
         "title": "SearchResponse"
+      },
+      "SimulatedSMSOutboxItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "recipient_phone": {
+            "type": "string",
+            "title": "Recipient Phone"
+          },
+          "parcel_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parcel Id"
+          },
+          "message_bn": {
+            "type": "string",
+            "title": "Message Bn"
+          },
+          "tag": {
+            "type": "string",
+            "title": "Tag"
+          },
+          "sent_at": {
+            "type": "string",
+            "title": "Sent At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "recipient_phone",
+          "message_bn",
+          "tag",
+          "sent_at"
+        ],
+        "title": "SimulatedSMSOutboxItem"
       },
       "UpdateUserRoleRequest": {
         "properties": {
@@ -4963,6 +6811,304 @@
         },
         "type": "object",
         "title": "VerificationSummaryItem"
+      },
+      "VisualBoundingBox": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "field_name": {
+            "type": "string",
+            "title": "Field Name"
+          },
+          "label_bn": {
+            "type": "string",
+            "title": "Label Bn"
+          },
+          "ocr_text": {
+            "type": "string",
+            "title": "Ocr Text"
+          },
+          "x": {
+            "type": "number",
+            "title": "X"
+          },
+          "y": {
+            "type": "number",
+            "title": "Y"
+          },
+          "width": {
+            "type": "number",
+            "title": "Width"
+          },
+          "height": {
+            "type": "number",
+            "title": "Height"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "official_record": {
+            "type": "string",
+            "title": "Official Record"
+          },
+          "evidence_bn": {
+            "type": "string",
+            "title": "Evidence Bn"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "field_name",
+          "label_bn",
+          "ocr_text",
+          "x",
+          "y",
+          "width",
+          "height",
+          "status",
+          "confidence",
+          "official_record",
+          "evidence_bn"
+        ],
+        "title": "VisualBoundingBox"
+      },
+      "VisualForensicsRequest": {
+        "properties": {
+          "preset": {
+            "type": "string",
+            "title": "Preset",
+            "description": "clean | tampered | porcha",
+            "default": "tampered"
+          },
+          "custom_area": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Area"
+          },
+          "custom_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Date"
+          }
+        },
+        "type": "object",
+        "title": "VisualForensicsRequest"
+      },
+      "VisualForensicsResponse": {
+        "properties": {
+          "document_template": {
+            "type": "string",
+            "title": "Document Template"
+          },
+          "deed_title_bn": {
+            "type": "string",
+            "title": "Deed Title Bn"
+          },
+          "deed_no": {
+            "type": "string",
+            "title": "Deed No"
+          },
+          "has_tampering": {
+            "type": "boolean",
+            "title": "Has Tampering"
+          },
+          "tamper_summary_bn": {
+            "type": "string",
+            "title": "Tamper Summary Bn"
+          },
+          "risk_score": {
+            "type": "number",
+            "title": "Risk Score"
+          },
+          "boxes": {
+            "items": {
+              "$ref": "#/components/schemas/VisualBoundingBox"
+            },
+            "type": "array",
+            "title": "Boxes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_template",
+          "deed_title_bn",
+          "deed_no",
+          "has_tampering",
+          "tamper_summary_bn",
+          "risk_score",
+          "boxes"
+        ],
+        "title": "VisualForensicsResponse"
+      },
+      "WatchParcelRequest": {
+        "properties": {
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone",
+            "description": "Optional SMS alert recipient phone number"
+          }
+        },
+        "type": "object",
+        "title": "WatchParcelRequest"
+      },
+      "WatchParcelResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "parcel_id": {
+            "type": "string",
+            "title": "Parcel Id"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "is_active": {
+            "type": "boolean",
+            "title": "Is Active"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "confirmation_sms_bn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmation Sms Bn"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "parcel_id",
+          "user_id",
+          "is_active",
+          "created_at"
+        ],
+        "title": "WatchParcelResponse"
+      },
+      "WatchedParcelItem": {
+        "properties": {
+          "watch_id": {
+            "type": "string",
+            "title": "Watch Id"
+          },
+          "parcel_id": {
+            "type": "string",
+            "title": "Parcel Id"
+          },
+          "is_active": {
+            "type": "boolean",
+            "title": "Is Active"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "upazila": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Upazila"
+          },
+          "district": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "District"
+          },
+          "mouza": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mouza"
+          },
+          "land_class": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Land Class"
+          },
+          "area_decimal": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Decimal"
+          },
+          "alerts_count": {
+            "type": "integer",
+            "title": "Alerts Count",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "watch_id",
+          "parcel_id",
+          "is_active",
+          "created_at"
+        ],
+        "title": "WatchedParcelItem"
       }
     }
   }

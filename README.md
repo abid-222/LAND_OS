@@ -91,57 +91,56 @@ make demo-reset
 
 ---
 
-## 🏛️ System Architecture & Key Capabilities
+## 🏆 Hackathon Tracks & Core Capabilities (P1 – P6)
 
-1. **Smart Scan-to-Search**:
-   - Primary cryptographic QR payload decoding; graceful fallback to Bengali OCR.
-   - Bengali numeral normalization (বাংলা অঙ্ক '০-৯' to English '0-9' and canonical forms).
-   - Strict epistemic tagging: `OCR_EXTRACTED` vs `VERIFIED_AUTHORIZED_SOURCE`.
-2. **Explainable Multi-Identifier Record Matching**:
-   - Machine-learned candidate ranker (`RandomForestClassifier`) trained on synthesized ground truth.
-   - Transparent itemized feature contribution scoring (no black-box predictions).
-   - Ambiguity detection (flags when top 2 candidate scores are within 0.10).
-3. **Interactive Cadastral GIS Map**:
-   - Vector polygons rendered with MapLibre GL.
-   - Clear epistemic indicator: `is_illustrative: true` to prevent misinterpretation as legal boundaries.
-4. **Risk & Conflict Engine (6 Deterministic Rules)**:
-   - `OVER_TRANSACTION_AREA`: Sold area exceeds registered entitlement.
-   - `DUPLICATE_ACTIVE_DEED`: Conflicting concurrent deeds on identical parcel.
-   - `UNRESOLVED_DISPUTE_MUTATION`: Pending civil court or AC Land dispute flag.
-   - `SATELLITE_BOUNDARY_OVERLAP`: Cadastral survey overlap.
-   - `VESTED_GOVT_LAND_INTERSECTION`: Khas, railway, or waqf property clash.
-   - `CHAIN_OF_TITLE_DISCONTINUITY`: Unbroken deed transfer chain verification.
-5. **Buyer Due Diligence Report**:
-   - 5 structured sections with neutral, non-speculative language (zero "safe/unsafe" ratings).
-   - Actionable checklist citing authoritative Ministry of Land circulars.
-6. **Accuracy & Reliability Lab**:
-   - Real-time Character Error Rate (CER), Field Extraction Accuracy (FEA) per field, silent error rate, flag recall, and Bengali digit confusion matrix.
-   - Enforced quality gates with automatic rejection of subpar extractions.
+1. **P1: Bengali OCR & Document Digitization**:
+   - On-device camera quality verification (blur, glare, resolution) with guidance.
+   - Bengali numeral normalization (বাংলা অঙ্ক '০-৯' to canonical numbers).
+   - Strict epistemic tagging: `OCR_EXTRACTED` vs `USER_CORRECTED` vs `VERIFIED_AUTHORIZED_SOURCE`.
+2. **P2: Cryptographic QR & Digital Deed Verification**:
+   - SHA-256 seal extraction and cross-verification against official sub-registry books.
+   - Immediate detection of physical alterations (`TAMPER_DETECTED` vs `QR_VERIFIED`).
+3. **P3: Forgery, Double-Sale & Conflict Engine (Rules R1 – R6)**:
+   - `OVER_TRANSACTION_AREA` (R1): Detects concurrent double-sales (demonstrated on parcel `P-4520`).
+   - `DUPLICATE_ACTIVE_DEED` (R2) & `CHRONOLOGICAL_ANOMALY` (R3): Temporal logic violations.
+   - `UNRESOLVED_DISPUTE_MUTATION` (R4), `SATELLITE_BOUNDARY_OVERLAP` (R5), `CHAIN_OF_TITLE_DISCONTINUITY` (R6).
+4. **P5: Citizen Pre-Purchase Due Diligence**:
+   - 6 neutral traffic lights: ownership, double sales, khas land (R7), acquisition (R8), litigation (R9), khatian sync.
+   - Evaluates test parcels: `P-CLEAN-01` (fully verified), `P-KHAS-01` (govt khas land), `P-LIT-01` (court injunction).
+   - Browser-native print stylesheet with strict non-legal advice disclaimers.
+5. **P4: Smart E-Namjari Workflow & Tracking**:
+   - 6-stage finite state machine (`submitted` -> `auto_verification` -> `documents_review` -> `hearing_scheduled` -> `khatian_updated` / `rejected`).
+   - Automated 4-point AI pre-verification checklist.
+   - Role-segregated workflow (Tech Admin strictly forbidden from approvals).
+   - Public tracking code lookup (`NJ-2026-1001`) with live milestone stepper.
+6. **P6: Parcel Guardian Watch & Bengali Voice Assistant**:
+   - Natural spoken Bengali voice input ("জমি কেনার আগে P-4520 যাচাই") via Web Speech API.
+   - Client-side spoken Bengali numeral normalization ("চার পাঁচ দুই শূন্য" -> "4520").
+   - Parcel watch subscriptions (`/api/v1/parcels/{id}/watch`) with simulated SMS Outbox.
+   - Offline-first document capture with client-side AES-GCM encryption and IndexedDB sync.
 
 ---
 
 ## 🧪 Testing, Quality & Security Gates
 
 ```bash
-# Backend unit & integration test suite (316 tests)
+# Backend unit & integration test suite (358 tests - 100% pass)
 pytest backend/tests
 
 # RBAC permission matrix (138 checks across 8 roles)
 pytest backend/tests/test_rbac_matrix.py
 
-# Security audit (Bandit static analysis & pip-audit)
-bandit -r backend/app
-pip-audit
+# Route protection audit (asserts zero unauthenticated endpoints)
+pytest backend/tests/test_route_protection.py
 
-# Frontend test suite
+# Frontend test suite (Vitest - 11/11 tests pass)
 cd frontend && npm test
 
-# Run empirical load test simulation and query plan analysis
-python scripts/run_benchmarks.py
-
-# Disaster recovery backup & restore verification
-python scripts/nightly_backup.py
-python scripts/test_restore.py
+# Playwright E2E suites (Smoke, Roles, Namjari, Offline)
+npx playwright test e2e/smoke.spec.ts
+npx playwright test e2e/roles.spec.ts
+npx playwright test e2e/namjari.spec.ts
+npx playwright test e2e/offline.spec.ts
 ```
 
 ---

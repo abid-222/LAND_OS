@@ -1,100 +1,165 @@
-# Bangladesh LandOS — 5-Minute Executive Walkthrough Demo Script
+# Bangladesh LandOS — 5-Minute Hackathon Demo Script & Track Showcase
 
-**Target Audience**: Government Stakeholders, Civil Service Evaluators, Technical Architects, Donors  
+**Target Audience**: Hackathon Judges, Civil Service Evaluators, Technical Architects, Ministry Stakeholders  
 **Demo Duration**: Exactly 5 Minutes (300 Seconds)  
-**System Credentials**: See [Demo Accounts](#demo-accounts) below  
-**Prerequisites**: Application running locally (`localhost:5173` frontend, `localhost:8000` backend)  
+**System Credentials**: Pre-seeded demo accounts (Password: `Password123!`)  
+**Reset Command**: `python scripts/demo_reset.py` (Resets SQLite DB to baseline with all demo scenarios)  
+**Live Development URLs**:  
+- Frontend: `http://localhost:5173`  
+- Backend API Docs: `http://127.0.0.1:8000/docs`  
 
 ---
 
-## Demo Accounts
+## 1. Demo Accounts & RBAC Roles
 
-All accounts are pre-seeded for dev/demo with password: `Password123!`
+All accounts are pre-seeded in the database with password: `Password123!`
 
-| Role | Email | Password | Primary Scope | Key Demo Screen |
-| :--- | :--- | :--- | :--- | :--- |
-| **Citizen** | `citizen@landos.gov.bd` | `Password123!` | Public / Own | Scan-to-Search, Citizen Guide |
-| **Operator** | `operator@landos.gov.bd` | `Password123!` | Union Land Office | Document Intake, Normalization |
-| **Reviewer** | `reviewer@landos.gov.bd` | `Password123!` | AC Land Office | HITL Review Queue |
-| **Supervisor** | `supervisor@landos.gov.bd` | `Password123!` | Circle AC Land | Risk Approvals & Overrides |
-| **Tech Admin** | `techadmin@landos.gov.bd` | `Password123!` | National | Accuracy & Reliability Lab |
+| Role | Email | Scope | Primary Demonstration Screen |
+| :--- | :--- | :--- | :--- |
+| **Citizen** | `citizen@landos.gov.bd` | Public / Own Parcels | Pre-Purchase Check, E-Namjari, Voice Assistant, Parcel Watch |
+| **Operator** | `operator@landos.gov.bd` | Union Land Office | Document Intake, Normalization, Application Submission |
+| **Reviewer** | `reviewer@landos.gov.bd` | Upazila AC Land Office | E-Namjari HITL Review & Hearing Verification |
+| **Supervisor** | `supervisor@landos.gov.bd` | Circle AC Land Officer | Final E-Namjari Approval & Khatian Sign-Off |
+| **Tech Admin** | `techadmin@landos.gov.bd` | Sovereign National | AI Accuracy Lab, Model Monitoring, Quality Gates |
 
----
-
-## Detailed Minute-by-Minute Walkthrough
-
-### [00:00 – 00:30] Introduction & The Core Problem
-- **Narrator**:
-  > *"Welcome to Bangladesh LandOS. Today, citizens and land officers across Bangladesh face rampant land boundary disputes, fraudulent deed claims, and multi-week mutation delays. LandOS introduces an epistemic-first, AI-assisted land intelligence platform designed specifically for Bangladesh's unique land administration reality—supporting Bengali OCR, cadastral mapping, conflict detection, and transparent audit trails."*
-- **Visual**: Show the Landing Page (`/`). Highlight the clean bilingual interface (English / বাংলা) and the security status indicator.
+> [!NOTE]
+> Use the **Role Switcher Terminal** (floating key icon at bottom right of the UI) to switch roles instantly with one click during live presentations without logging out manually.
 
 ---
 
-### [00:30 – 01:30] Feature 1: Smart Scan-to-Search & Bangla OCR Normalization
-- **Narrator**:
-  > *"Let's begin with a citizen receiving an unfamiliar deed document. They simply upload a photo or scan. Watch how our Smart Scan-to-Search prioritizes cryptographic QR verification first."*
-- **Action**:
-  1. Navigate to `/scan`.
-  2. Upload a sample deed image (`data/synthetic/documents/deed_demo_01.jpg` or any deed image).
-  3. Observe immediate QR code detection and field extraction.
-- **Narrator**:
-  > *"Notice how the system handles Bengali numerals: '১২০৫' and '৩৪০' are normalized instantaneously. Look at the trust badges: LandOS explicitly tags extracted data as `OCR_EXTRACTED` with a clear confidence score. If an extraction is ambiguous, it is highlighted in amber—the system never presents optical extraction as an absolute fact. With one tap, we click 'Search from Extracted Fields'."*
+## 2. Key Demo Parcels & Data Reference
+
+| Scenario | Identifier | Key Characteristics & Expected Behavior |
+| :--- | :--- | :--- |
+| **Clean Land (P5 Demo)** | `P-CLEAN-01` | All 6 pre-purchase indicators green (No khas, no acquisition, no litigation). Ready for due diligence report print/export. |
+| **Govt Khas Land (P5 Demo)** | `P-KHAS-01` | **Red Flag**: Rule R7 triggers. Land belongs to Ministry of Land (Khas Register 1). Buying prohibited by law. |
+| **Litigation Injunction (P5 Demo)** | `P-LIT-01` | **Amber Flag**: Rule R9 triggers. Active stay order from Dhaka High Court Division (Civil Revision No. 4521/2023). |
+| **Concurrent Double Sale (P3 Demo)** | `P-4520` | **High Risk**: Rule R1 triggers. Deed D-2023-8891 and Deed D-2023-8892 sold 15.5 decimals twice in the same week. |
+| **Active Namjari Workflow (P4 Demo)** | `NJ-2026-1001` | E-Namjari application: Passed auto-verification, reviewed by Reviewer, ready for Supervisor final sign-off. |
+| **Rejected Namjari (P4 Demo)** | `NJ-2026-1004` | E-Namjari application: Auto-verification failed on Rule R1 (Double Sale detected); rejected by AC Land. |
 
 ---
 
-### [01:30 – 02:30] Feature 2: Explainable Record Matching & Cadastral Map
-- **Narrator**:
-  > *"Now we transition directly into Record Matching. Instead of a black-box probability, LandOS provides complete explainability."*
-- **Action**:
-  1. Click **Search** (`/search`).
-  2. The system retrieves candidate matching Khatians (e.g., Khatian `৩৪০`, Dag `১২০৫`, Mouza `Tejgaon`).
-  3. Expand the top candidate.
-- **Narrator**:
-  > *"Notice the itemized score breakdown: Dag matched exactly (+40%), Khatian matched (+30%), Mouza verified (+25%). When multiple candidates have near-equal probability, LandOS marks the result as 'Ambiguous' and prompts the user to verify rather than silently guessing."*
-- **Action**:
-  4. Click **View Cadastral Map** (`/map`).
-  5. The interactive map renders parcel `P-4520` in Tejgaon with GIS parcel boundaries.
-  6. Point out the clear badge: `is_illustrative: true` — reinforcing that digital maps assist but do not replace legal physical surveys.
+## 3. Minute-by-Minute Hackathon Presentation Flow
+
+```
+  [00:00 - 00:45] Track P1 & P2: Bengali OCR & Cryptographic QR Verification
+         │
+  [00:45 - 01:45] Track P3: Deterministic Conflict Engine & Double-Sale Detection (P-4520)
+         │
+  [01:45 - 02:45] Track P5: Citizen Pre-Purchase Due Diligence (P-CLEAN-01 vs P-KHAS-01)
+         │
+  [02:45 - 03:45] Track P4: Smart E-Namjari Auto-Verification & Role Progression
+         │
+  [03:45 - 04:30] Track P6: Parcel Guardian Watch & Bengali Voice Assistant
+         │
+  [04:30 - 05:00] Epistemic Governance, Accuracy Lab & Sovereign Hand-Off
+```
 
 ---
 
-### [02:30 – 03:30] Feature 3: Risk & Conflict Engine (6 Deterministic Rules)
-- **Narrator**:
-  > *"Now let's examine the heart of citizen protection: the Risk & Conflict Engine. In Bangladesh, over-selling land and duplicate deed transfers are major sources of litigation."*
-- **Action**:
-  1. Select parcel `P-4520` or visit `/parcels/P-4520/alerts`.
-  2. Show the active alerts:
-     - **Alert 1**: `RULE-1: OVER_TRANSACTION_AREA` (Sold 0.45 acres when registered share is 0.33 acres).
-     - **Alert 2**: `RULE-6: CHAIN_OF_TITLE_DISCONTINUITY` (Missing intermediate mutation link from 2018).
-- **Narrator**:
-  > *"Every single alert cites hard evidence: the registered volume, page number, and the specific discrepancy. Each alert directly links to an authoritative Knowledge Base circular from the Ministry of Land."*
+### [00:00 – 00:45] P1 & P2: Bengali Document Ingestion, OCR & Cryptographic QR
+
+- **Opening Hook**:
+  > *"Every year in Bangladesh, thousands of citizens lose life savings to altered paper deeds and forged registration seals. Bangladesh LandOS solves this with on-device AI and cryptographic provenance."*
+- **Live Action**:
+  1. Click **দলিল স্ক্যান ও ওসিআর** (`/scan`).
+  2. Point out the on-device quality gate (blur, glare, resolution detection) with live camera guidance.
+  3. Upload `khatian_sample.jpg` or use camera fallback.
+  4. Observe instant **Cryptographic QR Scan**:
+     - Status: `QR_VERIFIED` with SHA-256 seal against registry office records.
+  5. Demonstrate **Bengali OCR Normalization**:
+     - Bengali numerals `'১২০৫'` and `'৩৪০'` are normalized to canonical ASCII digits while preserving original Bengali script for display.
+     - Notice epistemic badges: explicit `OCR_EXTRACTED` labeling vs `USER_CORRECTED`.
 
 ---
 
-### [03:30 – 04:15] Feature 4: Buyer Due Diligence Report & Citizen Guide
+### [00:45 – 01:45] P3: Double-Sale & Concurrent Deed Conflict Engine
+
 - **Narrator**:
-  > *"Before buying land, a citizen can generate a comprehensive Buyer Risk Report."*
-- **Action**:
-  1. Navigate to `/buyer-report`.
-  2. Click **Generate Buyer Due Diligence Report**.
-- **Narrator**:
-  > *"Notice the report structure: 1) Cadastral Overview, 2) Chain of Title, 3) Active Encumbrances, 4) Recommended Next Steps, and 5) Mandatory Legal Disclaimer. Notice the epistemic neutrality: nowhere does the system make speculative claims like 'Safe to Buy' or '100% Verified'. Instead, it equips the citizen with an actionable checklist to take to the AC Land Office."*
-- **Action**:
-  3. Open the **Citizen Guide Chatbot** (`/guide`).
-  4. Type: *"কীভাবে নামজারি আবেদন করব?"* (How do I apply for mutation?)
-  5. The AI responds strictly grounded in official circulars from `data/kb/`, with direct citations.
+  > *"When a fraudster registers duplicate deeds across separate sub-registry offices, traditional registries fail to detect it until years later in court. LandOS detects it deterministically in milliseconds."*
+- **Live Action**:
+  1. Navigate to **খতিয়ান ও দাগ রেকর্ড** (`/search`) or **দাগ বিরোধ অ্যালার্ট** (`/parcels/P-4520/alerts`).
+  2. Select parcel **`P-4520`** (Tejgaon, Dag 1205, Khatian 340).
+  3. Show the **6 Deterministic Conflict Rules**:
+     - **Rule R1 (Concurrent Double Sale)**: Deed `D-2023-8891` (15.5 decimals to Abdul Karim) and Deed `D-2023-8892` (15.5 decimals to Rafiqul Islam) executed 4 days apart.
+     - **Rule R6 (Mutation Discontinuity)**: Intermediate mutation missing from 2018 volume.
+  4. Click on **ভূমি মন্ত্রণালয়ের সার্কুলার রেফারেন্স**: Show grounded citation with volume, page, and registry circular.
 
 ---
 
-### [04:15 – 05:00] Feature 5: Accuracy & Reliability Lab (Admin View)
+### [01:45 – 02:45] P5: Citizen Pre-Purchase Due Diligence Check
+
 - **Narrator**:
-  > *"Finally, let's log in as Tech Admin to inspect system health and AI governance."*
-- **Action**:
-  1. Log in as `techadmin@landos.gov.bd`.
-  2. Navigate to **Accuracy & Reliability Lab** (`/quality`).
+  > *"Before placing a token payment, a citizen can perform a 60-second due diligence check with objective, neutral traffic lights."*
+- **Live Action**:
+  1. Open **বায়ার ডিউ ডিলিজেন্স** (`/buyer-report`).
+  2. Click preset **`P-CLEAN-01`**:
+     - All 6 traffic lights glow **GREEN**: Ownership match, no double-sale, not khas land, not acquired, no court litigation, khatian in sync.
+     - Point out the **ব্রাউজার-নেটিভ প্রিন্ট বাটন** (`Print / PDF Export`).
+     - Highlight the strict **Non-Legal Advice Disclaimer**: LandOS equips citizens with facts, never offering speculative guarantees.
+  3. Switch to preset **`P-KHAS-01`**:
+     - Traffic light #3 turns **RED**: `সরকারি খাস জমি (Khas Land - Rule R7)`.
+     - System warns that transferring this plot is void under Section 52 of the State Acquisition and Tenancy Act.
+
+---
+
+### [02:45 – 03:45] P4: Smart E-Namjari State Machine & Auto-Verification
+
 - **Narrator**:
-  > *"Here, management and auditors monitor AI quality in real time: Character Error Rate (CER), Field Extraction Accuracy (FEA) separated per critical field (dag, khatian, mouza), silent error rate, and our Bengali digit confusion matrix. If any gate fails—for example if Dag FEA drops below 95%—the dashboard flags it in red and halts automated ingestion into production registers."*
-- **Action**:
-  3. Show the green status on all quality gates.
+  > *"Mutation in Bangladesh traditionally takes 28 to 45 days of physical visits. With Smart E-Namjari in LandOS, optical deed linking and automated pre-checks clear clean cases in under 7 days."*
+- **Live Action**:
+  1. Open **স্মার্ট ই-নামজারি** (`/namjari`).
+  2. Show the **Public Tracking Stepper**: Enter or click preset **`NJ-2026-1001`**.
+     - Display live milestone stepper: `আবেদন দাখিল` ➔ `স্বয়ংক্রিয় তথ্য নিরীক্ষা (Passed)` ➔ `শুনানি ও নথিপত্র পর্যালোচনা` ➔ `খতিয়ান হালনাগাদ ও নামজারি সম্পন্ন`.
+  3. Show the **Automated AI Pre-Verification Checklist**:
+     - QR & Cryptographic Seal: `PASS`
+     - Seller & Record Ownership Match: `PASS`
+     - Double-Sale Check (R1): `PASS`
+     - Khas & Govt Land Restriction (R7): `PASS`
+  4. Show the rejected case **`NJ-2026-1004`**: System automatically halted approval because Rule R1 detected a concurrent sale conflict!
+
+---
+
+### [03:45 – 04:30] P6: Parcel Guardian Watch & Bengali Voice Assistant
+
 - **Narrator**:
-  > *"Bangladesh LandOS brings transparency, cryptographic integrity, and explainability to land administration. Thank you."*
+  > *"For millions of non-technical citizens and rural land owners, text interfaces are a barrier. Watch our Parcel Guardian Bangla voice AI and proactive alert subscriptions."*
+- **Live Action**:
+  1. Click the floating **এআই সহকারী** (Microphone icon) at bottom right.
+  2. Speak or trigger preset: *"জমি কেনার আগে P-4520 দাগের তথ্য যাচাই করুন"*
+     - Web Speech API recognizes spoken Bengali numerals (`"চার পাঁচ দুই শূন্য"` ➔ `4520`).
+     - Voice Assistant answers via Web Speech Synthesis in clear Bengali, providing a direct interactive action card for the Buyer Report and Namjari tracking.
+  3. Click **পার্সেল গার্ডিয়ান ওয়াচ (Subscribe Watch)** on `P-4520`:
+     - Citizen receives real-time simulated SMS notifications whenever mutation applications or deeds target their watched plot.
+     - Open **সিমুলেটেড নোটিফিকেশন আউটবক্স** (`/parcels/P-4520/alerts` tab 2) to view dispatched SMS items.
+  4. Demonstrate **Offline-First Mode**:
+     - If network drops in a rural field office, documents are safely encrypted with AES-GCM and stored in IndexedDB until connectivity returns.
+
+---
+
+### [04:30 – 05:00] Governance, Accuracy Lab & Sovereign Tech Hand-Off
+
+- **Narrator**:
+  > *"Finally, how does the Ministry govern this AI system? LandOS is built with zero vendor lock-in and radical transparency."*
+- **Live Action**:
+  1. Switch to **Tech Admin** role.
+  2. Open **এআই অ্যাকুরেসি ল্যাব** (`/quality`).
+  3. Show the real-time quality metrics:
+     - Character Error Rate (CER): `< 5.0%`
+     - Field Extraction Accuracy (FEA): `>= 95.0%` across Dag, Khatian, and Mouza
+     - Silent Error Rate: `0.0%`
+  4. Show the automated **Release Gate**: If an experimental model's Dag accuracy falls below 95%, automated promotion into the land registry is blocked.
+- **Closing Statement**:
+  > *"Bangladesh LandOS transforms land administration from a source of conflict into an engine of sovereign digital trust. Built for Bangladesh, ready for deployment. Thank you!"*
+
+---
+
+## 4. Troubleshooting & Quick Fallbacks
+
+| Issue During Demo | Immediate Fix |
+| :--- | :--- |
+| Database state modified during trial run | Run `python scripts/demo_reset.py` in PowerShell. |
+| Microphone permission blocked in browser | Click browser address bar lock icon ➔ Allow Microphone ➔ Reload. Alternatively, click any suggested question chip inside the chat modal. |
+| Need quick role switch | Click the floating key button at bottom right to open the Role Switcher Terminal. |
+| Offline queue testing | Open DevTools Network tab ➔ Throttling ➔ Offline. Scan page automatically switches to local IndexedDB queue. |

@@ -24,10 +24,10 @@ async def main():
     print("       BANGLADESH LANDOS — DEMO STATE RESET INITIATED")
     print("=" * 65)
 
-    from app.modules.documents.seed import run_seed
+    from scripts.seed_dev_sqlite import seed
 
     try:
-        await run_seed()
+        await seed()
         print("[SUCCESS] Demo database and mock storage reset to baseline seed state.")
         return 0
     except Exception as e:

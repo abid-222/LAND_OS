@@ -33,6 +33,19 @@
   3. Replaced BaseHTTPMiddleware timeout with pure ASGI `RequestTimeoutMiddleware` with route-class thresholds (exempting SSE, extending heavy routes to 60s).
   4. Added configurable `COOKIE_SAMESITE` / `COOKIE_SECURE` supporting Vercel `/api/:path*` rewrite proxy for first-party same-site cookies.
   5. Enforced startup lifespan check blocking default `SECRET_KEY` in production, and guarded TOTP bypass behind explicit `ALLOW_DEV_MFA_BYPASS=True` (strictly forbidden in non-dev).
-  6. Added automated `test_route_protection.py` verifying every route is authenticated or in an explicit public allow-list.
-- **Consequences**: Zero-crash deployments on Render free tier; complete RBAC security and first-party cookie support across Vercel frontend.
+## ADR-0006: Smart E-Namjari State Machine & Multi-Role Progression (P4)
+- **Status**: Accepted
+- **Context**: Land mutation (নামজারি) in Bangladesh involves distinct statutory authorities: intake operators, AC Land hearing reviewers, and circle AC Land supervisors. Tech Admins must never have approval powers.
+- **Decision**: Implemented an explicit 6-stage finite state machine (`submitted` -> `auto_verification` -> `documents_review` -> `hearing_scheduled` -> `khatian_updated` or `rejected`) with strict role-segregated progression. Tech Admin is explicitly forbidden from mutation approvals. Pre-verification runs automated deterministic checks (QR hash, seller title, R1 double sale, R7 khas restrictions) before human hearing.
+- **Consequences**: Zero regulatory conflict, audit logs recorded for every status transition, public tracking code (`NJ-YYYY-NNNN`) lookup without requiring authentication.
+
+## ADR-0007: Parcel Guardian Subscriptions & Bengali Spoken Voice Parsing (P6)
+- **Status**: Accepted
+- **Context**: Rural and non-technical land owners in Bangladesh struggle with complex search UIs and are vulnerable to silent fraudulent registrations against their plots.
+- **Decision**:
+  1. Implemented browser Web Speech API with native `bn-BD` language recognition and speech synthesis audio answers.
+  2. Implemented client-side Bengali spoken numeral normalization converting spoken numbers (e.g. "চার পাঁচ দুই শূন্য" -> "4520") and intent detection.
+  3. Implemented Parcel Watch subscriptions (`/api/v1/parcels/{id}/watch`) with a simulated SMS Outbox (`/api/v1/alerts/outbox`) dispatching simulated alerts whenever conflicting transactions are detected.
+  4. Explicitly labeled all SMS outbox items and notifications as simulated ("সিমুলেটেড") to preserve epistemic and legal boundaries.
+- **Consequences**: Voice-driven land accessibility for rural citizens, proactive anti-fraud watch, zero real-world SMS telecommunication costs or legal misrepresentation.
 
